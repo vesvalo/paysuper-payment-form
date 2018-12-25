@@ -20,7 +20,7 @@ jobs:
     script:
     - npm run test
     - npm run build
-    - rclone copy dist :s3://payone/dev/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST 
+    - rclone copy dist :s3://payone/form/dev/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST 
   - stage: release
     if: (tag =~ ^v)
     before_script: curl https://rclone.org/install.sh | sudo bash
@@ -28,8 +28,8 @@ jobs:
     - set -e
     - npm run test
     - npm run build
-    - rclone copy dist :s3://payone/latest/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
-    - rclone copy dist :s3://payone/$TRAVIS_TAG/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
+    - rclone copy1 dist :s3://payone/form/latest/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
+    - rclone copy dist :s3://payone/form/$TRAVIS_TAG/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
 
 after_success: 
 
