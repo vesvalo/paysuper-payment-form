@@ -2,9 +2,7 @@ import assert from 'assert';
 
 export const messageNames = {
   INIT: 'init',
-  OPEN_MODAL: 'openModal',
   LOAD: 'load',
-  CLOSE_MODAL: 'closeModal',
   FORM_RESIZE: 'formResize',
   STATUS: 'status',
   STATUS_INVOICE: 'statusInvoice',
