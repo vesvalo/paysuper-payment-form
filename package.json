@@ -1,5 +1,5 @@
 {
-  "name": "payone-js-sdk",
+  "name": "payone-js-payment-form",
   "version": "1.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
