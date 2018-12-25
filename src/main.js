@@ -3,6 +3,7 @@
  */
 
 import Vue from 'vue';
+import assert from 'assert';
 import './plugins/vuelidate';
 import App from './App.vue';
 import store from './store/RootStore';
@@ -28,7 +29,7 @@ async function mountApp(formData, options = {}) {
   new VueApp({
     store,
     i18n: i18n(options.language || language),
-  }).$mount('#app');
+  }).$mount('#payone-form');
 }
 
 function init() {
@@ -48,6 +49,8 @@ function init() {
       }
     });
   } else {
+    assert(document.querySelector('#payone-form'), 'Define "#payone-form" element in the document');
+    assert(initialFormData, 'Define "window.PAYMENT_FORM_DATA" property to set initial data');
     mountApp(initialFormData);
   }
 }
