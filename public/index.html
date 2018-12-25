@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>ProtocolONE PayOne</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- This page is a base page in development mode  -->
+    <noscript>
+      <strong
+        >We're sorry but the page doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+    </noscript>
+    
+    <div class="container">
+      <div id="app"></div>
+    </div>
+    
+    <script>
+      window.PAYMENT_FORM_DATA = {
+        id: '5c20e1acd6badf000111a639',
+        account: 'raiky@yandex.ru',
+        has_vat: true,
+        has_user_commission: true,
+        project: { name: 'Universe of Futurama', url_success: null, url_fail: null },
+        payment_methods: [
+          {
+            id: '5be2d0b4b0b30d0007383ce6', name: 'Bank card', icon: '//p1payapi.tst.protocol.one/images/bank_card_logo.png', type: 'bank_card', group_alias: 'bank_card', account_regexp: '^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$', amount_with_commissions: 5.53, amount_without_commissions: 4.52, currency: 'EUR', user_commission_amount: 0.11, vat_amount: 0.91,
+          }, 
+          {
+            id: '5bf67ebd46452d00062c7cc0', name: 'Qiwi', icon: '//p1payapi.tst.protocol.one/images/qiwi_logo.png', type: 'ewallet', group_alias: 'qiwi', account_regexp: '^\\d{1,15}', amount_with_commissions: 5.57, amount_without_commissions: 4.52, currency: 'EUR', user_commission_amount: 0.15, vat_amount: 0.91,
+          }, 
+          {
+            id: '5bf67ebd46452d00062c7cc1', name: 'WebMoney', icon: '//p1payapi.tst.protocol.one/images/wm_logo.png', type: 'ewallet', group_alias: 'webmoney', account_regexp: '^[ZERB][0-9]{12}$', amount_with_commissions: 5.58, amount_without_commissions: 4.52, currency: 'EUR', user_commission_amount: 0.16, vat_amount: 0.91,
+          }, 
+          {
+            id: '5bf67ebd46452d00062c7cc3', name: 'Alipay', icon: '//p1payapi.tst.protocol.one/images/alipay_logo.png', type: 'ewallet', group_alias: 'alipay', account_regexp: '^.*$', amount_with_commissions: 6, amount_without_commissions: 5, currency: 'USD', user_commission_amount: 0, vat_amount: 1,
+          }, 
+          {
+            id: '5bf67ebd46452d00062c7cc4', name: 'Bitcoin', icon: '//p1payapi.tst.protocol.one/images/btc_logo.png', type: 'crypto', group_alias: 'bitcoin', account_regexp: '^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$', amount_with_commissions: 5.43, amount_without_commissions: 4.52, currency: 'EUR', user_commission_amount: 0, vat_amount: 0.91,
+          }
+        ],
+      };
+    </script>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
