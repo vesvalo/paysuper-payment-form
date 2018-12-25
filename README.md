@@ -9,7 +9,7 @@ Define mounting place with id `payone-form` and initial data before attaching th
 <div id="payone-form"></div>
 <script>
 window.PAYMENT_FORM_DATA = {
-  id: '5c20e1',
+  id: '5c20e',
   has_vat: true,
   has_user_commission: true,
   project: { ... },
