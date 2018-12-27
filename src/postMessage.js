@@ -9,9 +9,9 @@ export const sendingMessagesNames = {
   FORM_RESIZE: 'formResize',
   PAYMENT_CREATED: 'paymentCreated',
   PAYMENT_FAILED_TO_CREATE: 'paymentFailedToCreate',
-  // PAYMENT_DELIVERING: 'statusDelivering',
-  // PAYMENT_TROUBLED: 'statusTroubled',
-  PAYMENT_SUCCESSFUL: 'paymentSuccessful',
+  PAYMENT_PENDING: 'paymentPending',
+  PAYMENT_COMPLETED: 'paymentCompleted',
+  PAYMENT_DECLINED: 'paymentDeclined',
 };
 
 export const receivingMessagesNames = invert({

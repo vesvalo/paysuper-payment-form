@@ -69,8 +69,21 @@ export default {
 
       const channel = `payment:notify#${formData.id}`;
 
-      centrifuge.subscribe(channel, () => {
-        // console.log(11111, 'payment', message);
+      centrifuge.subscribe(channel, ({ data }) => {
+        // Just in case. Its probably unnecessary
+        if (data.order_id !== formData.id) {
+          return;
+        }
+
+        if (data.status === 'COMPLETED') {
+          commit('paymentStatus', 'COMPLETED');
+          postMessage('PAYMENT_COMPLETED');
+        }
+
+        if (data.status === 'DECLINED') {
+          commit('paymentStatus', 'DECLINED');
+          postMessage('PAYMENT_DECLINED');
+        }
       });
 
       centrifuge.connect();
@@ -110,16 +123,11 @@ export default {
           apiPathCreatePayment,
           request,
         );
-        commit('paymentStatus', 'CREATED');
         postMessage('PAYMENT_CREATED', {
           redirectUrl: data.redirect_url,
         });
-
-        // @todo remove (just for testing)
-        setTimeout(() => {
-          postMessage('PAYMENT_SUCCESSFUL');
-          commit('paymentStatus', 'SUCCESSFUL');
-        }, 6000);
+        commit('paymentStatus', 'PENDING');
+        postMessage('PAYMENT_PENDING');
       } catch (error) {
         commit('paymentStatus', 'FAILED_TO_CREATE');
         commit('isPaymentErrorVisible', true);

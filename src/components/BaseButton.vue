@@ -16,12 +16,8 @@
   </button>
 </template>
 <script>
-import IconLoadingAnimated from './IconLoadingAnimated.vue';
 
 export default {
-  components: {
-    IconLoadingAnimated,
-  },
   props: {
     color: {
       default: 'yellow',

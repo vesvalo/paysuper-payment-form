@@ -11,7 +11,7 @@ const requireComponent = require.context(
   // Look in subdirectories
   true,
   // Only include .vue files
-  /Base[\w-]+\.vue$/,
+  /(Base|Icon)[\w-]+\.vue$/,
 );
 
 // For each matching file name...
@@ -26,7 +26,6 @@ requireComponent.keys().forEach((fileName) => {
     .replace(/\.\w+$/, '')
     // Remove subdir
     .match(/(?:^|\/|\\)([^\\/]+)$/)[1];
-
   // Globally register the component
   Vue.component(componentName, componentConfig.default || componentConfig);
 });

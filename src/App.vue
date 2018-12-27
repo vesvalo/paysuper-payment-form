@@ -1,36 +1,43 @@
 <template>
   <div class="app">
-    <div class="app-preloader" v-if="paymentStatus === 'CREATED'">
+    <div class="app-preloader" v-if="paymentStatus === 'PENDING'">
       <div class="app-preloader__inner">
         <p class="app-preloader__text" v-html="$t('waitingForPaymentResult')"></p>
         <IconLoadingAnimated class="app-preloader__icon" stroke="black" />
       </div>
     </div>
 
-    <div class="app-message _success" v-if="paymentStatus === 'SUCCESSFUL'">
-      {{ $t('paymentSuccessful') }}
+    <div class="app-message _result" v-if="paymentStatus === 'COMPLETED'">
+      <IconSuccess />
+      {{ $t('paymentCompleted') }}
     </div>
-    <template v-else>
-      <PaymentForm v-if="orderID" />
-      <div class="app-message _failed" v-else ref="appFailed">
+
+    <div class="app-message _result" v-if="paymentStatus === 'DECLINED'">
+      <IconWarning />
+      {{ $t('paymentDeclined') }}
+    </div>
+
+    <PaymentForm v-if="isPaymentFormVisible"  />
+
+    <div class="app-message _failed" v-if="!orderID" ref="appFailed">
+      <div>
         <p v-for="text in $t('paymentInitFailed')" :key="text">{{text}}</p>
       </div>
-    </template>
+    </div>
 
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { includes } from 'lodash-es';
 import PaymentForm from './components/PaymentForm.vue';
-import IconLoadingAnimated from './components/IconLoadingAnimated.vue';
 import { postMessage } from './postMessage';
 
 export default {
   name: 'App',
   components: {
     PaymentForm,
-    IconLoadingAnimated,
   },
 
   computed: {
@@ -38,6 +45,15 @@ export default {
       'orderID',
       'paymentStatus',
     ]),
+
+    isPaymentFormVisible() {
+      const allowedStatuses = ['NEW', 'PENDING', 'FAILED_TO_CREATE'];
+      if (this.orderID && includes(allowedStatuses, this.paymentStatus)) {
+        return true;
+      }
+
+      return false;
+    },
   },
 
   watch: {
@@ -122,31 +138,34 @@ p {
 
 .app-message {
   background: $ui-color-white;
-  border: 1px solid $ui-color-grey87;
   height: 160px;
   padding: 20px;
   box-sizing: border-box;
   color: $ui-color-grey13;
   font-family: $ui-font-family-common;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
+  border: 5px solid #ffdb4d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &._failed {
-    color: $ui-color-red;
     text-align: center;
-    padding-top: 50px;
+
+    p {
+      margin-bottom: 5px;
+    }
   }
 
-  &._success {
+  &._result {
     color: $ui-color-grey13;
     font-size: 20px;
     line-height: 24px;
-    text-align: center;
-    padding-top: 60px;
-  }
 
-  p {
-    margin-bottom: 5px;
+    svg {
+      margin-right: 12px;
+    }
   }
 }
 </style>
@@ -155,19 +174,21 @@ p {
 {
   "en": {
     "paymentInitFailed": [
-      "Payment form initialization failed.",
-      "Try again after refreshing the page or later."
+      "Payment form is failed to initialize",
+      "Please try again later"
     ],
-    "waitingForPaymentResult": "Waiting for the payment result.<br>It may take a few minutes.",
-    "paymentSuccessful": "Payment successful."
+    "waitingForPaymentResult": "Waiting for the payment result<br>It may take a few minutes",
+    "paymentCompleted": "Payment completed",
+    "paymentDeclined": "Payment declined"
   },
   "ru": {
     "paymentInitFailed": [
-      "Не удалось отображить форму оплаты.",
-      "Попробуйте снова, обновив страницу. Либо, попробуйте позже."
+      "Не удалось отобразить форму оплаты",
+      "Пожалуйста, попробуйте снова чуть позже"
     ],
-    "waitingForPaymentResult": "Ожидаем результат платежа.<br>Это может занять несколько минут.",
-    "paymentSuccessful": "Платёж выполнен успешно."
+    "waitingForPaymentResult": "Ожидаем результат платежа<br>Это может занять несколько минут",
+    "paymentCompleted": "Платёж выполнен успешно",
+    "paymentDeclined": "Отказано в платеже"
   }
 }
 </i18n>

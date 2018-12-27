@@ -9,7 +9,7 @@ import App from './App.vue';
 import store from './store/RootStore';
 import i18n from './i18n';
 import { postMessage, receiveMessages } from './postMessage';
-import './baseComponents';
+import './globalComponents';
 import './vueExtentions';
 
 Vue.config.productionTip = false;

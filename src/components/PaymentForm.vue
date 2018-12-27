@@ -142,24 +142,22 @@ export default {
   },
 
   validations() {
-    if (this.isBankCardPayment) {
-      if (this.initialEmail) {
-        return {};
-      }
+    const rules = {};
 
-      return {
-        email: {
-          required,
-          email,
-        },
+    if (!this.initialEmail) {
+      rules.email = {
+        required,
+        email,
       };
     }
 
-    return {
-      ewallet: {
+    if (!this.isBankCardPayment) {
+      rules.ewallet = {
         required,
-      },
-    };
+      };
+    }
+
+    return rules;
   },
 
   mounted() {
