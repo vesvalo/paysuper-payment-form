@@ -15,4 +15,4 @@
       </g>
     </g>
   </svg>
-</template>
+</template>;

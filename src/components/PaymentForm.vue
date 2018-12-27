@@ -93,6 +93,10 @@ export default {
 
   data() {
     return {
+      lastFormSize: {
+        width: 0,
+        height: 0,
+      },
       bankCard: {
         cardNumber: '',
         month: '',
@@ -198,10 +202,18 @@ export default {
 
     requestIframeResize() {
       setTimeout(() => {
-        postMessage('FORM_RESIZE', {
+        const newFormSize = {
           height: this.$el.offsetHeight,
           width: this.$el.offsetWidth,
-        });
+        };
+        if (
+          this.lastFormSize.width === newFormSize.width
+          && this.lastFormSize.height === newFormSize.height
+        ) {
+          return;
+        }
+        postMessage('FORM_RESIZE', newFormSize);
+        this.lastFormSize = newFormSize;
       }, 0);
     },
   },

@@ -14,6 +14,8 @@ import './vueExtentions';
 
 Vue.config.productionTip = false;
 
+const isPageInsideIframe = window.location !== window.parent.location;
+
 function getLanguage() {
   if (navigator && navigator.language) {
     return navigator.language.slice(0, 2);
@@ -22,6 +24,13 @@ function getLanguage() {
 }
 
 async function mountApp(formData, options = {}) {
+  if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
+    assert(formData, 'The initial data recieved through postMessage is not defined');
+  } else {
+    assert(formData, 'Define "window.P1PAYONE_FORM_DATA" property to set initial data');
+  }
+  assert(document.querySelector('#p1payone-form'), 'Define "#p1payone-form" element in the document');
+
   await store.dispatch('PaymentForm/initState', { formData, options });
 
   const language = getLanguage();
@@ -29,29 +38,30 @@ async function mountApp(formData, options = {}) {
   new VueApp({
     store,
     i18n: i18n(options.language || language),
-  }).$mount('#payone-form');
+  }).$mount('#p1payone-form');
 }
 
 function init() {
-  let initialFormData = window.PAYMENT_FORM_DATA;
-  postMessage('INIT');
-
-  const isPageInsideIframe = window.location !== window.parent.location;
+  postMessage('INITED');
 
   if (isPageInsideIframe) {
     window.addEventListener('message', (event) => {
-      if (event.data && event.data.source === 'PAYONE_JS_SDK') {
+      if (event.data && event.data.source !== 'PAYONE_JS_SDK') {
+        return;
+      }
+      if (event.data.name === 'requestInitForm') {
+        const { formData, options } = event.data.data;
         /** Outside formData inserting is restricted in production mode */
         if (process.env.NODE_ENV === 'development') {
-          initialFormData = event.data.data.formData;
+          mountApp(formData, options);
+        } else {
+          mountApp(window.P1PAYONE_FORM_DATA, options);
         }
-        mountApp(initialFormData, event.data.data.options);
       }
     });
   } else {
-    assert(document.querySelector('#payone-form'), 'Define "#payone-form" element in the document');
-    assert(initialFormData, 'Define "window.PAYMENT_FORM_DATA" property to set initial data');
-    mountApp(initialFormData);
+    /** When the form is opened by direct url in browser */
+    mountApp(window.P1PAYONE_FORM_DATA);
   }
 }
 

@@ -1,14 +1,14 @@
 import assert from 'assert';
 
 export const messageNames = {
-  INIT: 'init',
-  LOAD: 'load',
+  INITED: 'inited',
+  LOADED: 'loaded',
   FORM_RESIZE: 'formResize',
-  STATUS: 'status',
-  STATUS_INVOICE: 'statusInvoice',
-  STATUS_DELIVERING: 'statusDelivering',
-  STATUS_TROUBLED: 'statusTroubled',
-  STATUS_DONE: 'statusDone',
+  PAYMENT_CREATED: 'paymentCreated',
+  PAYMENT_FAILED_TO_CREATE: 'paymentFailedToCreate',
+  // PAYMENT_DELIVERING: 'statusDelivering',
+  // PAYMENT_TROUBLED: 'statusTroubled',
+  PAYMENT_DONE: 'statusDone',
 };
 
 export default function postMessage(nameID, data = {}) {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { find } from 'lodash-es';
 import { apiPathCreatePayment } from '../settings';
+import postMessage from '../postMessage';
 
 export default {
   namespaced: true,
@@ -93,9 +94,12 @@ export default {
           apiPathCreatePayment,
           request,
         );
-        window.location.href = data.redirect_url;
+        postMessage('PAYMENT_CREATED', {
+          redirectUrl: data.redirect_url,
+        });
       } catch (error) {
         commit('isPaymentErrorVisible', true);
+        postMessage('PAYMENT_FAILED_TO_CREATE');
       }
       commit('isLoading', false);
     },

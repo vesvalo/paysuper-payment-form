@@ -1,14 +1,17 @@
 # ProtocolONE PayOne Payment Form
 
 ## Usage
-In development
+
+### In development
+You can use the package in pair with `payone-js-sdk`.
+With `npm run serve` the form will be accessable in `payone-js-sdk` in development mode.
 
 ### In production
-Define mounting place with id `payone-form` and initial data before attaching the form script
+Define mounting place with id `p1payone-form` and initial data before attaching the form script
 ```html
-<div id="payone-form"></div>
+<div id="p1payone-form"></div>
 <script>
-window.PAYMENT_FORM_DATA = {
+window.P1PAYONE_FORM_DATA = {
   id: '5c20e',
   has_vat: true,
   has_user_commission: true,
@@ -16,12 +19,21 @@ window.PAYMENT_FORM_DATA = {
   payment_methods: [ ... ]
 }
 </script>
-<script src="p1payone-form.js"></script>
+<script src="https://static.protocol.one/payone/form/latest/p1payone-form.js"></script>
 ```
 
-### In development
-You can use the package in pair with `payone-js-sdk`.
-With `npm run serve` the form will be accessable in `payone-js-sdk` in development mode.
+### Library URLs
+#### Hub with navigation
+https://static.protocol.one/minio/payone/
+
+#### Dev version
+https://static.protocol.one/payone/form/dev/p1payone-form.js
+Updates automatically with `master` branch updates
+
+#### By release
+https://static.protocol.one/payone/form/latest/p1payone-form.js
+https://static.protocol.one/payone/form/v1.0.9/p1payone-form.js
+Updates width actual version releases (`v*` tag pushed into repo)
 
 ## Development
 
