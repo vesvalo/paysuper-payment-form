@@ -81,7 +81,6 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import { required, email } from 'vuelidate/lib/validators';
 import PaymentFormMethods from './PaymentFormMethods.vue';
 import PaymentFormBankCard from './PaymentFormBankCard.vue';
-import { postMessage } from '../postMessage';
 
 export default {
   name: 'PaymentForm',
