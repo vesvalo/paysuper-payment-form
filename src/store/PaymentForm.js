@@ -109,6 +109,7 @@ export default {
     async createPayment({ state, getters, commit }, {
       cardNumber, month, year, cvv, cardHolder, ewallet, email,
     }) {
+      postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
 
       const request = {
