@@ -41,6 +41,7 @@
           v-if="isBankCardPayment"
           v-model="bankCard"
           ref="bankCardForm"
+          :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
         />
         <BaseTextField
           class="payment-form__ewallet-field"
@@ -82,12 +83,20 @@ import { required, email } from 'vuelidate/lib/validators';
 import PaymentFormMethods from './PaymentFormMethods.vue';
 import PaymentFormBankCard from './PaymentFormBankCard.vue';
 
+function getRegexp(value) {
+  return new RegExp(value);
+}
+
 export default {
   name: 'PaymentForm',
 
   components: {
     PaymentFormMethods,
     PaymentFormBankCard,
+  },
+
+  filters: {
+    getRegexp,
   },
 
   data() {
@@ -153,7 +162,12 @@ export default {
 
     if (!this.isBankCardPayment) {
       rules.ewallet = {
-        required,
+        wrongFormatType(value) {
+          if (!this.activePaymentMethod.account_regexp) {
+            return true;
+          }
+          return getRegexp(this.activePaymentMethod.account_regexp).test(value);
+        },
       };
     }
 

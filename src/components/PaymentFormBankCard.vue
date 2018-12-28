@@ -94,6 +94,10 @@ export default {
         );
       },
     },
+    cardNumberValidator: {
+      required: true,
+      type: RegExp,
+    },
   },
 
   data() {
@@ -105,8 +109,9 @@ export default {
   validations: {
     innerValue: {
       cardNumber: {
-        required,
-        minLength: minLength(16),
+        wrongFormatType(value) {
+          return this.cardNumberValidator.test(value);
+        },
       },
       month: {
         required,

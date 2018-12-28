@@ -3,6 +3,7 @@
     "required": "Enter a value",
     "between": "Enter value from %min% to %max%",
     "email": "Enter correct email",
-    "minLength": "The value is too short"
+    "minLength": "The value is too short",
+    "wrongFormatType": "Wrong value format type"
   }
 }
