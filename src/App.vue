@@ -19,7 +19,7 @@
 
     <PaymentForm v-if="isPaymentFormVisible"  />
 
-    <div class="app-message _failed" v-if="!orderID" ref="appFailed">
+    <div class="app-message _failed" v-if="isAppFailed" ref="appFailed">
       <div>
         <p v-for="text in $t('paymentInitFailed')" :key="text">{{text}}</p>
       </div>
@@ -53,6 +53,10 @@ export default {
       }
 
       return false;
+    },
+
+    isAppFailed() {
+      return !this.orderID;
     },
   },
 

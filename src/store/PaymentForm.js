@@ -1,8 +1,13 @@
 import axios from 'axios';
 import Centrifuge from 'centrifuge';
-import { find } from 'lodash-es';
+import assert from 'assert';
+import { find, includes } from 'lodash-es';
 import { apiPathCreatePayment, websocketServerUrl } from '../settings';
 import { postMessage } from '../postMessage';
+
+const allowedPaymentStatuses = [
+  'NEW', 'COMPLETED', 'DECLINED', 'PENDING', 'FAILED_TO_CREATE',
+];
 
 export default {
   namespaced: true,
@@ -51,6 +56,10 @@ export default {
       state.isPaymentErrorVisible = value;
     },
     paymentStatus(state, value) {
+      assert(
+        includes(allowedPaymentStatuses, value),
+        `Payment status "${value}" is not allowed`,
+      );
       state.paymentStatus = value;
     },
   },
