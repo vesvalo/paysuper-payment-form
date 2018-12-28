@@ -6,7 +6,7 @@ import { apiPathCreatePayment, websocketServerUrl } from '../settings';
 import { postMessage } from '../postMessage';
 
 const allowedPaymentStatuses = [
-  'NEW', 'COMPLETED', 'DECLINED', 'PENDING', 'FAILED_TO_CREATE',
+  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING', 'COMPLETED', 'DECLINED',
 ];
 
 export default {
@@ -22,6 +22,7 @@ export default {
     isLoading: false,
     isPaymentErrorVisible: false,
     paymentStatus: 'NEW',
+    redirectUrl: '',
   },
 
   getters: {
@@ -61,6 +62,9 @@ export default {
         `Payment status "${value}" is not allowed`,
       );
       state.paymentStatus = value;
+    },
+    redirectUrl(state, value) {
+      state.redirectUrl = value;
     },
   },
 
@@ -133,17 +137,22 @@ export default {
           apiPathCreatePayment,
           request,
         );
+        commit('paymentStatus', 'CREATED');
         postMessage('PAYMENT_CREATED', {
           redirectUrl: data.redirect_url,
         });
-        commit('paymentStatus', 'PENDING');
-        postMessage('PAYMENT_PENDING');
+        commit('redirectUrl', data.redirect_url);
       } catch (error) {
         commit('paymentStatus', 'FAILED_TO_CREATE');
         commit('isPaymentErrorVisible', true);
         postMessage('PAYMENT_FAILED_TO_CREATE');
       }
       commit('isLoading', false);
+    },
+
+    finishPaymentCreation({ commit }) {
+      commit('paymentStatus', 'PENDING');
+      postMessage('PAYMENT_PENDING');
     },
   },
 };

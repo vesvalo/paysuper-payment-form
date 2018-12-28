@@ -1,27 +1,42 @@
 <template>
   <div class="app">
-    <div class="app-preloader" v-if="paymentStatus === 'PENDING'">
-      <div class="app-preloader__inner">
-        <p class="app-preloader__text" v-html="$t('waitingForPaymentResult')"></p>
-        <IconLoadingAnimated class="app-preloader__icon" stroke="black" />
+    <div class="app-message _result" v-if="paymentStatus === 'CREATED'">
+      <div class="app-message__inner">
+        {{ $t('paymentCreated') }}
+      </div>
+      <a class="link-as-button"
+        :href="redirectUrl"
+        target="_blank"
+        @click="finishPaymentCreation"
+      >{{ $t('setPaymentPending') }}</a>
+    </div>
+
+    <div class="app-message" v-if="paymentStatus === 'PENDING'">
+      <div class="app-message__inner">
+        <IconLoadingAnimated width="50" height="50" stroke="black" />
+        {{ $t('waitingForPaymentResult') }}
       </div>
     </div>
 
-    <div class="app-message _result" v-if="paymentStatus === 'COMPLETED'">
-      <IconSuccess />
-      {{ $t('paymentCompleted') }}
+    <div class="app-message _success" v-if="paymentStatus === 'COMPLETED'">
+      <div class="app-message__inner">
+        <IconSuccess />
+        {{ $t('paymentCompleted') }}
+      </div>
     </div>
 
-    <div class="app-message _result" v-if="paymentStatus === 'DECLINED'">
-      <IconWarning />
-      {{ $t('paymentDeclined') }}
+    <div class="app-message _failed" v-if="paymentStatus === 'DECLINED'">
+      <div class="app-message__inner">
+        <IconWarning />
+        {{ $t('paymentDeclined') }}
+      </div>
     </div>
 
-    <PaymentForm v-if="isPaymentFormVisible"  />
+    <PaymentForm v-if="isPaymentFormVisible" />
 
     <div class="app-message _failed" v-if="isAppFailed" ref="appFailed">
-      <div>
-        <p v-for="text in $t('paymentInitFailed')" :key="text">{{text}}</p>
+      <div class="app-message__inner" v-for="text in $t('paymentInitFailed')" :key="text">
+        {{text}}
       </div>
     </div>
 
@@ -44,10 +59,11 @@ export default {
     ...mapState('PaymentForm', [
       'orderID',
       'paymentStatus',
+      'redirectUrl',
     ]),
 
     isPaymentFormVisible() {
-      const allowedStatuses = ['NEW', 'PENDING', 'FAILED_TO_CREATE'];
+      const allowedStatuses = ['NEW', 'FAILED_TO_CREATE'];
       if (this.orderID && includes(allowedStatuses, this.paymentStatus)) {
         return true;
       }
@@ -75,7 +91,7 @@ export default {
 
   methods: {
     ...mapActions(['reportResize']),
-
+    ...mapActions('PaymentForm', ['finishPaymentCreation']),
     reportAppResize() {
       setTimeout(() => {
         const size = {
@@ -85,6 +101,8 @@ export default {
         postMessage('FORM_RESIZE', size);
       }, 0);
     },
+
+
   },
 };
 
@@ -142,34 +160,59 @@ p {
 
 .app-message {
   background: $ui-color-white;
-  height: 160px;
+  height: 200px;
   padding: 20px;
   box-sizing: border-box;
   color: $ui-color-grey13;
   font-family: $ui-font-family-common;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 20px;
+  line-height: 24px;
   border: 5px solid #ffdb4d;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
-  &._failed {
-    text-align: center;
+  &__inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    p {
-      margin-bottom: 5px;
+    & + & {
+      margin-top: 5px;
     }
   }
 
-  &._result {
-    color: $ui-color-grey13;
-    font-size: 20px;
-    line-height: 24px;
+  &._failed {
+    border-color: #e95555;
+  }
 
-    svg {
-      margin-right: 12px;
-    }
+  &._success {
+    border-color: #7ae955;
+  }
+
+  svg {
+    margin-right: 12px;
+  }
+}
+
+.link-as-button {
+  color: $ui-color-grey13;
+  background-color: $ui-color-yellow;
+  border: 1px solid darken($ui-color-yellow, 20%);
+  cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  // size default
+  padding: 0 16px;
+  height: 40px;
+  font-size: 18px;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: darken($ui-color-yellow, 10%);
   }
 }
 </style>
@@ -181,7 +224,9 @@ p {
       "Payment form is failed to initialize",
       "Please try again later"
     ],
-    "waitingForPaymentResult": "Waiting for the payment result<br>It may take a few minutes",
+    "waitingForPaymentResult": "Waiting for the payment result",
+    "paymentCreated": "Almost done!",
+    "setPaymentPending": "Finish the payment",
     "paymentCompleted": "Payment completed",
     "paymentDeclined": "Payment declined"
   },
@@ -190,7 +235,9 @@ p {
       "Не удалось отобразить форму оплаты",
       "Пожалуйста, попробуйте снова чуть позже"
     ],
-    "waitingForPaymentResult": "Ожидаем результат платежа<br>Это может занять несколько минут",
+    "waitingForPaymentResult": "Ожидаем результат платежа",
+    "paymentCreated": "Почти готово!",
+    "setPaymentPending": "Завершить платёж",
     "paymentCompleted": "Платёж выполнен успешно",
     "paymentDeclined": "Отказано в платеже"
   }
