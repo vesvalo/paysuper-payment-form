@@ -22,7 +22,6 @@ export default {
     isLoading: false,
     isPaymentErrorVisible: false,
     paymentStatus: 'NEW',
-    redirectUrl: '',
   },
 
   getters: {
@@ -62,9 +61,6 @@ export default {
         `Payment status "${value}" is not allowed`,
       );
       state.paymentStatus = value;
-    },
-    redirectUrl(state, value) {
-      state.redirectUrl = value;
     },
   },
 
@@ -116,6 +112,8 @@ export default {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
 
+      const windowForRedirect = window.open('', '_blank');
+
       const request = {
         email,
         month,
@@ -137,12 +135,14 @@ export default {
           apiPathCreatePayment,
           request,
         );
-        commit('paymentStatus', 'CREATED');
         postMessage('PAYMENT_CREATED', {
           redirectUrl: data.redirect_url,
         });
-        commit('redirectUrl', data.redirect_url);
+        windowForRedirect.location = data.redirect_url;
+        commit('paymentStatus', 'PENDING');
+        postMessage('PAYMENT_PENDING');
       } catch (error) {
+        windowForRedirect.close();
         commit('paymentStatus', 'FAILED_TO_CREATE');
         commit('isPaymentErrorVisible', true);
         postMessage('PAYMENT_FAILED_TO_CREATE');

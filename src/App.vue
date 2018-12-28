@@ -1,16 +1,5 @@
 <template>
   <div class="app">
-    <div class="app-message _result" v-if="paymentStatus === 'CREATED'">
-      <div class="app-message__inner">
-        {{ $t('paymentCreated') }}
-      </div>
-      <a class="link-as-button"
-        :href="redirectUrl"
-        target="_blank"
-        @click="finishPaymentCreation"
-      >{{ $t('setPaymentPending') }}</a>
-    </div>
-
     <div class="app-message" v-if="paymentStatus === 'PENDING'">
       <div class="app-message__inner">
         <IconLoadingAnimated width="50" height="50" stroke="black" />
@@ -59,7 +48,6 @@ export default {
     ...mapState('PaymentForm', [
       'orderID',
       'paymentStatus',
-      'redirectUrl',
     ]),
 
     isPaymentFormVisible() {
@@ -153,9 +141,6 @@ p {
     font-size: 14px;
     line-height: 18px;
   }
-
-  &__icon {
-  }
 }
 
 .app-message {
@@ -193,26 +178,6 @@ p {
 
   svg {
     margin-right: 12px;
-  }
-}
-
-.link-as-button {
-  color: $ui-color-grey13;
-  background-color: $ui-color-yellow;
-  border: 1px solid darken($ui-color-yellow, 20%);
-  cursor: pointer;
-  text-decoration: none;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  // size default
-  padding: 0 16px;
-  height: 40px;
-  font-size: 18px;
-  margin-top: 20px;
-
-  &:hover {
-    background-color: darken($ui-color-yellow, 10%);
   }
 }
 </style>
