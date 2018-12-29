@@ -16,19 +16,26 @@
         <div class="payment-report">
           <ul class="payment-report-list">
             <li class="payment-report-list__item">
-              <span class="payment-report-list__key">Продукт</span>
-              <span class="payment-report-list__value">Незнайка на луне</span>
+              <span class="payment-report-list__key">{{ $t('product') }}</span>
+              <span class="payment-report-list__value">{{project.name}}</span>
             </li>
             <li class="payment-report-list__item">
-              <span class="payment-report-list__key">Номер платежа</span>
-              <span class="payment-report-list__value">3432423523432</span>
+              <span class="payment-report-list__key">{{ $t('orderID') }}</span>
+              <span class="payment-report-list__value">{{orderID}}</span>
+            </li>
+            <li class="payment-report-list__item">
+              <span class="payment-report-list__key">{{ $t('vat') }}</span>
+              <span class="payment-report-list__value">
+                {{activePaymentMethod.vat_amount}}
+                {{activePaymentMethod.currency}}
+              </span>
             </li>
           </ul>
           <div class="payment-report-summ">
-            <span class="payment-report-summ__key">Сумма</span>
+            <span class="payment-report-summ__key">{{ $t('summ') }}</span>
             <span class="payment-report-summ__value">
-              118,200
-              <IconRuble />
+              {{activePaymentMethod.amount_without_commissions}}
+              {{activePaymentMethod.currency}}
             </span>
           </div>
         </div>
@@ -54,7 +61,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
 import { includes } from 'lodash-es';
 import PaymentForm from './components/PaymentForm.vue';
 import { postMessage } from './postMessage';
@@ -68,8 +75,11 @@ export default {
   computed: {
     ...mapState('PaymentForm', [
       'orderID',
+      'project',
       'paymentStatus',
     ]),
+
+    ...mapGetters('PaymentForm', ['activePaymentMethod']),
 
     isPaymentFormVisible() {
       const allowedStatuses = ['NEW', 'FAILED_TO_CREATE'];
@@ -215,7 +225,7 @@ ul {
 
 .payment-report {
   background: rgba(0, 0, 0, 0.1);
-  width: 330px;
+  width: 350px;
   padding: 20px;
   margin: 10px 0 10px;
 }
@@ -254,10 +264,10 @@ ul {
   padding-top: 5px;
   border-top: 1px solid #999;
   color: $ui-color-grey13;
-  font-size: 16px;
-  line-height: 20px;
   display: flex;
   justify-content: space-between;
+  font-size: 16px;
+  line-height: 20px;
 }
 </style>
 

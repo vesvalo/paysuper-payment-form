@@ -241,11 +241,7 @@ export default {
 {
   "en": {
     "ofThem": "of them",
-    "vat": "VAT",
-    "commission": "Commission",
     "paymentFailedMessage": "Payment request failed. Please try again later",
-    "orderID": "Order #",
-    "account": "Account",
     "procceedButtonText": "Procceed",
     "placeholders": {
       "email": "Enter your email",
@@ -255,11 +251,7 @@ export default {
   },
   "ru": {
     "ofThem": "из них",
-    "vat": "НДС",
-    "commission": "Комиссия",
     "paymentFailedMessage": "Платёж не удался. Пожалуйста, попробуйте ещё раз позже",
-    "orderID": "Номер платежа",
-    "account": "Учётная запись",
     "procceedButtonText": "Оплатить",
     "placeholders": {
       "email": "Введите ваш email",
