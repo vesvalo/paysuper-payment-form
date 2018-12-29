@@ -2,17 +2,30 @@ import axios from 'axios';
 import Centrifuge from 'centrifuge';
 import assert from 'assert';
 import { find, includes } from 'lodash-es';
-import { apiPathCreatePayment, websocketServerUrl } from '../settings';
+import getFunctionalUrls from '../getFunctionalUrls';
 import { postMessage } from '../postMessage';
 
-const allowedPaymentStatuses = [
-  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING', 'COMPLETED', 'DECLINED',
+const availableChannelStatuses = [
+  'COMPLETED', 'DECLINED', 'CANCELLED',
 ];
+
+const allowedPaymentStatuses = [
+  // These ones are custom
+  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING',
+  // Those are from BE
+  ...availableChannelStatuses,
+];
+
+const apiUrl = window.P1PAYONE_API_URL || 'https://p1payapi.tst.protocol.one';
+
+const websocketServerUrl = window.P1PAYONE_WEBSOCKET_URL
+  || 'wss://cf.tst.protocol.one/connection/websocket';
 
 export default {
   namespaced: true,
 
   state: {
+    apiUrl: '',
     orderID: '',
     account: '',
     project: null,
@@ -22,15 +35,22 @@ export default {
     isLoading: false,
     isPaymentErrorVisible: false,
     paymentStatus: 'NEW',
+    paymentResultMessage: '',
   },
 
   getters: {
+    urls(state) {
+      return getFunctionalUrls(state.apiUrl);
+    },
     activePaymentMethod(state) {
       return find(state.paymentMethods, { id: state.activePaymentMethodID });
     },
   },
 
   mutations: {
+    apiUrl(state, value) {
+      state.apiUrl = value;
+    },
     orderID(state, value) {
       state.orderID = value;
     },
@@ -62,14 +82,19 @@ export default {
       );
       state.paymentStatus = value;
     },
+    paymentResultMessage(state, value) {
+      state.paymentResultMessage = value;
+    },
   },
 
   actions: {
     async initState({ commit }, { formData, options }) {
+      commit('apiUrl', options.apiUrl || apiUrl);
+      commit('initialEmail', options.email || '');
+
       commit('orderID', formData.id);
       commit('account', formData.account);
       commit('project', formData.project);
-      commit('initialEmail', options.email);
       commit('paymentMethods', formData.payment_methods);
       commit('activePaymentMethodID', formData.payment_methods[0].id);
 
@@ -79,20 +104,19 @@ export default {
       const channel = `payment:notify#${formData.id}`;
 
       centrifuge.subscribe(channel, ({ data }) => {
-        // Just in case. Its probably unnecessary
-        if (data.order_id !== formData.id) {
+        if (
+          // Just in case. Its probably unnecessary
+          data.order_id !== formData.id
+          || !includes(availableChannelStatuses, data.status)
+        ) {
           return;
         }
 
-        if (data.status === 'COMPLETED') {
-          commit('paymentStatus', 'COMPLETED');
-          postMessage('PAYMENT_COMPLETED');
+        if (data.message) {
+          commit('paymentResultMessage', data.message);
         }
-
-        if (data.status === 'DECLINED') {
-          commit('paymentStatus', 'DECLINED');
-          postMessage('PAYMENT_DECLINED');
-        }
+        commit('paymentStatus', data.status);
+        postMessage(`PAYMENT_${data.status}`);
       });
 
       centrifuge.connect();
@@ -132,7 +156,7 @@ export default {
 
       try {
         const { data } = await axios.post(
-          apiPathCreatePayment,
+          getters.urls.apiPathCreatePayment,
           request,
         );
         postMessage('PAYMENT_CREATED', {

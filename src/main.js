@@ -42,6 +42,10 @@ async function mountApp(formData, options = {}) {
   }
   assert(document.querySelector('#p1payone-form'), 'Define "#p1payone-form" element in the document');
 
+  if (isPageInsideIframe) {
+    document.body.classList.add('inside-iframe');
+  }
+
   await store.dispatch('PaymentForm/initState', { formData, options });
 
   const language = getLanguage();

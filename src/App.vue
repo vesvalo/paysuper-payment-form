@@ -42,6 +42,16 @@
       </div>
     </div>
 
+    <div class="app-message _failed" v-if="paymentStatus === 'CANCELLED'">
+      <div class="app-message__inner">
+        <IconWarning />
+        {{ $t('paymentCancelled') }}
+      </div>
+      <div class="app-message__inner">
+        Причина: {{paymentResultMessage}}
+      </div>
+    </div>
+
     <div class="app-message _failed" v-if="paymentStatus === 'DECLINED'">
       <div class="app-message__inner">
         <IconWarning />
@@ -77,6 +87,7 @@ export default {
       'orderID',
       'project',
       'paymentStatus',
+      'paymentResultMessage',
     ]),
 
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
@@ -130,7 +141,10 @@ export default {
 <style lang="scss">
 body {
   margin: 0;
-  overflow: hidden;
+
+  &.inside-iframe {
+    overflow: hidden;
+  }
 }
 
 * {
@@ -282,7 +296,8 @@ ul {
     "paymentCreated": "Almost done!",
     "setPaymentPending": "Finish the payment",
     "paymentCompleted": "Payment completed",
-    "paymentDeclined": "Payment declined"
+    "paymentDeclined": "Payment declined",
+    "paymentCancelled": "Payment cancelled"
   },
   "ru": {
     "paymentInitFailed": [
@@ -293,7 +308,8 @@ ul {
     "paymentCreated": "Почти готово!",
     "setPaymentPending": "Завершить платёж",
     "paymentCompleted": "Платёж выполнен успешно",
-    "paymentDeclined": "Отказано в платеже"
+    "paymentDeclined": "Отказано в платеже",
+    "paymentCancelled": "Платёж отменён"
   }
 }
 </i18n>

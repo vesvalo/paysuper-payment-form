@@ -11,6 +11,7 @@ Define mounting place with id `p1payone-form` and initial data before attaching 
 ```html
 <div id="p1payone-form"></div>
 <script>
+// Required
 window.P1PAYONE_FORM_DATA = {
   id: '5c20e',
   has_vat: true,
@@ -18,6 +19,9 @@ window.P1PAYONE_FORM_DATA = {
   project: { ... },
   payment_methods: [ ... ]
 }
+// Those are optional. Below defined values are default.
+window.P1PAYONE_API_URL = 'https://p1payapi.tst.protocol.one';
+window.P1PAYONE_WEBSOCKET_URL = 'wss://cf.tst.protocol.one/connection/websocket';
 </script>
 <script src="https://static.protocol.one/payone/form/latest/p1payone-form.js"></script>
 ```
