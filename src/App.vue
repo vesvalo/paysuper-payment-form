@@ -34,7 +34,7 @@
           <div class="payment-report-summ">
             <span class="payment-report-summ__key">{{ $t('summ') }}</span>
             <span class="payment-report-summ__value">
-              {{activePaymentMethod.amount_without_commissions}}
+              {{activePaymentMethod.amount_with_commissions}}
               {{activePaymentMethod.currency}}
             </span>
           </div>
