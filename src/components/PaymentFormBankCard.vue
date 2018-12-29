@@ -24,6 +24,7 @@
               name="month"
               placeholder="MM"
               maxlength="2"
+              @input="jumpToYearOnComplete"
             />
           </div>
           <div class="payment-form-bank-card-expire__delimiter">/</div>
@@ -32,6 +33,7 @@
               v-model="innerValue.year"
               :hasError="$isFieldInvalid('innerValue.year')"
               :errors="$getFieldErrorMessages('innerValue.year')"
+              ref="yearField"
               mask="##"
               name="year"
               placeholder="YY"
@@ -47,7 +49,8 @@
             mask="###"
             type="password"
             name="cvv"
-            placeholder="CVV" maxlength="3"
+            placeholder="CVV"
+            maxlength="3"
           />
         </div>
       </div>
@@ -149,6 +152,12 @@ export default {
       return {
         isValid: !this.$v.$invalid,
       };
+    },
+
+    jumpToYearOnComplete() {
+      if (this.innerValue.month.length === 2) {
+        this.$refs.yearField.focus();
+      }
     },
   },
 };

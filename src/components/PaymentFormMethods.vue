@@ -4,16 +4,20 @@
       class="payment-form-methods__item"
       v-for="method in paymentMethods"
       :key="method.id"
-      :class="{'_active': activePaymentMethodID === method.id}"
-      @click="$emit('setMethod', method.id)"
     >
-      <span
-        class="payment-form-methods__icon"
-        :style="{backgroundImage: `url(${method.icon})`}"
-      ></span>
-      <span class="payment-form-methods__name">
-        {{method.name}}
-      </span>
+      <div
+        class="payment-form-methods__inner-item"
+        :class="{'_active': activePaymentMethodID === method.id}"
+        @click="$emit('setMethod', method.id)"
+      >
+        <span
+          class="payment-form-methods__icon"
+          :style="{backgroundImage: `url(${method.icon})`}"
+        ></span>
+        <span class="payment-form-methods__name">
+          {{method.name}}
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -41,14 +45,18 @@ export default {
 
 .payment-form-methods {
   display: flex;
+  flex-wrap: wrap;
 
   &__item {
-    height: 80px;
+    width: 20%;
+    padding: 3px;
+  }
+
+  &__inner-item {
+    height: 70px;
     padding: 8px;
     border: 1px solid $ui-color-grey87;
     text-align: center;
-    flex-grow: 1;
-    flex-basis: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,15 +64,14 @@ export default {
     background: $ui-color-grey96;
     cursor: pointer;
 
-    & + & {
-      margin-left: 6px;
-    }
-
     &._active {
       background: #fff;
       box-shadow: inset 0 -5px $ui-color-yellow;
       cursor: default;
     }
+  }
+
+  &__item {
   }
 
   &__icon {

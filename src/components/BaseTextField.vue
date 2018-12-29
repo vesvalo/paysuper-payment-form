@@ -77,6 +77,12 @@ export default {
       hasFocus: false,
     };
   },
+
+  methods: {
+    focus() {
+      this.$el.querySelector('input').focus();
+    },
+  },
 };
 </script>
 

@@ -6,27 +6,37 @@
         {{activePaymentMethod.amount_with_commissions}}
         {{activePaymentMethod.currency}}
       </div>
-      <div class="payment-form-head__delimiter-text">{{ $t('ofThem') }}:</div>
-      <div>
-        {{ $t('vat') }}:
-        {{activePaymentMethod.vat_amount}}
-        {{activePaymentMethod.currency}}
-      </div>
-      <div>
-        {{ $t('commission') }}:
-        {{activePaymentMethod.user_commission_amount}}
-        {{activePaymentMethod.currency}}
-      </div>
-      <div class="payment-form-info">
-        <div class="payment-form-info__item">
-          <span class="payment-form-info__key">{{ $t('orderID') }}:</span>
-          <span class="payment-form-info__value">{{orderID}}</span>
+      <a
+        v-if="!isDetailedInfoExpanded"
+        class="payment-form__link-interactive"
+        href="#"
+        @click.prevent="expandDetailedInfo"
+      >
+        {{ $t('expandDetailedInfo' )}}
+      </a>
+      <template v-if="isDetailedInfoExpanded">
+        <div class="payment-form-head__delimiter-text">{{ $t('ofThem') }}:</div>
+        <div>
+          {{ $t('vat') }}:
+          {{activePaymentMethod.vat_amount}}
+          {{activePaymentMethod.currency}}
         </div>
-        <div class="payment-form-info__item" v-if="account">
-          <span class="payment-form-info__key">{{ $t('account') }}:</span>
-          <span class="payment-form-info__value">{{account}}</span>
+        <div>
+          {{ $t('commission') }}:
+          {{activePaymentMethod.user_commission_amount}}
+          {{activePaymentMethod.currency}}
         </div>
-      </div>
+        <div class="payment-form-info">
+          <div class="payment-form-info__item">
+            <span class="payment-form-info__key">{{ $t('orderID') }}:</span>
+            <span class="payment-form-info__value">{{orderID}}</span>
+          </div>
+          <div class="payment-form-info__item" v-if="account">
+            <span class="payment-form-info__key">{{ $t('account') }}:</span>
+            <span class="payment-form-info__value">{{account}}</span>
+          </div>
+        </div>
+      </template>
     </div>
     <form @submit.prevent="submitPaymentForm">
       <div class="payment-form__methods">
@@ -101,6 +111,7 @@ export default {
 
   data() {
     return {
+      isDetailedInfoExpanded: false,
       bankCard: {
         cardNumber: '',
         month: '',
@@ -208,6 +219,11 @@ export default {
       });
     },
 
+    expandDetailedInfo() {
+      this.isDetailedInfoExpanded = true;
+      this.reportFormResize();
+    },
+
     reportFormResize() {
       setTimeout(() => {
         const newFormSize = {
@@ -234,7 +250,8 @@ export default {
     "placeholders": {
       "email": "Enter your email",
       "ewallet": "Enter {name} wallet number"
-    }
+    },
+    "expandDetailedInfo": "Show payment details"
   },
   "ru": {
     "ofThem": "из них",
@@ -247,7 +264,8 @@ export default {
     "placeholders": {
       "email": "Введите ваш email",
       "ewallet": "Введите номер кошелька {name}"
-    }
+    },
+    "expandDetailedInfo": "Подробнее о платеже"
   }
 }
 </i18n>
@@ -269,7 +287,7 @@ export default {
   }
 
   &__methods {
-    padding: 15px 20px;
+    padding: 12px 17px;
     border-bottom: 1px solid $ui-color-grey87;
   }
 
@@ -301,6 +319,13 @@ export default {
   &__payment-failed {
     width: 100%;
     margin-top: 10px;
+  }
+
+  &__link-interactive {
+    text-decoration: none;
+    color: $ui-color-grey13;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
   }
 }
 
