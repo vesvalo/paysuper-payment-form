@@ -12,6 +12,27 @@
         <IconSuccess />
         {{ $t('paymentCompleted') }}
       </div>
+      <div class="app-message__inner">
+        <div class="payment-report">
+          <ul class="payment-report-list">
+            <li class="payment-report-list__item">
+              <span class="payment-report-list__key">Продукт</span>
+              <span class="payment-report-list__value">Незнайка на луне</span>
+            </li>
+            <li class="payment-report-list__item">
+              <span class="payment-report-list__key">Номер платежа</span>
+              <span class="payment-report-list__value">3432423523432</span>
+            </li>
+          </ul>
+          <div class="payment-report-summ">
+            <span class="payment-report-summ__key">Сумма</span>
+            <span class="payment-report-summ__value">
+              118,200
+              <IconRuble />
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="app-message _failed" v-if="paymentStatus === 'DECLINED'">
@@ -104,6 +125,12 @@ export default {
 p {
   margin: 0;
 }
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 </style>
 
 <style lang="scss">
@@ -145,11 +172,11 @@ p {
 
 .app-message {
   background: $ui-color-white;
-  height: 200px;
+  min-height: 200px;
   padding: 20px;
   box-sizing: border-box;
-  color: $ui-color-grey13;
   font-family: $ui-font-family-common;
+  color: $ui-color-grey13;
   font-size: 20px;
   line-height: 24px;
   border: 5px solid #ffdb4d;
@@ -166,6 +193,10 @@ p {
     & + & {
       margin-top: 5px;
     }
+
+    & > svg {
+      margin-right: 12px;
+    }
   }
 
   &._failed {
@@ -175,10 +206,53 @@ p {
   &._success {
     border-color: #7ae955;
   }
+}
 
-  svg {
-    margin-right: 12px;
+.payment-report {
+  background: rgba(0, 0, 0, 0.1);
+  width: 330px;
+  padding: 20px;
+  margin: 10px 0 10px;
+}
+
+.payment-report-list {
+  &__item {
+    color: $ui-color-grey13;
+    font-size: 13px;
+    line-height: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    &::before {
+      content: " ";
+      flex-grow: 1;
+      order: 1;
+      border-bottom: 1px dotted #999;
+    }
+
+    & + & {
+      margin-top: 8px;
+    }
   }
+
+  &__key {
+    order: 0;
+  }
+
+  &__value {
+    order: 2;
+  }
+}
+
+.payment-report-summ {
+  margin-top: 25px;
+  padding-top: 5px;
+  border-top: 1px solid #999;
+  color: $ui-color-grey13;
+  font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
 
