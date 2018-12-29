@@ -118,6 +118,11 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
 }
