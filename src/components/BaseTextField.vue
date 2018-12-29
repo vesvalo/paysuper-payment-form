@@ -9,6 +9,7 @@
       v-model="innerValue"
       :type="type"
       :mask="mask"
+      :tokens="maskTokens"
       @input="$emit('input', innerValue)"
       @focus="$emit('focus', $event), hasFocus = true"
       @blur="$emit('blur', $event), hasFocus = false" />
@@ -75,6 +76,16 @@ export default {
     return {
       innerValue: this.value,
       hasFocus: false,
+
+      maskTokens: {
+        '#': { pattern: /\d/ },
+        X: { pattern: /[0-9a-zA-Z]/ },
+        S: { pattern: /[a-zA-Z]/ },
+        A: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase() },
+        a: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase() },
+        '!': { escape: true },
+        U: { pattern: /[a-zA-Z\s]/, transform: v => v.toLocaleUpperCase() },
+      },
     };
   },
 

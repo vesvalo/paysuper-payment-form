@@ -62,6 +62,8 @@
           :errors="$getFieldErrorMessages('innerValue.cardHolder')"
           :placeholder="$t('placeholders.cardHolder')"
           name="card_holder"
+          mask="UUUUUUUUUUUUUUUUUUUUUUU"
+          maxlength="23"
         />
       </div>
     </div>
