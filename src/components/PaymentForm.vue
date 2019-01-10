@@ -1,6 +1,7 @@
 <template>
   <div class="payment-form">
     <div class="payment-form-head">
+      <LocaleChanger class="payment-form-head__locale-changer" :class="{'_modal': isModal}" />
       <div class="payment-form-head__title">{{project.name}}</div>
       <div class="payment-form-head__summ">
         {{activePaymentMethod.amount_with_commissions}}
@@ -92,6 +93,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import { required, email } from 'vuelidate/lib/validators';
 import PaymentFormMethods from './PaymentFormMethods.vue';
 import PaymentFormBankCard from './PaymentFormBankCard.vue';
+import LocaleChanger from './LocaleChanger.vue';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -103,6 +105,7 @@ export default {
   components: {
     PaymentFormMethods,
     PaymentFormBankCard,
+    LocaleChanger,
   },
 
   filters: {
@@ -135,6 +138,7 @@ export default {
       'activePaymentMethodID',
       'isLoading',
       'isPaymentErrorVisible',
+      'isModal',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
 
@@ -324,6 +328,17 @@ export default {
 .payment-form-head {
   padding: 15px 20px;
   border-bottom: 1px solid $ui-color-grey87;
+  position: relative;
+
+  &__locale-changer {
+    position: absolute;
+    right: 20px;
+    top: 19px;
+
+    &._modal {
+      right: 60px;
+    }
+  }
 
   &__title {
     font-size: 18px;

@@ -46,7 +46,13 @@ async function mountApp(formData, options = {}) {
     document.body.classList.add('inside-iframe');
   }
 
-  await store.dispatch('PaymentForm/initState', { formData, options });
+  await store.dispatch('PaymentForm/initState', {
+    formData,
+    options: {
+      ...options,
+      isPageInsideIframe,
+    },
+  });
 
   const language = getLanguage();
   const VueApp = Vue.extend(App);

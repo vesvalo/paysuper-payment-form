@@ -36,6 +36,7 @@ export default {
     isPaymentErrorVisible: false,
     paymentStatus: 'NEW',
     paymentResultMessage: '',
+    isModal: false,
   },
 
   getters: {
@@ -85,12 +86,16 @@ export default {
     paymentResultMessage(state, value) {
       state.paymentResultMessage = value;
     },
+    isModal(state, value) {
+      state.isModal = value;
+    },
   },
 
   actions: {
     async initState({ commit }, { formData, options }) {
       commit('apiUrl', options.apiUrl || apiUrl);
       commit('initialEmail', options.email || '');
+      commit('isModal', options.isModal || false);
 
       commit('orderID', formData.id);
       commit('account', formData.account);
