@@ -1,15 +1,23 @@
 <template>
   <div class="app">
+
+    <!-- DEBUG -->
+    <div style="position: absolute; z-index: 10;" v-if="false">
+      <button @click="setPaymentStatus('DECLINED')">TO DECLINED</button>
+      <button @click="setPaymentStatus('CANCELLED')">TO CANCELLED</button>
+    </div>
+    <!-- /DEBUG -->
+
     <div class="app-message" v-if="paymentStatus === 'PENDING'">
       <div class="app-message__inner">
-        <IconLoadingAnimated width="50" height="50" stroke="black" />
+        <IconLoadingAnimated width="40" height="40" stroke="black" />
         {{ $t('waitingForPaymentResult') }}
       </div>
     </div>
 
     <div class="app-message _success" v-if="paymentStatus === 'COMPLETED'">
       <div class="app-message__inner">
-        <IconSuccess />
+        <IconSuccess width="40" height="40" />
         {{ $t('paymentCompleted') }}
       </div>
       <div class="app-message__inner">
@@ -42,26 +50,31 @@
       </div>
     </div>
 
-    <div class="app-message _failed" v-if="paymentStatus === 'CANCELLED'">
+    <div
+      class="app-message _failed"
+      v-if="paymentStatus === 'CANCELLED' || paymentStatus === 'DECLINED'"
+    >
       <div class="app-message__inner">
-        <IconWarning />
-        {{ $t('paymentCancelled') }}
+        <IconWarning width="40" height="40" />
+        <span v-if="paymentStatus === 'CANCELLED'" v-text="$t('paymentCancelled')"></span>
+        <span v-if="paymentStatus === 'DECLINED'" v-text="$t('paymentDeclined')"></span>
+      </div>
+      <div class="app-message__inner" v-if="paymentResultMessage">
+        {{ $t('reason') }}: {{paymentResultMessage}}
       </div>
       <div class="app-message__inner">
-        Причина: {{paymentResultMessage}}
+        {{ $t('tryAgainQuestion') }}
       </div>
-    </div>
-
-    <div class="app-message _failed" v-if="paymentStatus === 'DECLINED'">
       <div class="app-message__inner">
-        <IconWarning />
-        {{ $t('paymentDeclined') }}
+        <base-button class="retry-payment-button" size="big" @click="recreateOrder">
+          {{ $t('retryPayment') }}
+        </base-button>
       </div>
     </div>
 
     <PaymentForm v-if="isPaymentFormVisible" />
 
-    <div class="app-message _failed" v-if="isAppFailed" ref="appFailed">
+    <div class="app-message _failed" v-if="isAppFailed">
       <div class="app-message__inner" v-for="text in $t('paymentInitFailed')" :key="text">
         {{text}}
       </div>
@@ -71,7 +84,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import {
+  mapState, mapGetters, mapActions, mapMutations,
+} from 'vuex';
 import { includes } from 'lodash-es';
 import PaymentForm from './components/PaymentForm.vue';
 import { postMessage } from './postMessage';
@@ -113,15 +128,16 @@ export default {
   },
 
   mounted() {
-    if (this.$refs.appFailed) {
-      this.reportAppResize();
-    }
+    this.reportAppResize();
     postMessage('LOADED');
   },
 
   methods: {
     ...mapActions(['reportResize']),
     ...mapActions('PaymentForm', ['finishPaymentCreation']),
+
+    ...mapMutations('PaymentForm', { setPaymentStatus: 'paymentStatus' }),
+
     reportAppResize() {
       setTimeout(() => {
         const size = {
@@ -132,7 +148,9 @@ export default {
       }, 0);
     },
 
-
+    recreateOrder() {
+      postMessage('ORDER_RECREATE_STARTED');
+    },
   },
 };
 
@@ -206,9 +224,9 @@ ul {
   box-sizing: border-box;
   font-family: $ui-font-family-common;
   color: $ui-color-grey13;
-  font-size: 20px;
-  line-height: 24px;
-  border: 5px solid #ffdb4d;
+  font-size: 18px;
+  line-height: 30px;
+  border: 4px solid #ffdb4d;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -229,7 +247,7 @@ ul {
   }
 
   &._failed {
-    border-color: #e95555;
+    border-color: #323232;
   }
 
   &._success {
@@ -283,6 +301,10 @@ ul {
   font-size: 16px;
   line-height: 20px;
 }
+
+.retry-payment-button {
+  margin-top: 12px;
+}
 </style>
 
 <i18n>
@@ -297,7 +319,10 @@ ul {
     "setPaymentPending": "Finish the payment",
     "paymentCompleted": "Payment completed",
     "paymentDeclined": "Payment declined",
-    "paymentCancelled": "Payment cancelled"
+    "paymentCancelled": "Payment cancelled",
+    "reason": "Reason",
+    "tryAgainQuestion": "No worries! Let's try again?",
+    "retryPayment": "Retry the payment"
   },
   "ru": {
     "paymentInitFailed": [
@@ -309,7 +334,10 @@ ul {
     "setPaymentPending": "Завершить платёж",
     "paymentCompleted": "Платёж выполнен успешно",
     "paymentDeclined": "Отказано в платеже",
-    "paymentCancelled": "Платёж отменён"
+    "paymentCancelled": "Платёж отменён",
+    "reason": "Причина",
+    "tryAgainQuestion": "Не беда! Попробуем ещё раз?",
+    "retryPayment": "Повторить платёж"
   }
 }
 </i18n>

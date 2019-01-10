@@ -4,6 +4,7 @@
     :type="type"
     :class="viewClass"
     :disabled="disabled"
+    @click="$emit('click', $event)"
   >
     <IconLoadingAnimated
       class="base-button__loading"
@@ -34,7 +35,7 @@ export default {
       default: 'default',
       type: String,
       validator(value) {
-        const values = ['default'];
+        const values = ['default', 'big'];
         return values.indexOf(value) !== -1;
       },
     },
@@ -92,6 +93,14 @@ export default {
     padding: 0 16px;
     height: 34px;
     font-size: 15px;
+    line-height: 32px;
+  }
+
+  &._size-big {
+    padding: 0 18px;
+    height: 38px;
+    font-size: 16px;
+    line-height: 37px;
   }
 
   &__loading {
