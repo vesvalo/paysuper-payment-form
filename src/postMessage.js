@@ -14,6 +14,7 @@ export const sendingMessagesNames = {
   PAYMENT_COMPLETED: 'paymentCompleted',
   PAYMENT_CANCELLED: 'paymentCancelled',
   PAYMENT_DECLINED: 'paymentDeclined',
+  PAYMENT_INTERRUPTED: 'paymentInterrupted',
   ORDER_RECREATE_STARTED: 'orderRecreateStarted',
 };
 

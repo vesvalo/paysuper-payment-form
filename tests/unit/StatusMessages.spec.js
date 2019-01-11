@@ -38,7 +38,7 @@ describe('StatusMessages.vue', () => {
     expect(wrapper.findAll('.status-messages-frame').length).toEqual(0);
   });
 
-  it('should show a message if app is failed', () => {
+  it('should show a message if the App is failed', () => {
     const wrapper = shallowMount(StatusMessages, {
       ...mountOptions,
       propsData: {
@@ -50,7 +50,7 @@ describe('StatusMessages.vue', () => {
     expect(wrapper.findAll('.status-messages-frame').length).toEqual(1);
   });
 
-  const statusesShouldShow = ['PENDING', 'COMPLETED', 'CANCELLED', 'DECLINED'];
+  const statusesShouldShow = ['PENDING', 'COMPLETED', 'CANCELLED', 'DECLINED', 'INTERRUPTED'];
   statusesShouldShow.forEach((name) => {
     it(`should show a message on ${name} status`, () => {
       const wrapper = shallowMount(StatusMessages, {

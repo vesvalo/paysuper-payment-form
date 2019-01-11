@@ -45,12 +45,13 @@
 
     <div
       class="status-messages-frame _failed"
-      v-if="paymentStatus === 'CANCELLED' || paymentStatus === 'DECLINED'"
+      v-if="includes(['CANCELLED', 'DECLINED', 'INTERRUPTED'], paymentStatus)"
     >
       <div class="status-messages-frame__inner">
         <IconWarning width="40" height="40" />
         <span v-if="paymentStatus === 'CANCELLED'" v-text="$t('paymentCancelled')"></span>
         <span v-if="paymentStatus === 'DECLINED'" v-text="$t('paymentDeclined')"></span>
+        <span v-if="paymentStatus === 'INTERRUPTED'" v-text="$t('paymentInterrupted')"></span>
       </div>
       <div class="status-messages-frame__inner" v-if="paymentResultMessage">
         {{ $t('reason') }}: {{paymentResultMessage}}
@@ -75,6 +76,7 @@
 </template>
 
 <script>
+import { includes } from 'lodash-es';
 
 export default {
   name: 'StatusMessages',
@@ -109,6 +111,10 @@ export default {
       required: true,
       type: String,
     },
+  },
+
+  methods: {
+    includes,
   },
 };
 
@@ -217,12 +223,13 @@ export default {
       "Payment form is failed to initialize",
       "Please try again later"
     ],
-    "waitingForPaymentResult": "Waiting for the payment result",
+    "waitingForPaymentResult": "Waiting for the payment to resolve",
     "paymentCreated": "Almost done!",
     "setPaymentPending": "Finish the payment",
     "paymentCompleted": "Payment completed",
     "paymentDeclined": "Payment declined",
     "paymentCancelled": "Payment cancelled",
+    "paymentInterrupted": "Payment interrupted",
     "reason": "Reason",
     "tryAgainQuestion": "No worries! Let's try again?",
     "retryPayment": "Retry the payment"
@@ -232,12 +239,13 @@ export default {
       "Не удалось отобразить форму оплаты",
       "Пожалуйста, попробуйте снова чуть позже"
     ],
-    "waitingForPaymentResult": "Ожидаем результат платежа",
+    "waitingForPaymentResult": "Ожидаем исполнения платежа",
     "paymentCreated": "Почти готово!",
     "setPaymentPending": "Завершить платёж",
     "paymentCompleted": "Платёж выполнен успешно",
     "paymentDeclined": "Отказано в платеже",
     "paymentCancelled": "Платёж отменён",
+    "paymentInterrupted": "Платёж прерван",
     "reason": "Причина",
     "tryAgainQuestion": "Не беда! Попробуем ещё раз?",
     "retryPayment": "Повторить платёж"

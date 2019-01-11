@@ -11,7 +11,7 @@ const availableChannelStatuses = [
 
 const allowedPaymentStatuses = [
   // These ones are custom
-  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING',
+  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING', 'INTERRUPTED',
   // Those are from BE
   ...availableChannelStatuses,
 ];
@@ -21,12 +21,18 @@ const apiUrl = window.P1PAYONE_API_URL || 'https://p1payapi.tst.protocol.one';
 const websocketServerUrl = window.P1PAYONE_WEBSOCKET_URL
   || 'wss://cf.tst.protocol.one/connection/websocket';
 
+function setPaymentStatus(commit, name) {
+  commit('paymentStatus', name);
+  postMessage(`PAYMENT_${name}`);
+}
+
 export default {
   namespaced: true,
 
   state: {
     apiUrl: '',
     orderID: '',
+    token: '',
     account: '',
     project: null,
     initialEmail: '',
@@ -54,6 +60,9 @@ export default {
     },
     orderID(state, value) {
       state.orderID = value;
+    },
+    token(state, value) {
+      state.token = value;
     },
     account(state, value) {
       state.account = value;
@@ -98,33 +107,11 @@ export default {
       commit('isModal', options.isModal || false);
 
       commit('orderID', formData.id);
+      commit('token', formData.token);
       commit('account', formData.account);
       commit('project', formData.project);
       commit('paymentMethods', formData.payment_methods);
       commit('activePaymentMethodID', formData.payment_methods[0].id);
-
-      const centrifuge = new Centrifuge(websocketServerUrl);
-      centrifuge.setToken(formData.token);
-
-      const channel = `payment:notify#${formData.id}`;
-
-      centrifuge.subscribe(channel, ({ data }) => {
-        if (
-          // Just in case. Its probably unnecessary
-          data.order_id !== formData.id
-          || !includes(availableChannelStatuses, data.status)
-        ) {
-          return;
-        }
-
-        if (data.message) {
-          commit('paymentResultMessage', data.message);
-        }
-        commit('paymentStatus', data.status);
-        postMessage(`PAYMENT_${data.status}`);
-      });
-
-      centrifuge.connect();
     },
 
     setActivePaymentMethod({ commit }, value) {
@@ -141,7 +128,40 @@ export default {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
 
+      const centrifuge = new Centrifuge(websocketServerUrl);
+      centrifuge.setToken(state.token);
+
       const windowForRedirect = window.open('', '_blank');
+      /**
+       * We're watching for tab to be closed
+       * If so we show an error
+       */
+      const windowForRedirectClosedInterval = setInterval(() => {
+        if (windowForRedirect.closed) {
+          centrifuge.disconnect();
+          clearInterval(windowForRedirectClosedInterval);
+          setPaymentStatus(commit, 'INTERRUPTED');
+        }
+      }, 2000);
+
+      centrifuge.subscribe(`payment:notify#${state.orderID}`, ({ data }) => {
+        if (
+          // Just in case. Its probably unnecessary
+          data.order_id !== state.orderID
+          || !includes(availableChannelStatuses, data.status)
+        ) {
+          return;
+        }
+
+        if (data.message) {
+          commit('paymentResultMessage', data.message);
+        }
+        setPaymentStatus(commit, data.status);
+        windowForRedirect.close();
+        clearInterval(windowForRedirectClosedInterval);
+        centrifuge.disconnect();
+      });
+      centrifuge.connect();
 
       const request = {
         email,
@@ -168,20 +188,17 @@ export default {
           redirectUrl: data.redirect_url,
         });
         windowForRedirect.location = data.redirect_url;
-        commit('paymentStatus', 'PENDING');
-        postMessage('PAYMENT_PENDING');
+        setPaymentStatus(commit, 'PENDING');
       } catch (error) {
         windowForRedirect.close();
-        commit('paymentStatus', 'FAILED_TO_CREATE');
         commit('isPaymentErrorVisible', true);
-        postMessage('PAYMENT_FAILED_TO_CREATE');
+        setPaymentStatus(commit, 'FAILED_TO_CREATE');
       }
       commit('isLoading', false);
     },
 
     finishPaymentCreation({ commit }) {
-      commit('paymentStatus', 'PENDING');
-      postMessage('PAYMENT_PENDING');
+      setPaymentStatus(commit, 'PENDING');
     },
   },
 };
