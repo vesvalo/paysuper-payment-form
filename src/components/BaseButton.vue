@@ -1,14 +1,13 @@
 <script>
+import { includes } from 'lodash-es';
+
 export default {
   props: {
     color: {
       default: 'yellow',
       type: String,
       validator(value) {
-        const values = [
-          'yellow',
-        ];
-        return values.indexOf(value) !== -1;
+        return includes(['yellow'], value);
       },
     },
 
@@ -16,8 +15,7 @@ export default {
       default: 'default',
       type: String,
       validator(value) {
-        const values = ['default', 'big'];
-        return values.indexOf(value) !== -1;
+        return includes(['default', 'big'], value);
       },
     },
 
@@ -25,8 +23,7 @@ export default {
       default: 'button',
       type: String,
       validator(value) {
-        const values = ['button', 'submit', 'reset'];
-        return values.indexOf(value) !== -1;
+        return includes(['button', 'submit', 'reset'], value);
       },
     },
 

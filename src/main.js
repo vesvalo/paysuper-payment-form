@@ -26,7 +26,7 @@ function getLanguage() {
     return navigator.language.slice(0, 2);
   }
   return 'en';
-};
+}
 
 /**
  * Mounts the app into element
@@ -60,7 +60,7 @@ async function mountApp(formData, options = {}) {
     store,
     i18n: i18n(options.language || language),
   }).$mount('#p1payone-form');
-};
+}
 
 postMessage('INITED');
 

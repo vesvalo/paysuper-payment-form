@@ -30,7 +30,7 @@ export function postMessage(nameID, data = {}) {
     name,
     data,
   }, '*');
-};
+}
 
 export function receiveMessages(from, objectWithCallbacks) {
   from.addEventListener('message', (event) => {
@@ -44,4 +44,4 @@ export function receiveMessages(from, objectWithCallbacks) {
     }
     callback(event.data.data);
   });
-};
+}

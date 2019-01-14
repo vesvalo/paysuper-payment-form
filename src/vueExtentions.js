@@ -14,7 +14,7 @@ function $getFieldErrorMessages(fieldPath) {
       const params = field.$params[name];
       return message.replace(/%(.+?)%/g, (a, variable) => params[variable]);
     });
-};
+}
 
 function $isFieldInvalid(fieldPath) {
   const field = get(this.$v, fieldPath);
@@ -22,7 +22,7 @@ function $isFieldInvalid(fieldPath) {
     return false;
   }
   return Boolean(field.$invalid && field.$dirty);
-};
+}
 
 extend(Vue.prototype, {
   $getFieldErrorMessages,
