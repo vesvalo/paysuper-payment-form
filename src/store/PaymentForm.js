@@ -142,7 +142,7 @@ export default {
           clearInterval(windowForRedirectClosedInterval);
           setPaymentStatus(commit, 'INTERRUPTED');
         }
-      }, 2000);
+      }, 500);
 
       centrifuge.subscribe(`payment:notify#${state.orderID}`, ({ data }) => {
         if (
