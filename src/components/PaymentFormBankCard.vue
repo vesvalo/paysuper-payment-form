@@ -1,78 +1,3 @@
-<template>
-  <div class="payment-form-bank-card">
-    <div class="payment-form-bank-card__inner">
-      <div class="payment-form-bank-card__row">
-        <BaseTextField
-          v-model="innerValue.cardNumber"
-          :hasError="$isFieldInvalid('innerValue.cardNumber')"
-          :errors="$getFieldErrorMessages('innerValue.cardNumber')"
-          :placeholder="$t('placeholders.cardNumber')"
-          mask="#### #### #### ####"
-          autocomplete="off"
-          name="pan"
-        />
-      </div>
-
-      <div class="payment-form-bank-card__row">
-        <div class="payment-form-bank-card-expire">
-          <div class="payment-form-bank-card-expire__item">
-            <BaseTextField
-              v-model="innerValue.month"
-              :hasError="$isFieldInvalid('innerValue.month')"
-              :errors="$getFieldErrorMessages('innerValue.month')"
-              mask="##"
-              name="month"
-              placeholder="MM"
-              maxlength="2"
-              @input="jumpToYearOnComplete"
-            />
-          </div>
-          <div class="payment-form-bank-card-expire__delimiter">/</div>
-          <div class="payment-form-bank-card-expire__item">
-            <BaseTextField
-              v-model="innerValue.year"
-              :hasError="$isFieldInvalid('innerValue.year')"
-              :errors="$getFieldErrorMessages('innerValue.year')"
-              ref="yearField"
-              mask="##"
-              name="year"
-              placeholder="YY"
-              maxlength="2"
-            />
-          </div>
-        </div>
-        <div class="payment-form-bank-card__cvv">
-          <BaseTextField
-            v-model="innerValue.cvv"
-            :hasError="$isFieldInvalid('innerValue.cvv')"
-            :errors="$getFieldErrorMessages('innerValue.cvv')"
-            mask="###"
-            type="password"
-            name="cvv"
-            placeholder="CVV"
-            maxlength="3"
-          />
-        </div>
-      </div>
-
-      <div class="payment-form-bank-card__row">
-        <BaseTextField
-          v-model="innerValue.cardHolder"
-          :hasError="$isFieldInvalid('innerValue.cardHolder')"
-          :errors="$getFieldErrorMessages('innerValue.cardHolder')"
-          :placeholder="$t('placeholders.cardHolder')"
-          name="card_holder"
-          mask="UUUUUUUUUUUUUUUUUUUUUUU"
-          maxlength="23"
-        />
-      </div>
-    </div>
-    <div class="payment-form-bank-card-approves">
-      <img width="240" height="32" src="@/assets/images/bankCardApproves.png" alt="">
-    </div>
-  </div>
-</template>
-
 <script>
 import { has, extend } from 'lodash-es';
 import { required, between, minLength } from 'vuelidate/lib/validators';
@@ -164,6 +89,82 @@ export default {
   },
 };
 </script>
+
+
+<template>
+  <div class="payment-form-bank-card">
+    <div class="payment-form-bank-card__inner">
+      <div class="payment-form-bank-card__row">
+        <BaseTextField
+          v-model="innerValue.cardNumber"
+          :hasError="$isFieldInvalid('innerValue.cardNumber')"
+          :errors="$getFieldErrorMessages('innerValue.cardNumber')"
+          :placeholder="$t('placeholders.cardNumber')"
+          mask="#### #### #### ####"
+          autocomplete="off"
+          name="pan"
+        />
+      </div>
+
+      <div class="payment-form-bank-card__row">
+        <div class="payment-form-bank-card-expire">
+          <div class="payment-form-bank-card-expire__item">
+            <BaseTextField
+              v-model="innerValue.month"
+              :hasError="$isFieldInvalid('innerValue.month')"
+              :errors="$getFieldErrorMessages('innerValue.month')"
+              mask="##"
+              name="month"
+              placeholder="MM"
+              maxlength="2"
+              @input="jumpToYearOnComplete"
+            />
+          </div>
+          <div class="payment-form-bank-card-expire__delimiter">/</div>
+          <div class="payment-form-bank-card-expire__item">
+            <BaseTextField
+              v-model="innerValue.year"
+              :hasError="$isFieldInvalid('innerValue.year')"
+              :errors="$getFieldErrorMessages('innerValue.year')"
+              ref="yearField"
+              mask="##"
+              name="year"
+              placeholder="YY"
+              maxlength="2"
+            />
+          </div>
+        </div>
+        <div class="payment-form-bank-card__cvv">
+          <BaseTextField
+            v-model="innerValue.cvv"
+            :hasError="$isFieldInvalid('innerValue.cvv')"
+            :errors="$getFieldErrorMessages('innerValue.cvv')"
+            mask="###"
+            type="password"
+            name="cvv"
+            placeholder="CVV"
+            maxlength="3"
+          />
+        </div>
+      </div>
+
+      <div class="payment-form-bank-card__row">
+        <BaseTextField
+          v-model="innerValue.cardHolder"
+          :hasError="$isFieldInvalid('innerValue.cardHolder')"
+          :errors="$getFieldErrorMessages('innerValue.cardHolder')"
+          :placeholder="$t('placeholders.cardHolder')"
+          name="card_holder"
+          mask="UUUUUUUUUUUUUUUUUUUUUUU"
+          maxlength="23"
+        />
+      </div>
+    </div>
+    <div class="payment-form-bank-card-approves">
+      <img width="240" height="32" src="@/assets/images/bankCardApproves.png" alt="">
+    </div>
+  </div>
+</template>
 
 <style lang="scss">
 @import "@/assets/styles/gui.scss";

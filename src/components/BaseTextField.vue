@@ -1,35 +1,3 @@
-<template>
-  <div class="base-text-field"
-    :class="{'base-text-field_error': hasError}">
-
-    <TheMask
-      class="base-text-field__input"
-      v-if="mask"
-      v-bind="$attrs"
-      v-model="innerValue"
-      :type="type"
-      :mask="mask"
-      :tokens="maskTokens"
-      @input="$emit('input', innerValue)"
-      @focus="$emit('focus', $event), hasFocus = true"
-      @blur="$emit('blur', $event), hasFocus = false" />
-
-    <input
-      class="base-text-field__input"
-      v-else
-      v-bind="$attrs"
-      v-model="innerValue"
-      :type="type"
-      :mask="mask"
-      @input="$emit('input', innerValue)"
-      @focus="$emit('focus', $event), hasFocus = true"
-      @blur="$emit('blur', $event), hasFocus = false" />
-
-    <BaseErrorText v-if="hasError" :value="errors" />
-
-  </div>
-</template>
-
 <script>
 import { TheMask } from 'vue-the-mask';
 
@@ -96,6 +64,38 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="base-text-field"
+    :class="{'base-text-field_error': hasError}">
+
+    <TheMask
+      class="base-text-field__input"
+      v-if="mask"
+      v-bind="$attrs"
+      v-model="innerValue"
+      :type="type"
+      :mask="mask"
+      :tokens="maskTokens"
+      @input="$emit('input', innerValue)"
+      @focus="$emit('focus', $event), hasFocus = true"
+      @blur="$emit('blur', $event), hasFocus = false" />
+
+    <input
+      class="base-text-field__input"
+      v-else
+      v-bind="$attrs"
+      v-model="innerValue"
+      :type="type"
+      :mask="mask"
+      @input="$emit('input', innerValue)"
+      @focus="$emit('focus', $event), hasFocus = true"
+      @blur="$emit('blur', $event), hasFocus = false" />
+
+    <BaseErrorText v-if="hasError" :value="errors" />
+
+  </div>
+</template>
 
 <style lang="scss">
 @import "@/assets/styles/gui.scss";

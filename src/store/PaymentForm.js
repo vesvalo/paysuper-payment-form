@@ -24,7 +24,7 @@ const websocketServerUrl = window.P1PAYONE_WEBSOCKET_URL
 function setPaymentStatus(commit, name) {
   commit('paymentStatus', name);
   postMessage(`PAYMENT_${name}`);
-}
+};
 
 export default {
   namespaced: true,

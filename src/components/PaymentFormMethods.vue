@@ -1,3 +1,21 @@
+<script>
+export default {
+  name: 'PaymentFormMethods',
+
+  props: {
+    paymentMethods: {
+      required: true,
+      type: Array,
+    },
+
+    activePaymentMethodID: {
+      required: true,
+      type: String,
+    },
+  },
+};
+</script>
+
 <template>
   <div class="payment-form-methods">
     <div
@@ -21,24 +39,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'PaymentFormMethods',
-
-  props: {
-    paymentMethods: {
-      required: true,
-      type: Array,
-    },
-
-    activePaymentMethodID: {
-      required: true,
-      type: String,
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 @import "@/assets/styles/gui.scss";

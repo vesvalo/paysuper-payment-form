@@ -1,3 +1,14 @@
+<script>
+export default {
+  name: 'locale-changer',
+  data() {
+    return {
+      langs: ['ru', 'en'],
+    };
+  },
+};
+</script>
+
 <template>
   <div class="locale-changer">
     <span
@@ -13,17 +24,6 @@
     </span>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'locale-changer',
-  data() {
-    return {
-      langs: ['ru', 'en'],
-    };
-  },
-};
-</script>
 
 <style lang="scss">
 @import "@/assets/styles/gui.scss";

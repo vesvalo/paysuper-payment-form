@@ -16,8 +16,12 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-param-reassign': ['error', { ignorePropertyModificationsFor: ['state'] }],
+    semi: [2, 'always'],
+    'no-extra-semi': 'off',
   },
   parserOptions: {
     parser: 'babel-eslint',
+    sourceType: 'module',
+    allowImportExportEverywhere: true,
   },
 };

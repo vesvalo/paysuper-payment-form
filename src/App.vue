@@ -1,30 +1,3 @@
-<template>
-  <div class="app">
-
-    <!-- DEBUG -->
-    <div style="position: absolute; z-index: 10;" v-if="false">
-      <button @click="setPaymentStatus('DECLINED')">TO DECLINED</button>
-      <button @click="setPaymentStatus('CANCELLED')">TO CANCELLED</button>
-      <button @click="setPaymentStatus('PENDING')">TO PENDING</button>
-      <button @click="setPaymentStatus('COMPLETED')">TO COMPLETED</button>
-    </div>
-    <!-- /DEBUG -->
-
-    <StatusMessages
-      :paymentStatus="paymentStatus"
-      :isAppFailed="isAppFailed"
-      :paymentResultMessage="paymentResultMessage"
-      :activePaymentMethod="activePaymentMethod"
-      :project="project"
-      :orderID="orderID"
-      @recreateOrder="recreateOrder"
-     />
-
-    <PaymentForm v-if="isPaymentFormVisible" />
-
-  </div>
-</template>
-
 <script>
 import {
   mapState, mapGetters, mapActions, mapMutations,
@@ -97,8 +70,34 @@ export default {
     },
   },
 };
-
 </script>
+
+<template>
+  <div class="app">
+
+    <!-- DEBUG -->
+    <div style="position: absolute; z-index: 10;" v-if="false">
+      <button @click="setPaymentStatus('DECLINED')">TO DECLINED</button>
+      <button @click="setPaymentStatus('CANCELLED')">TO CANCELLED</button>
+      <button @click="setPaymentStatus('PENDING')">TO PENDING</button>
+      <button @click="setPaymentStatus('COMPLETED')">TO COMPLETED</button>
+    </div>
+    <!-- /DEBUG -->
+
+    <StatusMessages
+      :paymentStatus="paymentStatus"
+      :isAppFailed="isAppFailed"
+      :paymentResultMessage="paymentResultMessage"
+      :activePaymentMethod="activePaymentMethod"
+      :project="project"
+      :orderID="orderID"
+      @recreateOrder="recreateOrder"
+     />
+
+    <PaymentForm v-if="isPaymentFormVisible" />
+
+  </div>
+</template>
 
 <style lang="scss">
 body {

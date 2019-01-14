@@ -1,8 +1,7 @@
+import Vue from 'vue';
 // Globally register all base components for convenience, because they
 // will be used very frequently. Components are registered using the
 // PascalCased version of their file name.
-
-import Vue from 'vue';
 
 // https://webpack.js.org/guides/dependency-management/#require-context
 const requireComponent = require.context(

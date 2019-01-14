@@ -1,93 +1,3 @@
-<template>
-  <div class="payment-form">
-    <div class="payment-form-head">
-      <LocaleChanger class="payment-form-head__locale-changer" :class="{'_modal': isModal}" />
-      <div class="payment-form-head__title">{{project.name}}</div>
-      <div class="payment-form-head__summ">
-        {{activePaymentMethod.amount_with_commissions}}
-        {{activePaymentMethod.currency}}
-      </div>
-      <a
-        v-if="!isDetailedInfoExpanded"
-        class="payment-form__link-interactive"
-        href="#"
-        @click.prevent="expandDetailedInfo"
-      >
-        {{ $t('expandDetailedInfo' )}}
-      </a>
-      <template v-if="isDetailedInfoExpanded">
-        <div class="payment-form-head__delimiter-text">{{ $t('ofThem') }}:</div>
-        <div>
-          {{ $t('vat') }}:
-          {{activePaymentMethod.vat_amount}}
-          {{activePaymentMethod.currency}}
-        </div>
-        <div>
-          {{ $t('commission') }}:
-          {{activePaymentMethod.user_commission_amount}}
-          {{activePaymentMethod.currency}}
-        </div>
-        <div class="payment-form-info">
-          <div class="payment-form-info__item">
-            <span class="payment-form-info__key">{{ $t('orderID') }}:</span>
-            <span class="payment-form-info__value">{{orderID}}</span>
-          </div>
-          <div class="payment-form-info__item" v-if="account">
-            <span class="payment-form-info__key">{{ $t('account') }}:</span>
-            <span class="payment-form-info__value">{{account}}</span>
-          </div>
-        </div>
-      </template>
-    </div>
-    <form @submit.prevent="submitPaymentForm">
-      <div class="payment-form__methods">
-        <PaymentFormMethods
-          :paymentMethods="paymentMethods"
-          :activePaymentMethodID="activePaymentMethodID"
-          @setMethod="setActivePaymentMethod"
-        />
-      </div>
-      <div class="payment-form__forms">
-        <PaymentFormBankCard
-          v-if="isBankCardPayment"
-          v-model="bankCard"
-          ref="bankCardForm"
-          :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
-        />
-        <BaseTextField
-          class="payment-form__ewallet-field"
-          v-else
-          v-model="ewallet"
-          :placeholder="$t('placeholders.ewallet', {name: activePaymentMethod.name})"
-          :hasError="$isFieldInvalid('ewallet')"
-          :errors="$getFieldErrorMessages('ewallet')"
-        />
-      </div>
-      <div class="payment-form__finish-form">
-        <div>
-          <BaseTextField
-            class="payment-form__email-field"
-            v-if="!initialEmail"
-            v-model="email"
-            :hasError="$isFieldInvalid('email')"
-            :errors="$getFieldErrorMessages('email')"
-            :placeholder="$t('placeholders.email')"
-            name="email"
-          />
-          <div class="payment-form__payment-failed" v-if="isPaymentErrorVisible">
-            <base-error-text>
-              {{ $t('paymentFailedMessage') }}
-            </base-error-text>
-          </div>
-        </div>
-        <base-button type="submit" :isLoading="isLoading">
-          {{ $t('procceedButtonText') }}
-        </base-button>
-      </div>
-    </form>
-  </div>
-</template>
-
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { required, email } from 'vuelidate/lib/validators';
@@ -240,6 +150,96 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div class="payment-form">
+    <div class="payment-form-head">
+      <LocaleChanger class="payment-form-head__locale-changer" :class="{'_modal': isModal}" />
+      <div class="payment-form-head__title">{{project.name}}</div>
+      <div class="payment-form-head__summ">
+        {{activePaymentMethod.amount_with_commissions}}
+        {{activePaymentMethod.currency}}
+      </div>
+      <a
+        v-if="!isDetailedInfoExpanded"
+        class="payment-form__link-interactive"
+        href="#"
+        @click.prevent="expandDetailedInfo"
+      >
+        {{ $t('expandDetailedInfo' )}}
+      </a>
+      <template v-if="isDetailedInfoExpanded">
+        <div class="payment-form-head__delimiter-text">{{ $t('ofThem') }}:</div>
+        <div>
+          {{ $t('vat') }}:
+          {{activePaymentMethod.vat_amount}}
+          {{activePaymentMethod.currency}}
+        </div>
+        <div>
+          {{ $t('commission') }}:
+          {{activePaymentMethod.user_commission_amount}}
+          {{activePaymentMethod.currency}}
+        </div>
+        <div class="payment-form-info">
+          <div class="payment-form-info__item">
+            <span class="payment-form-info__key">{{ $t('orderID') }}:</span>
+            <span class="payment-form-info__value">{{orderID}}</span>
+          </div>
+          <div class="payment-form-info__item" v-if="account">
+            <span class="payment-form-info__key">{{ $t('account') }}:</span>
+            <span class="payment-form-info__value">{{account}}</span>
+          </div>
+        </div>
+      </template>
+    </div>
+    <form @submit.prevent="submitPaymentForm">
+      <div class="payment-form__methods">
+        <PaymentFormMethods
+          :paymentMethods="paymentMethods"
+          :activePaymentMethodID="activePaymentMethodID"
+          @setMethod="setActivePaymentMethod"
+        />
+      </div>
+      <div class="payment-form__forms">
+        <PaymentFormBankCard
+          v-if="isBankCardPayment"
+          v-model="bankCard"
+          ref="bankCardForm"
+          :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+        />
+        <BaseTextField
+          class="payment-form__ewallet-field"
+          v-else
+          v-model="ewallet"
+          :placeholder="$t('placeholders.ewallet', {name: activePaymentMethod.name})"
+          :hasError="$isFieldInvalid('ewallet')"
+          :errors="$getFieldErrorMessages('ewallet')"
+        />
+      </div>
+      <div class="payment-form__finish-form">
+        <div>
+          <BaseTextField
+            class="payment-form__email-field"
+            v-if="!initialEmail"
+            v-model="email"
+            :hasError="$isFieldInvalid('email')"
+            :errors="$getFieldErrorMessages('email')"
+            :placeholder="$t('placeholders.email')"
+            name="email"
+          />
+          <div class="payment-form__payment-failed" v-if="isPaymentErrorVisible">
+            <base-error-text>
+              {{ $t('paymentFailedMessage') }}
+            </base-error-text>
+          </div>
+        </div>
+        <base-button type="submit" :isLoading="isLoading">
+          {{ $t('procceedButtonText') }}
+        </base-button>
+      </div>
+    </form>
+  </div>
+</template>
 
 <i18n>
 {

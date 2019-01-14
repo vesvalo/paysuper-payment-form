@@ -1,23 +1,4 @@
-<template>
-  <button
-    class="base-button"
-    :type="type"
-    :class="viewClass"
-    :disabled="disabled"
-    @click="$emit('click', $event)"
-  >
-    <IconLoadingAnimated
-      class="base-button__loading"
-      v-if="isLoading"
-      width="13"
-      height="13"
-      stroke="#333"
-    />
-    <slot></slot>
-  </button>
-</template>
 <script>
-
 export default {
   props: {
     color: {
@@ -71,6 +52,25 @@ export default {
   },
 };
 </script>
+
+<template>
+  <button
+    class="base-button"
+    :type="type"
+    :class="viewClass"
+    :disabled="disabled"
+    @click="$emit('click', $event)"
+  >
+    <IconLoadingAnimated
+      class="base-button__loading"
+      v-if="isLoading"
+      width="13"
+      height="13"
+      stroke="#333"
+    />
+    <slot></slot>
+  </button>
+</template>
 
 <style lang="scss">
 @import "@/assets/styles/gui.scss";

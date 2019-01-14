@@ -8,11 +8,14 @@
     "lint": "vue-cli-service lint",
     "lint:style": "vue-cli-service lint:style",
     "test": "vue-cli-service test:unit",
-    "test:dev": "vue-cli-service test:unit --watchAll"
+    "test:dev": "vue-cli-service test:unit --watchAll",
+    "coverage": "vue-cli-service test:unit --coverage --coverageReporters=lcov",
+    "coverage:publish": "npm run coverage && codecov"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "centrifuge": "^2.0.0",
+    "codecov": "^3.1.0",
     "lodash-es": "^4.17.11",
     "simple-assert": "^1.0.0",
     "vue": "^2.5.17",
