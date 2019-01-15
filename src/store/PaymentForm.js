@@ -144,6 +144,14 @@ export default {
         }
       }, 500);
 
+      window.addEventListener('message', (event) => {
+        if (event.data.name === 'FINAL_SUCCESS') {
+          windowForRedirect.close();
+          centrifuge.disconnect();
+          clearInterval(windowForRedirectClosedInterval);
+        }
+      });
+
       centrifuge.subscribe(`payment:notify#${state.orderID}`, ({ data }) => {
         if (
           // Just in case. Its probably unnecessary
