@@ -1,9 +1,9 @@
 import axios from 'axios';
-import Centrifuge from 'centrifuge';
 import assert from 'assert';
 import { find, includes } from 'lodash-es';
 import getFunctionalUrls from '../getFunctionalUrls';
 import { postMessage } from '../postMessage';
+import PaymentConnection from './helpers/PaymentConnection';
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED', 'CANCELLED',
@@ -17,9 +17,6 @@ const allowedPaymentStatuses = [
 ];
 
 const apiUrl = window.P1PAYONE_API_URL || 'https://p1payapi.tst.protocol.one';
-
-const websocketServerUrl = window.P1PAYONE_WEBSOCKET_URL
-  || 'wss://cf.tst.protocol.one/connection/websocket';
 
 function setPaymentStatus(commit, name) {
   commit('paymentStatus', name);
@@ -128,48 +125,27 @@ export default {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
 
-      const centrifuge = new Centrifuge(websocketServerUrl);
-      centrifuge.setToken(state.token);
+      const paymentConnection = new PaymentConnection(window, state.orderID, state.token);
+      paymentConnection
+        .init()
+        .on('newPaymentStatus', (data) => {
+          if (
+            // Just in case. Its probably unnecessary
+            data.order_id !== state.orderID
+            || !includes(availableChannelStatuses, data.status)
+          ) {
+            return;
+          }
 
-      const windowForRedirect = window.open('', '_blank');
-      /**
-       * We're watching for tab to be closed
-       * If so we show an error
-       */
-      const windowForRedirectClosedInterval = setInterval(() => {
-        if (windowForRedirect.closed) {
-          centrifuge.disconnect();
-          clearInterval(windowForRedirectClosedInterval);
+          if (data.message) {
+            commit('paymentResultMessage', data.message);
+          }
+          paymentConnection.closeRedirectWindow();
+          setPaymentStatus(commit, data.status);
+        })
+        .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
-        }
-      }, 500);
-
-      window.addEventListener('message', (event) => {
-        if (event.data.name === 'FINAL_SUCCESS') {
-          windowForRedirect.close();
-          centrifuge.disconnect();
-          clearInterval(windowForRedirectClosedInterval);
-        }
-      });
-
-      centrifuge.subscribe(`payment:notify#${state.orderID}`, ({ data }) => {
-        if (
-          // Just in case. Its probably unnecessary
-          data.order_id !== state.orderID
-          || !includes(availableChannelStatuses, data.status)
-        ) {
-          return;
-        }
-
-        if (data.message) {
-          commit('paymentResultMessage', data.message);
-        }
-        setPaymentStatus(commit, data.status);
-        windowForRedirect.close();
-        clearInterval(windowForRedirectClosedInterval);
-        centrifuge.disconnect();
-      });
-      centrifuge.connect();
+        });
 
       const request = {
         email,
@@ -192,13 +168,13 @@ export default {
           getters.urls.apiPathCreatePayment,
           request,
         );
+        paymentConnection.setRedirectWindowLocation(data.redirect_url);
         postMessage('PAYMENT_CREATED', {
           redirectUrl: data.redirect_url,
         });
-        windowForRedirect.location = data.redirect_url;
         setPaymentStatus(commit, 'PENDING');
       } catch (error) {
-        windowForRedirect.close();
+        paymentConnection.closeRedirectWindow();
         commit('isPaymentErrorVisible', true);
         setPaymentStatus(commit, 'FAILED_TO_CREATE');
       }
