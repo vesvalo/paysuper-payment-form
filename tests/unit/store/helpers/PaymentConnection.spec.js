@@ -44,19 +44,46 @@ describe('PaymentConnection', () => {
   });
 
   it('should close redirectWindow on final success', () => {
-    let result = false;
+    let finalSuccess = false;
+    let closed = false;
     const paymentConnection = new PaymentConnection(window, orderID, token);
     paymentConnection
       .init()
+      .on('finalSuccess', () => {
+        finalSuccess = true;
+      })
       .on('redirectWindowClosed', () => {
-        result = true;
+        closed = true;
+      });
+
+    paymentConnection.window.postMessage({
+      source: 'PAYONE_PAYMENT_FINISHED_PAGE',
+      name: 'FINAL_SUCCESS',
+    });
+
+    expect(finalSuccess).toEqual(true);
+    expect(closed).toEqual(true);
+  });
+
+  it('should not close redirectWindow on final success if source is off', () => {
+    let finalSuccess = false;
+    let closed = false;
+    const paymentConnection = new PaymentConnection(window, orderID, token);
+    paymentConnection
+      .init()
+      .on('finalSuccess', () => {
+        finalSuccess = true;
+      })
+      .on('redirectWindowClosed', () => {
+        closed = true;
       });
 
     paymentConnection.window.postMessage({
       name: 'FINAL_SUCCESS',
     });
 
-    expect(result).toEqual(true);
+    expect(finalSuccess).toEqual(false);
+    expect(closed).toEqual(false);
   });
 
   it('should emit special event if redirectWindow is closed by user', (done) => {

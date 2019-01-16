@@ -40,6 +40,7 @@ export default {
     paymentStatus: 'NEW',
     paymentResultMessage: '',
     isModal: false,
+    testFinalSuccess: false,
   },
 
   getters: {
@@ -95,6 +96,9 @@ export default {
     isModal(state, value) {
       state.isModal = value;
     },
+    testFinalSuccess(state, value) {
+      state.testFinalSuccess = value;
+    },
   },
 
   actions: {
@@ -145,6 +149,9 @@ export default {
         })
         .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
+        })
+        .on('finalSuccess', () => {
+          commit('testFinalSuccess', true);
         });
 
       const request = {

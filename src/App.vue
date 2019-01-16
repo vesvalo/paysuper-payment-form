@@ -20,6 +20,7 @@ export default {
       'project',
       'paymentStatus',
       'paymentResultMessage',
+      'testFinalSuccess',
     ]),
 
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
@@ -74,6 +75,9 @@ export default {
 
 <template>
   <div class="app">
+    <div style="position: absolute; z-index: 10;">
+      {{testFinalSuccess}}
+    </div>
 
     <!-- DEBUG -->
     <div style="position: absolute; z-index: 10;" v-if="false">

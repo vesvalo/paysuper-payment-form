@@ -35,7 +35,11 @@ export default class PaymentConnection extends Events.EventEmitter {
     }, 200);
 
     this.window.addEventListener('message', (event) => {
-      if (event.data.name === 'FINAL_SUCCESS') {
+      if (
+        event.data.source === 'PAYONE_PAYMENT_FINISHED_PAGE'
+        && event.data.name === 'FINAL_SUCCESS'
+      ) {
+        this.emit('finalSuccess');
         clearInterval(this.redirectWindowClosedInterval);
         this.closeRedirectWindow();
       }
