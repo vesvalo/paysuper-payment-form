@@ -2,6 +2,7 @@
  * App entry point
  */
 
+import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
 import './plugins/vuelidate';
@@ -11,6 +12,13 @@ import i18n from './i18n';
 import { postMessage, receiveMessages } from './postMessage';
 import './globalComponents';
 import './vueExtentions';
+
+if (process.env.NODE_ENV === 'production') {
+  Sentry.init({
+    dsn: 'https://3e4a24900f064243a9de45162660a66d@sentry.tst.protocol.one/3',
+    integrations: [new Sentry.Integrations.Vue({ Vue })],
+  });
+}
 
 Vue.config.productionTip = false;
 
