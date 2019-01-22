@@ -81,6 +81,7 @@ export default {
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   &:hover {
     background-color: darken($ui-color-yellow, 10%);

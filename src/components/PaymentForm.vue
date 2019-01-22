@@ -50,7 +50,7 @@ export default {
       'isPaymentErrorVisible',
       'isModal',
     ]),
-    ...mapGetters('PaymentForm', ['activePaymentMethod']),
+    ...mapGetters('PaymentForm', ['activePaymentMethod', 'hasPaymentRequestApi']),
 
     isBankCardPayment() {
       return this.activePaymentMethod.type === 'bank_card';
@@ -105,7 +105,9 @@ export default {
 
   methods: {
     ...mapActions(['reportResize']),
-    ...mapActions('PaymentForm', ['setActivePaymentMethod', 'createPayment', 'hidePaymentError']),
+    ...mapActions('PaymentForm', [
+      'setActivePaymentMethod', 'createPayment', 'hidePaymentError', 'usePaymentApi',
+    ]),
 
     submitPaymentForm() {
       this.reportFormResize();
@@ -201,12 +203,20 @@ export default {
         />
       </div>
       <div class="payment-form__forms">
-        <PaymentFormBankCard
-          v-if="isBankCardPayment"
-          v-model="bankCard"
-          ref="bankCardForm"
-          :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
-        />
+        <div v-if="isBankCardPayment">
+          <base-button
+            class="payment-form__use-browser-data-button"
+            v-if="hasPaymentRequestApi"
+            @click="usePaymentApi"
+          >
+            {{$t('useBrowserData')}}
+          </base-button>
+          <PaymentFormBankCard
+            v-model="bankCard"
+            ref="bankCardForm"
+            :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+          />
+        </div>
         <BaseTextField
           class="payment-form__ewallet-field"
           v-else
@@ -296,6 +306,10 @@ export default {
     border-bottom: 1px solid $ui-color-grey87;
   }
 
+  &__use-browser-data-button {
+    width: 320px;
+  }
+
   &__finish-form {
     padding: 20px;
     background: $ui-color-grey96;
@@ -376,3 +390,14 @@ export default {
   }
 }
 </style>
+
+<i18n>
+{
+  "en": {
+    "useBrowserData": "User browser data"
+  },
+  "ru": {
+    "useBrowserData": "Использовать данные браузера"
+  }
+}
+</i18n>
