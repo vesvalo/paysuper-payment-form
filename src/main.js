@@ -54,6 +54,12 @@ async function mountApp(formData, options = {}) {
     document.body.classList.add('inside-iframe');
   }
 
+  if (options.viewSize) {
+    options.viewSize.forEach((item) => {
+      document.body.classList.add(`size-${item}`);
+    });
+  }
+
   await store.dispatch('PaymentForm/initState', {
     formData,
     options: {

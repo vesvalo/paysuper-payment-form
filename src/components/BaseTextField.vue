@@ -98,8 +98,6 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .base-text-field {
   width: 100%;
 

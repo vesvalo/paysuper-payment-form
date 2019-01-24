@@ -26,8 +26,6 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .locale-changer {
   line-height: 16px;
 

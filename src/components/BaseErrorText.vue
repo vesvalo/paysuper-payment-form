@@ -28,8 +28,6 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .base-error-text {
   font-size: 12px;
   line-height: 13px;

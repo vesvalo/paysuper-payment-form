@@ -70,8 +70,6 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .base-button {
   color: $ui-color-grey13;
   background-color: $ui-color-yellow;

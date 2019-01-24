@@ -226,10 +226,10 @@ export default {
           :errors="$getFieldErrorMessages('ewallet')"
         />
       </div>
-      <div class="payment-form__finish-form">
-        <div>
+      <div class="payment-form-footer">
+        <div class="payment-form-footer__email-field-holder">
           <BaseTextField
-            class="payment-form__email-field"
+            class="payment-form-footer__email-field"
             v-if="!initialEmail"
             v-model="email"
             :hasError="$isFieldInvalid('email')"
@@ -237,13 +237,17 @@ export default {
             :placeholder="$t('placeholders.email')"
             name="email"
           />
-          <div class="payment-form__payment-failed" v-if="isPaymentErrorVisible">
+          <div class="payment-form-footer__payment-failed" v-if="isPaymentErrorVisible">
             <base-error-text>
               {{ $t('paymentFailedMessage') }}
             </base-error-text>
           </div>
         </div>
-        <base-button type="submit" :isLoading="isLoading">
+        <base-button
+          class="payment-form-footer__submit-button"
+          type="submit"
+          :isLoading="isLoading"
+        >
           {{ $t('procceedButtonText') }}
         </base-button>
       </div>
@@ -277,8 +281,6 @@ export default {
 </i18n>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .payment-form {
   background: $ui-color-white;
   border: 1px solid $ui-color-grey87;
@@ -310,25 +312,8 @@ export default {
     width: 320px;
   }
 
-  &__finish-form {
-    padding: 20px;
-    background: $ui-color-grey96;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  &__email-field {
-    width: 300px;
-  }
-
   &__ewallet-field {
     max-width: 70%;
-  }
-
-  &__payment-failed {
-    width: 100%;
-    margin-top: 10px;
   }
 
   &__link-interactive {
@@ -387,6 +372,36 @@ export default {
 
   &__value {
     display: table-cell;
+  }
+}
+
+.payment-form-footer {
+  padding: 20px;
+  background: $ui-color-grey96;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  &__payment-failed {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  &__email-field-holder {
+    @include onBreakpoint("s") {
+      width: 100%;
+    }
+  }
+
+  &__email-field {
+    width: 300px;
+  }
+
+  &__submit-button {
+    @include onBreakpoint("s") {
+      width: 100%;
+      margin-top: 15px;
+    }
   }
 }
 </style>

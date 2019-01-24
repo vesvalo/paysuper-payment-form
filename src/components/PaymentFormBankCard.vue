@@ -167,8 +167,6 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .payment-form-bank-card {
   width: 320px;
 
@@ -213,6 +211,10 @@ export default {
 .payment-form-bank-card-approves {
   text-align: right;
   padding-top: 5px;
+
+  @include onBreakpoint("s") {
+    padding-right: 20px;
+  }
 }
 </style>
 

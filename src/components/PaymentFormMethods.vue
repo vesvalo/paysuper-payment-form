@@ -18,34 +18,63 @@ export default {
 
 <template>
   <div class="payment-form-methods">
-    <div
-      class="payment-form-methods__item"
-      v-for="method in paymentMethods"
-      :key="method.id"
+    <select
+      class="payment-form-methods__select"
+      @change="$emit('setMethod', $event.target.value)"
     >
+      <option
+        v-for="method in paymentMethods"
+        :value="method.id"
+        :key="method.id"
+      >{{method.name}}</option>
+    </select>
+    <div class="payment-form-methods__items">
       <div
-        class="payment-form-methods__inner-item"
-        :class="{'_active': activePaymentMethodID === method.id}"
-        @click="$emit('setMethod', method.id)"
+        class="payment-form-methods__item"
+        v-for="method in paymentMethods"
+        :key="method.id"
       >
-        <span
-          class="payment-form-methods__icon"
-          :style="{backgroundImage: `url(${method.icon})`}"
-        ></span>
-        <span class="payment-form-methods__name">
-          {{method.name}}
-        </span>
+        <div
+          class="payment-form-methods__inner-item"
+          :class="{'_active': activePaymentMethodID === method.id}"
+          @click="$emit('setMethod', method.id)"
+        >
+          <span
+            class="payment-form-methods__icon"
+            :style="{backgroundImage: `url(${method.icon})`}"
+          ></span>
+          <span class="payment-form-methods__name">
+            {{method.name}}
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .payment-form-methods {
-  display: flex;
-  flex-wrap: wrap;
+  &__select {
+    display: none;
+    width: 100%;
+    background: #fff;
+    height: 34px;
+    font-size: 15px;
+    line-height: 32px;
+
+    @include onBreakpoint("s") {
+      display: block;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include onBreakpoint("s") {
+      display: none;
+    }
+  }
 
   &__item {
     width: 20%;

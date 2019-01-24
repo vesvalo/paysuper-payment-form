@@ -4,14 +4,18 @@
     <div class="status-messages-frame" v-if="paymentStatus === 'PENDING'">
       <div class="status-messages-frame__inner">
         <IconLoadingAnimated width="40" height="40" stroke="black" />
-        {{ $t('waitingForPaymentResult') }}
+        <p class="status-messages-frame__text">
+          {{ $t('waitingForPaymentResult') }}
+        </p>
       </div>
     </div>
 
     <div class="status-messages-frame _success" v-if="paymentStatus === 'COMPLETED'">
       <div class="status-messages-frame__inner">
         <IconSuccess width="40" height="40" />
-        {{ $t('paymentCompleted') }}
+        <p class="status-messages-frame__text">
+          {{ $t('paymentCompleted') }}
+        </p>
       </div>
       <div class="status-messages-frame__inner">
         <div class="payment-report">
@@ -49,9 +53,11 @@
     >
       <div class="status-messages-frame__inner">
         <IconWarning width="40" height="40" />
-        <span v-if="paymentStatus === 'CANCELLED'" v-text="$t('paymentCancelled')"></span>
-        <span v-if="paymentStatus === 'DECLINED'" v-text="$t('paymentDeclined')"></span>
-        <span v-if="paymentStatus === 'INTERRUPTED'" v-text="$t('paymentInterrupted')"></span>
+        <p class="status-messages-frame__text">
+          <span v-if="paymentStatus === 'CANCELLED'" v-text="$t('paymentCancelled')"></span>
+          <span v-if="paymentStatus === 'DECLINED'" v-text="$t('paymentDeclined')"></span>
+          <span v-if="paymentStatus === 'INTERRUPTED'" v-text="$t('paymentInterrupted')"></span>
+        </p>
       </div>
       <div class="status-messages-frame__inner" v-if="paymentResultMessage">
         {{ $t('reason') }}: {{paymentResultMessage}}
@@ -121,8 +127,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .status-messages {
 }
 
@@ -141,10 +145,18 @@ export default {
   align-items: center;
   flex-direction: column;
 
+  @include onBreakpoint("s") {
+    line-height: 24px;
+  }
+
   &__inner {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @include onBreakpoint("s") {
+      flex-direction: column;
+    }
 
     & + & {
       margin-top: 5px;
@@ -153,6 +165,10 @@ export default {
     & > svg {
       margin-right: 12px;
     }
+  }
+
+  &__text {
+    margin: 5px 0 0;
   }
 
   &._failed {
@@ -169,6 +185,11 @@ export default {
   width: 350px;
   padding: 20px;
   margin: 10px 0 10px;
+
+  @include onBreakpoint("s") {
+    width: 280px;
+    margin-bottom: 0;
+  }
 }
 
 .payment-report-list {
@@ -189,10 +210,23 @@ export default {
     & + & {
       margin-top: 8px;
     }
+
+    @include onBreakpoint("s") {
+      display: block;
+
+      &::before {
+        display: none;
+      }
+    }
   }
 
   &__key {
     order: 0;
+
+    @include onBreakpoint("s") {
+      display: block;
+      font-weight: bold;
+    }
   }
 
   &__value {

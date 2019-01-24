@@ -75,11 +75,10 @@ export default {
 
 <template>
   <div class="app">
-    <div style="position: absolute; z-index: 10;">
+    <!-- DEBUG -->
+    <div style="position: absolute; z-index: 10;" v-if="false">
       {{testFinalSuccess}}
     </div>
-
-    <!-- DEBUG -->
     <div style="position: absolute; z-index: 10;" v-if="false">
       <button @click="setPaymentStatus('DECLINED')">TO DECLINED</button>
       <button @click="setPaymentStatus('CANCELLED')">TO CANCELLED</button>
@@ -128,10 +127,13 @@ ul {
 </style>
 
 <style lang="scss">
-@import "@/assets/styles/gui.scss";
-
 .app {
   width: 560px;
+  margin: 0 auto;
   position: relative;
+
+  @include onBreakpoint("s") {
+    width: 320px;
+  }
 }
 </style>

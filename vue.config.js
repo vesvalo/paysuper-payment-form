@@ -3,6 +3,14 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = {
   css: {
     extract: false,
+    loaderOptions: {
+      sass: {
+        data: `
+          @import "@/assets/styles/gui.scss";
+          @import "@/assets/styles/mixins.scss";
+        `,
+      },
+    },
   },
 
   filenameHashing: false,
