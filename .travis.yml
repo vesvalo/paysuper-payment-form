@@ -4,37 +4,36 @@ node_js:
 sudo: true
 env:
   global:
-  - secure: Xu+qIHo8JHLBdO8hHK1zz5XZMAfQjdcrPCQiQJD/Siz8o9oxg5R1d2G4h074ec3MKawUKYicHoZ0lZdz9ZUw6P61d4MGmRGS2YHcE7Kz7dCZKfy/8aFpVecngoW1L+7JFNJaJVO0mfc5Sk+HJlZQQygm2ZIYOkvHk1KvYRCoDPRm/jnO+Le2qlLyLmRYs/7FS1+ANCIzFO0IZC80/L4C36Tbazp5zy7eswzOjozxO6iSPtjwFpcn/tPW2MD1R5VZYENilunNwF6x8Ke/xG43K4k+WcK8SqeGHA/wkhHaw/UNxdLfBdNiJstQZO9p950ZWGydiBrSKYXDAYgWjT24Ua0VDgTpaC8s3UFg2TKtTS573ujSGxCPdcQp4My6ws4h4SLvIbXdkT9MvYV5KvYnYMfE90pBNL0iwRvfpwY7h2PrH7mVd07GfwPIX0K1br6DskrvI1lyIX8Mpwol+SdBa65ozOaty1enkLuX8pwAyJnTl/+EwU2gHYOwjrYsOTE5uOdE4tnrL1ASryHpI/v2+AAPv1ht91ExDSkd+hA5OKO2AZO+6D7IERVt5xo9LSGvWenxB4plrZ5kAPcUh/CS6pFZTSD++jNIK1aQ0L4URU4ng3JOG+4uxCc6wCP3SG3DlOwNCyXeZKNOSAOCPdI7bO0H+/tDPWiN+/EIVs7GVW8=
-  - secure: gLf+FLztWd0N31UpRiodMTKeUNqZAmItO+HB7verH7VOe1Yk+7gaZ2goQkUaVHlFHqyhBtqiK58hvMlzkyvtkN71TTlpVXKFxVzQyGKPONAH+kxo3vYTp9YztsNTvFUaPw9SxoTx+qvU7XD5y4AZy72SmWxqcwJTzwOxnVu3vD+h+QYvr8DEPlBXkWj0hP0Y3iQbulTXaG6NMrucDfnOkCyNx4PJJfWZORrpqygmZSnJR7IyX9mKrNoieA1VTNL9xkE1wsZbm8sydWT1kpvr6/3dIWJX0JjzcloYtFdvV+8lISksB8mqgR6h1D/KOvE86DW3d0Uc+tEfiD+E7pnQ/THFm6hAAnsQMsJ1D0cY1GJKHogR/Bw5gt68DLF13WITZIkaO1F1bx8BA6irRDK7tQYd3xgXFy159faC/EwwY7W45c1LrVvJFpw2VKMfo3f65b8H8uup5D/50DTCK509JDzpwUopwXLo4AbeRm6STLar/hbNTBOkKHW79KscGLUlwo99zqiL3i7q6uPmgvdPy6n2sVtdv40483qXOZGYhmARsrTtCcJuVcjXQr3CxJP0X7bwZibQFNPvZLA1TeJn+KyjAN0tDXRPOpePiSbhVkePx2x7TtHduIzHQjsnLm4lrop9wc/IF/JlmL69ol+zJEkACdaD9TQKozoX/aIB3Gs=
-  - secure: oyQbwc11h/eqqepisim31XQys+ohKUocQlhTEw9PmJPzOORRR+wRTXey381pKQr2hy1X1u44znWbpSZZpZia08WD6O88izuf6KZq2cs/N76kXFVDEFE1fJ4/1djERtO6semjNByo3SJgJ2h/cA1sWBIS89GWVHf/jTgWjPkNzYwksIcpqimL/iPjr/zkiDYAjyO0753B+rnF/r15Otf3nnMf2b0FaFTZ/tp81agRGTl5TIW8gCMFbGeVMEfotW9ni23nxAIRp6jz8n8ZYjPZDlbX4H9lOlFjfpuFK2krTqAPcSm9x4xWdjNofy28QjDy6TwFPkmKSRh5vuqtLJwmaAftkqFXnPT7z1cFM0FUcdOBuOLlni+ISFsdX64GLc1dOKJmIjjOSVAj13qLYJLBAlGjLNSGOJ0dddyzn0084MhHVjPOmaIHbNok0v/Te0/NoNg2fseOc+jHEbQpLUprwurHoExvvSFqznWbOLXc5xUs50cnT5wvDBfsnDLB6d/dFvK8Dg5HFWF01W/O5ycVUOyKzDf5Xb4MqUHx49x2fUgYqmCK+NvvDmoPqWh6dRryU6eZaORkuxYm0MzJSS88rlTjqLOCaUHLx85eEy7HdfUb9TTt7K2tG3Pvo9Jw/L1IeKCPJC440z/G2Drm5DQgj6AIJ4rYX64kbuybndUKvZ8=
-
-#stages:
-#- test
-#- release
-
+  #s3_host
+  - secure: a6E6hIh/h0Fh2oGkXY9FiRi34x/05wOQN1YOa4R1jHTXYVgBmzWt09nc1wkJM30msOtWkxt3CUSXpzfEWKNs1IAfunpiwG02uGtfCcBejE0Pv8ZIlm8IHke2xW8+E9J+uHXqL+PdQrN/a0I8WsLbOA1Vn293Bu2f8dlDzZeO2PObQHVTeMvhGH/MOTzkznDCYG5197XwGJz/553php6G5bTKo8GT6yARgTiW0vASfuUGaGYHnadRvjf4AdiMt74lTO/N5Lhdc+oH2jwd1ji4sIW4z8EAuYCVxLYUOHVcHyU67UeGk6GUNC/KIm4x3MSMn5yaUPnUEYDXwXLvPtX0Ekm6u3p+S6XIGGQvx9+7w4SIULCaK7qLOm9usJRfvwgQ0QYf0SRzVTdMQsfaaDyZj7pbD2GHrBbiHP3b6C7CjFb3aqbi08PZjF6p3hl2NsbfAorNIfN+158SCex2K3H3FPFcYJTpKZPzNkyoDW+KZwk+JbtyMp3+z7cLHjgSoRtXXKVXNXSPLcZ9Y1XoB+XicstpCzlL1DRqKeEXkkQrTY/QCgizHd9heWUtIH4m42Nv4X0RJufifbz/yCUBFIRHz1uI1I7AhldzBztUC5rm98Oh5sWjavR5b0FbhC/AjmwUkGgnbpY5NJIf12ewG/KTIzOyT2NWCDVcmjyWbfoIKN8=
+  #access_key
+  - secure: MFdews3YV5ej/XkHxg4zCY6Y3M+9EBCFRTdt0kyS8ZVbVyV/rK4HXtop7gy3q8dfLBC+XrXqdV+JJ9s7NHX4jjQnyqc8PvBV1Rvom2CaeIXBmEgi3TS8XsMArKHrzzuH/AVsbsfGquFCPTdkQ5zYGXdhkpsVscZZkL6yrarKKPbBGMrpZirSGUKwMorjs5jVPsWbpnH88vck/9Kq9EHW66YZjJtKotU+feC7F4pKuDrWMqF+35sHTlOKmKX3Usm6ryVF414RXTxxL+4FUXm0dleWUtrOUKxS83fSIVXSbuL2zU4Mb2UMkEmSiGQ5o36tU9/mVj77eXCt+QwpCdGFH7iWu8cZK3xbNxY1nKuKTn0Yk98PsYzkYDt34W8Ypk37BsvhB539Q2h7L3lIn/8lqXSCw2zCMFEho5o+m1RCMYBttk/nHlfqG7MvHgBlB8kkZ0ye/beopbq3MStc3UlMimc1H+bLvfxegZ5KNJ+6qlzRLADd+lHE9i5buDaTow/qMs5qlL87qhpeJ+vLfutww1yLDwlXAlHttyiNiFKQLyQdi+HlULMpGV0WhnUMGSVRViZjvqJ1dW665QRyRG39ngNcJzV8TXOSNI/BvoIqQZErvxMV8Ocrdx+Wn8FOz83F7UoASdhnLvErTQRDqJjTELpGnrVN9j336Q+fAwo/9L4=
+  #secret_key
+  - secure: aa9+1Jzv+o0ONXzZc0kDKT8vWZk4kQrHEP6PzfzJ10T/qc/CuIasBclY9oav4xxroyNm8TtphRhsIkOY7Q89QqGeUVM0y1X6OUCTUvpBBpem7lk5JNY5VuJ1O1lyKJr+Qy3IyREa0hUVDDe3thRKM1KKAOFHOKYn70MRTrMdg+X6pMjRFWY/syA2AGwEvwhLF1x1YLjbfqlWQvDHaq0aBdfp/bIjLlTFBhWl4d8iDfhz11QU+wpt5N71c1wFTpS9fi8JTNrh/z5kNfG5PomYjoIhIisYCDTUVtiapjDSU4nbEbfhWC4dop1/8h7dqSGZE2TWXsy3MffWAhXLQg7jH4LIWeUKaZPLMNFQ2MypwHHuIdK7fJ5r/kFr/drbAKDQBSpEv61HtwnwY33Ui4vIuE6q5O3N/K/KMtH1Y8b50liX1FzUX/sTO0gtH1ekFG1Y6yhdvdWVW/b51dql2OC6sE5xKQdJTNV9zGUAdWVo+pZlG627H3uzB2REcKnoijJIdlS8koY5ZutmmXGKoWNpUt/t4clhgbCT4ffSkljV8qMZz1vtzVkjoiOUdjwG+k+xj5ZGcht1PB8zy9YtsJNTPuJoKJ2RL7fS3LSarjGhdexoa0Dki8YDfhbhYMAFHu7K4cfFSgWwCUM7KjdbwHZtf86O4N5zIU0a6jil2PX/ZZU=
 before_script: curl https://rclone.org/install.sh | sudo bash
-
 jobs:
   include:
   - name: dev
-    if: (branch = master) or (tag =~ ^v)
-    script:
-    - set -e    
-    - npm run lint
-    - npm run test
-    - npm run build
-    - rclone copy dist :s3://payone/form/dev/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST 
-    - npm run coverage:publish
-  - name: release
-    if: (tag =~ ^v)
+    if: "(branch = master) or (tag =~ ^v)"
     script:
     - set -e
     - npm run lint
     - npm run test
     - npm run build
-    - rclone copy dist :s3://payone/form/latest/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
-    - rclone copy dist :s3://payone/form/$TRAVIS_TAG/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
-
+    - rclone copy dist :s3://payone/form/dev/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
+      --s3-endpoint=$S3_HOST
+    - npm run coverage:publish
+  - name: release
+    if: "(tag =~ ^v)"
+    script:
+    - set -e
+    - npm run lint
+    - npm run test
+    - npm run build
+    - rclone copy dist :s3://payone/form/latest/ --s3-access-key-id=$S3_ACCESS_KEY
+      --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
+    - rclone copy dist :s3://payone/form/$TRAVIS_TAG/ --s3-access-key-id=$S3_ACCESS_KEY
+      --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
 notifications:
   email: false
   slack:
