@@ -21,7 +21,7 @@ export default class PaymentConnection extends Events.EventEmitter {
   init() {
     this.centrifuge = new Centrifuge(websocketServerUrl);
     this.centrifuge.setToken(this.token);
-    this.centrifuge.subscribe(`payment:notify#${this.orderID}`, ({ data }) => {
+    this.centrifuge.subscribe(`paysuper:order#${this.orderID}`, ({ data }) => {
       this.emit('newPaymentStatus', data);
     });
     this.centrifuge.connect();
