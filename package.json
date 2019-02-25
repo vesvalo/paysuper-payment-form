@@ -1,6 +1,6 @@
 {
-  "name": "payone-js-payment-form",
-  "version": "2.2.0",
+  "name": "paysuper-payment-form",
+  "version": "0.4.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
