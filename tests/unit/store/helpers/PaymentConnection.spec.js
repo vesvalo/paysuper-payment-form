@@ -57,7 +57,7 @@ describe('PaymentConnection', () => {
       });
 
     paymentConnection.window.postMessage({
-      source: 'PAYONE_PAYMENT_FINISHED_PAGE',
+      source: 'PAYSUPER_PAYMENT_FINISHED_PAGE',
       name: 'FINAL_SUCCESS',
     });
 

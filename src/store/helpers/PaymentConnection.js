@@ -1,7 +1,7 @@
 import Centrifuge from 'centrifuge';
 import Events from 'events';
 
-const websocketServerUrl = window.P1PAYONE_WEBSOCKET_URL
+const websocketServerUrl = window.PAYSUPER_WEBSOCKET_URL
   || 'wss://cf.tst.protocol.one/connection/websocket';
 
 
@@ -36,7 +36,7 @@ export default class PaymentConnection extends Events.EventEmitter {
 
     this.window.addEventListener('message', (event) => {
       if (
-        event.data.source === 'PAYONE_PAYMENT_FINISHED_PAGE'
+        event.data.source === 'PAYSUPER_PAYMENT_FINISHED_PAGE'
         && event.data.name === 'FINAL_SUCCESS'
       ) {
         this.emit('finalSuccess');

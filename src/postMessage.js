@@ -1,7 +1,7 @@
 import assert from 'assert';
 import { invert } from 'lodash-es';
 
-export const payoneSdkSourceName = 'PAYONE_JS_SDK';
+export const payoneSdkSourceName = 'PAYSUPER_JS_SDK';
 
 export const sendingMessagesNames = {
   INITED: 'inited',
@@ -26,7 +26,7 @@ export function postMessage(nameID, data = {}) {
   const name = sendingMessagesNames[nameID];
   assert(name, `Undefiend postMessage nameID: ${nameID}`);
   window.parent.postMessage({
-    source: 'PAYONE_PAYMENT_FORM',
+    source: 'PAYSUPER_PAYMENT_FORM',
     name,
     data,
   }, '*');
