@@ -46,7 +46,7 @@ async function mountApp(formData, options = {}) {
   if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
     assert(formData, 'The initial data supposed to be recieved through postMessage is not defined');
   } else {
-    assert(formData, 'Define "window.P1PAYONE_FORM_DATA" property to set initial data');
+    assert(formData, 'Define "window.PAYSUPER_FORM_DATA" property to set initial data');
   }
   assert(document.querySelector('#p1payone-form'), 'Define "#p1payone-form" element in the document');
 
@@ -89,11 +89,11 @@ if (isPageInsideIframe) {
       if (process.env.NODE_ENV === 'development') {
         mountApp(formData, options);
       } else {
-        mountApp(window.P1PAYONE_FORM_DATA, options);
+        mountApp(window.PAYSUPER_FORM_DATA, options);
       }
     },
   });
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp(window.P1PAYONE_FORM_DATA);
+  mountApp(window.PAYSUPER_FORM_DATA);
 }

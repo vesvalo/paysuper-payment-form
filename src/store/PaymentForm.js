@@ -16,7 +16,7 @@ const allowedPaymentStatuses = [
   ...availableChannelStatuses,
 ];
 
-const apiUrl = window.P1PAYONE_API_URL || 'https://p1payapi.tst.protocol.one';
+const apiUrl = window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one';
 
 function setPaymentStatus(commit, name) {
   commit('paymentStatus', name);
