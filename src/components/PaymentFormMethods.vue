@@ -40,6 +40,7 @@ export default {
           @click="$emit('setMethod', method.id)"
         >
           <span
+            v-if="method.icon"
             class="payment-form-methods__icon"
             :style="{backgroundImage: `url(${method.icon})`}"
           ></span>
