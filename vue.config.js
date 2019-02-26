@@ -40,7 +40,7 @@ module.exports = {
 
   configureWebpack: {
     output: {
-      filename: 'p1payone-form.js',
+      filename: 'paysuper-form.js',
       chunkFilename: '[name].js',
     },
     plugins:
