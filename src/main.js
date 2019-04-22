@@ -9,6 +9,7 @@ import { includes } from 'lodash-es';
 import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
+import Modal from './Modal.vue';
 import './plugins/vuelidate';
 import store from './store/RootStore';
 import i18n from './i18n';
@@ -78,6 +79,8 @@ async function mountApp(formData, options = {}) {
       appComponent = Sandbox;
     } else if (includes(window.location.pathname, 'page')) {
       appComponent = Page;
+    } else if (includes(window.location.pathname, 'modal')) {
+      appComponent = Modal;
     }
   }
   const VueApp = Vue.extend(appComponent);

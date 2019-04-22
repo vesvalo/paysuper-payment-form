@@ -17,6 +17,9 @@ Sandbox page for new design components development
 #### http://localhost:4040/page/
 Standalone page in new design
 
+#### http://localhost:4040/modal/
+Modal form in new design
+
 ### In production
 Define mounting place with id `p1payone-form` and initial data before attaching the form script
 ```html
