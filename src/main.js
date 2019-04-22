@@ -5,8 +5,11 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import './plugins/vuelidate';
+import { includes } from 'lodash-es';
 import App from './App.vue';
+import Sandbox from './Sandbox.vue';
+import Page from './Page.vue';
+import './plugins/vuelidate';
 import store from './store/RootStore';
 import i18n from './i18n';
 import { postMessage, receiveMessages } from './postMessage';
@@ -69,7 +72,15 @@ async function mountApp(formData, options = {}) {
   });
 
   const language = getLanguage();
-  const VueApp = Vue.extend(App);
+  let appComponent = App;
+  if (process.env.NODE_ENV === 'development') {
+    if (includes(window.location.pathname, 'sandbox')) {
+      appComponent = Sandbox;
+    } else if (includes(window.location.pathname, 'page')) {
+      appComponent = Page;
+    }
+  }
+  const VueApp = Vue.extend(appComponent);
   new VueApp({
     store,
     i18n: i18n(options.language || language),

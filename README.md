@@ -8,6 +8,15 @@
 You can use the package in pair with `payone-js-sdk`.
 With `npm run serve` the form will be accessable in `payone-js-sdk` in development mode.
 
+#### http://localhost:4040/
+Actual payment form
+
+#### http://localhost:4040/sandbox/
+Sandbox page for new design components development
+
+#### http://localhost:4040/page/
+Standalone page in new design
+
 ### In production
 Define mounting place with id `p1payone-form` and initial data before attaching the form script
 ```html

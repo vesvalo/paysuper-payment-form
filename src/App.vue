@@ -103,27 +103,7 @@ export default {
 </template>
 
 <style lang="scss">
-body {
-  margin: 0;
-
-  &.inside-iframe {
-    overflow: hidden;
-  }
-}
-
-* {
-  box-sizing: border-box;
-}
-
-p {
-  margin: 0;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+@import "@/assets/styles/reset.scss";
 </style>
 
 <style lang="scss">
