@@ -39,6 +39,7 @@
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
+    "jest-serializer-vue": "^2.0.2",
     "node-sass": "^4.11.0",
     "pre-commit": "^1.2.2",
     "sass-loader": "^7.0.1",

@@ -9,5 +9,6 @@ describe('BaseButton.vue', () => {
       },
     });
     expect(wrapper.text()).toEqual('check');
+    expect(wrapper.element).toMatchSnapshot();
   });
 });
