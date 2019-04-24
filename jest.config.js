@@ -29,4 +29,5 @@ module.exports = {
     'src/**/*.{js,vue}',
     '!**/node_modules/**',
   ],
+  setupTestFrameworkScriptFile: '<rootDir>/jest.setup.js',
 };
