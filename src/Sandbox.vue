@@ -1,13 +1,17 @@
 <script>
 import UiButton from './components/UiButton.vue';
 import UiCheckbox from './components/UiCheckbox.vue';
+import UiTextField from './components/UiTextField.vue';
 
 export default {
-  components: { UiButton, UiCheckbox },
+  components: { UiButton, UiCheckbox, UiTextField },
   data() {
     return {
       hasClick: false,
       check: false,
+      value: '',
+      disabled: false,
+      hasError: false,
     };
   },
   methods: {
@@ -16,6 +20,9 @@ export default {
     },
     checkHandler(value) {
       this.check = value;
+    },
+    inputHandler(value) {
+      this.value = value;
     },
   },
 };
@@ -44,6 +51,27 @@ export default {
     >
       Label for checkbox
     </UiCheckbox>
+    <div class="ui-item">
+      <UiTextField
+        v-model="value"
+        class="text-input"
+        label="Label"
+        errorText="Some error text"
+        :disabled="disabled"
+        :hasError="hasError"
+        @input="inputHandler"
+      />
+
+      <label class="checkbox">
+        <input type="checkbox" v-model="disabled" />
+        Disabled
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" v-model="hasError" />
+        With error
+      </label>
+    </div>
   </div>
 </div>
 </template>
@@ -66,5 +94,16 @@ export default {
 .ui-item {
   display: block;
   margin-bottom: 20px;
+}
+.text-input {
+  max-width: 240px;
+}
+.checkbox {
+  font-family: sans-serif;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  max-width: 100px;
 }
 </style>
