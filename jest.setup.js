@@ -1,7 +1,12 @@
 /* eslint-disable */
 const puppeteer = require('puppeteer');
-const { toMatchImageSnapshot } = require('jest-image-snapshot');
+const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
+const customConfig = { threshold: 0.05 };
+const toMatchImageSnapshot = configureToMatchImageSnapshot({
+  customDiffConfig: customConfig,
+  noColors: true,
+});
 expect.extend({ toMatchImageSnapshot });
 
 beforeAll(async () => {
