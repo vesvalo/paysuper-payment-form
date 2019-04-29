@@ -10,9 +10,9 @@ describe('BaseButton.vue', () => {
     });
     expect(wrapper.text()).toEqual('check');
 
-    // await page.goto('http://localhost:6006/iframe.html?selectedKind=Button&selectedStory=with+text');
-    // const image = await page.screenshot();
+    await page.goto('http://localhost:6006/iframe.html?selectedKind=Button&selectedStory=with+text');
+    const image = await page.screenshot();
 
-    // expect(image).toMatchImageSnapshot();
+    expect(image).toMatchImageSnapshot();
   });
 });

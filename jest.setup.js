@@ -3,8 +3,9 @@ const puppeteer = require('puppeteer');
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
-  failureThreshold: '0.05',
-  failureThresholdType: 'percent'
+  customDiffConfig: {
+    threshold: '0.5'
+  },
 });
 expect.extend({ toMatchImageSnapshot });
 
