@@ -30,7 +30,7 @@ import { includes } from 'lodash-es';
 export default {
   model: {
     prop: 'value',
-    event: 'input'
+    event: 'input',
   },
   props: {
     disabled: {
@@ -95,45 +95,61 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$background-color: transparent;
-$primary-color: #fff;
-$label-color: rgba(#fff, 0.5);
-$border-color: rgba(#fff, 0.2);
-$focus-border-color: #06eaa7;
-$error-color: #fc7e57;
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
 
-$primary-size: 15px;
-$secondary-size: 12px;
+$common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
+
+$error-box-color: #fc7e57;
+$error-font-color: #fff;
+$error-font-size: 10px;
+$error-font-weight: 600;
+$error-height: 17px;
+
+$focus-border-color: #06eaa7;
+
+$input-border-color: rgba(#fff, 0.2);
+$input-box-color: transparent;
+$input-font-color: #fff;
+$input-font-weight: 300;
+$input-transition: border-color 0.2s ease-out;
+
+$label-color: rgba(#fff, 0.5);
+$label-transition: transform 0.2s ease-out, color 0.2s linear;
+
+$main-font-size: 15px;
+$main-height: 24px;
+$main-additional-height: 18px;
 
 .text-field {
   display: inline-block;
-  padding: 18px 0 15px;
+  padding: $main-additional-height 0;
   position: relative;
   width: 100%;
-  font-family: sans-serif;
+  font-family: $common-font-family;
   font-style: normal;
-  font-weight: 500;
+  font-weight: $input-font-weight;
 }
 
 @mixin input() {
-  background-color: $background-color;
+  background-color: $input-box-color;
   border-width: 0;
   border-bottom-width: 1px;
-  border-color: $border-color;
+  border-color: $input-border-color;
   box-sizing: border-box;
-  color: $primary-color;
+  color: $input-font-color;
   display: block;
-  font-family: sans-serif;
-  font-size: $primary-size;
-  height: 24px;
-  line-height: 24px;
+  font-family: $common-font-family;
+  font-weight: $input-font-weight;
+  font-size: $main-font-size;
+  height: $main-height;
+  line-height: $main-height;
   outline: none;
   padding: 0;
-  transition: border-color 0.2s ease-out;
+  transition: $input-transition;
   width: 100%;
 
   &:hover {
-    border-color: scale-color($border-color, $alpha: 37.5%);
+    border-color: scale-color($input-border-color, $alpha: 37.5%);
   }
 
   &:focus {
@@ -142,8 +158,7 @@ $secondary-size: 12px;
 
   &:focus ~ .label,
   &:not(:focus):not(._empty) ~ .label {
-    width: 50%;
-    transform: translateY(-18px) scale(0.75, 0.75);
+    transform: translateY(-$main-additional-height) scale(0.75, 0.75);
   }
   &:focus ~ .label {
     pointer-events: auto;
@@ -154,12 +169,12 @@ $secondary-size: 12px;
   }
 
   &._error {
-    border-color: $error-color;
+    border-color: $error-box-color;
   }
 
   &._disabled {
     color: scale-color($label-color, $alpha: -50%);
-    border-color: scale-color($border-color, $alpha: -50%);
+    border-color: scale-color($input-border-color, $alpha: -50%);
     pointer-events: none;
 
     & ~ .label {
@@ -168,36 +183,34 @@ $secondary-size: 12px;
   }
 }
 .input {
-  @include input(); 
+  @include input();
 }
 .label {
   color: $label-color;
-  line-height: 24px;
+  line-height: $main-height;
   margin: 0;
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: $primary-size;
+  font-size: $main-font-size;
   left: 0;
   pointer-events: none;
-  top: 18px;
+  top: $main-additional-height;
   transform-origin: left;
-  transition: transform 0.2s ease-out, color 0.2s linear, width 0.1s ease-out;
+  transition: $label-transition;
   width: 100%;
-
-  &:after {
-    color: #f00;
-  }
 }
 .error {
-  bottom: 0;
-  color: $error-color;
+  background-color: $error-box-color;
+  top: $main-height + $main-additional-height + 2px;
+  color: $error-font-color;
   display: block;
-  font-size: $secondary-size;
+  font-size: $error-font-size;
+  font-weight: $error-font-weight;
+  line-height: $error-height;
   position: absolute;
-  text-align: right;
-  line-height: 15px;
-  width: 100%;
+  padding: 0 5px;
+  border-radius: 0 3px 3px 3px;
 }
 </style>

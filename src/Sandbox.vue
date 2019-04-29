@@ -96,7 +96,7 @@ export default {
   margin-bottom: 20px;
 }
 .text-input {
-  max-width: 240px;
+  max-width: 210px;
 }
 .checkbox {
   font-family: sans-serif;
