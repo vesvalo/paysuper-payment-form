@@ -7,6 +7,8 @@ node_modules
 
 /coverage/
 
+yarn.lock
+
 # local env files
 .env.local
 .env.*.local
