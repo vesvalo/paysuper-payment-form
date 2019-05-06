@@ -1,6 +1,6 @@
 <template>
 <label
-  class="base-checkbox"
+  :class="['base-checkbox', { '_disabled': disabled }]"
   :for="id"
 >
   <input
@@ -95,6 +95,7 @@ $border-color: #fff;
 $hover-check-color: #06eaa7;
 $text-color: #fff;
 $hover-text-color: #06eaa7;
+$label-margin: 10px;
 
 .base-checkbox {
   display: inline-flex;
@@ -103,13 +104,19 @@ $hover-text-color: #06eaa7;
   font-family: $common-font-family;
   cursor: pointer;
 
-  &:hover {
+  &:hover:not(._disabled) {
     .label-text {
       color: $hover-text-color;
     }
 
     .check {
       border-color: $hover-check-color;
+    }
+  }
+
+  &._disabled {
+    .label-text {
+      color: $disabled-color;
     }
   }
 }
@@ -130,6 +137,7 @@ $hover-text-color: #06eaa7;
   border-radius: 50%;
   border: 1px solid $border-color;
   background-color: $box-color;
+  box-sizing: border-box;
   height: 20px;
   width: 20px;
 
@@ -148,7 +156,7 @@ $hover-text-color: #06eaa7;
   }
 }
 .label-text {
-  margin-left: 10px;
+  margin-left: $label-margin;
   color: $text-color;
 
   &:empty {
