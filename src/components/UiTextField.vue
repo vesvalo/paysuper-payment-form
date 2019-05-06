@@ -57,7 +57,7 @@ export default {
       default: 'text',
       type: String,
       validator(val) {
-        return includes(['text', 'email', 'card'], val);
+        return includes(['text'], val);
       },
     },
     value: {
@@ -130,7 +130,7 @@ $main-additional-height: 18px;
   font-weight: $input-font-weight;
 }
 
-@mixin input() {
+.input {
   background-color: $input-box-color;
   border-width: 0;
   border-bottom-width: 1px;
@@ -181,9 +181,6 @@ $main-additional-height: 18px;
       color: scale-color($label-color, $alpha: -50%);
     }
   }
-}
-.input {
-  @include input();
 }
 .label {
   color: $label-color;
