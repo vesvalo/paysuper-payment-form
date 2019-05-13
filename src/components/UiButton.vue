@@ -1,15 +1,22 @@
 <template>
 <button
   :class="['ui-button', { '_disabled': disabled } ]"
+  :style="$styles.button.rootElem"
   @click="onClick"
 >
-  <span class="before">
+  <span
+    class="before"
+    :style="$styles.button.before"
+  >
     <slot name="before" />
   </span>
 
   <slot />
 
-  <span class="after">
+  <span
+    class="after"
+    :style="$styles.button.after"
+  >
     <slot name="after" />
   </span>
 </button>

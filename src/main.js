@@ -5,7 +5,7 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import { includes } from 'lodash-es';
+import { includes, pick, mapValues } from 'lodash-es';
 import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
@@ -28,6 +28,13 @@ Vue.config.productionTip = false;
 
 const isPageInsideIframe = window.location !== window.parent.location;
 
+const allowedStyleAttrs = [
+  'backgroundColor',
+  'color',
+  'marginLeft',
+  'marginRight',
+];
+
 /**
  * Cuts out language 2-letters code from navigator.language
  *
@@ -38,6 +45,18 @@ function getLanguage() {
     return navigator.language.slice(0, 2);
   }
   return 'en';
+}
+
+/**
+ * Prepare styles for customizate
+ *
+ * @return {Object}
+ */
+function prepareStyles(components) {
+  return mapValues(
+    components,
+    elements => mapValues(elements, attrs => pick(attrs, allowedStyleAttrs)),
+  );
 }
 
 /**
@@ -84,6 +103,9 @@ async function mountApp(formData, options = {}) {
     }
   }
   const VueApp = Vue.extend(appComponent);
+
+  Vue.prototype.$styles = prepareStyles(formData.customizate);
+
   new VueApp({
     store,
     i18n: i18n(options.language || language),
