@@ -27,6 +27,7 @@ $size: 32px;
   border-style: solid;
   border-top-color: $color;
   border-width: $border-width;
+  box-sizing: border-box;
   display: inline-block;
   height: $size;
   transform: rotate($default-position);
