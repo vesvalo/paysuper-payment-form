@@ -1,7 +1,7 @@
 <template>
 <button
   :class="['ui-button', { '_disabled': disabled } ]"
-  :style="$styles.button.rootElem"
+  :style="$styles.button.container"
   @click="onClick"
 >
   <span
