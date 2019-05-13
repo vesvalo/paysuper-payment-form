@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/vue';
 import UiTextField from '../components/UiTextField.vue';
 
 storiesOf('UiTextField', module)
-  .add('simple', () => ({
+  .add('default', () => ({
     components: { UiTextField },
     data() {
       return {

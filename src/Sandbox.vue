@@ -1,10 +1,11 @@
 <script>
 import UiButton from './components/UiButton.vue';
 import UiCheckbox from './components/UiCheckbox.vue';
+import UiSimplePreloader from './components/UiSimplePreloader.vue';
 import UiTextField from './components/UiTextField.vue';
 
 export default {
-  components: { UiButton, UiCheckbox, UiTextField },
+  components: { UiButton, UiCheckbox, UiSimplePreloader, UiTextField },
   data() {
     return {
       hasClick: false,
@@ -44,13 +45,14 @@ export default {
       Text for button
       <template v-if="!hasClick" slot="after">After</template>
     </UiButton>
-    <UiCheckbox
-      v-model="check"
-      class="ui-item"
-      @input="checkHandler"
-    >
-      Label for checkbox
-    </UiCheckbox>
+    <div class="ui-item">
+      <UiCheckbox
+        v-model="check"
+        @input="checkHandler"
+      >
+        Label for checkbox
+      </UiCheckbox>
+    </div>
     <div class="ui-item">
       <UiTextField
         v-model="value"
@@ -71,6 +73,9 @@ export default {
         <input type="checkbox" v-model="hasError" />
         With error
       </label>
+    </div>
+    <div class="ui-item">
+      <UiSimplePreloader />
     </div>
   </div>
 </div>

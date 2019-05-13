@@ -12,7 +12,7 @@ const parentStyles = {
 };
 
 storiesOf('UiCheckbox', module)
-  .add('simple', () => ({
+  .add('default', () => ({
     components: { UiCheckbox },
     data() {
       return { checked: false };

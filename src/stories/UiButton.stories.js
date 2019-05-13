@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 import UiButton from '../components/UiButton.vue';
 
 storiesOf('UiButton', module)
-  .add('simple', () => ({
+  .add('default', () => ({
     components: { UiButton },
     render() {
       return <UiButton onClick={this.action}>Some text</UiButton>;
