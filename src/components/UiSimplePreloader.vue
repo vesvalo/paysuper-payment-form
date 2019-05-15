@@ -32,6 +32,7 @@ $size: 32px;
   height: $size;
   transform: rotate($default-position);
   width: $size;
+  vertical-align: top;
 }
 
 @keyframes rotate {

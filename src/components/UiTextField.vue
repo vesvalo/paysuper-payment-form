@@ -129,6 +129,7 @@ $main-additional-height: 18px;
   font-style: normal;
   font-weight: $input-font-weight;
   text-align: left;
+  vertical-align: top;
 }
 
 .input {

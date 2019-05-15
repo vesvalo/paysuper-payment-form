@@ -84,6 +84,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   border-color: $border-color;
   border-radius: $border-radius;
   transition: $transition;
+  vertical-align: top;
 
   &:hover {
     background-color: $hover-box-color;
