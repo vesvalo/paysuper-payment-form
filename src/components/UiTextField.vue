@@ -95,9 +95,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+@import url("https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext");
 
-$common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
+$common-font-family: "Quicksand", "Comfortaa", sans-serif;
 
 $error-box-color: #fc7e57;
 $error-font-color: #fff;
@@ -128,6 +128,7 @@ $main-additional-height: 18px;
   font-family: $common-font-family;
   font-style: normal;
   font-weight: $input-font-weight;
+  text-align: left;
 }
 
 .input {
