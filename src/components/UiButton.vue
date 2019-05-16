@@ -1,22 +1,15 @@
 <template>
 <button
-  :class="['ui-button', { '_disabled': disabled } ]"
-  :style="$styles.button.container"
+  :class="[container, { [containerDisabled]: disabled } ]"
   @click="onClick"
 >
-  <span
-    class="before"
-    :style="$styles.button.before"
-  >
+  <span :class="before">
     <slot name="before" />
   </span>
 
   <slot />
 
-  <span
-    class="after"
-    :style="$styles.button.after"
-  >
+  <span :class="after">
     <slot name="after" />
   </span>
 </button>
@@ -28,6 +21,30 @@ export default {
     disabled: {
       default: false,
       type: Boolean,
+    },
+  },
+  mounted() {
+    const selectors = {
+      container: this.container,
+      before: this.before,
+      after: this.after,
+    };
+    const states = ['default', 'hover', 'active'];
+
+    this.$addCssRules(selectors, states);
+  },
+  computed: {
+    container() {
+      return this.$style.container;
+    },
+    containerDisabled() {
+      return this.$style._disabled;
+    },
+    before() {
+      return this.$style.before;
+    },
+    after() {
+      return this.$style.after;
     },
   },
   methods: {
@@ -43,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $after-margin: 12px;
@@ -66,7 +83,7 @@ $disabled-opacity: 0.7;
 $border-radius: 12px;
 $transition: background-color 0.2s ease-out, color 0.2s ease-out;
 
-.ui-button {
+.container {
   cursor: pointer;
   outline-width: 0;
   position: relative;

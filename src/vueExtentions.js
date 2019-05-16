@@ -1,5 +1,26 @@
 import Vue from 'vue';
-import { get, extend } from 'lodash-es';
+import { forEach, get, extend } from 'lodash-es';
+
+function $addCssRules(selectors, states) {
+  console.error(selectors, states, this.$styles);
+  forEach(selectors, (hashClass, selector) => {
+    forEach(states, (state) => {
+      const css = get(this.$styles, ['button', selector, state], null);
+
+      if (css) {
+        const styleElement = document.createElement('style');
+        styleElement.type = 'text/css';
+        styleElement.innerHTML = `${hashClass}${state && state !== 'default' ? `:${state}` : ''} ${css}`;
+        // styleElement.appendChild(document.createTextNode(''));
+        document.head.appendChild(styleElement);
+
+        const styleSheet = styleElement.sheet;
+        // styleSheet.insertRule(`${hashClass}${state && state !== 'default' ? `:${state}` : ''} ${css}`);
+        console.error(styleSheet);
+      }
+    });
+  });
+}
 
 function $getFieldErrorMessages(fieldPath) {
   const field = get(this.$v, fieldPath);
@@ -25,6 +46,7 @@ function $isFieldInvalid(fieldPath) {
 }
 
 extend(Vue.prototype, {
+  $addCssRules,
   $getFieldErrorMessages,
   $isFieldInvalid,
 });

@@ -48,15 +48,38 @@
         customizate: {
           button: {
             container: {
-              backgroundColor: '#5b88de',
+              default: `{
+                background-color: #5b88de;
+                font-family: Quicksand, Comfortaa, sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                height: 70px;
+                padding: 0 24px;
+                color: #333;
+                justify-content: center;
+                border-color: transparent;
+                border-radius: 12px;
+                border-width: 0;
+                transition: background-color 0.2s ease-out, color 0.2s ease-out;
+              }`,
+              hover: `{
+                background-color: #6891e1;
+              }`,
+              active: `{
+                background-color: #4e7fdb;
+              }`,
             },
             before: {
-              color: '#fff',
-              marginRight: '12px',
+              default: `{
+                color: #fff;
+                margin-right: 12px;
+              }`,
             },
             after: {
-              color: '#fff',
-              marginLeft: '12px',
+              default: `{
+                color: #fff;
+                margin-left: 12px;
+              }`,
             },
           },
         },

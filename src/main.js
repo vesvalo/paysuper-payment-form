@@ -5,7 +5,7 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import { includes, pick, mapValues } from 'lodash-es';
+import { includes } from 'lodash-es';
 import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
@@ -28,13 +28,6 @@ Vue.config.productionTip = false;
 
 const isPageInsideIframe = window.location !== window.parent.location;
 
-const allowedStyleAttrs = [
-  'backgroundColor',
-  'color',
-  'marginLeft',
-  'marginRight',
-];
-
 /**
  * Cuts out language 2-letters code from navigator.language
  *
@@ -53,10 +46,7 @@ function getLanguage() {
  * @return {Object}
  */
 function prepareStyles(components) {
-  return mapValues(
-    components,
-    elements => mapValues(elements, attrs => pick(attrs, allowedStyleAttrs)),
-  );
+  return components;
 }
 
 /**
