@@ -145,7 +145,7 @@ export default {
   align-items: center;
   flex-direction: column;
 
-  @include onBreakpoint("s") {
+  @include onBreakpoint('s') {
     line-height: 24px;
   }
 
@@ -154,7 +154,7 @@ export default {
     justify-content: center;
     align-items: center;
 
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       flex-direction: column;
     }
 
@@ -186,7 +186,7 @@ export default {
   padding: 20px;
   margin: 10px 0 10px;
 
-  @include onBreakpoint("s") {
+  @include onBreakpoint('s') {
     width: 280px;
     margin-bottom: 0;
   }
@@ -201,7 +201,7 @@ export default {
     justify-content: space-between;
 
     &::before {
-      content: " ";
+      content: ' ';
       flex-grow: 1;
       order: 1;
       border-bottom: 1px dotted #999;
@@ -211,7 +211,7 @@ export default {
       margin-top: 8px;
     }
 
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       display: block;
 
       &::before {
@@ -223,7 +223,7 @@ export default {
   &__key {
     order: 0;
 
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       display: block;
       font-weight: bold;
     }

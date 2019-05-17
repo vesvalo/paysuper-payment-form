@@ -388,7 +388,7 @@ export default {
   }
 
   &__email-field-holder {
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       width: 100%;
     }
   }
@@ -398,7 +398,7 @@ export default {
   }
 
   &__submit-button {
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       width: 100%;
       margin-top: 15px;
     }
