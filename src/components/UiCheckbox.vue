@@ -112,6 +112,7 @@ $label-margin: 10px;
     opacity: $disabled-opacity;
   }
 }
+
 .input {
   height: 0;
   position: absolute;
@@ -119,9 +120,10 @@ $label-margin: 10px;
   width: 0;
 
   &:checked + .check {
-    border-width: 0px;
+    border-width: 0;
   }
 }
+
 .check {
   border-radius: 50%;
   border: 1px solid $border-color;
@@ -130,6 +132,7 @@ $label-margin: 10px;
   height: 20px;
   width: 20px;
 }
+
 .label {
   margin-left: $label-margin;
   color: $text-color;

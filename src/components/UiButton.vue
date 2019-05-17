@@ -116,11 +116,13 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
     opacity: $disabled-opacity;
   }
 }
+
 .before {
   display: inline-block;
   color: $before-text-color;
   margin-right: $before-margin;
 }
+
 .after {
   display: inline-block;
   color: $after-text-color;

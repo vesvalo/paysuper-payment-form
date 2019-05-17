@@ -181,10 +181,12 @@ $main-additional-height: 18px;
   &:not(:focus):not(._empty) ~ .label {
     transform: translateY(-$main-additional-height) scale(0.75, 0.75);
   }
+
   &:focus ~ .label {
     pointer-events: auto;
     color: scale-color($label-color, $alpha: -40%);
   }
+
   &:not(:focus):not(._empty) ~ .label {
     color: scale-color($label-color, $alpha: -40%);
   }
@@ -203,6 +205,7 @@ $main-additional-height: 18px;
     }
   }
 }
+
 .label {
   color: $label-color;
   line-height: $main-height;
@@ -219,6 +222,7 @@ $main-additional-height: 18px;
   transition: $label-transition;
   width: 100%;
 }
+
 .error {
   background-color: $error-box-color;
   top: $main-height + $main-additional-height + 2px;

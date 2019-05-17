@@ -33,6 +33,7 @@ $size: 32px;
     timing-function: linear;
     iteration-count: infinite;
   };
+
   background-color: transparent;
   border-color: $main-color;
   border-radius: $size / 2;
@@ -48,6 +49,6 @@ $size: 32px;
 }
 
 @keyframes rotate {
-  100% { transform: rotate(360deg + $default-position) }
+  100% { transform: rotate(360deg + $default-position); }
 }
 </style>

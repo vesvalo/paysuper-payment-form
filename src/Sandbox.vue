@@ -110,19 +110,23 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .ui-kit {
   width: 100vw;
   flex-grow: 1;
   background-color: #424c66;
   padding: 20px 50px;
 }
+
 .ui-item {
   display: block;
   margin-bottom: 20px;
 }
+
 .text-input {
   max-width: 210px;
 }
+
 .checkbox {
   font-family: sans-serif;
   color: #fff;

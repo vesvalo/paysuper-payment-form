@@ -4,6 +4,7 @@ module.exports = {
     'stylelint-config-standard',
   ],
   rules: {
+    'no-descending-specificity': null,
     'at-rule-no-unknown': [true, {
       ignoreAtRules: [
         'include',
