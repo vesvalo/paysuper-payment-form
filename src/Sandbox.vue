@@ -3,9 +3,16 @@ import UiButton from './components/UiButton.vue';
 import UiCheckbox from './components/UiCheckbox.vue';
 import UiSimplePreloader from './components/UiSimplePreloader.vue';
 import UiTextField from './components/UiTextField.vue';
+import ActionResult from '@/components/ActionResult.vue';
 
 export default {
-  components: { UiButton, UiCheckbox, UiSimplePreloader, UiTextField },
+  components: {
+    UiButton,
+    UiCheckbox,
+    UiSimplePreloader,
+    UiTextField,
+    ActionResult,
+  },
   data() {
     return {
       hasClick: false,
@@ -13,6 +20,11 @@ export default {
       value: '',
       disabled: false,
       hasError: false,
+      actionResult: {
+        content: 'error',
+        step: 'initial',
+        paymentMethod: 'card',
+      },
     };
   },
   methods: {
@@ -31,10 +43,6 @@ export default {
 
 <template>
 <div class="sandbox">
-  <h1>
-    Sandbox is here
-  </h1>
-
   <div class="ui-kit">
     <UiButton
       class="ui-item"
@@ -77,13 +85,37 @@ export default {
     <div class="ui-item">
       <UiSimplePreloader />
     </div>
+    <div style="width: 320px; height: 440px; box-shadow: 0 0 5px #000">
+      <ActionResult
+        :content="actionResult.content"
+        :paymentMethod="actionResult.paymentMethod"
+        :step="actionResult.step"
+      />
+      <select v-model="actionResult.content">
+        <option value="error">error</option>
+        <option value="declined">declined</option>
+        <option value="success">success</option>
+      </select>
+      <select v-model="actionResult.paymentMethod">
+        <option value="card">card</option>
+        <option value="other">other</option>
+      </select>
+      <select v-model="actionResult.step">
+        <option value="initial">initial</option>
+        <option value="final">final</option>
+      </select>
+    </div>
+
   </div>
 </div>
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/reset.scss";
-
+@import '@/assets/styles/reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+body {
+  font-family: $common-font-family;
+}
 .sandbox {
   width: 100vw;
   height: 100vh;

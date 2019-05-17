@@ -63,7 +63,7 @@ export default {
     font-size: 15px;
     line-height: 32px;
 
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       display: block;
     }
   }
@@ -72,7 +72,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
 
-    @include onBreakpoint("s") {
+    @include onBreakpoint('s') {
       display: none;
     }
   }

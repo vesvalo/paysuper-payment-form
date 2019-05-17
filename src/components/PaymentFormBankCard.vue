@@ -212,7 +212,7 @@ export default {
   text-align: right;
   padding-top: 5px;
 
-  @include onBreakpoint("s") {
+  @include onBreakpoint('s') {
     padding-right: 20px;
   }
 }

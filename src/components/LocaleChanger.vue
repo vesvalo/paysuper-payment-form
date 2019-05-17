@@ -32,7 +32,7 @@ export default {
   &__item {
     & + & {
       &::before {
-        content: "|";
+        content: '|';
         color: $ui-color-grey72;
         font-size: 10px;
         margin: 0 5px;

@@ -103,7 +103,11 @@ export default {
 </template>
 
 <style lang="scss">
-@import "@/assets/styles/reset.scss";
+@import '@/assets/styles/reset.scss';
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+body {
+  font-family: $common-font-family;
+}
 </style>
 
 <style lang="scss">
@@ -112,7 +116,7 @@ export default {
   margin: 0 auto;
   position: relative;
 
-  @include onBreakpoint("s") {
+  @include onBreakpoint('s') {
     width: 320px;
   }
 }
