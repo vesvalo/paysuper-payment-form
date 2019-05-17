@@ -1,28 +1,23 @@
 <template>
-<label
-  :class="['base-checkbox', { '_disabled': disabled }]"
-  :for="id"
->
+<label :class="[container, { [stateDisabled]: disabled }]">
   <input
-    v-bind="{ checked, disabled, id }"
-    class="input"
+    v-bind="{ checked, disabled }"
     type="checkbox"
+    :class="input"
     @change="emitChange"
   >
 
-  <div :class="checkboxClasses">
+  <div :class="check">
     <IconCheck v-if="checked" />
   </div>
 
-  <span class="label-text">
+  <span :class="label">
     <slot/>
   </span>
 </label>
 </template>
 
 <script>
-import { includes, uniqueId } from 'lodash-es';
-
 export default {
   model: {
     prop: 'checked',
@@ -37,29 +32,34 @@ export default {
       default: false,
       type: Boolean,
     },
-    size: {
-      default: 'default',
-      type: String,
-      validator(value) {
-        return includes(['default'], value);
-      },
-    },
   },
   computed: {
-    /**
-     * Classes for checkbox
-     * @return {Array<string>}
-     */
-    checkboxClasses() {
-      return [ 'check', `_${this.size}`, { '_disabled': this.disabled } ];
+    container() {
+      return this.$style.container;
     },
-    /**
-     * Unique ID for checkbox element
-     * @return {string}
-     */
-    id() {
-      return uniqueId('checkbox');
+    stateDisabled() {
+      return this.$style._disabled;
     },
+    input() {
+      return this.$style.input;
+    },
+    check() {
+      return this.$style.check;
+    },
+    label() {
+      return this.$style.label;
+    },
+  },
+  mounted() {
+    const selectors = {
+      container: this.container,
+      input: this.input,
+      check: this.check,
+      label: this.label,
+    };
+    const states = ['default', 'checked'];
+
+    this.$addCssRules('checkbox', selectors, states);
   },
   methods: {
     /**
@@ -77,20 +77,19 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $box-color: transparent;
 $disabled-opacity: 0.5;
-$disabled-color: rgba(#fff, $disabled-opacity);
 $border-color: #fff;
 $hover-check-color: #06eaa7;
 $text-color: #fff;
 $hover-text-color: #06eaa7;
 $label-margin: 10px;
 
-.base-checkbox {
+.container {
   display: inline-flex;
   align-items: center;
   position: relative;
@@ -99,7 +98,7 @@ $label-margin: 10px;
   cursor: pointer;
 
   &:hover:not(._disabled) {
-    .label-text {
+    .label {
       color: $hover-text-color;
     }
 
@@ -110,10 +109,7 @@ $label-margin: 10px;
 
   &._disabled {
     pointer-events: none;
-
-    .label-text {
-      color: $disabled-color;
-    }
+    opacity: $disabled-opacity;
   }
 }
 .input {
@@ -133,12 +129,8 @@ $label-margin: 10px;
   box-sizing: border-box;
   height: 20px;
   width: 20px;
-
-  &._disabled {
-    opacity: $disabled-opacity;
-  }
 }
-.label-text {
+.label {
   margin-left: $label-margin;
   color: $text-color;
 

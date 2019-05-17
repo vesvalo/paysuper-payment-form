@@ -1,22 +1,29 @@
 import Vue from 'vue';
-import { forEach, get, extend } from 'lodash-es';
+import {
+  extend,
+  forEach,
+  get,
+  includes,
+  isObject,
+  reduce,
+} from 'lodash-es';
 
-function $addCssRules(selectors, states) {
-  console.error(selectors, states, this.$styles);
+function $addCssRules(component, selectors, states) {
   forEach(selectors, (hashClass, selector) => {
     forEach(states, (state) => {
-      const css = get(this.$styles, ['button', selector, state], null);
+      const cssObject = get(this.$styles, [component, selector, state], false);
 
-      if (css) {
+      if (cssObject && isObject(cssObject)) {
+        const css = reduce(cssObject, (result, value, key) => (`${result}${key}:${value};`), '');
         const styleElement = document.createElement('style');
-        styleElement.type = 'text/css';
-        styleElement.innerHTML = `${hashClass}${state && state !== 'default' ? `:${state}` : ''} ${css}`;
-        // styleElement.appendChild(document.createTextNode(''));
-        document.head.appendChild(styleElement);
 
-        const styleSheet = styleElement.sheet;
-        // styleSheet.insertRule(`${hashClass}${state && state !== 'default' ? `:${state}` : ''} ${css}`);
-        console.error(styleSheet);
+        styleElement.type = 'text/css';
+        styleElement.innerHTML = `
+          .${hashClass}${includes(['default', 'disabled'], state) ? '' : `:${state}`} {${css}}
+        `;
+        styleElement.appendChild(document.createTextNode(''));
+
+        document.head.appendChild(styleElement);
       }
     });
   });

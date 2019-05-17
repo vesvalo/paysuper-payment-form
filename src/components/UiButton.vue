@@ -1,6 +1,6 @@
 <template>
 <button
-  :class="[container, { [containerDisabled]: disabled } ]"
+  :class="[container, { [stateDisabled]: disabled } ]"
   @click="onClick"
 >
   <span :class="before">
@@ -23,21 +23,11 @@ export default {
       type: Boolean,
     },
   },
-  mounted() {
-    const selectors = {
-      container: this.container,
-      before: this.before,
-      after: this.after,
-    };
-    const states = ['default', 'hover', 'active'];
-
-    this.$addCssRules(selectors, states);
-  },
   computed: {
     container() {
       return this.$style.container;
     },
-    containerDisabled() {
+    stateDisabled() {
       return this.$style._disabled;
     },
     before() {
@@ -46,6 +36,16 @@ export default {
     after() {
       return this.$style.after;
     },
+  },
+  mounted() {
+    const selectors = {
+      container: this.container,
+      before: this.before,
+      after: this.after,
+    };
+    const states = ['default', 'hover', 'active'];
+
+    this.$addCssRules('button', selectors, states);
   },
   methods: {
     onClick(event) {
@@ -60,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss" module>
+<style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $after-margin: 12px;
