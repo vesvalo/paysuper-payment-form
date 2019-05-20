@@ -1,5 +1,5 @@
 <template>
-<div class="text-field">
+<div :class="container">
   <input
     v-bind="{ required, disabled }"
     :class="inputClasses"
@@ -9,7 +9,7 @@
     @input="$emit('input', $event.target.value)"
   >
   <label
-    class="label"
+    :class="labelClass"
     :title="label"
   >
     {{ label }}
@@ -66,6 +66,15 @@ export default {
     },
   },
   computed: {
+    container() {
+      return this.$style.container;
+    },
+    input() {
+      return this.$style.input;
+    },
+    labelClass() {
+      return this.$style.label;
+    },
     isEmpty() {
       return !this.value && this.value !== 0;
     },
@@ -82,7 +91,7 @@ export default {
      */
     inputClasses() {
       return [
-        'input',
+        this.input,
         `_${this.type}`,
         this.isEmpty ? '_empty' : '',
         this.isVisibleError ? '_error' : '',
@@ -91,10 +100,20 @@ export default {
       ];
     },
   },
+  mounted() {
+    const selectors = {
+      container: this.container,
+      input: this.input,
+      label: this.labelClass,
+    };
+    const states = ['default', 'checked'];
+
+    this.$addCssRules('textField', selectors, states);
+  },
 };
 </script>
 
-<style scoped lang="scss">
+<style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
@@ -120,7 +139,7 @@ $main-font-size: 15px;
 $main-height: 24px;
 $main-additional-height: 18px;
 
-.text-field {
+.container {
   display: inline-block;
   padding: $main-additional-height 0;
   position: relative;
@@ -129,6 +148,7 @@ $main-additional-height: 18px;
   font-style: normal;
   font-weight: $input-font-weight;
   text-align: left;
+  vertical-align: top;
 }
 
 .input {
@@ -161,10 +181,12 @@ $main-additional-height: 18px;
   &:not(:focus):not(._empty) ~ .label {
     transform: translateY(-$main-additional-height) scale(0.75, 0.75);
   }
+
   &:focus ~ .label {
     pointer-events: auto;
     color: scale-color($label-color, $alpha: -40%);
   }
+
   &:not(:focus):not(._empty) ~ .label {
     color: scale-color($label-color, $alpha: -40%);
   }
@@ -173,7 +195,7 @@ $main-additional-height: 18px;
     border-color: $error-box-color;
   }
 
-  &._disabled {
+  &:disabled {
     color: scale-color($label-color, $alpha: -50%);
     border-color: scale-color($input-border-color, $alpha: -50%);
     pointer-events: none;
@@ -183,6 +205,7 @@ $main-additional-height: 18px;
     }
   }
 }
+
 .label {
   color: $label-color;
   line-height: $main-height;
@@ -199,6 +222,7 @@ $main-additional-height: 18px;
   transition: $label-transition;
   width: 100%;
 }
+
 .error {
   background-color: $error-box-color;
   top: $main-height + $main-additional-height + 2px;

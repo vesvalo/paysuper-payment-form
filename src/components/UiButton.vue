@@ -1,15 +1,15 @@
 <template>
 <button
-  :class="['ui-button', { '_disabled': disabled } ]"
+  :class="[container, { [stateDisabled]: disabled } ]"
   @click="onClick"
 >
-  <span class="before">
+  <span :class="before">
     <slot name="before" />
   </span>
 
   <slot />
 
-  <span class="after">
+  <span :class="after">
     <slot name="after" />
   </span>
 </button>
@@ -22,6 +22,30 @@ export default {
       default: false,
       type: Boolean,
     },
+  },
+  computed: {
+    container() {
+      return this.$style.container;
+    },
+    stateDisabled() {
+      return this.$style._disabled;
+    },
+    before() {
+      return this.$style.before;
+    },
+    after() {
+      return this.$style.after;
+    },
+  },
+  mounted() {
+    const selectors = {
+      container: this.container,
+      before: this.before,
+      after: this.after,
+    };
+    const states = ['default', 'hover', 'active'];
+
+    this.$addCssRules('button', selectors, states);
   },
   methods: {
     onClick(event) {
@@ -36,7 +60,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $after-margin: 12px;
@@ -59,7 +83,7 @@ $disabled-opacity: 0.7;
 $border-radius: 12px;
 $transition: background-color 0.2s ease-out, color 0.2s ease-out;
 
-.ui-button {
+.container {
   cursor: pointer;
   outline-width: 0;
   position: relative;
@@ -77,6 +101,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   border-color: $border-color;
   border-radius: $border-radius;
   transition: $transition;
+  vertical-align: top;
 
   &:hover {
     background-color: $hover-box-color;
@@ -91,11 +116,13 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
     opacity: $disabled-opacity;
   }
 }
+
 .before {
   display: inline-block;
   color: $before-text-color;
   margin-right: $before-margin;
 }
+
 .after {
   display: inline-block;
   color: $after-text-color;

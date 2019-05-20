@@ -2,6 +2,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
   css: {
+    modules: true,
     extract: false,
     loaderOptions: {
       sass: {

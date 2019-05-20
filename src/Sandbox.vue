@@ -1,18 +1,5 @@
 <script>
-import UiButton from './components/UiButton.vue';
-import UiCheckbox from './components/UiCheckbox.vue';
-import UiSimplePreloader from './components/UiSimplePreloader.vue';
-import UiTextField from './components/UiTextField.vue';
-import ActionResult from '@/components/ActionResult.vue';
-
 export default {
-  components: {
-    UiButton,
-    UiCheckbox,
-    UiSimplePreloader,
-    UiTextField,
-    ActionResult,
-  },
   data() {
     return {
       hasClick: false,
@@ -47,7 +34,7 @@ export default {
     <UiButton
       class="ui-item"
       @click="clickHandler"
-      :disabled="true"
+      :disabled="disabled"
     >
       <template v-if="hasClick" slot="before">Before</template>
       Text for button
@@ -56,6 +43,7 @@ export default {
     <div class="ui-item">
       <UiCheckbox
         v-model="check"
+        :disabled="disabled"
         @input="checkHandler"
       >
         Label for checkbox
@@ -122,19 +110,23 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 .ui-kit {
   width: 100vw;
   flex-grow: 1;
   background-color: #424c66;
   padding: 20px 50px;
 }
+
 .ui-item {
   display: block;
   margin-bottom: 20px;
 }
+
 .text-input {
   max-width: 210px;
 }
+
 .checkbox {
   font-family: sans-serif;
   color: #fff;

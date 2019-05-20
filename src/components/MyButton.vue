@@ -20,7 +20,7 @@ export default {
 button {
   border: 1px solid #eee;
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: #fff;
   cursor: pointer;
   font-size: 15pt;
   padding: 3px 10px;
