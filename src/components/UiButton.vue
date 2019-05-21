@@ -1,6 +1,6 @@
 <template>
 <button
-  :class="[container, { [stateDisabled]: disabled } ]"
+  :class="[container, { [stateDisabled]: disabled, [hasRadius]: hasBorderRadius } ]"
   @click="onClick"
 >
   <span :class="before">
@@ -22,6 +22,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    hasBorderRadius: {
+      default: true,
+      type: Boolean,
+    },
   },
   computed: {
     container() {
@@ -35,6 +39,9 @@ export default {
     },
     after() {
       return this.$style.after;
+    },
+    hasRadius() {
+      return this.$style._hasRadius;
     },
   },
   mounted() {
@@ -99,7 +106,6 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   justify-content: $align;
   border-width: $border-width;
   border-color: $border-color;
-  border-radius: $border-radius;
   transition: $transition;
   vertical-align: top;
 
@@ -111,6 +117,10 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
     background-color: $active-box-color;
   }
 
+  &._hasRadius {
+    border-radius: $border-radius;
+  }
+
   &._disabled {
     pointer-events: none;
     opacity: $disabled-opacity;
@@ -118,13 +128,13 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
 }
 
 .before {
-  display: inline-block;
+  display: inline-flex;
   color: $before-text-color;
   margin-right: $before-margin;
 }
 
 .after {
-  display: inline-block;
+  display: inline-flex;
   color: $after-text-color;
   margin-left: $after-margin;
 }

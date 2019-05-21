@@ -1,9 +1,14 @@
 <template>
-<svg width="16" height="15" viewBox="0 0 16 15" fill="none">
+<svg
+  width="16"
+  height="15"
+  viewBox="0 0 16 15"
+  fill="#fff"
+>
   <path
     fill-rule="evenodd"
     clip-rule="evenodd"
-    :fill="color"
+    :fill="actualColor"
     d="M3 8H2.58579L2.29289 8.29289L1 9.58579V7V2C1 1.44772 1.44772 1 2 1H9C9.55228 1 10 1.44772
       10 2V7C10 7.55228 9.55228 8 9 8H3ZM0 12L1 11L3 9H9C10.1046 9 11 8.10457 11 7V2C11 0.895431
       10.1046 0 9 0H2C0.895431 0 0 0.89543 0 2V7V10.5858V12ZM7 12C5.89543 12 5 11.1046 5 10H6C6
@@ -12,14 +17,3 @@
   />
 </svg>
 </template>
-
-<script>
-export default {
-  props: {
-    color: {
-      default: 'white',
-      type: String,
-    },
-  },
-};
-</script>
