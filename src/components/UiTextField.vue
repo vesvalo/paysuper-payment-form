@@ -16,7 +16,7 @@
   </label>
   <span
     v-if="isVisibleError"
-    class="error"
+    :class="$style.error"
     :title="errorText"
   >
     {{ errorText }}

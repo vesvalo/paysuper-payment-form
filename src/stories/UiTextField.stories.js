@@ -1,7 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
 
-import UiTextField from '../components/UiTextField.vue';
+import UiTextField from '@/components/UiTextField.vue';
+
+const parentStyles = {
+  backgroundColor: '#424C66',
+  width: '100%',
+  padding: '40px 70% 40px 40px',
+  boxSizing: 'border-box',
+};
 
 storiesOf('UiTextField', module)
   .add('default', () => ({
@@ -9,12 +16,7 @@ storiesOf('UiTextField', module)
     data() {
       return {
         value: '',
-        parentStyles: {
-          backgroundColor: '#424C66',
-          width: '100%',
-          padding: '40px 70% 40px 40px',
-          boxSizing: 'border-box',
-        },
+        parentStyles,
       };
     },
     template: `
@@ -28,12 +30,7 @@ storiesOf('UiTextField', module)
     components: { UiTextField },
     data() {
       return {
-        parentStyles: {
-          backgroundColor: '#424C66',
-          width: '100%',
-          padding: '40px 70% 40px 40px',
-          boxSizing: 'border-box',
-        },
+        parentStyles,
       };
     },
     template: `
@@ -47,12 +44,7 @@ storiesOf('UiTextField', module)
     data() {
       return {
         value: '',
-        parentStyles: {
-          backgroundColor: '#424C66',
-          width: '100%',
-          padding: '40px 70% 40px 40px',
-          boxSizing: 'border-box',
-        },
+        parentStyles,
       };
     },
     template: `
