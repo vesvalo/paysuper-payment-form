@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="scss" module>
+<style module lang="scss">
 $border-width: 4px;
 $color: #06eaa7;
 $default-position: 45deg;
