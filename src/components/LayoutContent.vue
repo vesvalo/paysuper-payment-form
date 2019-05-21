@@ -58,8 +58,20 @@ export default {
   @media screen and (min-width: 640px) {
     padding-top: 80px;
     padding-bottom: 80px;
-    margin-right: 60px;
+    margin-right: 5.5vw;
     flex-basis: 260px;
+
+    & > .dummy {
+      margin-left: 5.5vw;
+    }
+  }
+
+  @media screen and (min-width: 1080px) {
+    margin-right: 60px;
+
+    & > .dummy {
+      margin-left: 5.5vw;
+    }
   }
 }
 .right {
@@ -70,8 +82,20 @@ export default {
   @media screen and (min-width: 640px) {
     padding-top: 80px;
     padding-bottom: 80px;
-    margin-left: 60px;
+    margin-left: 5.5vw;
     flex-basis: 260px;
+
+    & > .dummy {
+      margin-right: 5.5vw;
+    }
+  }
+
+  @media screen and (min-width: 1080px) {
+    margin-left: 60px;
+
+    & > .dummy {
+      margin-right: 60px;
+    }
   }
 }
 .dummy {

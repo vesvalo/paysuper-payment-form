@@ -34,15 +34,21 @@ export default {};
 .links {
   display: flex;
   line-height: 18px;
-  padding: 20px 0px 60px;
-  box-shadow: 0px -3px 0px 0px #f3f3f3;
+  padding: 12px 0 52px;
+  box-shadow: 0 -3px 0 0 #f3f3f3;
   width: 100%;
   margin: 0 30px;
   flex-wrap: wrap;
+  justify-content: center;
 
   @media screen and (min-width: 640px) {
-    margin: 0px 0px 0px 60px;
-    padding: 50px 0px;
+    margin: 0 0 0 5.5vw;
+    padding: 50px 0;
+    justify-content: flex-start;
+  }
+
+  @media screen and (min-width: 1080px) {
+    margin: 0 0 0 60px;
   }
 }
 .link {
@@ -50,13 +56,18 @@ export default {};
   font-weight: 500;
   color: #71757a;
   text-decoration: none;
+  padding: 8px 0;
 
   &:hover {
     color: #00d697;
   }
 
   &:not(:last-child) {
-    margin-right: 30px;
+    margin-right: 5vw;
+
+    @media screen and (min-width: 640px) {
+      margin-right: 30px;
+    }
   }
 }
 </style>

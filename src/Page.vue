@@ -34,12 +34,16 @@ export default {
 .layout {
   display: flex;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   font-family: 'Quicksand', 'Comfortaa', sans-serif;
   flex-direction: column;
 
   @media screen and (min-width: 640px) {
     background-image: linear-gradient(to right, #f3f3f3 0%, #f3f3f3 50%, #fff 50%, #fff 100%);
+  }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    height: 100vh;
   }
 }
 </style>
