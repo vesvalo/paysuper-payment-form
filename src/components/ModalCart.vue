@@ -5,7 +5,10 @@
     <a href="#" :class="$style.link">My Profile</a>
   </div>
 
-  <div :class="$style.content">--- Content ---</div>
+  <div :class="$style.content">
+    <slot name="content" />
+    --- Content ---
+  </div>
 
   <div :class="$style.footer">
     <a href="#" :class="$style.link">Terms of Use</a>

@@ -16,7 +16,10 @@
       />
     </div>
 
-    <div :class="$style.content">--- Content ---</div>
+    <div :class="$style.content">
+      <slot name="content" />
+      --- Content ---
+    </div>
   </div>
 
   <div :class="$style.footer">

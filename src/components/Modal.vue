@@ -13,19 +13,19 @@
     @click.self="$emit('close')"
   >
     <div :class="$style.modal">
-      <ModalLeft />
-      <ModalRight @close="$emit('close')" />
+      <ModalCart />
+      <ModalForm @close="$emit('close')" />
     </div>
   </div>
 </transition>
 </template>
 
 <script>
-import ModalLeft from './ModalLeft.vue';
-import ModalRight from './ModalRight.vue';
+import ModalCart from './ModalCart.vue';
+import ModalForm from './ModalForm.vue';
 
 export default {
-  components: { ModalLeft, ModalRight },
+  components: { ModalCart, ModalForm },
   props: {
     opened: {
       default: false,
