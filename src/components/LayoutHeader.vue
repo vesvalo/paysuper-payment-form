@@ -62,19 +62,27 @@ export default {
 
   & > .inner {
     padding: 30px 30px 15px;
-    box-shadow: 0px 31px 0px -30px #dfdfdf;
+    box-shadow: 0 31px 0 -30px #dfdfdf;
   }
 
   @media screen and (min-width: 640px) {
-    margin-right: 60px;
+    margin-right: 5.5vw;
     flex-basis: 260px;
-    box-shadow: 0px 3px 0px 0px #fff;
+    box-shadow: 0 3px 0 0 #fff;
     justify-content: flex-end;
     height: auto;
 
     & > .inner {
-      padding: 100px 0px 40px;
+      padding: 100px 0 40px 5.5vw;
       box-shadow: none;
+    }
+  }
+
+  @media screen and (min-width: 1080px) {
+    margin-right: 60px;
+
+    & > .inner {
+      padding-left: 60px;
     }
   }
 }
@@ -90,14 +98,22 @@ export default {
   }
 
   @media screen and (min-width: 640px) {
-    margin-left: 60px;
+    margin-left: 5.5vw;
     flex-basis: 260px;
-    box-shadow: 0px 3px 0px 0px #f3f3f3;
+    box-shadow: 0 3px 0 0 #f3f3f3;
     justify-content: flex-start;
     height: auto;
 
     & > .inner {
-      padding: 100px 0px 40px;
+      padding: 100px 5.5vw 40px 0;
+    }
+  }
+
+  @media screen and (min-width: 1080px) {
+    margin-left: 60px;
+
+    & > .inner {
+      padding-right: 60px;
     }
   }
 }
@@ -109,7 +125,8 @@ export default {
   align-items: flex-end;
 
   @media screen and (min-width: 640px) {
-    max-width: 420px;
+    max-width: 480px;
+    align-items: flex-start;
   }
 }
 .game {
