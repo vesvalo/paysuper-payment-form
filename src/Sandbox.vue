@@ -1,5 +1,10 @@
 <script>
+import ActionResult from '@/components/ActionResult.vue';
+
 export default {
+  components: {
+    ActionResult,
+  },
   data() {
     return {
       hasClick: false,

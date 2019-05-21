@@ -1,5 +1,5 @@
 <template>
-<div :class="container"></div>
+<div :class="$style.container"></div>
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
 $border-width: 4px;
 $color: #06eaa7;
 $default-position: 45deg;
@@ -32,7 +32,7 @@ $size: 32px;
     duration: 0.8s;
     timing-function: linear;
     iteration-count: infinite;
-  };
+  }
 
   background-color: transparent;
   border-color: $main-color;
@@ -49,6 +49,8 @@ $size: 32px;
 }
 
 @keyframes rotate {
-  100% { transform: rotate(360deg + $default-position); }
+  100% {
+    transform: rotate(360deg + $default-position);
+  }
 }
 </style>
