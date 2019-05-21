@@ -2,9 +2,7 @@
 import ActionResult from '@/components/ActionResult.vue';
 
 export default {
-  components: {
-    ActionResult,
-  },
+  components: { ActionResult },
   data() {
     return {
       hasClick: false,

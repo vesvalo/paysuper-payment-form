@@ -21,7 +21,7 @@
 export default {
   model: {
     prop: 'checked',
-    event: 'change',
+    event: 'input',
   },
   props: {
     checked: {

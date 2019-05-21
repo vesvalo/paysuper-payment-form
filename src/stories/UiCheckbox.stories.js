@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
-import { action } from '@storybook/addon-actions';
 
-import UiCheckbox from '../components/UiCheckbox.vue';
+import UiCheckbox from '@/components/UiCheckbox.vue';
 
 const parentStyles = {
   backgroundColor: '#424C66',
@@ -15,29 +14,30 @@ storiesOf('UiCheckbox', module)
   .add('default', () => ({
     components: { UiCheckbox },
     data() {
-      return { checked: false };
+      return {
+        checked: false,
+        parentStyles,
+      };
     },
-    render() {
-      return (
-        <div style={parentStyles}>
-          <UiCheckbox checked={this.checked} input={this.action}>Some Label</UiCheckbox>
-        </div>
-      );
-    },
+    template: `
+      <div :style="parentStyles">
+        <UiCheckbox :checked="checked" @input="action">Some Label</UiCheckbox>
+      </div>
+    `,
     methods: {
-      action() {
-        this.checked = !this.checked;
-        action('clicked');
+      action(value) {
+        this.checked = value;
       },
     },
   }))
   .add('disabled', () => ({
     components: { UiCheckbox },
-    render() {
-      return (
-        <div style={parentStyles}>
-          <UiCheckbox disabled={true}>Some Label</UiCheckbox>
-        </div>
-      );
+    data() {
+      return { parentStyles };
     },
+    template: `
+      <div :style="parentStyles">
+        <UiCheckbox :disabled="true" @input="action">Some Label</UiCheckbox>
+      </div>
+    `,
   }));
