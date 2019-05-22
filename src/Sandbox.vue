@@ -1,8 +1,13 @@
 <script>
 import ActionResult from '@/components/ActionResult.vue';
+import CartSection from '@/components/CartSection.vue';
+import cartTestData from './cartTestData';
 
 export default {
-  components: { ActionResult },
+  components: {
+    ActionResult,
+    CartSection,
+  },
   data() {
     return {
       hasClick: false,
@@ -15,7 +20,15 @@ export default {
         step: 'initial',
         paymentMethod: 'card',
       },
+      cartItems: cartTestData,
+      cartItemsCount: 1,
+      cartView: 'default',
     };
+  },
+  watch: {
+    cartItemsCount() {
+      this.cartView = 'default';
+    },
   },
   methods: {
     clickHandler() {
@@ -76,12 +89,14 @@ export default {
     <div class="ui-item">
       <UiSimplePreloader />
     </div>
-    <div style="width: 320px; height: 440px; box-shadow: 0 0 5px #000">
-      <ActionResult
-        :content="actionResult.content"
-        :paymentMethod="actionResult.paymentMethod"
-        :step="actionResult.step"
-      />
+    <div>
+      <div style="width: 320px; height: 440px; box-shadow: 0 0 5px #000">
+        <ActionResult
+          :content="actionResult.content"
+          :paymentMethod="actionResult.paymentMethod"
+          :step="actionResult.step"
+        />
+      </div>
       <select v-model="actionResult.content">
         <option value="error">error</option>
         <option value="declined">declined</option>
@@ -96,6 +111,21 @@ export default {
         <option value="final">final</option>
       </select>
     </div>
+    <br>
+    <div>
+      <UiScrollbarBox style="width: 320px; height: 440px; background: #333B50;">
+        <CartSection
+          :items="cartItems.slice(0, cartItemsCount)"
+          :view="cartView"
+        />
+      </UiScrollbarBox>
+      <input type="number" min="1" max="7" v-model="cartItemsCount">
+      <select v-if="cartItemsCount == 1" v-model="cartView">
+        <option value="default">default</option>
+        <option value="promo">promo</option>
+      </select>
+    </div>
+
 
   </div>
 </div>
