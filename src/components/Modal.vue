@@ -10,7 +10,6 @@
   <div
     v-show="opened"
     :class="$style.layout"
-    @click.self="$emit('close')"
   >
     <div :class="$style.modal">
       <ModalCart />
