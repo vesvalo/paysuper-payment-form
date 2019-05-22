@@ -25,6 +25,7 @@
     "simple-assert": "^1.0.0",
     "vue": "^2.5.17",
     "vue-i18n": "^8.0.0",
+    "vue-perfect-scrollbar": "^0.1.0",
     "vue-the-mask": "^0.11.1",
     "vuelidate": "^0.7.4",
     "vuex": "^3.0.1"
