@@ -50,9 +50,11 @@ export default {
       before: this.before,
       after: this.after,
     };
-    const states = ['default', 'hover', 'active'];
+    const modifires = {
+      disabled: this.stateDisabled,
+    };
 
-    this.$addCssRules('button', selectors, states);
+    this.$addCssRules('button', selectors, modifires);
   },
   methods: {
     onClick(event) {

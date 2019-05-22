@@ -11,9 +11,8 @@ export default {
   },
   mounted() {
     const selectors = { container: this.container };
-    const states = ['default'];
 
-    this.$addCssRules('simplePreloader', selectors, states);
+    this.$addCssRules('preloader', selectors);
   },
 };
 </script>

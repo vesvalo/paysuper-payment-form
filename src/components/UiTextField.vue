@@ -106,9 +106,8 @@ export default {
       input: this.input,
       label: this.labelClass,
     };
-    const states = ['default', 'checked'];
 
-    this.$addCssRules('textField', selectors, states);
+    this.$addCssRules('input', selectors);
   },
 };
 </script>
