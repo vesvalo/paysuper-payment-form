@@ -1,5 +1,5 @@
 <template>
-<div :class="container">
+<div :class="[container, { [stateDisabled]: disabled }]">
   <input
     v-bind="{ required, disabled }"
     :class="inputClasses"
@@ -75,6 +75,18 @@ export default {
     labelClass() {
       return this.$style.label;
     },
+    errorClass() {
+      return this.$style.error;
+    },
+    stateDisabled() {
+      return this.$style._disabled;
+    },
+    stateEmpty() {
+      return this.$style._empty;
+    },
+    stateError() {
+      return this.$style._error;
+    },
     isEmpty() {
       return !this.value && this.value !== 0;
     },
@@ -92,22 +104,46 @@ export default {
     inputClasses() {
       return [
         this.input,
-        `_${this.type}`,
-        this.isEmpty ? '_empty' : '',
-        this.isVisibleError ? '_error' : '',
-        this.disabled ? '_disabled' : '',
-        this.required ? '_required' : '',
+        this.$style[`_${this.type}`] || '',
+        this.isEmpty ? this.stateEmpty : '',
+        this.isVisibleError ? this.stateError : '',
+        this.disabled ? this.stateDisabled : '',
       ];
     },
   },
   mounted() {
-    const selectors = {
-      container: this.container,
-      input: this.input,
-      label: this.labelClass,
-    };
-
-    this.$addCssRules('input', selectors);
+    this.$addCssRules({
+      [`.${this.container}.${this.stateDisabled}`]: {
+        opacity: this.$gui.inputDisabledOpacity,
+      },
+      [`.${this.input}`]: {
+        color: this.$gui.inputColor,
+        'background-color': this.$gui.inputBoxColor,
+        'border-color': this.$gui.inputBorderColor,
+      },
+      [`.${this.input}:hover`]: {
+        'border-color': this.$gui.inputHoverBorderColor,
+      },
+      [`.${this.input}:focus`]: {
+        'border-color': this.$gui.inputFocusBorderColor,
+      },
+      [`
+        .${this.input}:focus ~ .${this.labelClass},
+        .${this.input}:not(:focus):not(.${this.stateEmpty}) ~ .${this.labelClass}
+      `]: {
+        'color': this.$gui.inputFocusLabelColor,
+      },
+      [`.${this.input}.${this.stateError}`]: {
+        'border-color': this.$gui.inputErrorBorderColor,
+      },
+      [`.${this.labelClass}`]: {
+        'color': this.$gui.inputLabelColor,
+      },
+      [`.${this.errorClass}`]: {
+        'background-color': this.$gui.inputErrorBoxColor,
+        'color': this.$gui.inputErrorColor,
+      },
+    });
   },
 };
 </script>
@@ -122,6 +158,8 @@ $error-font-color: #fff;
 $error-font-size: 10px;
 $error-font-weight: 600;
 $error-height: 17px;
+
+$disabled-opacity: 0.5;
 
 $focus-border-color: #06eaa7;
 
@@ -148,6 +186,11 @@ $main-additional-height: 18px;
   font-weight: $input-font-weight;
   text-align: left;
   vertical-align: top;
+
+  &._disabled {
+    opacity: $disabled-opacity;
+    pointer-events: none;
+  }
 }
 
 .input {
@@ -192,16 +235,6 @@ $main-additional-height: 18px;
 
   &._error {
     border-color: $error-box-color;
-  }
-
-  &:disabled {
-    color: scale-color($label-color, $alpha: -50%);
-    border-color: scale-color($input-border-color, $alpha: -50%);
-    pointer-events: none;
-
-    & ~ .label {
-      color: scale-color($label-color, $alpha: -50%);
-    }
   }
 }
 

@@ -10,9 +10,12 @@ export default {
     },
   },
   mounted() {
-    const selectors = { container: this.container };
-
-    this.$addCssRules('preloader', selectors);
+    this.$addCssRules({
+      [`.${this.container}`]: {
+        'border-color': this.$gui.preloaderColor,
+        'border-top-color': this.$gui.preloaderSpinColor,
+      },
+    });
   },
 };
 </script>

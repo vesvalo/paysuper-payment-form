@@ -54,18 +54,26 @@ export default {
     },
   },
   mounted() {
-    const selectors = {
-      container: this.container,
-      input: this.input,
-      check: this.check,
-      label: this.label,
-    };
-    const modifires = {
-      disabled: this.stateDisabled,
-      checked: this.stateChecked,
-    };
-
-    this.$addCssRules('checkbox', selectors, modifires);
+    this.$addCssRules({
+      [`.${this.container}`]: {
+        color: this.$gui.checkboxColor,
+        'border-color': this.$gui.checkboxColor,
+      },
+      [`.${this.container}:hover`]: {
+        color: this.$gui.checkboxHoverColor,
+        'border-color': this.$gui.checkboxHoverColor,
+      },
+      [`.${this.container}.${this.stateChecked}`]: {
+        color: this.$gui.checkboxCheckedColor,
+        'border-color': this.$gui.checkboxCheckedColor,
+      },
+      [`.${this.container}.${this.stateDisabled}`]: {
+        opacity: this.$gui.checkboxDisabledOpacity,
+      },
+      [`.${this.label}`]: {
+        'margin-left': this.$gui.checkboxMargin,
+      },
+    });
   },
   methods: {
     /**
@@ -116,7 +124,10 @@ $label-margin: 10px;
     opacity: $disabled-opacity;
   }
 
-  &._checked {}
+  &._checked {
+    color: $hover-text-color;
+    border-color: $hover-check-color;
+  }
 }
 
 .input {

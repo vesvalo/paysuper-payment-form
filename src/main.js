@@ -43,11 +43,20 @@ const allowedStyleVars = [
   'checkboxMargin',
   'checkboxHoverColor',
   'checkboxCheckedColor',
+  'checkboxDisabledOpacity',
   'preloaderColor',
   'preloaderSpinColor',
-  'inputBoxColor',
   'inputBorderColor',
+  'inputBoxColor',
   'inputColor',
+  'inputDisabledOpacity',
+  'inputErrorBorderColor',
+  'inputErrorBoxColor',
+  'inputErrorColor',
+  'inputFocusBorderColor',
+  'inputFocusLabelColor',
+  'inputHoverBorderColor',
+  'inputLabelColor',
 ];
 
 /**
@@ -116,7 +125,7 @@ async function mountApp(formData, options = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$styles = prepareStyles(formData.customizate);
+  Vue.prototype.$gui = prepareStyles(formData.customizate);
 
   new VueApp({
     store,
