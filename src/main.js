@@ -5,7 +5,7 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import { includes, pick, mapValues } from 'lodash-es';
+import { includes, pick } from 'lodash-es';
 import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
@@ -28,21 +28,35 @@ Vue.config.productionTip = false;
 
 const isPageInsideIframe = window.location !== window.parent.location;
 
-const allowedStyleAttrs = [
-  'background-color',
-  'border-color',
-  'border-radius',
-  'border-width',
-  'color',
-  'font-family',
-  'font-size',
-  'font-weight',
-  'height',
-  'justify-content',
-  'margin-left',
-  'margin-right',
-  'padding',
-  'transition',
+const allowedStyleVars = [
+  'buttonAlign',
+  'buttonColor',
+  'buttonBoxColor',
+  'buttonActiveBoxColor',
+  'buttonHoverBoxColor',
+  'buttonDisabledOpacity',
+  'buttonBeforeColor',
+  'buttonBeforeMargin',
+  'buttonAfterColor',
+  'buttonAfterMargin',
+  'checkboxColor',
+  'checkboxMargin',
+  'checkboxHoverColor',
+  'checkboxCheckedColor',
+  'checkboxDisabledOpacity',
+  'preloaderColor',
+  'preloaderSpinColor',
+  'inputBorderColor',
+  'inputBoxColor',
+  'inputColor',
+  'inputDisabledOpacity',
+  'inputErrorBorderColor',
+  'inputErrorBoxColor',
+  'inputErrorColor',
+  'inputFocusBorderColor',
+  'inputFocusLabelColor',
+  'inputHoverBorderColor',
+  'inputLabelColor',
 ];
 
 /**
@@ -62,14 +76,8 @@ function getLanguage() {
  *
  * @return {Object}
  */
-function prepareStyles(components) {
-  return mapValues(
-    components,
-    elements => mapValues(
-      elements,
-      states => mapValues(states, attrs => pick(attrs, allowedStyleAttrs)),
-    ),
-  );
+function prepareStyles(vars) {
+  return pick(vars, allowedStyleVars);
 }
 
 /**
@@ -117,7 +125,7 @@ async function mountApp(formData, options = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$styles = prepareStyles(formData.customizate);
+  Vue.prototype.$gui = prepareStyles(formData.customizate);
 
   new VueApp({
     store,

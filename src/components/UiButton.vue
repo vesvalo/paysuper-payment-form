@@ -45,14 +45,30 @@ export default {
     },
   },
   mounted() {
-    const selectors = {
-      container: this.container,
-      before: this.before,
-      after: this.after,
-    };
-    const states = ['default', 'hover', 'active'];
-
-    this.$addCssRules('button', selectors, states);
+    this.$addCssRules({
+      [`.${this.container}`]: {
+        color: this.$gui.buttonColor,
+        'background-color': this.$gui.buttonBoxColor,
+        'justify-content': this.$gui.buttonAlign,
+      },
+      [`.${this.container}:hover`]: {
+        'background-color': this.$gui.buttonHoverBoxColor,
+      },
+      [`.${this.container}:active`]: {
+        'background-color': this.$gui.buttonActiveBoxColor,
+      },
+      [`.${this.container}.${this.stateDisabled}`]: {
+        opacity: this.$gui.buttonDisabledOpacity,
+      },
+      [`.${this.before}`]: {
+        color: this.$gui.buttonBeforeColor,
+        'margin-right': this.$gui.buttonBeforeMargin,
+      },
+      [`.${this.after}`]: {
+        color: this.$gui.buttonAfterColor,
+        'margin-right': this.$gui.buttonAfterMargin,
+      },
+    });
   },
   methods: {
     onClick(event) {

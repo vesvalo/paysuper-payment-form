@@ -3,29 +3,26 @@ import {
   extend,
   forEach,
   get,
-  includes,
-  isObject,
+  isEmpty,
   reduce,
 } from 'lodash-es';
 
-function $addCssRules(component, selectors, states) {
-  forEach(selectors, (hashClass, selector) => {
-    forEach(states, (state) => {
-      const cssObject = get(this.$styles, [component, selector, state], false);
+function objectToCss(obj) {
+  return reduce(obj, (result, value, key) => `${result}${key}:${value};`, '');
+}
 
-      if (cssObject && isObject(cssObject)) {
-        const css = reduce(cssObject, (result, value, key) => (`${result}${key}:${value};`), '');
-        const styleElement = document.createElement('style');
+function $addCssRules(rules) {
+  forEach(rules, (rule, selector) => {
+    if (!isEmpty(rule)) {
+      const css = objectToCss(rule);
+      const styleElement = document.createElement('style');
 
-        styleElement.type = 'text/css';
-        styleElement.innerHTML = `
-          .${hashClass}${includes(['default', 'disabled'], state) ? '' : `:${state}`} {${css}}
-        `;
-        styleElement.appendChild(document.createTextNode(''));
+      styleElement.type = 'text/css';
+      styleElement.innerHTML = `${selector} {${css}}`;
+      styleElement.appendChild(document.createTextNode(''));
 
-        document.head.appendChild(styleElement);
-      }
-    });
+      document.head.appendChild(styleElement);
+    }
   });
 }
 

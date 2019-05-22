@@ -6,7 +6,7 @@
 
 ### In development
 You can use the package in pair with `payone-js-sdk`.
-With `npm run serve` the form will be accessable in `payone-js-sdk` in development mode.
+With `yarn serve` the form will be accessable in `payone-js-sdk` in development mode.
 
 #### http://localhost:4040/
 Actual payment form
@@ -57,25 +57,25 @@ Updates width actual version releases (`v*` tag pushed into repo)
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+yarn serve
 ```
 
 ### Compiles and minifies into single js-file
 ```
-npm run build
+yarn build
 ```
 
 ### Like `run build` but with dist file size analysis
 ```
-npm run check-size
+yarn check-size
 ```
 
 ### Run tests
 ```
-npm run test
+yarn test
 ```
 
 ### Run tests for development in watch mode 
 ```
-npm run test:dev
+yarn test:dev
 ```

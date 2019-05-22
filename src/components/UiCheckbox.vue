@@ -1,5 +1,5 @@
 <template>
-<label :class="[container, { [stateDisabled]: disabled }]">
+<label :class="[container, { [stateDisabled]: disabled, [stateChecked]: checked }]">
   <input
     v-bind="{ checked, disabled }"
     type="checkbox"
@@ -37,6 +37,9 @@ export default {
     container() {
       return this.$style.container;
     },
+    stateChecked() {
+      return this.$style._checked;
+    },
     stateDisabled() {
       return this.$style._disabled;
     },
@@ -51,15 +54,26 @@ export default {
     },
   },
   mounted() {
-    const selectors = {
-      container: this.container,
-      input: this.input,
-      check: this.check,
-      label: this.label,
-    };
-    const states = ['default', 'checked'];
-
-    this.$addCssRules('checkbox', selectors, states);
+    this.$addCssRules({
+      [`.${this.container}`]: {
+        color: this.$gui.checkboxColor,
+        'border-color': this.$gui.checkboxColor,
+      },
+      [`.${this.container}:hover`]: {
+        color: this.$gui.checkboxHoverColor,
+        'border-color': this.$gui.checkboxHoverColor,
+      },
+      [`.${this.container}.${this.stateChecked}`]: {
+        color: this.$gui.checkboxCheckedColor,
+        'border-color': this.$gui.checkboxCheckedColor,
+      },
+      [`.${this.container}.${this.stateDisabled}`]: {
+        opacity: this.$gui.checkboxDisabledOpacity,
+      },
+      [`.${this.label}`]: {
+        'margin-left': this.$gui.checkboxMargin,
+      },
+    });
   },
   methods: {
     /**
@@ -96,20 +110,23 @@ $label-margin: 10px;
   font-family: $common-font-family;
   vertical-align: top;
   cursor: pointer;
+  color: $text-color;
+  border-width: 0;
+  border-color: $border-color;
 
-  &:hover:not(._disabled) {
-    .label {
-      color: $hover-text-color;
-    }
-
-    .check {
-      border-color: $hover-check-color;
-    }
+  &:hover {
+    color: $hover-text-color;
+    border-color: $hover-check-color;
   }
 
   &._disabled {
     pointer-events: none;
     opacity: $disabled-opacity;
+  }
+
+  &._checked {
+    color: $hover-text-color;
+    border-color: $hover-check-color;
   }
 }
 
@@ -126,7 +143,9 @@ $label-margin: 10px;
 
 .check {
   border-radius: 50%;
-  border: 1px solid $border-color;
+  border-width: 1px;
+  border-color: inherit;
+  border-style: solid;
   background-color: $box-color;
   box-sizing: border-box;
   height: 20px;
@@ -135,7 +154,6 @@ $label-margin: 10px;
 
 .label {
   margin-left: $label-margin;
-  color: $text-color;
 
   &:empty {
     display: none;
