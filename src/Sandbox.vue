@@ -52,6 +52,17 @@ export default {
 <template>
 <div class="sandbox">
   <div class="ui-kit">
+    <div class="ui-item">
+      <label class="checkbox">
+        <input type="checkbox" v-model="disabled" />
+        Disabled
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" v-model="hasError" />
+        With error
+      </label>
+    </div>
     <UiButton
       class="ui-item"
       @click="clickHandler"
@@ -80,16 +91,6 @@ export default {
         :hasError="hasError"
         @input="inputHandler"
       />
-
-      <label class="checkbox">
-        <input type="checkbox" v-model="disabled" />
-        Disabled
-      </label>
-
-      <label class="checkbox">
-        <input type="checkbox" v-model="hasError" />
-        With error
-      </label>
     </div>
     <div class="ui-item">
       <UiSimplePreloader />
@@ -174,9 +175,11 @@ body {
 .checkbox {
   font-family: sans-serif;
   color: #fff;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   padding: 10px 0;
   max-width: 100px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 </style>

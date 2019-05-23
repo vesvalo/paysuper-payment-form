@@ -5,15 +5,24 @@
   <Modal
     :opened="opened"
     @close="opened = false"
-  />
+  >
+    <ModalCart />
+    <ModalForm />
+  </Modal>
 </div>
 </template>
 
 <script>
 import Modal from '@/components/Modal.vue';
+import ModalCart from '@/components/ModalCart.vue';
+import ModalForm from '@/components/ModalForm.vue';
 
 export default {
-  components: { Modal },
+  components: {
+    Modal,
+    ModalCart,
+    ModalForm,
+  },
   data() {
     return {
       opened: false,

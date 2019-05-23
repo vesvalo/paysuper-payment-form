@@ -131,17 +131,17 @@ export default {
         .${this.input}:focus ~ .${this.labelClass},
         .${this.input}:not(:focus):not(.${this.stateEmpty}) ~ .${this.labelClass}
       `]: {
-        'color': this.$gui.inputFocusLabelColor,
+        color: this.$gui.inputFocusLabelColor,
       },
       [`.${this.input}.${this.stateError}`]: {
         'border-color': this.$gui.inputErrorBorderColor,
       },
       [`.${this.labelClass}`]: {
-        'color': this.$gui.inputLabelColor,
+        color: this.$gui.inputLabelColor,
       },
       [`.${this.errorClass}`]: {
         'background-color': this.$gui.inputErrorBoxColor,
-        'color': this.$gui.inputErrorColor,
+        color: this.$gui.inputErrorColor,
       },
     });
   },

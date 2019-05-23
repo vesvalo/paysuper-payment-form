@@ -9,11 +9,6 @@
         </a>
         <a href="#" :class="$style.link">EN</a>
       </div>
-
-      <IconClose
-        :class="$style.iconClose"
-        @click.native="$emit('close')"
-      />
     </div>
 
     <div :class="$style.content">
@@ -56,7 +51,6 @@ export default {};
 }
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-grow: 0;
 }
@@ -78,8 +72,7 @@ export default {};
     margin-right: 16px;
   }
 }
-.iconSupport,
-.iconClose {
+.iconSupport {
   cursor: pointer;
   fill: rgba(#fff, 0.5);
 

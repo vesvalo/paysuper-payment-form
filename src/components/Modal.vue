@@ -11,24 +11,55 @@
     v-show="opened"
     :class="$style.layout"
   >
-    <div :class="$style.modal">
-      <ModalCart />
-      <ModalForm @close="$emit('close')" />
+    <div
+      :class="$style.modal"
+      :style="modalStyles"
+    >
+      <slot />
+
+      <div
+        :class="$style.close"
+        @click="$emit('close')"
+      >
+        <IconClose :class="$style.iconClose" />
+      </div>
     </div>
   </div>
 </transition>
 </template>
 
 <script>
-import ModalCart from './ModalCart.vue';
-import ModalForm from './ModalForm.vue';
-
 export default {
-  components: { ModalCart, ModalForm },
   props: {
+    maxHeight: {
+      default: '610px',
+      type: String,
+    },
+    maxWidth: {
+      default: '640px',
+      type: String,
+    },
+    minHeight: {
+      default: '450px',
+      type: String,
+    },
+    minWidth: {
+      default: '480px',
+      type: String,
+    },
     opened: {
       default: false,
       type: Boolean,
+    },
+  },
+  computed: {
+    modalStyles() {
+      return {
+        'max-height': this.maxHeight,
+        'max-width': this.maxWidth,
+        'min-height': this.minHeight,
+        'min-width': this.minWidth,
+      };
     },
   },
 };
@@ -51,12 +82,25 @@ export default {
   z-index: 10000;
 }
 .modal {
+  position: relative;
   display: flex;
-  width: 640px;
-  min-height: 450px;
-  min-width: 480px;
+  width: 100%;
   border-radius: 12px;
   overflow: hidden;
+}
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 20px;
+  cursor: pointer;
+
+  &:hover > .iconClose {
+    fill: #00d697;
+  }
+}
+.iconClose {
+  fill: rgba(#fff, 0.5);
 }
 .enter,
 .leaveTo {
