@@ -6,25 +6,36 @@
     :opened="opened"
     @close="opened = false"
   >
-    <ModalCart />
-    <ModalForm />
+    <ModalCart>
+      <CartSection :items="cartTestData" view="promo" />
+    </ModalCart>
+
+    <ModalForm>
+      <FormSection />
+    </ModalForm>
   </Modal>
 </div>
 </template>
 
 <script>
+import CartSection from '@/components/CartSection.vue';
+import FormSection from '@/components/FormSection.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
+import cartTestData from './cartTestData';
 
 export default {
   components: {
+    CartSection,
+    FormSection,
     Modal,
     ModalCart,
     ModalForm,
   },
   data() {
     return {
+      cartTestData,
       opened: false,
     };
   },

@@ -5,21 +5,38 @@
     @toggleContent="openedContent = !openedContent"
   />
 
-  <LayoutContent :openedContent="openedContent"/>
+  <LayoutContent :openedContent="openedContent">
+    <CartSection
+      slot="cart"
+      :hasPadding="false"
+      :items="cartTestData"
+    />
+    <FormSection slot="form" />
+  </LayoutContent>
 
   <LayoutFooter />
 </div>
 </template>
 
 <script>
-import LayoutHeader from './components/LayoutHeader.vue';
-import LayoutContent from './components/LayoutContent.vue';
-import LayoutFooter from './components/LayoutFooter.vue';
+import CartSection from '@/components/CartSection.vue';
+import FormSection from '@/components/FormSection.vue';
+import LayoutHeader from '@/components/LayoutHeader.vue';
+import LayoutContent from '@/components/LayoutContent.vue';
+import LayoutFooter from '@/components/LayoutFooter.vue';
+import cartTestData from './cartTestData';
 
 export default {
-  components: { LayoutHeader, LayoutContent, LayoutFooter },
+  components: {
+    CartSection,
+    FormSection,
+    LayoutHeader,
+    LayoutContent,
+    LayoutFooter,
+  },
   data() {
     return {
+      cartTestData,
       openedContent: false,
     };
   },

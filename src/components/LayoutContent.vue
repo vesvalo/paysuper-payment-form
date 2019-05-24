@@ -2,8 +2,10 @@
 <div :class="$style.content">
   <div :class="$style.box">
     <div :class="$style.left">
-      <div :class="$style.dummy">
-        <div :class="[$style.main, { [$style._opened]: openedContent }]">--- Content ---</div>
+      <div :class="$style.mainBox">
+        <div :class="[$style.main, { [$style._opened]: openedContent }]">
+          <slot name="cart" />
+        </div>
 
         <div :class="$style.total">
           <div>Total</div>
@@ -13,7 +15,9 @@
     </div>
 
     <div :class="$style.right">
-      <div :class="$style.dummy">New Payform</div>
+      <div :class="$style.mainBox">
+        <slot name="form" />
+      </div>
     </div>
   </div>
 </div>
@@ -61,7 +65,7 @@ export default {
     margin-right: 5.5vw;
     flex-basis: 260px;
 
-    & > .dummy {
+    & > .mainBox {
       margin-left: 5.5vw;
     }
   }
@@ -69,7 +73,7 @@ export default {
   @media screen and (min-width: 1080px) {
     margin-right: 60px;
 
-    & > .dummy {
+    & > .mainBox {
       margin-left: 5.5vw;
     }
   }
@@ -85,7 +89,7 @@ export default {
     margin-left: 5.5vw;
     flex-basis: 260px;
 
-    & > .dummy {
+    & > .mainBox {
       margin-right: 5.5vw;
     }
   }
@@ -93,12 +97,12 @@ export default {
   @media screen and (min-width: 1080px) {
     margin-left: 60px;
 
-    & > .dummy {
+    & > .mainBox {
       margin-right: 60px;
     }
   }
 }
-.dummy {
+.mainBox {
   padding: 20px 30px;
   width: 100%;
   max-width: 640px;
@@ -112,7 +116,6 @@ export default {
 .main {
   display: none;
   padding-bottom: 12px;
-  text-align: center;
 
   &._opened {
     display: block;

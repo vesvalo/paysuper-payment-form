@@ -12,8 +12,9 @@
     </div>
 
     <div :class="$style.content">
-      <slot name="content" />
-      --- Content ---
+      <UiScrollbarBox>
+        <slot />
+      </UiScrollbarBox>
     </div>
   </div>
 
@@ -45,7 +46,6 @@ export default {};
 }
 .box {
   display: flex;
-  padding: 20px;
   flex-grow: 1;
   flex-direction: column;
 }
@@ -53,6 +53,7 @@ export default {};
   display: flex;
   align-items: center;
   flex-grow: 0;
+  padding: 20px;
 }
 .links {
   display: flex;

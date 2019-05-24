@@ -3,6 +3,11 @@ export default {
   name: 'CartSection',
 
   props: {
+    hasPadding: {
+      default: true,
+      type: Boolean,
+    },
+
     items: {
       type: Array,
       required: true,
@@ -57,7 +62,7 @@ export default {
 
 <template>
 <div
-  :class="[$style.cartSection, {[$style._promo]: promoImage}]"
+  :class="[$style.cartSection, {[$style._promo]: promoImage, [$style._hasPadding]: hasPadding}]"
   :style="{backgroundImage: promoImage}"
 >
   <div v-if="!promoImage" :class="$style.images">
@@ -115,10 +120,13 @@ export default {
 
 <style lang="scss" module>
 .cartSection {
-  padding: 20px;
   height: 100%;
   position: relative;
   box-sizing: border-box;
+
+  &._hasPadding {
+    padding: 0 20px;
+  }
 
   &._promo {
     background-size: cover;

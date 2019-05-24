@@ -32,7 +32,7 @@
 export default {
   props: {
     maxHeight: {
-      default: '610px',
+      default: '510px',
       type: String,
     },
     maxWidth: {
@@ -65,7 +65,6 @@ export default {
 };
 </script>
 
-
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
 
@@ -87,6 +86,7 @@ export default {
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
+  background-color: #424c66;
 }
 .close {
   position: absolute;

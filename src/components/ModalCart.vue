@@ -6,8 +6,9 @@
   </div>
 
   <div :class="$style.content">
-    <slot name="content" />
-    --- Content ---
+    <UiScrollbarBox>
+      <slot />
+    </UiScrollbarBox>
   </div>
 
   <div :class="$style.footer">
@@ -29,7 +30,6 @@ export default {};
   display: flex;
   width: 320px;
   background-color: #333b50;
-  padding: 20px;
   flex-direction: column;
 }
 .header {
@@ -37,13 +37,14 @@ export default {};
   justify-content: space-between;
   align-items: center;
   flex-grow: 0;
+  padding: 20px;
 }
 .link {
   font-size: 12px;
   font-weight: 500;
   color: rgba(#fff, 0.5);
-  line-height: 18px;
   text-decoration: none;
+  line-height: 20px;
 
   &:hover {
     color: #00d697;
@@ -57,12 +58,13 @@ export default {};
   display: flex;
   flex-grow: 1;
   color: rgba(#fff, 0.7);
-  padding: 20px 0;
+  max-height: calc(100% - 120px);
 }
 .footer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-grow: 0;
+  padding: 20px;
 }
 </style>
