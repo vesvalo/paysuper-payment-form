@@ -62,7 +62,7 @@ export default {};
   font-size: 12px;
   font-weight: 500;
   color: rgba(#fff, 0.5);
-  line-height: 18px;
+  line-height: 20px;
   text-decoration: none;
 
   &:hover {
@@ -85,7 +85,7 @@ export default {};
   display: flex;
   flex-grow: 1;
   color: rgba(#fff, 0.7);
-  padding: 20px 0;
+  max-height: calc(100% - 140px);
 }
 .footer {
   display: flex;
