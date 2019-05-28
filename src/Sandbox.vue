@@ -2,11 +2,13 @@
 import ActionResult from '@/components/ActionResult.vue';
 import CartSection from '@/components/CartSection.vue';
 import cartTestData from './cartTestData';
+import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
   components: {
     ActionResult,
     CartSection,
+    ActionProcessing,
   },
   data() {
     return {
@@ -19,6 +21,9 @@ export default {
         content: 'error',
         step: 'initial',
         paymentMethod: 'card',
+      },
+      actionProcessing: {
+        icon: 'card',
       },
       cartItems: cartTestData,
       cartItemsCount: 1,
@@ -112,6 +117,14 @@ export default {
       </select>
     </div>
     <br>
+    <div style="width: 640px; height: 510px; box-shadow: 0 0 5px #000; position: relative">
+      <ActionProcessing :icon="actionProcessing.icon" />
+        <select v-model="actionProcessing.icon">
+        <option value="card">card</option>
+        <option value="other">other</option>
+      </select>
+    </div>
+    <br>
     <div>
       <UiScrollbarBox style="width: 320px; height: 440px; background: #333B50;">
         <CartSection
@@ -125,8 +138,6 @@ export default {
         <option value="promo">promo</option>
       </select>
     </div>
-
-
   </div>
 </div>
 </template>
