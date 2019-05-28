@@ -17,8 +17,11 @@
       v-model="expiryDate"
       mask="##/##"
       :class="$style.expiry"
+      :hasError="$isFieldInvalid('expiryDate')"
+      :errorText="$t('expiryDateInvalid')"
       :label="$t('expiryDate')"
       @input="expiryDate = $event"
+      @focus="$v.$touch()"
     />
     <UiTextField
       v-model="cvv"
@@ -58,6 +61,34 @@
 
 <script>
 import { email } from 'vuelidate/lib/validators';
+import { split, toInteger } from 'lodash-es';
+
+function isValidExpiryDate(date) {
+  if (date.length < 2) {
+    return true;
+  }
+  if (date.length === 2 || date.length === 3) {
+    const month = toInteger(date.substring(0, 2));
+
+    if (month < 1 || month > 12) {
+      return false;
+    }
+
+    return true;
+  }
+  if (date.length > 4) {
+    return false;
+  }
+
+  const month = toInteger(date.substring(0, 2));
+  const year = toInteger(date.substring(2));
+
+  if (month < 1 || month > 12 || year < 0 || year > 99) {
+    return false;
+  }
+
+  return true;
+}
 
 export default {
   name: 'FormSection',
@@ -92,6 +123,7 @@ export default {
   },
   validations: {
     email: { email },
+    expiryDate: { isValidExpiryDate },
   },
   computed: {},
   methods: {},
