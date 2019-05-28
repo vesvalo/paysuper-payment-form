@@ -107,8 +107,10 @@ export default {
         />
       </template>
       <template v-if="step === 'final' && email">
-        <p :class="$style.descriptionSlave">
-          {{$t('contents.success.descriptionSlaveFinal')}}
+        <p
+          :class="$style.descriptionSlave"
+          v-html="$t('contents.success.descriptionSlaveFinal')"
+        >
         </p>
         <p :class="$style.email">{{email}}</p>
       </template>
