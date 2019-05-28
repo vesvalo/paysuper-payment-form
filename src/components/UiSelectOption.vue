@@ -1,5 +1,5 @@
 <template>
-<label :class="[$style.option, { [$style._empty]: option.value === '' }]">
+<label :class="[$style.option, { [$style._empty]: optionIsEmpty }]">
   <div
     v-if="option.iconComponent"
     :class="$style.icon"
@@ -7,35 +7,37 @@
     <component :is="option.iconComponent" />
   </div>
 
-  {{ option.label }}
+  <div :class="$style.label">
+    {{ option.label }}
+  </div>
 
   <input
-    v-model="selectValue"
+    type="radio"
     :class="$style.input"
     :name="selectId"
-    type="radio"
     :value="option.value"
-    @input="emitChange"
+    @input="$emit('input', option.value)"
   >
 </label>
 </template>
 
 <script>
+import { isEmpty } from 'lodash-es';
+
 export default {
   props: {
     option: {
       default: () => ({}),
-      type: Array,
+      type: Object,
     },
     selectId: {
       default: 'select',
       type: String,
     },
   },
-  methods: {
-    emitChange({ target: { value } }) {
-      this.blur();
-      this.$emit('input', value);
+  computed: {
+    optionIsEmpty() {
+      return isEmpty(this.option) || this.option.value === '';
     },
   },
 };
@@ -49,22 +51,22 @@ $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $background-color: transparent;
 $input-color: #fff;
 $border-color: rgba(255, 255, 255, 0.2);
-$focus-border-color: #06eaa7;
+$hover-border-color: rgba(255, 255, 255, 0.5);
 $hover-option-color: #06eaa7;
 $disabled-opacity: 0.7;
-
-$primary-input-size: 16px;
-$secondary-input-size: 14px;
 
 .option {
   cursor: pointer;
   display: flex;
   height: 40px;
-  line-height: 40px;
+  line-height: 24px;
   margin: 0;
+  border-bottom: 1px solid $border-color;
+  padding-top: 16px;
 
   &:hover {
     color: $hover-option-color;
+    border-color: $hover-border-color;
   }
 
   &._empty {
@@ -73,6 +75,11 @@ $secondary-input-size: 14px;
 }
 .icon {
   margin-right: 12px;
+}
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .input {
   height: 0;

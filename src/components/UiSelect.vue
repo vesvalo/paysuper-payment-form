@@ -2,30 +2,68 @@
 <div
   v-clickaway="blur"
   :class="selectClasses"
-  @click="focused ? blur() : focus()"
 >
-  <input
-    :class="$style.selected"
-    :value="selectedLabel"
-    :readonly="true"
-  />
-  <div :class="$style.box">
-    <div :class="$style.options">
-      <slot name="options" :selectId="selectId" />
+  <div
+    :class="[$style.selected, { [$style._focused]: focused }]"
+    @click="focused = !focused"
+  >
+    <div
+      v-if="selectedItem.iconComponent"
+      :class="$style.icon"
+    >
+      <component :is="selectedItem.iconComponent" />
     </div>
+    <input
+      :class="[$style.input, { [$style._focused]: focused }]"
+      :value="label"
+      :readonly="true"
+    />
+    <div :class="[$style.arrow, { [$style._focused]: focused }]">
+      <IconArrow />
+    </div>
+  </div>
+  <div :class="[$style.box, { [$style._focused]: focused }]">
+    <UiScrollbarBox :class="$style.scrollbar">
+      <div :class="$style.options">
+        <UiSelectOption
+          v-for="option in actualOtions"
+          :key="option.value"
+          :option="option"
+          :selectId="selectId"
+          @input="emitChange"
+        />
+      </div>
+    </UiScrollbarBox>
   </div>
 </div>
 </template>
 
 <script>
 import { directive as clickaway } from 'vue-clickaway';
-import { find, get, uniqueId } from 'lodash-es';
+import {
+  get,
+  filter,
+  find,
+  uniqueId,
+} from 'lodash-es';
 
 export default {
   directives: {
     clickaway,
   },
+  model: {
+    prop: 'value',
+    event: 'input',
+  },
   props: {
+    appendLabel: {
+      default: '',
+      type: String,
+    },
+    prependLabel: {
+      default: '',
+      type: String,
+    },
     disabled: {
       default: false,
       type: Boolean,
@@ -55,6 +93,9 @@ export default {
     };
   },
   computed: {
+    actualOtions() {
+      return filter(this.options, option => option.value !== this.selectValue);
+    },
     selectClasses() {
       return [
         this.$style.container,
@@ -63,12 +104,17 @@ export default {
         this.disabled ? this.$style._disabled : '',
       ];
     },
+    selectedItem() {
+      return find(this.options, { value: this.selectValue });
+    },
     selectedLabel() {
-      const selectedItem = find(this.options, { value: this.selectValue });
-      return selectedItem ? selectedItem.label : '';
+      return this.selectedItem ? this.selectedItem.label : '';
     },
     selectId() {
       return uniqueId('select');
+    },
+    label() {
+      return `${this.prependLabel} ${this.selectedLabel} ${this.appendLabel}`.trim();
     },
   },
   watch: {
@@ -77,15 +123,13 @@ export default {
     },
   },
   methods: {
-    emitChange({ target: { value } }) {
-      this.blur();
-      this.$emit('input', value);
-    },
-    focus() {
-      this.focused = true;
-    },
     blur() {
       this.focused = false;
+    },
+    emitChange(value) {
+      this.selectValue = value;
+      this.focused = false;
+      this.$emit('input', value);
     },
   },
 };
@@ -99,6 +143,7 @@ $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $background-color: transparent;
 $input-color: #fff;
 $border-color: rgba(255, 255, 255, 0.2);
+$hover-border-color: rgba(255, 255, 255, 0.5);
 $focus-border-color: #06eaa7;
 $hover-option-color: #06eaa7;
 $disabled-opacity: 0.7;
@@ -115,6 +160,14 @@ $secondary-input-size: 14px;
   font-size: $primary-input-size;
   position: relative;
   width: 100%;
+  font-size: 15px;
+  color: $input-color;
+  font-family: $font-family;
+  padding: 18px 0;
+
+  &._focused {
+    height: 100%;
+  }
 
   &._disabled {
     opacity: $disabled-opacity;
@@ -122,58 +175,84 @@ $secondary-input-size: 14px;
   }
 }
 .selected {
-  display: block;
+  display: flex;
   height: 24px;
   line-height: 24px;
   width: 100%;
+  background-color: $background-color;
+  border: none;
+  border-bottom: 1px solid $border-color;
+  cursor: pointer;
+  font-family: $font-family;
+
+  &._focused {
+    border-color: $focus-border-color;
+  }
+
+  &:not(._focused):hover {
+    border-color: $hover-border-color;
+  }
+}
+.icon {
+  margin-right: 12px;
+  flex-grow: 0;
+}
+.input {
+  display: block;
+  height: 24px;
+  flex-grow: 1;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   background-color: $background-color;
   border: none;
-  border-bottom: 1px solid $border-color;
-  pointer-events: none;
   outline: none;
   color: $input-color;
+  cursor: pointer;
   font-family: $font-family;
+  font-size: 15px;
+  pointer-events: none;
+}
+.arrow {
+  height: 24px;
+  display: flex;
+  align-items: center;
+
+  & > svg {
+    fill: $input-color;
+  }
+
+  &._focused {
+    & > svg {
+      transform: rotateX(180deg);
+    }
+  }
 }
 .box {
   position: absolute;
   background-color: #424C66;
-  left: -20px;
+  left: 0;
   z-index: 10;
   text-overflow: ellipsis;
   transform: scaleY(0);
   transform-origin: top;
   transition: transform 0.2s ease-out;
   white-space: nowrap;
-  width: calc(100% + 40px);
-  top: 24px;
+  width: calc(100% + 20px);
+  top: 42px;
+  height: calc(100% - 36px);
+
+  &._focused {
+    transition: transform 0.2s ease-out;
+    transform: scaleY(1);
+  }
+}
+.scrollbar {
+  height: 100%;
 }
 .options {
   background-color: $background-color;
-  max-height: 220px;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   width: 100%;
-}
-.option {
-  cursor: pointer;
-  display: block;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 16px;
-  margin: 0;
-
-  &:hover,
-  &._current {
-    color: $hover-option-color;
-  }
-}
-.input {
-  height: 0;
-  visibility: hidden;
-  width: 0;
+  padding-right: 20px;
 }
 </style>

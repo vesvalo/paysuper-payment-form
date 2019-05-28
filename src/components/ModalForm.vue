@@ -85,7 +85,7 @@ export default {};
   display: flex;
   flex-grow: 1;
   color: rgba(#fff, 0.7);
-  max-height: calc(100% - 140px);
+  max-height: calc(100% - 60px);
 }
 .footer {
   display: flex;

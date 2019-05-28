@@ -1,20 +1,64 @@
 <template>
 <div :class="[$style.formSection, { [$style._hasPadding]: hasPadding }]">
-  <UiSelect :options="options">
-    <template v-slot:options="selectId">
-      <UiSelectOption
-        #options="selectId"
-        v-for="option in options"
-        :key="option.value"
-        :option="option"
-      />
-    </template>
-  </UiSelect>
-  <UiCardField />
+  <UiSelect
+    v-model="payType"
+    :class="$style.formItem"
+    :options="options"
+    :prependLabel="$t('prependLabel')"
+    @input="payType = $event"
+  />
+  <UiCardField
+    v-model="cardNumber"
+    :class="$style.formItem"
+    @input="cardNumber = $event"
+  />
+  <div :class="$style.formItem">
+    <UiTextField
+      v-model="expiryDate"
+      mask="##/##"
+      :class="$style.expiry"
+      :label="$t('expiryDate')"
+      @input="expiryDate = $event"
+    />
+    <UiTextField
+      v-model="cvv"
+      mask="###"
+      type="password"
+      :label="$t('cvv')"
+      @input="cvv = $event"
+    />
+  </div>
+  <UiTextField
+    v-model="cardHolder"
+    mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
+    :class="$style.formItem"
+    :label="$t('cardholder')"
+    @input="cardHolder = $event"
+  />
+  <UiTextField
+    v-model="email"
+    type="email"
+    :class="$style.formItem"
+    :hasError="$isFieldInvalid('email')"
+    :errorText="$t('emailInvalid')"
+    :label="$t('email')"
+    @input="email = $event"
+    @focus="$v.$touch()"
+  />
+  <div :class="[$style.formItem, $style.remember]">
+    <UiCheckbox
+      v-model="hasRemembered"
+      @input="hasRemembered = $event"
+    >
+      {{ $t('remember') }}
+    </UiCheckbox>
+  </div>
 </div>
 </template>
 
 <script>
+import { email } from 'vuelidate/lib/validators';
+
 export default {
   name: 'FormSection',
   props: {
@@ -25,10 +69,29 @@ export default {
   },
   data() {
     return {
+      payType: 'card',
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+      cardHolder: '',
+      email: '',
+      hasRemembered: false,
       options: [
         { value: 'card', label: this.$i18n.t('card'), iconComponent: 'IconCard' },
+        { value: 'paypal', label: this.$i18n.t('paypal'), iconComponent: 'IconCard' },
+        { value: 'yandex', label: this.$i18n.t('yandex'), iconComponent: 'IconCard' },
+        { value: 'amazon', label: this.$i18n.t('amazon'), iconComponent: 'IconCard' },
+        { value: 'union', label: this.$i18n.t('union'), iconComponent: 'IconCard' },
+        { value: 'jcb', label: this.$i18n.t('jcb'), iconComponent: 'IconCard' },
+        { value: 'wechat', label: this.$i18n.t('wechat'), iconComponent: 'IconCard' },
+        { value: 'qiwi', label: this.$i18n.t('qiwi'), iconComponent: 'IconCard' },
+        { value: 'webmoney', label: this.$i18n.t('webmoney'), iconComponent: 'IconCard' },
+        { value: 'btc', label: this.$i18n.t('btc'), iconComponent: 'IconCard' },
       ],
     };
+  },
+  validations: {
+    email: { email },
   },
   computed: {},
   methods: {},
@@ -40,10 +103,67 @@ export default {
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  align-items: flex-start;
+  align-content: flex-start;
+  height: 100%;
+  overflow: hidden;
 
   &._hasPadding {
-    padding: 20px 40px;
+    padding: 0 40px 20px;
   }
 }
+.formItem {
+  display: flex;
+  justify-content: space-between;
+}
+.expiry {
+  margin-right: 20px;
+}
+.remember {
+  padding: 18px 0;
+}
 </style>
+
+<i18n>
+{
+  "en": {
+    "prependLabel": "Pay with",
+    "card": "Card",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "expiryDate": "Expiry date",
+    "expiryDateInvalid": "Expiry date is invalid",
+    "cvv": "CVC/CVV",
+    "cardholder": "Cardholder name",
+    "email": "Email to receive the purchase",
+    "emailInvalid": "Email is invalid",
+    "remember": "Remember me"
+  },
+  "ru": {
+    "prependLabel": "Тип оплаты:",
+    "card": "Карта",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "expiryDate": "Срок действия",
+    "expiryDateInvalid": "Неверный срок действия",
+    "cvv": "CVC/CVV",
+    "cardholder": "Владелец карты",
+    "email": "Email",
+    "emailInvalid": "Неверный email",
+    "remember": "Запомнить"
+  }
+}
+</i18n>

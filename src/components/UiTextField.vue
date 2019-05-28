@@ -1,13 +1,25 @@
 <template>
 <div :class="[container, { [stateDisabled]: disabled }]">
-  <input
-    v-bind="{ required, disabled }"
+  <TheMask
+    v-if="mask"
+    v-bind="{ disabled, required, type }"
+    v-model="innerValue"
     :class="inputClasses"
-    :value="value"
+    :mask="mask"
+    :tokens="maskTokens"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
-    @input="$emit('input', $event.target.value)"
-  >
+    @input="$emit('input', innerValue)"
+  />
+  <input
+    v-else
+    v-bind="{ disabled, required, type }"
+    v-model="innerValue"
+    :class="inputClasses"
+    @blur="$emit('blur')"
+    @focus="$emit('focus')"
+    @input="$emit('input', innerValue)"
+  />
   <label
     :class="labelClass"
     :title="label"
@@ -26,11 +38,16 @@
 
 <script>
 import { includes } from 'lodash-es';
+import { TheMask } from 'vue-the-mask';
 
 export default {
   model: {
     prop: 'value',
     event: 'input',
+  },
+  components: {
+    // eslint-disable-next-line
+    TheMask,
   },
   props: {
     disabled: {
@@ -49,6 +66,10 @@ export default {
       default: '',
       type: String,
     },
+    mask: {
+      default: null,
+      type: String,
+    },
     required: {
       default: false,
       type: Boolean,
@@ -57,13 +78,28 @@ export default {
       default: 'text',
       type: String,
       validator(val) {
-        return includes(['text'], val);
+        return includes(['text', 'password', 'email'], val);
       },
     },
     value: {
       default: '',
       type: [String, Number],
     },
+  },
+  data() {
+    return {
+      innerValue: this.value,
+
+      maskTokens: {
+        '#': { pattern: /\d/ },
+        X: { pattern: /[0-9a-zA-Z]/ },
+        S: { pattern: /[a-zA-Z]/ },
+        A: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase() },
+        a: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase() },
+        '!': { escape: true },
+        U: { pattern: /[a-zA-Z\s]/, transform: v => v.toLocaleUpperCase() },
+      },
+    };
   },
   computed: {
     container() {
@@ -145,6 +181,11 @@ export default {
       },
     });
   },
+  watch: {
+    value(value) {
+      this.innerValue = value;
+    },
+  },
 };
 </script>
 
@@ -222,6 +263,7 @@ $main-additional-height: 18px;
   &:focus ~ .label,
   &:not(:focus):not(._empty) ~ .label {
     transform: translateY(-$main-additional-height) scale(0.75, 0.75);
+    width: 130%;
   }
 
   &:focus ~ .label {

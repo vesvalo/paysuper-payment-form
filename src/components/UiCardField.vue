@@ -3,6 +3,7 @@
   <UiTextField
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError }"
+    mask="#### #### #### ####"
     :label="$t('cardNumber')"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
