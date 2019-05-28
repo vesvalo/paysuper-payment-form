@@ -61,7 +61,7 @@
 
 <script>
 import { email } from 'vuelidate/lib/validators';
-import { split, toInteger } from 'lodash-es';
+import { toInteger } from 'lodash-es';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
