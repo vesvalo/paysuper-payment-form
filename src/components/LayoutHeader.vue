@@ -160,6 +160,11 @@ export default {
     line-height: 40px;
     height: 40px;
     justify-content: space-between;
+
+    &._opened {
+      width: auto;
+      padding-top: 4px;
+    }
   }
 }
 .id {

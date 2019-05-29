@@ -9,16 +9,12 @@
         </a>
         <a href="#" :class="$style.link">EN</a>
       </div>
-
-      <IconClose
-        :class="$style.iconClose"
-        @click.native="$emit('close')"
-      />
     </div>
 
     <div :class="$style.content">
-      <slot name="content" />
-      --- Content ---
+      <UiScrollbarBox>
+        <slot />
+      </UiScrollbarBox>
     </div>
   </div>
 
@@ -50,15 +46,14 @@ export default {};
 }
 .box {
   display: flex;
-  padding: 20px;
   flex-grow: 1;
   flex-direction: column;
 }
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-grow: 0;
+  padding: 20px;
 }
 .links {
   display: flex;
@@ -67,7 +62,7 @@ export default {};
   font-size: 12px;
   font-weight: 500;
   color: rgba(#fff, 0.5);
-  line-height: 18px;
+  line-height: 20px;
   text-decoration: none;
 
   &:hover {
@@ -78,8 +73,7 @@ export default {};
     margin-right: 16px;
   }
 }
-.iconSupport,
-.iconClose {
+.iconSupport {
   cursor: pointer;
   fill: rgba(#fff, 0.5);
 
@@ -91,7 +85,7 @@ export default {};
   display: flex;
   flex-grow: 1;
   color: rgba(#fff, 0.7);
-  padding: 20px 0;
+  max-height: calc(100% - 60px);
 }
 .footer {
   display: flex;

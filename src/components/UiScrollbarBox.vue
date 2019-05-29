@@ -22,6 +22,7 @@ export default {
     background-color: transparent;
 
     & > .ps__scrollbar-y {
+      width: 10px;
       background-color: rgba(0, 0, 0, 0.7);
     }
   }
@@ -30,7 +31,7 @@ export default {
     background-color: rgba(0, 0, 0, 0.7);
     width: 3px;
     right: 5px;
-    border-radius: 2px;
+    border-radius: 4px;
   }
 }
 </style>
