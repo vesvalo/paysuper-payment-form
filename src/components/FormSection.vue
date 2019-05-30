@@ -27,6 +27,7 @@
       v-model="cvv"
       mask="###"
       type="password"
+      :class="$style.cvv"
       :label="$t('cvv')"
       @input="cvv = $event"
     />
@@ -131,6 +132,8 @@ export default {
 </script>
 
 <style module lang="scss">
+@import '@/assets/styles/directional.scss';
+
 .formSection {
   display: flex;
   flex-wrap: wrap;
@@ -148,7 +151,14 @@ export default {
   justify-content: space-between;
 }
 .expiry {
-  margin-right: 20px;
+  @include if-ltr {
+    margin-right: 20px;
+  }
+}
+.cvv {
+  @include if-rtl {
+    margin-right: 20px;
+  }
 }
 .remember {
   padding: 18px 0;

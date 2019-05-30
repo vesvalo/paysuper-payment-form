@@ -126,6 +126,7 @@ async function mountApp(formData, options = {}) {
   const VueApp = Vue.extend(appComponent);
 
   Vue.prototype.$gui = prepareStyles(formData.customizate);
+  Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
     store,

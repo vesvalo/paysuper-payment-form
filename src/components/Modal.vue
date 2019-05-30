@@ -67,6 +67,7 @@ export default {
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/directional.scss';
 
 .layout {
   align-items: center;
@@ -87,6 +88,10 @@ export default {
   border-radius: 12px;
   overflow: hidden;
   background-color: #424c66;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
 .close {
   position: absolute;

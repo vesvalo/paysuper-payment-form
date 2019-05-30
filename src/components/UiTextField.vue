@@ -191,6 +191,7 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+@import '@/assets/styles/directional.scss';
 
 $common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
@@ -289,12 +290,22 @@ $main-additional-height: 18px;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: $main-font-size;
-  left: 0;
   pointer-events: none;
   top: $main-additional-height;
-  transform-origin: left;
   transition: $label-transition;
   width: 100%;
+
+  @include if-ltr {
+    transform-origin: left;
+    left: 0;
+    text-align: left;
+  }
+
+  @include if-rtl {
+    transform-origin: right;
+    right: 0;
+    text-align: right;
+  }
 }
 
 .error {
@@ -307,6 +318,13 @@ $main-additional-height: 18px;
   line-height: $error-height;
   position: absolute;
   padding: 0 5px;
-  border-radius: 0 3px 3px 3px;
+
+  @include if-ltr {
+    border-radius: 0 3px 3px 3px;
+  }
+
+  @include if-rtl {
+    border-radius: 3px 0 3px 3px;
+  }
 }
 </style>

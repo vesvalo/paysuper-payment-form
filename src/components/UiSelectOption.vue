@@ -45,6 +45,7 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+@import '@/assets/styles/directional.scss';
 
 $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
@@ -74,7 +75,13 @@ $disabled-opacity: 0.7;
   }
 }
 .icon {
-  margin-right: 12px;
+  @include if-ltr {
+    margin-right: 12px;
+  }
+
+  @include if-rtl {
+    margin-left: 12px;
+  }
 }
 .label {
   overflow: hidden;

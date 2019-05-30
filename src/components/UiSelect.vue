@@ -137,6 +137,7 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+@import '@/assets/styles/directional.scss';
 
 $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
@@ -194,8 +195,15 @@ $secondary-input-size: 14px;
   }
 }
 .icon {
-  margin-right: 12px;
   flex-grow: 0;
+
+  @include if-ltr {
+    margin-right: 12px;
+  }
+
+  @include if-rtl {
+    margin-left: 12px;
+  }
 }
 .input {
   display: block;

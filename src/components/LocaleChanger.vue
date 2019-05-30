@@ -1,10 +1,29 @@
 <script>
+import { includes } from 'lodash-es';
+
+function isRtlLang(lang) {
+  const rtlLangs = ['ar'];
+
+  return includes(rtlLangs, lang);
+}
+
 export default {
   name: 'locale-changer',
   data() {
     return {
-      langs: ['ru', 'en'],
+      langs: ['ar', 'en', 'ru'],
     };
+  },
+  methods: {
+    changeLocale(lang) {
+      this.$i18n.locale = lang;
+
+      if (isRtlLang(lang)) {
+        this.$changeDirection('rtl');
+      } else {
+        this.$changeDirection('ltr');
+      }
+    },
   },
 };
 </script>
@@ -15,7 +34,7 @@ export default {
       class="locale-changer__item"
       v-for="lang in langs"
       :key="lang"
-      @click="$i18n.locale = lang"
+      @click="changeLocale(lang)"
     >
       <span
         class="locale-changer__button"

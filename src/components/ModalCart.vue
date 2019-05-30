@@ -25,6 +25,7 @@ export default {};
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/directional.scss';
 
 .layout {
   display: flex;
@@ -49,10 +50,6 @@ export default {};
   &:hover {
     color: #00d697;
   }
-
-  &:not(:last-child) {
-    margin-right: 16px;
-  }
 }
 .content {
   display: flex;
@@ -66,5 +63,19 @@ export default {};
   align-items: center;
   flex-grow: 0;
   padding: 20px;
+
+  & > .link {
+    @include if-ltr {
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+
+    @include if-rtl {
+      &:not(:last-child) {
+        margin-left: 16px;
+      }
+    }
+  }
 }
 </style>

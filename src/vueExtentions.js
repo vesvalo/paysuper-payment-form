@@ -25,6 +25,10 @@ function $addCssRules(rules) {
     }
   });
 }
+function $changeDirection(dir = 'ltr') {
+  this.$direction = dir;
+  document.body.style.direction = dir;
+}
 
 function $getFieldErrorMessages(fieldPath) {
   const field = get(this.$v, fieldPath);
@@ -51,6 +55,7 @@ function $isFieldInvalid(fieldPath) {
 
 extend(Vue.prototype, {
   $addCssRules,
+  $changeDirection,
   $getFieldErrorMessages,
   $isFieldInvalid,
 });
