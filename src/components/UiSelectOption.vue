@@ -40,6 +40,18 @@ export default {
       return isEmpty(this.option) || this.option.value === '';
     },
   },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.option}`]: {
+        color: this.$gui.selectColor,
+        'border-color': this.$gui.selectBorderColor,
+      },
+      [`.${this.$style.option}:hover`]: {
+        color: this.$gui.selectFocusBorderColor,
+        'border-color': this.$gui.selectHoverBorderColor,
+      },
+    });
+  },
 };
 </script>
 
@@ -54,7 +66,6 @@ $input-color: #fff;
 $border-color: rgba(255, 255, 255, 0.2);
 $hover-border-color: rgba(255, 255, 255, 0.5);
 $hover-option-color: #06eaa7;
-$disabled-opacity: 0.7;
 
 .option {
   cursor: pointer;
@@ -62,6 +73,7 @@ $disabled-opacity: 0.7;
   height: 40px;
   line-height: 24px;
   margin: 0;
+  color: $input-color;
   border-bottom: 1px solid $border-color;
   padding-top: 16px;
 

@@ -117,10 +117,36 @@ export default {
       return `${this.prependLabel} ${this.selectedLabel} ${this.appendLabel}`.trim();
     },
   },
-  watch: {
-    value(val) {
-      this.selectValue = val;
-    },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.container}.${this.$style._disabled}`]: {
+        opacity: this.$gui.selectDisabledOpacity,
+      },
+      [`.${this.$style.container}`]: {
+        color: this.$gui.selectColor,
+        'background-color': this.$gui.selectBoxColor,
+      },
+      [`.${this.$style.selected}`]: {
+        'background-color': this.$gui.selectBoxColor,
+        'border-color': this.$gui.selectBorderColor,
+      },
+      [`.${this.$style.selected}.${this.$style._focused}`]: {
+        'border-color': this.$gui.selectFocusBorderColor,
+      },
+      [`.${this.$style.selected}:not(.${this.$style._focused}):hover`]: {
+        'border-color': this.$gui.selectHoverBorderColor,
+      },
+      [`.${this.$style.input}`]: {
+        color: this.$gui.selectColor,
+        'background-color': this.$gui.selectBoxColor,
+      },
+      [`.${this.$style.arrow} > svg`]: {
+        fill: this.$gui.selectColor,
+      },
+      [`.${this.$style.box}`]: {
+        'background-color': this.$gui.selectOptionsBoxColor,
+      },
+    });
   },
   methods: {
     blur() {
@@ -130,6 +156,11 @@ export default {
       this.selectValue = value;
       this.focused = false;
       this.$emit('input', value);
+    },
+  },
+  watch: {
+    value(val) {
+      this.selectValue = val;
     },
   },
 };
@@ -143,6 +174,7 @@ $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
 $background-color: transparent;
 $input-color: #fff;
+$options-color: #424C66;
 $border-color: rgba(255, 255, 255, 0.2);
 $hover-border-color: rgba(255, 255, 255, 0.5);
 $focus-border-color: #06eaa7;
@@ -238,7 +270,7 @@ $secondary-input-size: 14px;
 }
 .box {
   position: absolute;
-  background-color: #424C66;
+  background-color: $options-color;
   left: 0;
   z-index: 10;
   text-overflow: ellipsis;
@@ -259,7 +291,6 @@ $secondary-input-size: 14px;
   height: 100%;
 }
 .options {
-  background-color: $background-color;
   width: 100%;
   padding-right: 20px;
 }

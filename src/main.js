@@ -57,6 +57,13 @@ const allowedStyleVars = [
   'inputFocusLabelColor',
   'inputHoverBorderColor',
   'inputLabelColor',
+  'selectBorderColor',
+  'selectBoxColor',
+  'selectColor',
+  'selectDisabledOpacity',
+  'selectFocusBorderColor',
+  'selectHoverBorderColor',
+  'selectOptionsBoxColor',
 ];
 
 /**

@@ -108,7 +108,15 @@ export default {
       cardHolder: '',
       email: '',
       hasRemembered: false,
-      options: [
+    };
+  },
+  validations: {
+    email: { email },
+    expiryDate: { isValidExpiryDate },
+  },
+  computed: {
+    options() {
+      return [
         { value: 'card', label: this.$i18n.t('card'), iconComponent: 'IconCard' },
         { value: 'paypal', label: this.$i18n.t('paypal'), iconComponent: 'IconCard' },
         { value: 'yandex', label: this.$i18n.t('yandex'), iconComponent: 'IconCard' },
@@ -119,15 +127,9 @@ export default {
         { value: 'qiwi', label: this.$i18n.t('qiwi'), iconComponent: 'IconCard' },
         { value: 'webmoney', label: this.$i18n.t('webmoney'), iconComponent: 'IconCard' },
         { value: 'btc', label: this.$i18n.t('btc'), iconComponent: 'IconCard' },
-      ],
-    };
+      ];
+    },
   },
-  validations: {
-    email: { email },
-    expiryDate: { isValidExpiryDate },
-  },
-  computed: {},
-  methods: {},
 };
 </script>
 
