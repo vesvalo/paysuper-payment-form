@@ -1,4 +1,6 @@
 <script>
+import { includes } from 'lodash-es';
+
 export default {
   name: 'CartSection',
 
@@ -8,9 +10,20 @@ export default {
       required: true,
     },
 
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
+    },
+
     view: {
       type: String,
       default: 'default',
+      validator(value) {
+        return includes(['default', 'promo'], value);
+      },
     },
   },
 

@@ -8,7 +8,6 @@
   <LayoutContent :openedContent="openedContent">
     <CartSection
       slot="cart"
-      :hasPadding="false"
       :items="cartTestData"
     />
     <FormSection slot="form" />
@@ -56,7 +55,13 @@ export default {
   flex-direction: column;
 
   @media screen and (min-width: 640px) {
-    background-image: linear-gradient(to right, #f3f3f3 0%, #f3f3f3 50%, #fff 50%, #fff 100%);
+    background-image: linear-gradient(
+      to right,
+      #f3f3f3 0%,
+      #f3f3f3 50%,
+      #fff 50%,
+      #fff 100%
+    );
   }
 
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {

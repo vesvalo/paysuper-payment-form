@@ -6,11 +6,6 @@
         <div :class="[$style.main, { [$style._opened]: openedContent }]">
           <slot name="cart" />
         </div>
-
-        <div :class="$style.total">
-          <div>Total</div>
-          <div>$112.80</div>
-        </div>
       </div>
     </div>
 
@@ -53,7 +48,7 @@ export default {
   }
 }
 .left {
-  background-color: #f3f3f3;
+  background-color: #333b50;
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
@@ -82,6 +77,7 @@ export default {
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
+  background-color: #424c66;
 
   @media screen and (min-width: 640px) {
     padding-top: 80px;
@@ -124,13 +120,5 @@ export default {
   @media screen and (min-width: 640px) {
     display: block;
   }
-}
-.total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-  line-height: 20px;
-  color: #202226;
-  font-weight: bold;
 }
 </style>
