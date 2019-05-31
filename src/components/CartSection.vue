@@ -170,7 +170,10 @@ export default {
   padding: 0 20px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+
+  .cartSection._promo & {
+    justify-content: flex-end;
+  }
 }
 
 .images {
