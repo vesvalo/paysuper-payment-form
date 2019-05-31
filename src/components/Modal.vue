@@ -84,7 +84,9 @@ export default {
 .modal {
   position: relative;
   display: flex;
-  width: 100%;
+  width: 640px;
+  height: 510px;
+  min-width: 480px;
   border-radius: 12px;
   overflow: hidden;
   background-color: #424c66;
