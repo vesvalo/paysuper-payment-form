@@ -70,12 +70,6 @@ export default {
       [`.${this.container}.${this.stateDisabled}`]: {
         opacity: this.$gui.checkboxDisabledOpacity,
       },
-      [`body[style*='direction: ltr'] .${this.label}`]: {
-        'margin-left': this.$gui.checkboxMargin,
-      },
-      [`body[style*='direction: rtl'] .${this.label}`]: {
-        'margin-right': this.$gui.checkboxMargin,
-      },
     });
   },
   methods: {

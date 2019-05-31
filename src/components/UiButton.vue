@@ -62,13 +62,9 @@ export default {
       },
       [`.${this.before}`]: {
         color: this.$gui.buttonBeforeColor,
-        'margin-left': this.$gui.buttonBeforeMargin,
-        'margin-right': this.$gui.buttonBeforeMargin,
       },
       [`.${this.after}`]: {
         color: this.$gui.buttonAfterColor,
-        'margin-left': this.$gui.buttonAfterMargin,
-        'margin-right': this.$gui.buttonAfterMargin,
       },
     });
   },
