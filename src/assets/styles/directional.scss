@@ -1,0 +1,11 @@
+@mixin if-ltr {
+  body[style*='direction: ltr'] & {
+    @content;
+  }
+}
+
+@mixin if-rtl {
+  body[style*='direction: rtl'] & {
+    @content;
+  }
+}

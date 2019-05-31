@@ -61,14 +61,23 @@ export default {
 </script>
 
 <style module lang="scss">
+@import '@/assets/styles/directional.scss';
+
 .container {
   position: relative;
   width: 100%;
 }
 .mastercard {
   position: absolute;
-  right: 0;
   top: 21px;
+
+  @include if-ltr {
+    right: 0;
+  }
+
+  @include if-rtl {
+    left: 0;
+  }
 }
 </style>
 

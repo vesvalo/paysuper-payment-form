@@ -70,9 +70,6 @@ export default {
       [`.${this.container}.${this.stateDisabled}`]: {
         opacity: this.$gui.checkboxDisabledOpacity,
       },
-      [`.${this.label}`]: {
-        'margin-left': this.$gui.checkboxMargin,
-      },
     });
   },
   methods: {
@@ -93,6 +90,7 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
+@import '@/assets/styles/directional.scss';
 
 $common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $box-color: transparent;
@@ -153,7 +151,13 @@ $label-margin: 10px;
 }
 
 .label {
-  margin-left: $label-margin;
+  @include if-ltr {
+    margin-left: $label-margin;
+  }
+
+  @include if-rtl {
+    margin-right: $label-margin;
+  }
 
   &:empty {
     display: none;

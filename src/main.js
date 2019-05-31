@@ -36,11 +36,8 @@ const allowedStyleVars = [
   'buttonHoverBoxColor',
   'buttonDisabledOpacity',
   'buttonBeforeColor',
-  'buttonBeforeMargin',
   'buttonAfterColor',
-  'buttonAfterMargin',
   'checkboxColor',
-  'checkboxMargin',
   'checkboxHoverColor',
   'checkboxCheckedColor',
   'checkboxDisabledOpacity',
@@ -57,6 +54,13 @@ const allowedStyleVars = [
   'inputFocusLabelColor',
   'inputHoverBorderColor',
   'inputLabelColor',
+  'selectBorderColor',
+  'selectBoxColor',
+  'selectColor',
+  'selectDisabledOpacity',
+  'selectFocusBorderColor',
+  'selectHoverBorderColor',
+  'selectOptionsBoxColor',
 ];
 
 /**
@@ -126,6 +130,7 @@ async function mountApp(formData, options = {}) {
   const VueApp = Vue.extend(appComponent);
 
   Vue.prototype.$gui = prepareStyles(formData.customizate);
+  Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
     store,

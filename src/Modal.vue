@@ -48,8 +48,8 @@ export default {
 
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Quicksand&subset=cyrillic,cyrillic-ext');
+@import '@/assets/styles/reset.scss';
 
 .layout {
   min-height: 100vh;

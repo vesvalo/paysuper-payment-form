@@ -62,11 +62,9 @@ export default {
       },
       [`.${this.before}`]: {
         color: this.$gui.buttonBeforeColor,
-        'margin-right': this.$gui.buttonBeforeMargin,
       },
       [`.${this.after}`]: {
         color: this.$gui.buttonAfterColor,
-        'margin-right': this.$gui.buttonAfterMargin,
       },
     });
   },
@@ -146,6 +144,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
 .before {
   display: inline-flex;
   color: $before-text-color;
+  margin-left: $before-margin;
   margin-right: $before-margin;
 }
 
@@ -153,5 +152,6 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   display: inline-flex;
   color: $after-text-color;
   margin-left: $after-margin;
+  margin-right: $after-margin;
 }
 </style>

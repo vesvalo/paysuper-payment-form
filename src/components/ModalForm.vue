@@ -37,6 +37,7 @@ export default {};
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/directional.scss';
 
 .layout {
   display: flex;
@@ -54,9 +55,17 @@ export default {};
   align-items: center;
   flex-grow: 0;
   padding: 20px;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
 .links {
   display: flex;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
 .link {
   font-size: 12px;

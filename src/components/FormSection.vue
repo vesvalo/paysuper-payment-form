@@ -27,6 +27,7 @@
       v-model="cvv"
       mask="###"
       type="password"
+      :class="$style.cvv"
       :label="$t('cvv')"
       @input="cvv = $event"
     />
@@ -107,7 +108,15 @@ export default {
       cardHolder: '',
       email: '',
       hasRemembered: false,
-      options: [
+    };
+  },
+  validations: {
+    email: { email },
+    expiryDate: { isValidExpiryDate },
+  },
+  computed: {
+    options() {
+      return [
         { value: 'card', label: this.$i18n.t('card'), iconComponent: 'IconCard' },
         { value: 'paypal', label: this.$i18n.t('paypal'), iconComponent: 'IconCard' },
         { value: 'yandex', label: this.$i18n.t('yandex'), iconComponent: 'IconCard' },
@@ -118,19 +127,15 @@ export default {
         { value: 'qiwi', label: this.$i18n.t('qiwi'), iconComponent: 'IconCard' },
         { value: 'webmoney', label: this.$i18n.t('webmoney'), iconComponent: 'IconCard' },
         { value: 'btc', label: this.$i18n.t('btc'), iconComponent: 'IconCard' },
-      ],
-    };
+      ];
+    },
   },
-  validations: {
-    email: { email },
-    expiryDate: { isValidExpiryDate },
-  },
-  computed: {},
-  methods: {},
 };
 </script>
 
 <style module lang="scss">
+@import '@/assets/styles/directional.scss';
+
 .formSection {
   display: flex;
   flex-wrap: wrap;
@@ -148,7 +153,14 @@ export default {
   justify-content: space-between;
 }
 .expiry {
-  margin-right: 20px;
+  @include if-ltr {
+    margin-right: 20px;
+  }
+}
+.cvv {
+  @include if-rtl {
+    margin-right: 20px;
+  }
 }
 .remember {
   padding: 18px 0;
