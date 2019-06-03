@@ -1,3 +1,22 @@
+<template>
+<div :class="$style.container">
+  <div
+    v-for="lang in langs"
+    :key="lang"
+    :class="$style.item"
+    @click="changeLocale(lang.value)"
+  >
+    <div :class="$style.icon">
+      <component :is="option.iconComponent" />
+    </div>
+
+    <div :class="[$style.label, { [$style._current]: isCurrentLang(lang.value) }]">
+      {{ lang.label }}
+    </div>
+  </div>
+</div>
+</template>
+
 <script>
 import { includes } from 'lodash-es';
 
@@ -8,10 +27,14 @@ function isRtlLang(lang) {
 }
 
 export default {
-  name: 'locale-changer',
+  name: 'localeСhanger',
   data() {
     return {
-      langs: ['ar', 'en', 'ru'],
+      langs: [
+        { value: 'ar', label: 'العربية' },
+        { value: 'en', label: 'English' },
+        { value: 'ru', label: 'Русский' },
+      ],
     };
   },
   methods: {
@@ -24,40 +47,16 @@ export default {
         this.$changeDirection('ltr');
       }
     },
+    isCurrentLang(lang) {
+      return this.$i18n.locale === lang;
+    }
   },
 };
 </script>
 
-<template>
-  <div class="locale-changer">
-    <span
-      class="locale-changer__item"
-      v-for="lang in langs"
-      :key="lang"
-      @click="changeLocale(lang)"
-    >
-      <span
-        class="locale-changer__button"
-        :class="{'_clickable': $i18n.locale !== lang}"
-      >{{lang}}</span>
-    </span>
-  </div>
-</template>
-
 <style lang="scss">
-.locale-changer {
+.container {
   line-height: 16px;
-
-  &__item {
-    & + & {
-      &::before {
-        content: '|';
-        color: $ui-color-grey72;
-        font-size: 10px;
-        margin: 0 5px;
-      }
-    }
-  }
 
   &__button {
     font-size: 13px;
@@ -71,5 +70,38 @@ export default {
       cursor: pointer;
     }
   }
+}
+.item {
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  line-height: 24px;
+  margin: 0;
+  color: $input-color;
+  border-bottom: 1px solid $border-color;
+  padding-top: 16px;
+
+  &:hover {
+    color: $hover-option-color;
+    border-color: $hover-border-color;
+  }
+
+  &._empty {
+    display: none;
+  }
+}
+.icon {
+  @include if-ltr {
+    margin-right: 12px;
+  }
+
+  @include if-rtl {
+    margin-left: 12px;
+  }
+}
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
