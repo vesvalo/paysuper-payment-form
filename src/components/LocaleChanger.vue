@@ -1,75 +1,91 @@
 <template>
-<div :class="$style.container">
-  <div
-    v-for="lang in langs"
-    :key="lang"
-    :class="$style.item"
-    @click="changeLocale(lang.value)"
-  >
-    <div :class="$style.icon">
-      <component :is="option.iconComponent" />
-    </div>
+<div :class="[$style.container, $style[`_${layout}`]]">
+  <UiScrollbarBox :class="$style.scrollbar">
+    <div :class="$style.inner">
+      <div
+        v-for="(locale, localeCode) in locales"
+        :key="localeCode"
+        :class="[$style.item, { [$style._current]: $i18n.locale === localeCode }]"
+        @click="changeLocale(localeCode)"
+      >
+        <div :class="$style.icon">
+          <component :is="iconLang(localeCode)" />
+        </div>
 
-    <div :class="[$style.label, { [$style._current]: isCurrentLang(lang.value) }]">
-      {{ lang.label }}
+        <div :class="$style.label">
+          {{ locale.label }}
+        </div>
+      </div>
     </div>
-  </div>
+  </UiScrollbarBox>
 </div>
 </template>
 
 <script>
-import { includes } from 'lodash-es';
-
-function isRtlLang(lang) {
-  const rtlLangs = ['ar'];
-
-  return includes(rtlLangs, lang);
-}
+import { includes, upperFirst } from 'lodash-es';
+import locales from '@/locales/scheme';
 
 export default {
   name: 'localeСhanger',
+  props: {
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
+    },
+  },
   data() {
     return {
-      langs: [
-        { value: 'ar', label: 'العربية' },
-        { value: 'en', label: 'English' },
-        { value: 'ru', label: 'Русский' },
-      ],
+      locales,
     };
   },
   methods: {
-    changeLocale(lang) {
-      this.$i18n.locale = lang;
+    changeLocale(locale) {
+      this.$i18n.locale = locale;
 
-      if (isRtlLang(lang)) {
+      if (this.locales[locale].rtl) {
         this.$changeDirection('rtl');
       } else {
         this.$changeDirection('ltr');
       }
+
+      this.$emit('changeLocale', locale);
     },
-    isCurrentLang(lang) {
-      return this.$i18n.locale === lang;
-    }
+    iconLang(locale) {
+      return `IconLang${upperFirst(locale)}`;
+    },
   },
 };
 </script>
 
-<style lang="scss">
+<style module lang="scss">
+@import '@/assets/styles/directional.scss';
+
+$color: #202226;
+$box-color: #f3f3f3;
+$border-color: rgba(#C2C2C4, 0.5);
+$hover-border-color: rgba(#C2C2C4, 0.8);
+$hover-option-color: #06eaa7;
+
 .container {
-  line-height: 16px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px 10px 40px;
+  overflow: hidden;
 
-  &__button {
-    font-size: 13px;
-    text-decoration: none;
-    color: $ui-color-grey58;
-
-    &._clickable {
-      color: $ui-color-grey13;
-      border-bottom-width: 1px;
-      border-bottom-style: dotted;
-      cursor: pointer;
-    }
+  &._modal {
+    background-color: $box-color;
+    color: $color;
   }
+}
+.inner {
+  padding-right: 20px;
+}
+.scrollbar {
+  height: 100%;
 }
 .item {
   cursor: pointer;
@@ -77,7 +93,6 @@ export default {
   height: 40px;
   line-height: 24px;
   margin: 0;
-  color: $input-color;
   border-bottom: 1px solid $border-color;
   padding-top: 16px;
 
@@ -86,11 +101,19 @@ export default {
     border-color: $hover-border-color;
   }
 
+  &._current {
+    color: $hover-option-color;
+  }
+
   &._empty {
     display: none;
   }
 }
 .icon {
+  border-radius: 3px;
+  overflow: hidden;
+  height: 18px;
+
   @include if-ltr {
     margin-right: 12px;
   }

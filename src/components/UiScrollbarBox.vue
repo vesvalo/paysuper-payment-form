@@ -27,7 +27,7 @@ export default {
     background-color: transparent;
 
     & > .ps__scrollbar-y {
-      width: 10px;
+      width: 3px;
       background-color: rgba(0, 0, 0, 0.7);
     }
   }
