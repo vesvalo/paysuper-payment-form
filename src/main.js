@@ -14,7 +14,7 @@ import './plugins/vuelidate';
 import store from './store/RootStore';
 import i18n from './i18n';
 import { postMessage, receiveMessages } from './postMessage';
-import colorSchemes from './colorSchemes';
+import viewSchemes from './viewSchemes';
 import './globalComponents';
 import './vueExtentions';
 
@@ -86,7 +86,7 @@ async function mountApp(formData, options = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = formData.colorSchemeConfig || colorSchemes[formData.colorScheme || 'dark'];
+  Vue.prototype.$gui = formData.viewSchemeConfig || viewSchemes[formData.viewScheme || 'dark'];
   Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
