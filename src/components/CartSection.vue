@@ -65,6 +65,20 @@ export default {
     },
   },
 
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.item}`]: {
+        color: this.$gui.cartTextColor,
+      },
+      [`.${this.$style.item}.${this.$style._total}`]: {
+        color: this.$gui.cartTotalTextColor,
+      },
+      [`.${this.$style.totals}`]: {
+        'border-top': `1px solid ${this.$gui.cartTotalStrokeColor}`,
+      },
+    });
+  },
+
   methods: {
     getItemPrice(price) {
       if (!price.discount) {
@@ -329,7 +343,6 @@ export default {
   z-index: 1;
   margin-top: 10px;
   padding: 12px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
 
   @media screen and (max-width: 640px) {
     .cartSection._closed & {

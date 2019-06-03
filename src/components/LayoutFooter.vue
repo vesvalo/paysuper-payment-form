@@ -21,6 +21,9 @@ export default {
       [`.${this.$style.right}`]: {
         'background-color': this.$gui.formBackgroundColor,
       },
+      [`.${this.$style.links}`]: {
+        'box-shadow': `0 -3px 0 0 ${this.$gui.cartBackgroundColor}`,
+      },
     });
   },
 };
@@ -46,7 +49,6 @@ export default {
   display: flex;
   line-height: 18px;
   padding: 12px 0 52px;
-  box-shadow: 0 -3px 0 0 #f3f3f3;
   width: 100%;
   margin: 0 30px;
   flex-wrap: wrap;

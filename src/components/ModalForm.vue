@@ -37,6 +37,12 @@ export default {
       [`.${this.$style.layout}`]: {
         'background-color': this.$gui.formBackgroundColor,
       },
+      [`.${this.$style.link}`]: {
+        color: this.$gui.headerTextColor,
+      },
+      [`.${this.$style.iconSupport}`]: {
+        fill: this.$gui.headerTextColor,
+      },
     });
   },
 };
@@ -77,7 +83,6 @@ export default {
 .link {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(#fff, 0.5);
   line-height: 20px;
   text-decoration: none;
 
@@ -91,7 +96,6 @@ export default {
 }
 .iconSupport {
   cursor: pointer;
-  fill: rgba(#fff, 0.5);
 
   &:hover {
     fill: #00d697;
@@ -100,7 +104,6 @@ export default {
 .content {
   display: flex;
   flex-grow: 1;
-  color: rgba(#fff, 0.7);
   max-height: calc(100% - 60px);
 }
 .footer {
