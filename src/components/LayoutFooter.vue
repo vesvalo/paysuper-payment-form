@@ -12,7 +12,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.left}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+      [`.${this.$style.right}`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
+    });
+  },
+};
 </script>
 
 <style module lang="scss">

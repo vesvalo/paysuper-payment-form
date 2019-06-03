@@ -2,8 +2,8 @@
 <div :class="$style.content">
   <div :class="$style.box">
     <div :class="$style.left">
-      <div :class="$style.mainBox">
-        <div :class="[$style.main, { [$style._opened]: openedContent }]">
+      <div :class="[$style.mainBox, {[$style._closed]: !isCartOpened}]">
+        <div :class="$style.main">
           <slot name="cart" />
         </div>
       </div>
@@ -21,10 +21,20 @@
 <script>
 export default {
   props: {
-    openedContent: {
-      default: false,
+    isCartOpened: {
+      default: true,
       type: Boolean,
     },
+  },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.left}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+      [`.${this.$style.right}`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
+    });
   },
 };
 </script>
@@ -48,16 +58,13 @@ export default {
   }
 }
 .left {
-  background-color: #333b50;
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
   justify-content: flex-end;
 
   @media screen and (min-width: 640px) {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    margin-right: 5.5vw;
+    padding-right: 5.5vw;
     flex-basis: 260px;
 
     & > .mainBox {
@@ -66,7 +73,7 @@ export default {
   }
 
   @media screen and (min-width: 1080px) {
-    margin-right: 60px;
+    padding-right: 60px;
 
     & > .mainBox {
       margin-left: 5.5vw;
@@ -77,12 +84,9 @@ export default {
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
-  background-color: #424c66;
 
   @media screen and (min-width: 640px) {
-    padding-top: 80px;
-    padding-bottom: 80px;
-    margin-left: 5.5vw;
+    padding-left: 5.5vw;
     flex-basis: 260px;
 
     & > .mainBox {
@@ -91,7 +95,7 @@ export default {
   }
 
   @media screen and (min-width: 1080px) {
-    margin-left: 60px;
+    padding-left: 60px;
 
     & > .mainBox {
       margin-right: 60px;
@@ -102,7 +106,12 @@ export default {
   padding: 20px 30px;
   width: 100%;
   max-width: 640px;
-  border: 1px dashed rgb(102, 118, 255);
+
+  @media screen and (max-width: 640px) {
+    &._closed {
+      padding: 0 30px;
+    }
+  }
 
   @media screen and (min-width: 640px) {
     padding: 0;
@@ -110,12 +119,7 @@ export default {
   }
 }
 .main {
-  display: none;
   padding-bottom: 12px;
-
-  &._opened {
-    display: block;
-  }
 
   @media screen and (min-width: 640px) {
     display: block;

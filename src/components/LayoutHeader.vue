@@ -4,12 +4,12 @@
     <div :class="$style.inner">
       <div :class="$style.game">World of Warships</div>
       <div
-        :class="[$style.wrap, { [$style._opened]: openedContent }]"
-        @click="toggleContent"
+        :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
+        @click="toggleCart"
       >
         <IconArrow />
       </div>
-      <div :class="[$style.additional, { [$style._opened]: openedContent }]">
+      <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
         <div :class="$style.id">id897632299</div>
         <div :class="$style.terms">Terms of Use</div>
       </div>
@@ -31,15 +31,26 @@
 <script>
 export default {
   props: {
-    openedContent: {
+    isCartOpened: {
       default: false,
       type: Boolean,
     },
   },
   methods: {
-    toggleContent() {
-      this.$emit('toggleContent');
+    toggleCart() {
+      this.$emit('toggleCart');
     },
+  },
+
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.left}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+      [`.${this.$style.right}`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
+    });
   },
 };
 </script>
@@ -54,32 +65,39 @@ export default {
   z-index: 1;
 }
 .left {
-  background-color: #f3f3f3;
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
   flex-wrap: wrap;
+  position: relative;
 
   & > .inner {
     padding: 30px 30px 15px;
-    box-shadow: 0 31px 0 -30px #dfdfdf;
   }
 
   @media screen and (min-width: 640px) {
-    margin-right: 5.5vw;
+    padding-right: 5.5vw;
     flex-basis: 260px;
-    box-shadow: 0 3px 0 0 #fff;
     justify-content: flex-end;
     height: auto;
 
+    &:after {
+      content: '';
+      position: absolute;
+      height: 3px;
+      background-color: #fff;
+      left: 0;
+      bottom: -3px;
+      right: 60px;
+    }
+
     & > .inner {
       padding: 100px 0 40px 5.5vw;
-      box-shadow: none;
     }
   }
 
   @media screen and (min-width: 1080px) {
-    margin-right: 60px;
+    padding-right: 60px;
 
     & > .inner {
       padding-left: 60px;
@@ -92,17 +110,27 @@ export default {
   flex-grow: 1;
   height: 130px;
   justify-content: flex-end;
+  position: relative;
 
   & > .inner {
     padding: 40px 30px 25px;
   }
 
   @media screen and (min-width: 640px) {
-    margin-left: 5.5vw;
+    padding-left: 5.5vw;
     flex-basis: 260px;
-    box-shadow: 0 3px 0 0 #f3f3f3;
     justify-content: flex-start;
     height: auto;
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 3px;
+      background-color: #f3f3f3;
+      left: 60px;
+      bottom: -3px;
+      right: 0;
+    }
 
     & > .inner {
       padding: 100px 5.5vw 40px 0;
@@ -110,7 +138,7 @@ export default {
   }
 
   @media screen and (min-width: 1080px) {
-    margin-left: 60px;
+    padding-left: 60px;
 
     & > .inner {
       padding-right: 60px;

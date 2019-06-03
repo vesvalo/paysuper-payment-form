@@ -16,6 +16,7 @@ export const sendingMessagesNames = {
   PAYMENT_DECLINED: 'paymentDeclined',
   PAYMENT_INTERRUPTED: 'paymentInterrupted',
   ORDER_RECREATE_STARTED: 'orderRecreateStarted',
+  MODAL_CLOSED: 'modalClosed',
 };
 
 export const receivingMessagesNames = invert({

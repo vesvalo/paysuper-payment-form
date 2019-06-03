@@ -17,7 +17,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.layout}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+    });
+  },
+};
 </script>
 
 
@@ -28,7 +36,6 @@ export default {};
 .layout {
   width: 320px;
   min-height: 100%;
-  background-color: #333b50;
   position: relative;
   display: flex;
 }
