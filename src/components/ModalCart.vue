@@ -6,9 +6,7 @@
   </div>
 
   <div :class="$style.content">
-    <UiScrollbarBox>
-      <slot />
-    </UiScrollbarBox>
+    <slot/>
   </div>
 
   <div :class="$style.footer">
@@ -19,7 +17,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.layout}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+    });
+  },
+};
 </script>
 
 
@@ -28,22 +34,27 @@ export default {};
 @import '@/assets/styles/directional.scss';
 
 .layout {
-  display: flex;
   width: 320px;
-  background-color: #333b50;
-  flex-direction: column;
+  min-height: 100%;
+  position: relative;
+  display: flex;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-grow: 0;
   padding: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2;
 }
 .link {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(#fff, 0.5);
+  color: rgba(#fff, 0.7);
+  line-height: 18px;
   text-decoration: none;
   line-height: 20px;
 
@@ -53,16 +64,21 @@ export default {};
 }
 .content {
   display: flex;
-  flex-grow: 1;
   color: rgba(#fff, 0.7);
-  max-height: calc(100% - 120px);
+  z-index: 1;
+  position: relative;
+  width: 100%;
 }
 .footer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-grow: 0;
   padding: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
 
   & > .link {
     @include if-ltr {

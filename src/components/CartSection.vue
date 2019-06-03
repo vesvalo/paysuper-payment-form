@@ -1,34 +1,48 @@
 <script>
+import { includes } from 'lodash-es';
+import {
+  mapState,
+} from 'vuex';
+
 export default {
   name: 'CartSection',
 
   props: {
-    hasPadding: {
+    isCartOpened: {
       default: true,
       type: Boolean,
     },
-
-    items: {
-      type: Array,
-      required: true,
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
     },
 
     view: {
       type: String,
       default: 'default',
+      validator(value) {
+        return includes(['default', 'promo'], value);
+      },
     },
   },
 
   data() {
     return {
-      tax: 2,
-      currency: '$',
+      tax: 0,
     };
   },
 
   computed: {
+    ...mapState('PaymentForm', [
+      'items',
+    ]),
     images() {
-      return this.items.slice(0, 7).map(item => item.img);
+      return this.items.slice(0, 7).map(
+        item => (item.images ? item.images[0] : 'https://ci-print.ru/assets/images/blog-1.jpg'),
+      );
     },
 
     promoImage() {
@@ -39,11 +53,15 @@ export default {
     },
 
     subtotal() {
-      return this.items.map(item => item.price.value).reduce((a, b) => a + b);
+      return this.items.map(item => item.amount).reduce((a, b) => a + b);
     },
 
     total() {
       return this.subtotal + this.tax;
+    },
+
+    totalsCurrency() {
+      return this.items[0].currency;
     },
   },
 
@@ -62,76 +80,93 @@ export default {
 
 <template>
 <div
-  :class="[$style.cartSection, {[$style._promo]: promoImage, [$style._hasPadding]: hasPadding}]"
+  :class="[
+    $style.cartSection,
+    $style[`_layout-${layout}`],
+    {[$style._promo]: promoImage, [$style._closed]: !isCartOpened}
+  ]"
   :style="{backgroundImage: promoImage}"
 >
-  <div v-if="!promoImage" :class="$style.images">
-    <div
-      v-for="(img, index) in images"
-      :class="[$style.imageItem, $style[`_count-${images.length}`]]"
-      :key="index"
-    >
-      <div
-        :class="$style.imageItemInner"
-        :style="{backgroundImage: `url(${img})`}"
-      ></div>
-    </div>
-  </div>
-  <div :class="$style.listing">
-    <div :class="$style.items">
-      <div
-        v-for="(item, index) in items"
-        :class="$style.item"
-        :key="index"
-      >
-        <span :class="[$style.itemCell, $style._title]">{{item.title}}</span>
-        <span :class="[$style.itemCell, $style._price]">
-          <span :class="$style.oldPrice" v-if="item.price.discount">
-            {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
-          {{item.price.currency}}{{getItemPrice(item.price)}}
-        </span>
+  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{suppressScrollX: true}">
+    <div :class="$style.innerContainer">
+      <div v-if="!promoImage" :class="$style.images">
+        <div
+          v-for="(img, index) in images"
+          :class="[$style.imageItem, $style[`_count-${images.length}`]]"
+          :key="index"
+        >
+          <div
+            :class="$style.imageItemInner"
+            :style="{backgroundImage: `url(${img})`}"
+          ></div>
+        </div>
+      </div>
+      <div :class="$style.listing">
+        <div :class="$style.items">
+          <div
+            v-for="item in items"
+            :class="$style.item"
+            :key="item.id"
+          >
+            <span :class="[$style.itemCell, $style._title]">{{item.name}}</span>
+            <span :class="[$style.itemCell, $style._price]">
+              <span :class="$style.oldPrice" v-if="item.discount">
+                {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
+              {{item.amount}} {{item.currency}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div :class="$style.totals">
+        <div :class="$style.items">
+          <div :class="[$style.item, $style.subtotal]">
+            <span :class="[$style.itemCell, $style._title]">{{$t('subtotal')}}</span>
+            <span :class="[$style.itemCell, $style._price]">
+              {{subtotal.toFixed(2)}} {{totalsCurrency}}
+            </span>
+          </div>
+          <div :class="[$style.item, $style.taxes]">
+            <span :class="[$style.itemCell, $style._title]">{{$t('taxes')}} Russia</span>
+            <span :class="[$style.itemCell, $style._price]">
+              {{tax.toFixed(2)}} {{totalsCurrency}}
+            </span>
+          </div>
+          <div :class="[$style.item, $style._total]">
+            <span :class="[$style.itemCell, $style._title]">{{$t('total')}}</span>
+            <span :class="[$style.itemCell, $style._price]">
+              {{total.toFixed(2)}} {{totalsCurrency}}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div :class="$style.totals">
-    <div :class="$style.items">
-      <div :class="$style.item">
-        <span :class="[$style.itemCell, $style._title]">{{$t('subtotal')}}</span>
-        <span :class="[$style.itemCell, $style._price]">
-          {{currency}}{{subtotal.toFixed(2)}}
-        </span>
-      </div>
-      <div :class="$style.item">
-        <span :class="[$style.itemCell, $style._title]">{{$t('taxes')}} Russia</span>
-        <span :class="[$style.itemCell, $style._price]">
-          {{currency}}{{tax.toFixed(2)}}
-        </span>
-      </div>
-      <div :class="[$style.item, $style._total]">
-        <span :class="[$style.itemCell, $style._title]">{{$t('total')}}</span>
-        <span :class="[$style.itemCell, $style._price]">
-          {{currency}}{{total.toFixed(2)}}
-        </span>
-      </div>
-    </div>
-  </div>
+  </UiScrollbarBox>
 </div>
 </template>
 
 <style lang="scss" module>
 .cartSection {
-  height: 100%;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
   position: relative;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 
-  &._hasPadding {
-    padding: 0 20px;
+  &._layout-modal {
+    padding: 58px 0;
+  }
+
+  &._layout-page {
+    @media screen and (min-width: 640px) {
+      padding: 80px 0;
+    }
   }
 
   &._promo {
     background-size: cover;
     background-position: center;
-    padding-top: 260px;
 
     &::before,
     &::after {
@@ -146,17 +181,56 @@ export default {
       background: linear-gradient(
         0deg,
         rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.6) 100%
+        rgba(0, 0, 0, 0.7) 100%
       );
     }
     &::after {
       bottom: 0;
-      height: 66.66%;
+      height: 70%;
       background: linear-gradient(
         180deg,
         rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.7) 100%
+        rgba(0, 0, 0, 0.8) 100%
       );
+    }
+  }
+
+  @media screen and (max-width: 640px) {
+    &._closed {
+      padding: 0 0 10px;
+
+      .listing,
+      .images,
+      .subtotal,
+      .taxes {
+        display: none;
+      }
+    }
+  }
+}
+
+.scrollbarBox {
+  min-height: 100%;
+  width: 100%;
+}
+
+.innerContainer {
+  min-height: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+
+  .cartSection._promo & {
+    justify-content: flex-end;
+  }
+
+  .cartSection._layout-page & {
+    padding: 0;
+  }
+
+  @media screen and (max-width: 640px) {
+    .cartSection._closed & {
+      padding: 0;
     }
   }
 }
@@ -254,8 +328,14 @@ export default {
   position: relative;
   z-index: 1;
   margin-top: 10px;
-  padding: 12px 0;
+  padding: 12px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  @media screen and (max-width: 640px) {
+    .cartSection._closed & {
+      margin-top: 0;
+    }
+  }
 }
 </style>
 

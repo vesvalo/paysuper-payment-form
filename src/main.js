@@ -5,7 +5,7 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import { includes, pick } from 'lodash-es';
+import { includes } from 'lodash-es';
 import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
@@ -14,6 +14,7 @@ import './plugins/vuelidate';
 import store from './store/RootStore';
 import i18n from './i18n';
 import { postMessage, receiveMessages } from './postMessage';
+import viewSchemes from './viewSchemes';
 import './globalComponents';
 import './vueExtentions';
 
@@ -28,41 +29,6 @@ Vue.config.productionTip = false;
 
 const isPageInsideIframe = window.location !== window.parent.location;
 
-const allowedStyleVars = [
-  'buttonAlign',
-  'buttonColor',
-  'buttonBoxColor',
-  'buttonActiveBoxColor',
-  'buttonHoverBoxColor',
-  'buttonDisabledOpacity',
-  'buttonBeforeColor',
-  'buttonAfterColor',
-  'checkboxColor',
-  'checkboxHoverColor',
-  'checkboxCheckedColor',
-  'checkboxDisabledOpacity',
-  'preloaderColor',
-  'preloaderSpinColor',
-  'inputBorderColor',
-  'inputBoxColor',
-  'inputColor',
-  'inputDisabledOpacity',
-  'inputErrorBorderColor',
-  'inputErrorBoxColor',
-  'inputErrorColor',
-  'inputFocusBorderColor',
-  'inputFocusLabelColor',
-  'inputHoverBorderColor',
-  'inputLabelColor',
-  'selectBorderColor',
-  'selectBoxColor',
-  'selectColor',
-  'selectDisabledOpacity',
-  'selectFocusBorderColor',
-  'selectHoverBorderColor',
-  'selectOptionsBoxColor',
-];
-
 /**
  * Cuts out language 2-letters code from navigator.language
  *
@@ -73,15 +39,6 @@ function getLanguage() {
     return navigator.language.slice(0, 2);
   }
   return 'en';
-}
-
-/**
- * Prepare styles for customizate
- *
- * @return {Object}
- */
-function prepareStyles(vars) {
-  return pick(vars, allowedStyleVars);
 }
 
 /**
@@ -129,7 +86,7 @@ async function mountApp(formData, options = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = prepareStyles(formData.customizate);
+  Vue.prototype.$gui = formData.viewSchemeConfig || viewSchemes[formData.viewScheme || 'dark'];
   Vue.prototype.$changeDirection('ltr');
 
   new VueApp({

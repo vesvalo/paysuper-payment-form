@@ -1,38 +1,16 @@
-<template>
-<div :class="$style.layout">
-  <UiButton @click="opened = true">Open modal</UiButton>
-
-  <Modal
-    :opened="opened"
-    @close="opened = false"
-  >
-    <ModalCart>
-      <CartSection :items="cartTestData" />
-    </ModalCart>
-
-    <ModalForm>
-      <FormSection />
-    </ModalForm>
-  </Modal>
-
-  <LocaleChanger />
-</div>
-</template>
-
 <script>
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
-import LocaleChanger from '@/components/LocaleChanger.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
+import { postMessage } from './postMessage';
 import cartTestData from './cartTestData';
 
 export default {
   components: {
     CartSection,
     FormSection,
-    LocaleChanger,
     Modal,
     ModalCart,
     ModalForm,
@@ -43,8 +21,37 @@ export default {
       opened: false,
     };
   },
+
+  mounted() {
+    postMessage('LOADED');
+    this.opened = true;
+  },
+
+  methods: {
+    closeModal() {
+      this.opened = false;
+      postMessage('MODAL_CLOSED');
+    },
+  },
 };
 </script>
+
+<template>
+<div :class="$style.layout">
+  <Modal
+    :opened="opened"
+    @close="closeModal"
+  >
+    <ModalCart>
+      <CartSection :items="cartTestData" />
+    </ModalCart>
+
+    <ModalForm>
+      <FormSection />
+    </ModalForm>
+  </Modal>
+</div>
+</template>
 
 
 <style module lang="scss">

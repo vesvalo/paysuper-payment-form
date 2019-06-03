@@ -31,7 +31,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.layout}`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
+    });
+  },
+};
 </script>
 
 
@@ -42,7 +50,6 @@ export default {};
 .layout {
   display: flex;
   width: 320px;
-  background-color: #424c66;
   flex-direction: column;
 }
 .box {

@@ -1,5 +1,5 @@
 <template>
-<div :class="[$style.formSection, { [$style._hasPadding]: hasPadding }]">
+<div :class="[$style.formSection, $style[`_layout-${layout}`]]">
   <UiSelect
     v-model="payType"
     :class="$style.formItem"
@@ -62,7 +62,7 @@
 
 <script>
 import { email } from 'vuelidate/lib/validators';
-import { toInteger } from 'lodash-es';
+import { toInteger, includes } from 'lodash-es';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
@@ -94,9 +94,12 @@ function isValidExpiryDate(date) {
 export default {
   name: 'FormSection',
   props: {
-    hasPadding: {
-      default: true,
-      type: Boolean,
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
     },
   },
   data() {
@@ -144,8 +147,14 @@ export default {
   height: 100%;
   overflow: hidden;
 
-  &._hasPadding {
+  &._layout-modal {
     padding: 0 40px 20px;
+  }
+
+  &._layout-page {
+    @media screen and (min-width: 640px) {
+      padding: 60px 0;
+    }
   }
 }
 .formItem {

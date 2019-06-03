@@ -34,6 +34,7 @@ export default {
     project: null,
     initialEmail: '',
     paymentMethods: [],
+    items: [],
     activePaymentMethodID: '',
     isLoading: false,
     isPaymentErrorVisible: false,
@@ -77,6 +78,9 @@ export default {
     paymentMethods(state, value) {
       state.paymentMethods = value;
     },
+    items(state, value) {
+      state.items = value;
+    },
     activePaymentMethodID(state, value) {
       state.activePaymentMethodID = value;
     },
@@ -110,12 +114,15 @@ export default {
       commit('initialEmail', options.email || '');
       commit('isModal', options.isModal || false);
 
-      commit('orderID', formData.id);
-      commit('token', formData.token);
-      commit('account', formData.account);
-      commit('project', formData.project);
-      commit('paymentMethods', formData.payment_methods);
-      commit('activePaymentMethodID', formData.payment_methods[0].id);
+      const orderData = formData.payment_form_data;
+
+      commit('orderID', orderData.id);
+      commit('token', orderData.token);
+      commit('account', orderData.account);
+      commit('project', orderData.project);
+      commit('paymentMethods', orderData.payment_methods);
+      commit('activePaymentMethodID', orderData.payment_methods[0].id);
+      commit('items', orderData.items);
     },
 
     setActivePaymentMethod({ commit }, value) {
