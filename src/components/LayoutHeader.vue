@@ -71,6 +71,15 @@ export default {
   flex-wrap: wrap;
   position: relative;
 
+  &:after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    background-color: #fff;
+    left: 0;
+    bottom: -3px;
+  }
+
   & > .inner {
     padding: 30px 30px 15px;
   }
@@ -82,13 +91,7 @@ export default {
     height: auto;
 
     &:after {
-      content: '';
-      position: absolute;
-      height: 3px;
-      background-color: #fff;
-      left: 0;
-      bottom: -3px;
-      right: 60px;
+      right: 5.5vw;
     }
 
     & > .inner {
@@ -98,6 +101,10 @@ export default {
 
   @media screen and (min-width: 1080px) {
     padding-right: 60px;
+
+    &:after {
+      right: 60px;
+    }
 
     & > .inner {
       padding-left: 60px;
@@ -112,6 +119,15 @@ export default {
   justify-content: flex-end;
   position: relative;
 
+  &:after {
+    content: '';
+    position: absolute;
+    height: 3px;
+    background-color: #f3f3f3;
+    bottom: -3px;
+    right: 0;
+  }
+
   & > .inner {
     padding: 40px 30px 25px;
   }
@@ -123,13 +139,7 @@ export default {
     height: auto;
 
     &:after {
-      content: '';
-      position: absolute;
-      height: 3px;
-      background-color: #f3f3f3;
-      left: 60px;
-      bottom: -3px;
-      right: 0;
+      left: 5.5vw;
     }
 
     & > .inner {
@@ -139,6 +149,10 @@ export default {
 
   @media screen and (min-width: 1080px) {
     padding-left: 60px;
+
+    &:after {
+      left: 60px;
+    }
 
     & > .inner {
       padding-right: 60px;

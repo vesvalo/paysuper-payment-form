@@ -87,7 +87,7 @@ export default {
   ]"
   :style="{backgroundImage: promoImage}"
 >
-  <UiScrollbarBox :class="$style.scrollbarBox">
+  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{suppressScrollX: true}">
     <div :class="$style.innerContainer">
       <div v-if="!promoImage" :class="$style.images">
         <div

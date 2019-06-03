@@ -2,6 +2,11 @@
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 export default {
+  props: {
+    settings: {
+      type: Object,
+    },
+  },
   components: {
     VuePerfectScrollbar,
   },
@@ -9,7 +14,7 @@ export default {
 </script>
 
 <template>
-<VuePerfectScrollbar class="ui-scrollbar-box">
+<VuePerfectScrollbar class="ui-scrollbar-box" :settings="settings">
   <slot></slot>
 </VuePerfectScrollbar>
 </template>
