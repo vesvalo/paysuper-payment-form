@@ -2,7 +2,7 @@
 <div :class="$style.container">
   <UiTextField
     v-model="innerValue"
-    v-bind="{ required, disabled, errorText, hasError }"
+    v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     mask="#### #### #### ####"
     :label="$t('cardNumber')"
     @blur="$emit('blur')"

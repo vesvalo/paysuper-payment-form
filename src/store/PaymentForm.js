@@ -29,13 +29,9 @@ export default {
   state: {
     apiUrl: '',
     orderID: '',
-    token: '',
-    account: '',
-    project: null,
+    orderData: null,
     initialEmail: '',
-    paymentMethods: [],
-    items: [],
-    activePaymentMethodID: '',
+    activePaymentMethodId: '',
     isLoading: false,
     isPaymentErrorVisible: false,
     paymentStatus: 'NEW',
@@ -49,7 +45,7 @@ export default {
       return getFunctionalUrls(state.apiUrl);
     },
     activePaymentMethod(state) {
-      return find(state.paymentMethods, { id: state.activePaymentMethodID });
+      return find(state.orderData.payment_methods, { id: state.activePaymentMethodId });
     },
     hasPaymentRequestApi() {
       return Boolean(window.PaymentRequest);
@@ -63,26 +59,14 @@ export default {
     orderID(state, value) {
       state.orderID = value;
     },
-    token(state, value) {
-      state.token = value;
-    },
-    account(state, value) {
-      state.account = value;
-    },
-    project(state, value) {
-      state.project = value;
+    orderData(state, value) {
+      state.orderData = value;
     },
     initialEmail(state, value) {
       state.initialEmail = value;
     },
-    paymentMethods(state, value) {
-      state.paymentMethods = value;
-    },
-    items(state, value) {
-      state.items = value;
-    },
-    activePaymentMethodID(state, value) {
-      state.activePaymentMethodID = value;
+    activePaymentMethodId(state, value) {
+      state.activePaymentMethodId = value;
     },
     isLoading(state, value) {
       state.isLoading = value;
@@ -115,18 +99,13 @@ export default {
       commit('isModal', options.isModal || false);
 
       const orderData = formData.payment_form_data;
-
       commit('orderID', orderData.id);
-      commit('token', orderData.token);
-      commit('account', orderData.account);
-      commit('project', orderData.project);
-      commit('paymentMethods', orderData.payment_methods);
-      commit('activePaymentMethodID', orderData.payment_methods[0].id);
-      commit('items', orderData.items);
+      commit('orderData', orderData);
+      commit('activePaymentMethodId', orderData.payment_methods[0].id);
     },
 
-    setActivePaymentMethod({ commit }, value) {
-      commit('activePaymentMethodID', value);
+    setActivePaymentMethodById({ commit }, value) {
+      commit('activePaymentMethodId', value);
     },
 
     hidePaymentError({ commit }) {
@@ -134,7 +113,7 @@ export default {
     },
 
     async createPayment({ state, getters, commit }, {
-      cardNumber, month, year, cvv, cardHolder, ewallet, email,
+      cardNumber, expiryDate, cvv, cardHolder, ewallet, email,
     }) {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
@@ -166,13 +145,13 @@ export default {
 
       const request = {
         email,
-        month,
-        year,
         cvv,
+        month: expiryDate.slice(0, 2),
+        year: expiryDate.slice(2, 4),
         card_holder: cardHolder,
         order_id: state.orderID,
         pan: cardNumber,
-        payment_method_id: state.activePaymentMethodID,
+        payment_method_id: state.activePaymentMethodId,
       };
       if (getters.activePaymentMethod.type === 'crypto') {
         request.address = ewallet;

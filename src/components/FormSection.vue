@@ -1,98 +1,18 @@
-<template>
-<div :class="[$style.formSection, $style[`_layout-${layout}`]]">
-  <UiSelect
-    v-model="payType"
-    :class="$style.formItem"
-    :options="options"
-    :prependLabel="$t('prependLabel')"
-    @input="payType = $event"
-  />
-  <UiCardField
-    v-model="cardNumber"
-    :class="$style.formItem"
-    @input="cardNumber = $event"
-  />
-  <div :class="$style.formItem">
-    <UiTextField
-      v-model="expiryDate"
-      mask="##/##"
-      :class="$style.expiry"
-      :hasError="$isFieldInvalid('expiryDate')"
-      :errorText="$t('expiryDateInvalid')"
-      :label="$t('expiryDate')"
-      @input="expiryDate = $event"
-      @focus="$v.$touch()"
-    />
-    <UiTextField
-      v-model="cvv"
-      mask="###"
-      type="password"
-      :class="$style.cvv"
-      :label="$t('cvv')"
-      @input="cvv = $event"
-    />
-  </div>
-  <UiTextField
-    v-model="cardHolder"
-    mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
-    :class="$style.formItem"
-    :label="$t('cardholder')"
-    @input="cardHolder = $event"
-  />
-  <UiTextField
-    v-model="email"
-    type="email"
-    :class="$style.formItem"
-    :hasError="$isFieldInvalid('email')"
-    :errorText="$t('emailInvalid')"
-    :label="$t('email')"
-    @input="email = $event"
-    @focus="$v.$touch()"
-  />
-  <div :class="[$style.formItem, $style.remember]">
-    <UiCheckbox
-      v-model="hasRemembered"
-      @input="hasRemembered = $event"
-    >
-      {{ $t('remember') }}
-    </UiCheckbox>
-  </div>
-</div>
-</template>
-
 <script>
-import { email } from 'vuelidate/lib/validators';
-import { toInteger, includes } from 'lodash-es';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { email, required } from 'vuelidate/lib/validators';
+import { includes, get } from 'lodash-es';
+import FormSectionBankCard from './FormSectionBankCard.vue';
 
-function isValidExpiryDate(date) {
-  if (date.length < 2) {
-    return true;
-  }
-  if (date.length === 2 || date.length === 3) {
-    const month = toInteger(date.substring(0, 2));
-
-    if (month < 1 || month > 12) {
-      return false;
-    }
-
-    return true;
-  }
-  if (date.length > 4) {
-    return false;
-  }
-
-  const month = toInteger(date.substring(0, 2));
-  const year = toInteger(date.substring(2));
-
-  if (month < 1 || month > 12 || year < 0 || year > 99) {
-    return false;
-  }
-
-  return true;
+function getRegexp(value) {
+  return new RegExp(value);
 }
 
 export default {
   name: 'FormSection',
+  components: {
+    FormSectionBankCard,
+  },
   props: {
     layout: {
       type: String,
@@ -102,39 +22,204 @@ export default {
       },
     },
   },
+
+  filters: {
+    getRegexp,
+  },
+
   data() {
     return {
-      payType: 'card',
-      cardNumber: '',
-      expiryDate: '',
-      cvv: '',
-      cardHolder: '',
-      email: '',
-      hasRemembered: false,
+      bankCardValue: {
+        email: '',
+        cardNumber: '',
+        expiryDate: '',
+        cvv: '',
+        cardHolder: '',
+        hasRemembered: false,
+      },
+
+      ewalletValue: {
+        email: '',
+        number: '',
+      },
+
+      paymentMethodOptions: {
+        BANKCARD: {
+          label: this.$i18n.t('card'),
+          iconComponent: 'IconCard',
+        },
+        NETELLER: {
+          label: this.$i18n.t('neteller'),
+          iconComponent: 'IconCard',
+        },
+        ALIPAY: {
+          label: this.$i18n.t('alipay'),
+          iconComponent: 'IconCard',
+          types: {
+            ewallet: {
+              iconComponent: 'IconCard',
+            },
+          },
+        },
+        BITCOIN: {
+          label: this.$i18n.t('bitcoin'),
+          iconComponent: 'IconCard',
+        },
+        QIWI: {
+          label: this.$i18n.t('qiwi'),
+          iconComponent: 'IconQiwi',
+        },
+        WEBMONEY: {
+          label: this.$i18n.t('webmoney'),
+          iconComponent: 'IconWebmoney',
+        },
+      },
     };
   },
-  validations: {
-    email: { email },
-    expiryDate: { isValidExpiryDate },
-  },
+
   computed: {
-    options() {
-      return [
-        { value: 'card', label: this.$i18n.t('card'), iconComponent: 'IconCard' },
-        { value: 'paypal', label: this.$i18n.t('paypal'), iconComponent: 'IconCard' },
-        { value: 'yandex', label: this.$i18n.t('yandex'), iconComponent: 'IconCard' },
-        { value: 'amazon', label: this.$i18n.t('amazon'), iconComponent: 'IconCard' },
-        { value: 'union', label: this.$i18n.t('union'), iconComponent: 'IconCard' },
-        { value: 'jcb', label: this.$i18n.t('jcb'), iconComponent: 'IconCard' },
-        { value: 'wechat', label: this.$i18n.t('wechat'), iconComponent: 'IconCard' },
-        { value: 'qiwi', label: this.$i18n.t('qiwi'), iconComponent: 'IconCard' },
-        { value: 'webmoney', label: this.$i18n.t('webmoney'), iconComponent: 'IconCard' },
-        { value: 'btc', label: this.$i18n.t('btc'), iconComponent: 'IconCard' },
+    ...mapState('PaymentForm', [
+      'orderData',
+      'initialEmail',
+      'activePaymentMethodId',
+    ]),
+    ...mapGetters('PaymentForm', ['activePaymentMethod']),
+
+    paymentMethodsSelectList() {
+      return this.orderData.payment_methods.map((item) => {
+        const group = this.paymentMethodOptions[item.group_alias];
+        if (!group) {
+          return null;
+        }
+        const type = group.types ? group.types[item.type] : null;
+        return {
+          value: item.id,
+          label: get(type, 'label') || get(group, 'label'),
+          iconComponent: get(type, 'iconComponent') || get(group, 'iconComponent'),
+        };
+      });
+    },
+
+    isBankCardPayment() {
+      return this.activePaymentMethod.type === 'bank_card';
+    },
+  },
+
+  validations() {
+    if (this.isBankCardPayment) {
+      return {};
+    }
+
+    return {
+      ewalletValue: {
+        number: {
+          required,
+          wrongFormatType(value) {
+            if (!this.activePaymentMethod.account_regexp) {
+              return true;
+            }
+            return getRegexp(this.activePaymentMethod.account_regexp).test(value);
+          },
+        },
+        ...(
+          !this.initialEmail
+            ? { email: { required, email } }
+            : {}
+        ),
+      },
+    };
+  },
+
+  methods: {
+    ...mapActions('PaymentForm', [
+      'setActivePaymentMethodById', 'createPayment', 'hidePaymentError', 'usePaymentApi',
+    ]),
+
+    submitPaymentForm() {
+      this.hidePaymentError();
+      this.$v.$touch();
+
+      const isValidArray = [
+        !this.$v.$invalid,
       ];
+
+      if (this.isBankCardPayment) {
+        const { isValid } = this.$refs.bankCardForm.validate();
+        isValidArray.push(isValid);
+      }
+
+      if (isValidArray.filter(item => !item).length) {
+        // has errors
+        return;
+      }
+
+      this.createPayment({
+        ...this.bankCardValue,
+        ewallet: this.ewalletValue.number,
+        email: this.initialEmail || (
+          this.isBankCardPayment ? this.bankCardValue.email : this.ewalletValue.email
+        ),
+      });
     },
   },
 };
 </script>
+
+<template>
+<div :class="[$style.formSection, $style[`_layout-${layout}`]]">
+  <div :class="$style.content">
+    <UiScrollbarBox :class="$style.scrollbox" :settings="{suppressScrollX: true}">
+      <div :class="$style.contentInner">
+        <UiSelect
+          :value="activePaymentMethodId"
+          :class="$style.formItem"
+          :options="paymentMethodsSelectList"
+          :prependLabel="$t('prependLabel')"
+          @input="setActivePaymentMethodById"
+        />
+
+        <FormSectionBankCard
+          v-if="isBankCardPayment"
+          ref="bankCardForm"
+          v-model="bankCardValue"
+          :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+          :initialEmail="initialEmail"
+        />
+        <template v-else>
+          <UiTextField
+            :class="$style.formItem"
+            v-model="ewalletValue.number"
+            name="ewallet"
+            :hasError="$isFieldInvalid('ewalletValue.number')"
+            :errorText="$t('ewalletNumberError')"
+            :label="$t('placeholderEwallet', {name: activePaymentMethod.name})"
+          />
+          <UiTextField
+            :class="$style.formItem"
+            v-if="!initialEmail"
+            v-model="ewalletValue.email"
+            type="email"
+            name="ewalletValue.email"
+            :hasError="$isFieldInvalid('ewalletValue.email')"
+            :errorText="$t('emailInvalid')"
+            :label="$t('email')"
+          />
+        </template>
+      </div>
+    </UiScrollbarBox>
+  </div>
+  <div :class="$style.footer">
+    <UiButton
+      :class="$style.payBtn"
+      :hasBorderRadius="layout === 'page' ? true : false"
+      @click="submitPaymentForm"
+    >
+      <IconLock slot="before" />
+      {{$t('payButtonPrefix')}} {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+    </UiButton>
+  </div>
+</div>
+</template>
 
 <style module lang="scss">
 @import '@/assets/styles/directional.scss';
@@ -142,37 +227,56 @@ export default {
 .formSection {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
+  align-content: space-between;
   position: relative;
-  align-content: flex-start;
   height: 100%;
-  overflow: hidden;
+  min-height: 448px;
+  width: 100%;
+}
 
-  &._layout-modal {
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  flex-direction: column;
+  align-content: flex-start;
+  position: relative;
+  width: 100%;
+}
+
+.scrollbox {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.contentInner {
+  .formSection._layout-modal & {
     padding: 0 40px 20px;
   }
 
-  &._layout-page {
+  .formSection._layout-page & {
     @media screen and (min-width: 640px) {
       padding: 60px 0;
     }
   }
 }
+
 .formItem {
   display: flex;
   justify-content: space-between;
 }
-.expiry {
-  @include if-ltr {
-    margin-right: 20px;
-  }
+
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
 }
-.cvv {
-  @include if-rtl {
-    margin-right: 20px;
-  }
-}
-.remember {
-  padding: 18px 0;
+
+.payBtn {
+  width: 100%;
 }
 </style>
 
@@ -181,6 +285,9 @@ export default {
   "en": {
     "prependLabel": "Pay with",
     "card": "Card",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
     "paypal": "PayPal",
     "yandex": "Yandex.Money",
     "amazon": "Amazon Pay",
@@ -196,11 +303,18 @@ export default {
     "cardholder": "Cardholder name",
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
-    "remember": "Remember me"
+    "remember": "Remember me",
+    "ewalletNumberError": "The number is invalid",
+    "placeholderEmail": "Enter your email",
+    "placeholderEwallet": "{name} wallet number",
+    "payButtonPrefix": "PAY"
   },
   "ru": {
     "prependLabel": "Тип оплаты:",
     "card": "Карта",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
     "paypal": "PayPal",
     "yandex": "Yandex.Money",
     "amazon": "Amazon Pay",
@@ -216,7 +330,11 @@ export default {
     "cardholder": "Владелец карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
-    "remember": "Запомнить"
+    "remember": "Запомнить",
+    "ewalletNumberError": "Неверный номер",
+    "placeholderEmail": "Введите ваш email",
+    "placeholderEwallet": "Номер кошелька {name}",
+    "payButtonPrefix": "ОПЛАТИТЬ"
   }
 }
 </i18n>

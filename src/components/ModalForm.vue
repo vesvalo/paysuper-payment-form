@@ -12,20 +12,8 @@
     </div>
 
     <div :class="$style.content">
-      <UiScrollbarBox>
-        <slot />
-      </UiScrollbarBox>
+      <slot />
     </div>
-  </div>
-
-  <div :class="$style.footer">
-    <UiButton
-      :class="$style.payBtn"
-      :hasBorderRadius="false"
-    >
-      <IconLock slot="before" />
-      PAY $29
-    </UiButton>
   </div>
 </div>
 </template>
@@ -105,14 +93,5 @@ export default {
   display: flex;
   flex-grow: 1;
   max-height: calc(100% - 60px);
-}
-.footer {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-grow: 0;
-}
-.payBtn {
-  width: 100%;
 }
 </style>

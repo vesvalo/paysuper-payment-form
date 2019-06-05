@@ -45,7 +45,7 @@ export default {
       'project',
       'initialEmail',
       'paymentMethods',
-      'activePaymentMethodID',
+      'activePaymentMethodId',
       'isLoading',
       'isPaymentErrorVisible',
       'isModal',
@@ -67,7 +67,7 @@ export default {
     email() {
       this.reportFormResize();
     },
-    activePaymentMethodID() {
+    activePaymentMethodId() {
       this.reportFormResize();
     },
     isPaymentErrorVisible() {
@@ -198,7 +198,7 @@ export default {
       <div class="payment-form__methods">
         <PaymentFormMethods
           :paymentMethods="paymentMethods"
-          :activePaymentMethodID="activePaymentMethodID"
+          :activePaymentMethodId="activePaymentMethodId"
           @setMethod="setActivePaymentMethod"
         />
       </div>

@@ -68,7 +68,7 @@ export default {
     flex-basis: 260px;
 
     & > .mainBox {
-      margin-left: 5.5vw;
+      padding-left: 5.5vw;
     }
   }
 
@@ -76,12 +76,13 @@ export default {
     padding-right: 60px;
 
     & > .mainBox {
-      margin-left: 5.5vw;
+      padding-left: 5.5vw;
     }
   }
 }
 .right {
   display: flex;
+  flex-direction: column;
   flex-basis: 320px;
   flex-grow: 1;
 
@@ -90,7 +91,7 @@ export default {
     flex-basis: 260px;
 
     & > .mainBox {
-      margin-right: 5.5vw;
+      padding-right: 5.5vw;
     }
   }
 
@@ -98,7 +99,7 @@ export default {
     padding-left: 60px;
 
     & > .mainBox {
-      margin-right: 60px;
+      padding-right: 60px;
     }
   }
 }

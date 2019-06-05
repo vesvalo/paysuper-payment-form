@@ -174,7 +174,7 @@ $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
 $background-color: transparent;
 $input-color: #fff;
-$options-color: #424C66;
+$options-color: #424c66;
 $border-color: rgba(255, 255, 255, 0.2);
 $hover-border-color: rgba(255, 255, 255, 0.5);
 $focus-border-color: #06eaa7;
@@ -280,7 +280,6 @@ $secondary-input-size: 14px;
   white-space: nowrap;
   width: calc(100% + 20px);
   top: 42px;
-  height: calc(100% - 36px);
 
   &._focused {
     transition: transform 0.2s ease-out;

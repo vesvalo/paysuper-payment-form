@@ -46,7 +46,7 @@ export default {
     selectDisabledOpacity: '0.5',
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
-    selectOptionsBoxColor: 'transparent',
+    selectOptionsBoxColor: '#424c66',
   },
   light: {
     headerTextColor: '#71757A',
@@ -95,6 +95,6 @@ export default {
     selectDisabledOpacity: '0.5',
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
-    selectOptionsBoxColor: 'transparent',
+    selectOptionsBoxColor: '#fff',
   },
 };

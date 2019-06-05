@@ -2,7 +2,7 @@
 <div :class="$style.header">
   <div :class="$style.left">
     <div :class="$style.inner">
-      <div :class="$style.project">World of Warships</div>
+      <div :class="$style.project">{{orderData.project.name}}</div>
       <div
         :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
         @click="toggleCart"
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: {
     isCartOpened: {
@@ -36,10 +38,10 @@ export default {
       type: Boolean,
     },
   },
-  methods: {
-    toggleCart() {
-      this.$emit('toggleCart');
-    },
+  computed: {
+    ...mapState('PaymentForm', [
+      'orderData',
+    ]),
   },
 
   mounted() {
@@ -66,6 +68,12 @@ export default {
         color: this.$gui.headerTextColor,
       },
     });
+  },
+
+  methods: {
+    toggleCart() {
+      this.$emit('toggleCart');
+    },
   },
 };
 </script>
