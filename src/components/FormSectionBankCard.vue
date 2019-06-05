@@ -1,58 +1,57 @@
 <template>
 <div :class="[$style.formSectionBankCard]">
   <UiCardField
-    v-model="cardNumber"
+    v-model="innerValue.cardNumber"
     :class="$style.formItem"
-    :hasError="$isFieldInvalid('cardNumber')"
+    :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('cardNumberInvalid')"
-    @input="cardNumber = $event"
     name="pan"
   />
   <div :class="$style.formItem">
     <UiTextField
-      v-model="expiryDate"
+      v-model="innerValue.expiryDate"
       mask="##/##"
       name="cc-exp"
       :class="$style.expiry"
-      :hasError="$isFieldInvalid('expiryDate')"
+      :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('expiryDateInvalid')"
       :label="$t('expiryDate')"
-      @input="expiryDate = $event"
       @focus="$v.$touch()"
     />
     <UiTextField
-      v-model="cvv"
+      :class="$style.cvv"
+      v-model="innerValue.cvv"
       mask="###"
       type="password"
       name="cvv"
-      :class="$style.cvv"
+      :hasError="$isFieldInvalid('innerValue.cvv')"
+      :errorText="$t('cvvError')"
       :label="$t('cvv')"
-      @input="cvv = $event"
     />
   </div>
   <UiTextField
-    v-model="cardHolder"
+    v-model="innerValue.cardHolder"
     mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
     name="card_holder"
+    :hasError="$isFieldInvalid('innerValue.cardHolder')"
+    :errorText="$t('cardHolderError')"
     :class="$style.formItem"
     :label="$t('cardholder')"
-    @input="cardHolder = $event"
   />
   <UiTextField
-    v-model="email"
+    :class="$style.formItem"
+    v-if="!initialEmail"
+    v-model="innerValue.email"
     type="email"
     name="email"
-    :class="$style.formItem"
-    :hasError="$isFieldInvalid('email')"
+    :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('emailInvalid')"
     :label="$t('email')"
-    @input="email = $event"
     @focus="$v.$touch()"
   />
   <div :class="[$style.formItem, $style.remember]">
     <UiCheckbox
-      v-model="hasRemembered"
-      @input="hasRemembered = $event"
+      v-model="innerValue.hasRemembered"
     >
       {{ $t('remember') }}
     </UiCheckbox>
@@ -61,8 +60,8 @@
 </template>
 
 <script>
-import { email } from 'vuelidate/lib/validators';
-import { toInteger } from 'lodash-es';
+import { email, required, minLength } from 'vuelidate/lib/validators';
+import { toInteger, extend } from 'lodash-es';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
@@ -93,30 +92,87 @@ function isValidExpiryDate(date) {
 
 export default {
   name: 'FormSectionBankCard',
+
   props: {
     cardNumberValidator: {
       required: true,
       type: RegExp,
     },
+    initialEmail: {
+      type: String,
+      required: true,
+    },
+    value: {
+      type: Object,
+    },
   },
+
+  model: {
+    prop: 'value',
+    event: 'change',
+  },
+
   data() {
     return {
-      email: '',
-      cardNumber: '',
-      expiryDate: '',
-      cvv: '',
-      cardHolder: '',
-      hasRemembered: false,
+      innerValue: {
+        email: '',
+        cardNumber: '',
+        expiryDate: '',
+        cvv: '',
+        cardHolder: '',
+        hasRemembered: false,
+      },
     };
   },
-  validations: {
-    cardNumber: {
-      wrongFormatType(value) {
-        return this.cardNumberValidator.test(value);
-      },
+
+  watch: {
+    value(value) {
+      extend(this.innerValue, value);
     },
-    email: { email },
-    expiryDate: { isValidExpiryDate },
+
+    innerValue: {
+      handler(value) {
+        this.$emit('change', value);
+      },
+      deep: true,
+    },
+  },
+
+  validations() {
+    const lala = {
+      innerValue: {
+        cardNumber: {
+          required,
+          wrongFormatType(value) {
+            return this.cardNumberValidator.test(value);
+          },
+        },
+        expiryDate: { required, isValidExpiryDate },
+        cvv: {
+          required,
+          minLength: minLength(3),
+        },
+        cardHolder: {
+          required,
+        },
+        ...(
+          !this.initialEmail
+            ? { email: { required, email } }
+            : {}
+        ),
+      },
+    };
+
+    return lala;
+  },
+
+  methods: {
+    validate() {
+      this.$v.$touch();
+      return {
+        isValid: !this.$v.$invalid,
+      };
+    },
   },
 };
 </script>
@@ -159,7 +215,9 @@ export default {
     "expiryDate": "Expiry date",
     "expiryDateInvalid": "Expiry date is invalid",
     "cvv": "CVC/CVV",
+    "cvvError": "Invalid value",
     "cardholder": "Cardholder name",
+    "cardHolderError": "Enter cardholder name",
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
     "remember": "Remember me"
@@ -169,7 +227,9 @@ export default {
     "expiryDate": "Срок действия",
     "expiryDateInvalid": "Неверный срок действия",
     "cvv": "CVC/CVV",
+    "cvvError": "Неверное значение",
     "cardholder": "Владелец карты",
+    "cardHolderError": "Введите владельца карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить"

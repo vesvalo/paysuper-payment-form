@@ -113,7 +113,7 @@ export default {
     },
 
     async createPayment({ state, getters, commit }, {
-      cardNumber, month, year, cvv, cardHolder, ewallet, email,
+      cardNumber, expiryDate, cvv, cardHolder, ewallet, email,
     }) {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
@@ -145,9 +145,9 @@ export default {
 
       const request = {
         email,
-        month,
-        year,
         cvv,
+        month: expiryDate.slice(0, 2),
+        year: expiryDate.slice(2, 4),
         card_holder: cardHolder,
         order_id: state.orderID,
         pan: cardNumber,

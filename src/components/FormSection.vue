@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
-import { email } from 'vuelidate/lib/validators';
+import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
 import FormSectionBankCard from './FormSectionBankCard.vue';
 
@@ -29,8 +29,20 @@ export default {
 
   data() {
     return {
-      email: '',
-      ewallet: '',
+      bankCardValue: {
+        email: '',
+        cardNumber: '',
+        expiryDate: '',
+        cvv: '',
+        cardHolder: '',
+        hasRemembered: false,
+      },
+
+      ewalletValue: {
+        email: '',
+        number: '',
+      },
+
       paymentMethodOptions: {
         BANKCARD: {
           label: this.$i18n.t('card'),
@@ -68,6 +80,7 @@ export default {
   computed: {
     ...mapState('PaymentForm', [
       'orderData',
+      'initialEmail',
       'activePaymentMethodId',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
@@ -92,14 +105,62 @@ export default {
     },
   },
 
-  validations: {
-    email: { email },
+  validations() {
+    if (this.isBankCardPayment) {
+      return {};
+    }
+
+    return {
+      ewalletValue: {
+        number: {
+          required,
+          wrongFormatType(value) {
+            if (!this.activePaymentMethod.account_regexp) {
+              return true;
+            }
+            return getRegexp(this.activePaymentMethod.account_regexp).test(value);
+          },
+        },
+        ...(
+          !this.initialEmail
+            ? { email: { required, email } }
+            : {}
+        ),
+      },
+    };
   },
 
   methods: {
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById', 'createPayment', 'hidePaymentError', 'usePaymentApi',
     ]),
+
+    submitPaymentForm() {
+      this.hidePaymentError();
+      this.$v.$touch();
+
+      const isValidArray = [
+        !this.$v.$invalid,
+      ];
+
+      if (this.isBankCardPayment) {
+        const { isValid } = this.$refs.bankCardForm.validate();
+        isValidArray.push(isValid);
+      }
+
+      if (isValidArray.filter(item => !item).length) {
+        // has errors
+        return;
+      }
+
+      this.createPayment({
+        ...this.bankCardValue,
+        ewallet: this.ewalletValue.number,
+        email: this.initialEmail || (
+          this.isBankCardPayment ? this.bankCardValue.email : this.ewalletValue.email
+        ),
+      });
+    },
   },
 };
 </script>
@@ -120,28 +181,28 @@ export default {
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"
+          v-model="bankCardValue"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+          :initialEmail="initialEmail"
         />
         <template v-else>
           <UiTextField
             :class="$style.formItem"
-            v-model="ewallet"
-            mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
+            v-model="ewalletValue.number"
             name="ewallet"
-            :hasError="$isFieldInvalid('ewallet')"
-            errorText="wtf"
+            :hasError="$isFieldInvalid('ewalletValue.number')"
+            :errorText="$t('ewalletNumberError')"
             :label="$t('placeholderEwallet', {name: activePaymentMethod.name})"
           />
           <UiTextField
             :class="$style.formItem"
-            v-model="email"
+            v-if="!initialEmail"
+            v-model="ewalletValue.email"
             type="email"
-            name="email"
-            :hasError="$isFieldInvalid('email')"
+            name="ewalletValue.email"
+            :hasError="$isFieldInvalid('ewalletValue.email')"
             :errorText="$t('emailInvalid')"
             :label="$t('email')"
-            @input="email = $event"
-            @focus="$v.$touch()"
           />
         </template>
       </div>
@@ -151,9 +212,10 @@ export default {
     <UiButton
       :class="$style.payBtn"
       :hasBorderRadius="layout === 'page' ? true : false"
+      @click="submitPaymentForm"
     >
       <IconLock slot="before" />
-      PAY $29
+      {{$t('payButtonPrefix')}} {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
     </UiButton>
   </div>
 </div>
@@ -242,8 +304,10 @@ export default {
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",
+    "ewalletNumberError": "The number is invalid",
     "placeholderEmail": "Enter your email",
-    "placeholderEwallet": "{name} wallet number"
+    "placeholderEwallet": "{name} wallet number",
+    "payButtonPrefix": "PAY"
   },
   "ru": {
     "prependLabel": "Тип оплаты:",
@@ -267,8 +331,10 @@ export default {
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
+    "ewalletNumberError": "Неверный номер",
     "placeholderEmail": "Введите ваш email",
-    "placeholderEwallet": "Номер кошелька {name}"
+    "placeholderEwallet": "Номер кошелька {name}",
+    "payButtonPrefix": "ОПЛАТИТЬ"
   }
 }
 </i18n>
