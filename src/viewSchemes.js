@@ -1,6 +1,14 @@
 export default {
   dark: {
+    headerTextColor: 'rgba(255, 255, 255, 0.7)',
+    headerProjectTitleColor: '#fff',
+    headerServiceTitleColor: '#fff',
+
     cartBackgroundColor: '#333b50',
+    cartTextColor: 'rgba(255, 255, 255, 0.7)',
+    cartTotalTextColor: '#06eaa7',
+    cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
+
     formBackgroundColor: '#424c66',
 
     buttonAlign: 'center',
@@ -41,7 +49,15 @@ export default {
     selectOptionsBoxColor: 'transparent',
   },
   light: {
+    headerTextColor: '#71757A',
+    headerProjectTitleColor: '#202226',
+    headerServiceTitleColor: '#5b88de',
+
     cartBackgroundColor: '#F3F3F3',
+    cartTextColor: '#202226',
+    cartTotalTextColor: '#202226',
+    cartTotalStrokeColor: '#C2C2C4',
+
     formBackgroundColor: '#fff',
 
     buttonAlign: 'center',
@@ -53,7 +69,7 @@ export default {
     buttonBeforeColor: '#fff',
     buttonAfterColor: '#fff',
 
-    checkboxColor: '#fff',
+    checkboxColor: '#202226',
     checkboxHoverColor: '#06eaa7',
     checkboxCheckedColor: '#06eaa7',
     checkboxDisabledOpacity: '0.7',
@@ -61,9 +77,9 @@ export default {
     preloaderColor: 'rgba(255, 255, 255, 0.1)',
     preloaderSpinColor: '#06eaa7',
 
-    inputBorderColor: 'rgba(255, 255, 255, 0.2)',
+    inputBorderColor: '#C2C2C4',
     inputBoxColor: 'transparent',
-    inputColor: '#fff',
+    inputColor: '#202226',
     inputDisabledOpacity: '0.5',
     inputErrorBorderColor: '#fc7e57',
     inputErrorBoxColor: '#fc7e57',
@@ -71,11 +87,11 @@ export default {
     inputFocusBorderColor: '#06eaa7',
     inputFocusLabelColor: 'rgba(255, 255, 255, 0.3)',
     inputHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
-    inputLabelColor: 'rgba(255, 255, 255, 0.5)',
+    inputLabelColor: 'rgba(0, 0, 0, 0.4)',
 
     selectBorderColor: 'rgba(255, 255, 255, 0.2)',
     selectBoxColor: 'transparent',
-    selectColor: '#fff',
+    selectColor: '#202226',
     selectDisabledOpacity: '0.5',
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',

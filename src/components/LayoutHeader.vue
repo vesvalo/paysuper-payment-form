@@ -2,7 +2,7 @@
 <div :class="$style.header">
   <div :class="$style.left">
     <div :class="$style.inner">
-      <div :class="$style.game">World of Warships</div>
+      <div :class="$style.project">World of Warships</div>
       <div
         :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
         @click="toggleCart"
@@ -47,8 +47,23 @@ export default {
       [`.${this.$style.left}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
+      [`.${this.$style.left}:after`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
       [`.${this.$style.right}`]: {
         'background-color': this.$gui.formBackgroundColor,
+      },
+      [`.${this.$style.right}:after`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+      [`.${this.$style.project}`]: {
+        color: this.$gui.headerProjectTitleColor,
+      },
+      [`.${this.$style.title}`]: {
+        color: this.$gui.headerServiceTitleColor,
+      },
+      [`.${this.$style.additional}`]: {
+        color: this.$gui.headerTextColor,
       },
     });
   },
@@ -75,7 +90,6 @@ export default {
     content: '';
     position: absolute;
     height: 3px;
-    background-color: #fff;
     left: 0;
     bottom: -3px;
   }
@@ -123,7 +137,6 @@ export default {
     content: '';
     position: absolute;
     height: 3px;
-    background-color: #f3f3f3;
     bottom: -3px;
     right: 0;
   }
@@ -171,12 +184,11 @@ export default {
     align-items: flex-start;
   }
 }
-.game {
+.project {
   line-height: 24px;
   height: 24px;
   font-size: 16px;
   font-weight: bold;
-  color: #202226;
 
   @media screen and (min-width: 640px) {
     line-height: 40px;
@@ -188,7 +200,6 @@ export default {
   display: none;
   font-size: 12px;
   font-weight: 500;
-  color: #71757a;
   line-height: 18px;
 
   &._opened {
@@ -232,7 +243,6 @@ export default {
   line-height: 40px;
   height: 40px;
   font-weight: bold;
-  color: #5b88de;
 }
 .icons {
   display: flex;

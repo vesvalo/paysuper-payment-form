@@ -23,6 +23,9 @@ export default {
       [`.${this.$style.layout}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
+      [`.${this.$style.link}`]: {
+        color: this.$gui.headerTextColor,
+      },
     });
   },
 };
@@ -53,7 +56,6 @@ export default {
 .link {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(#fff, 0.7);
   line-height: 18px;
   text-decoration: none;
   line-height: 20px;
@@ -64,7 +66,6 @@ export default {
 }
 .content {
   display: flex;
-  color: rgba(#fff, 0.7);
   z-index: 1;
   position: relative;
   width: 100%;
