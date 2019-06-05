@@ -16,7 +16,6 @@
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('expiryDateInvalid')"
       :label="$t('expiryDate')"
-      @focus="$v.$touch()"
     />
     <UiTextField
       :class="$style.cvv"
@@ -47,7 +46,6 @@
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('emailInvalid')"
     :label="$t('email')"
-    @focus="$v.$touch()"
   />
   <div :class="[$style.formItem, $style.remember]">
     <UiCheckbox
