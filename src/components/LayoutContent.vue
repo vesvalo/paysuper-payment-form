@@ -13,6 +13,14 @@
       <div :class="$style.mainBox">
         <slot name="form" />
       </div>
+
+      <div>
+        <UiButton :class="$style.payBtn">
+          <IconLock slot="before" />
+          PAY $29
+        </UiButton>
+      </div>
+
     </div>
   </div>
 </div>
@@ -82,6 +90,7 @@ export default {
 }
 .right {
   display: flex;
+  flex-direction: column;
   flex-basis: 320px;
   flex-grow: 1;
 
@@ -124,5 +133,9 @@ export default {
   @media screen and (min-width: 640px) {
     display: block;
   }
+}
+
+.payBtn {
+  width: 300px;
 }
 </style>

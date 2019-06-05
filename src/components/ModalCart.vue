@@ -1,7 +1,7 @@
 <template>
 <div :class="$style.layout">
   <div :class="$style.header">
-    <a href="#" :class="$style.link">World of Warships</a>
+    <a href="#" :class="$style.link">{{orderData.project.name}}</a>
     <a href="#" :class="$style.link">My Profile</a>
   </div>
 
@@ -17,7 +17,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  computed: {
+    ...mapState('PaymentForm', [
+      'orderData',
+    ]),
+  },
   mounted() {
     this.$addCssRules({
       [`.${this.$style.layout}`]: {

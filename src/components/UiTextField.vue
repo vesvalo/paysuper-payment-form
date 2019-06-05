@@ -2,7 +2,7 @@
 <div :class="[container, { [stateDisabled]: disabled }]">
   <TheMask
     v-if="mask"
-    v-bind="{ disabled, required, type }"
+    v-bind="{ disabled, required, type, ...$attrs }"
     v-model="innerValue"
     :class="inputClasses"
     :mask="mask"
@@ -13,7 +13,7 @@
   />
   <input
     v-else
-    v-bind="{ disabled, required, type }"
+    v-bind="{ disabled, required, type, ...$attrs }"
     v-model="innerValue"
     :class="inputClasses"
     @blur="$emit('blur')"

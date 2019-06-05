@@ -8,7 +8,7 @@ export default {
       type: Array,
     },
 
-    activePaymentMethodID: {
+    activePaymentMethodId: {
       required: true,
       type: String,
     },
@@ -36,7 +36,7 @@ export default {
       >
         <div
           class="payment-form-methods__inner-item"
-          :class="{'_active': activePaymentMethodID === method.id}"
+          :class="{'_active': activePaymentMethodId === method.id}"
           @click="$emit('setMethod', method.id)"
         >
           <span

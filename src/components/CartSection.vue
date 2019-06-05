@@ -37,31 +37,21 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
-      'items',
+      'orderData',
     ]),
+    items() {
+      return this.orderData.items;
+    },
     images() {
       return this.items.slice(0, 7).map(
         item => (item.images ? item.images[0] : 'https://ci-print.ru/assets/images/blog-1.jpg'),
       );
     },
-
     promoImage() {
       if (this.items.length !== 1 || this.view !== 'promo') {
         return '';
       }
       return `url(${this.items[0].promo})`;
-    },
-
-    subtotal() {
-      return this.items.map(item => item.amount).reduce((a, b) => a + b);
-    },
-
-    total() {
-      return this.subtotal + this.tax;
-    },
-
-    totalsCurrency() {
-      return this.items[0].currency;
     },
   },
 
@@ -136,19 +126,19 @@ export default {
           <div :class="[$style.item, $style.subtotal]">
             <span :class="[$style.itemCell, $style._title]">{{$t('subtotal')}}</span>
             <span :class="[$style.itemCell, $style._price]">
-              {{subtotal.toFixed(2)}} {{totalsCurrency}}
+              {{orderData.amount.toFixed(2)}} {{orderData.currency}}
             </span>
           </div>
           <div :class="[$style.item, $style.taxes]">
-            <span :class="[$style.itemCell, $style._title]">{{$t('taxes')}} Russia</span>
+            <span :class="[$style.itemCell, $style._title]">{{$t('taxes')}}</span>
             <span :class="[$style.itemCell, $style._price]">
-              {{tax.toFixed(2)}} {{totalsCurrency}}
+              {{orderData.vat.toFixed(2)}} {{orderData.currency}}
             </span>
           </div>
           <div :class="[$style.item, $style._total]">
             <span :class="[$style.itemCell, $style._title]">{{$t('total')}}</span>
             <span :class="[$style.itemCell, $style._price]">
-              {{total.toFixed(2)}} {{totalsCurrency}}
+              {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
             </span>
           </div>
         </div>
