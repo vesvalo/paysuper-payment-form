@@ -21,8 +21,8 @@ export default {
       [`.${this.$style.right}`]: {
         'background-color': this.$gui.formBackgroundColor,
       },
-      [`.${this.$style.links}`]: {
-        'box-shadow': `0 -3px 0 0 ${this.$gui.cartBackgroundColor}`,
+      [`.${this.$style.links}:before`]: {
+        'background-color': this.$gui.cartBackgroundColor,
       },
     });
   },
@@ -53,10 +53,20 @@ export default {
   margin: 0 30px;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    height: 3px;
+    left: 0;
+    right: 0;
+    top: 27px;
+  }
 
   @media screen and (min-width: 640px) {
     margin: 0 0 0 5.5vw;
-    padding: 50px 0;
+    padding: 80px 0 50px;
     justify-content: flex-start;
   }
 
