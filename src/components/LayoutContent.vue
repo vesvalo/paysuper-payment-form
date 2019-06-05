@@ -13,14 +13,6 @@
       <div :class="$style.mainBox">
         <slot name="form" />
       </div>
-
-      <div>
-        <UiButton :class="$style.payBtn">
-          <IconLock slot="before" />
-          PAY $29
-        </UiButton>
-      </div>
-
     </div>
   </div>
 </div>
@@ -76,7 +68,7 @@ export default {
     flex-basis: 260px;
 
     & > .mainBox {
-      margin-left: 5.5vw;
+      padding-left: 5.5vw;
     }
   }
 
@@ -84,7 +76,7 @@ export default {
     padding-right: 60px;
 
     & > .mainBox {
-      margin-left: 5.5vw;
+      padding-left: 5.5vw;
     }
   }
 }
@@ -99,7 +91,7 @@ export default {
     flex-basis: 260px;
 
     & > .mainBox {
-      margin-right: 5.5vw;
+      padding-right: 5.5vw;
     }
   }
 
@@ -107,7 +99,7 @@ export default {
     padding-left: 60px;
 
     & > .mainBox {
-      margin-right: 60px;
+      padding-right: 60px;
     }
   }
 }
@@ -133,9 +125,5 @@ export default {
   @media screen and (min-width: 640px) {
     display: block;
   }
-}
-
-.payBtn {
-  width: 300px;
 }
 </style>
