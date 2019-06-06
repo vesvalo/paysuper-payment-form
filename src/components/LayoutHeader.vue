@@ -306,10 +306,11 @@ export default {
 .localeChanger {
   position: absolute;
   top: 40px;
-  width: 160px;
+  width: 240px;
   max-height: 380px;
   transform: translateX(-50%);
   height: auto;
+  z-index: 10;
 
   @include if-rtl {
     transform: translateX(50%);

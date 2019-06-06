@@ -16,6 +16,7 @@ export default {
     localeChangerColor: 'rgba(255, 255, 255, 0.7)',
     localeChangerCurrentColor: '#06eaa7',
     localeChangerHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
+    localeChangerHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
     buttonColor: '#fff',
@@ -71,6 +72,7 @@ export default {
     localeChangerColor: '#202226',
     localeChangerCurrentColor: '#06eaa7',
     localeChangerHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
+    localeChangerHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
     buttonColor: '#fff',

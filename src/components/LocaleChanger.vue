@@ -44,8 +44,18 @@ export default {
   mounted() {
     this.$addCssRules({
       [`.${this.$style.container}`]: {
-        color: this.$gui.cartTextColor,
-        'background-color': this.$gui.cartBackgroundColor,
+        'background-color': this.$gui.localeChangerBoxColor,
+      },
+      [`.${this.$style.item}`]: {
+        color: this.$gui.localeChangerColor,
+        'border-bottom-color': this.$gui.localeChangerBorderColor,
+      },
+      [`.${this.$style.item}.${this.$style._current}`]: {
+        color: this.$gui.localeChangerCurrentColor,
+      },
+      [`.${this.$style.item}:hover`]: {
+        color: this.$gui.localeChangerHoverColor,
+        'border-bottom-color': this.$gui.localeChangerHoverBorderColor,
       },
     });
   },
@@ -94,7 +104,8 @@ $hover-option-color: #06eaa7;
   height: 40px;
   line-height: 24px;
   margin: 0;
-  border-bottom: 1px solid $border-color;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   padding-top: 16px;
 
   &:hover {
