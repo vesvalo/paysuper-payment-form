@@ -16,8 +16,6 @@ const allowedPaymentStatuses = [
   ...availableChannelStatuses,
 ];
 
-const apiUrl = window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one';
-
 function setPaymentStatus(commit, name) {
   commit('paymentStatus', name);
   postMessage(`PAYMENT_${name}`);
@@ -94,9 +92,9 @@ export default {
 
   actions: {
     async initState({ commit }, { formData, options }) {
-      commit('apiUrl', options.apiUrl || apiUrl);
-      commit('initialEmail', options.email || '');
-      commit('isModal', options.isModal || false);
+      commit('apiUrl', options.apiUrl);
+      commit('initialEmail', options.email);
+      commit('isModal', options.isModal);
 
       const orderData = formData.payment_form_data;
       commit('orderID', orderData.id);

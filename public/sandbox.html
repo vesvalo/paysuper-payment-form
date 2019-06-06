@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>ProtocolONE PayOne</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- This page is a base page in development mode  -->
+    <noscript>
+      <strong
+        >We're sorry but the page doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+    </noscript>
+    
+    <div id="p1payone-form"></div>
+    
+    <script>
+      window.PAYSUPER_FORM_DATA = {
+        id: 'a3b92a65-f040-4ff1-ba1a-353943060e51',
+        payment_form_url: 'https://p1payapi.tst.protocol.one/order/a3b92a65-f040-4ff1-ba1a-353943060e51',
+        payment_form_data: {
+          id: 'a3b92a65-f040-4ff1-ba1a-353943060e51',
+          has_vat: false,
+          vat: 0,
+          amount: 10,
+          total_amount: 10,
+          currency: 'USD',
+          project: { name: '1113', url_success: 'https://test.com', url_fail: 'https://test.com' },
+          payment_methods: [{
+            id: '5bf67ebd46452d00062c7cc2', name: 'Neteller', icon: '//p1payapi.tst.protocol.one', type: 'ewallet', group_alias: 'NETELLER', account_regexp: '^([a-zA-Z0-9_.+-])+\\@(([a-zA-Z0-9-])+\\.)+([a-zA-Z0-9]{2,4})+$', has_saved_cards: false,
+          }, {
+            id: '5bf67ebd46452d00062c7cc3', name: 'Alipay', icon: '//p1payapi.tst.protocol.one/images/alipay_logo.png', type: 'ewallet', group_alias: 'ALIPAY', account_regexp: '^.*$', has_saved_cards: false,
+          }, {
+            id: '5bf67ebd46452d00062c7cc4', name: 'Bitcoin', icon: '//p1payapi.tst.protocol.one/images/btc_logo.png', type: 'crypto', group_alias: 'BITCOIN', account_regexp: '^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$', has_saved_cards: false,
+          }, {
+            id: '5be2d0b4b0b30d0007383ce6', name: 'Bank card', icon: '//p1payapi.tst.protocol.one/images/bank_card_logo.png', type: 'bank_card', group_alias: 'BANKCARD', account_regexp: '^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\\d{3})\\d{11})$', has_saved_cards: false,
+          }, {
+            id: '5bf67ebd46452d00062c7cc0', name: 'Qiwi', icon: '//p1payapi.tst.protocol.one/images/qiwi_logo.png', type: 'ewallet', group_alias: 'QIWI', account_regexp: '^\\d{1,15}', has_saved_cards: false,
+          }, {
+            id: '5bf67ebd46452d00062c7cc1', name: 'WebMoney', icon: '//p1payapi.tst.protocol.one/images/wm_logo.png', type: 'ewallet', group_alias: 'WEBMONEY', account_regexp: '^[ZERB][0-9]{12}$', has_saved_cards: false,
+          }],
+          inline_form_redirect_url: 'https://p1payapi.tst.protocol.one/order/a3b92a65-f040-4ff1-ba1a-353943060e51',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTk1MzQ5ODMsInN1YiI6IjVjZjQ5NjdmMDIyNWY3MDAwMTY1ODVmMyJ9.VS1FFFd6BAJQV_LPGshzW86y3noE-Xc7d7hlRvl2TfQ',
+          user_address_data_required: false,
+          user_ip_data: null,
+          items: [{
+            id: '5cda8d3938e0e2000176988b', object: 'product', sku: 'ru_0_gta_42', name: 'GTA 3 description', description: 'GTA 3 description', amount: 10, currency: 'USD', images: null, url: '', metadata: null, created_at: { seconds: 1557826873, nanos: 661000000 }, updated_at: { seconds: 1557826873, nanos: 661000000 },
+          }],
+          email: '',
+        },
+      };
+      window.PAYSUPER_FORM_OPTIONS = {
+        layout: 'sandbox'
+      };
+    </script>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

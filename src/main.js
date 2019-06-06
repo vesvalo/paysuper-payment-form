@@ -5,8 +5,6 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import { includes } from 'lodash-es';
-import App from './App.vue';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
 import Modal from './Modal.vue';
@@ -18,14 +16,14 @@ import viewSchemes from './viewSchemes';
 import './globalComponents';
 import './vueExtentions';
 
+Vue.config.productionTip = false;
+
 if (process.env.NODE_ENV === 'production') {
   Sentry.init({
     dsn: 'https://3e4a24900f064243a9de45162660a66d@sentry.tst.protocol.one/3',
     integrations: [new Sentry.Integrations.Vue({ Vue })],
   });
 }
-
-Vue.config.productionTip = false;
 
 const isPageInsideIframe = window.location !== window.parent.location;
 
@@ -45,9 +43,9 @@ function getLanguage() {
  * Mounts the app into element
  *
  * @param {Object} formData
- * @param {Object} options
+ * @param {Object} optionsCustom
  */
-async function mountApp(formData, options = {}) {
+async function mountApp(formData, optionsCustom = {}) {
   if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
     assert(formData, 'The initial data supposed to be recieved through postMessage is not defined');
   } else {
@@ -59,39 +57,40 @@ async function mountApp(formData, options = {}) {
     document.body.classList.add('inside-iframe');
   }
 
-  if (options.viewSize) {
-    options.viewSize.forEach((item) => {
-      document.body.classList.add(`size-${item}`);
-    });
-  }
+  const language = getLanguage();
+  const options = {
+    apiUrl: window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one',
+    email: '',
+    isModal: true,
+    viewScheme: 'dark',
+    viewSchemeConfig: null,
+    layout: 'modal',
+    isPageInsideIframe,
+    language,
+    ...optionsCustom,
+  };
 
   await store.dispatch('PaymentForm/initState', {
     formData,
-    options: {
-      ...options,
-      isPageInsideIframe,
-    },
+    options,
   });
 
-  const language = getLanguage();
-  let appComponent = App;
+  let appComponent = Modal;
   if (process.env.NODE_ENV === 'development') {
-    if (includes(window.location.pathname, 'sandbox')) {
+    if (options.layout === 'sandbox') {
       appComponent = Sandbox;
-    } else if (includes(window.location.pathname, 'page')) {
+    } else if (options.layout === 'page') {
       appComponent = Page;
-    } else if (includes(window.location.pathname, 'modal')) {
-      appComponent = Modal;
     }
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = formData.viewSchemeConfig || viewSchemes[formData.viewScheme || 'dark'];
+  Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
   Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
     store,
-    i18n: i18n(options.language || language),
+    i18n: i18n(options.language),
   }).$mount('#p1payone-form');
 }
 
@@ -114,5 +113,5 @@ if (isPageInsideIframe) {
   });
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp(window.PAYSUPER_FORM_DATA);
+  mountApp(window.PAYSUPER_FORM_DATA, window.PAYSUPER_FORM_OPTIONS);
 }

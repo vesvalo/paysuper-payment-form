@@ -1,6 +1,27 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
+  pages: {
+    index: {
+      // entry for the page
+      entry: 'src/main.js',
+      // the source template
+      template: 'public/index.html',
+    },
+    page: {
+      // entry for the page
+      entry: 'src/main.js',
+      // the source template
+      template: 'public/page.html',
+    },
+    sandbox: {
+      // entry for the page
+      entry: 'src/main.js',
+      // the source template
+      template: 'public/sandbox.html',
+    },
+  },
+
   css: {
     modules: true,
     extract: false,
