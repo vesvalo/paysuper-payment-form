@@ -76,12 +76,10 @@ async function mountApp(formData, optionsCustom = {}) {
   });
 
   let appComponent = Modal;
-  if (process.env.NODE_ENV === 'development') {
-    if (options.layout === 'sandbox') {
-      appComponent = Sandbox;
-    } else if (options.layout === 'page') {
-      appComponent = Page;
-    }
+  if (options.layout === 'page') {
+    appComponent = Page;
+  } else if (process.env.NODE_ENV === 'development' && options.layout === 'sandbox') {
+    appComponent = Sandbox;
   }
   const VueApp = Vue.extend(appComponent);
 
