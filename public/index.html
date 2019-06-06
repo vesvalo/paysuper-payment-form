@@ -56,6 +56,18 @@
           email: '',
         },
       };
+      
+      let layout = 'modal';
+     
+      if (window.location.pathname.includes('sandbox')) {
+        layout = 'sandbox';
+      } else if (window.location.pathname.includes('page')) {
+        layout = 'page';
+      }
+      
+      window.PAYSUPER_FORM_OPTIONS = {
+        layout: layout
+      };
     </script>
     <!-- built files will be auto injected -->
   </body>
