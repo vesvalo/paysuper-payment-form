@@ -21,7 +21,19 @@
       <div :class="$style.title">Pay Super</div>
       <div :class="$style.icons">
         <IconSupport color="#71757a" />
-        <div :class="$style.lang">EN</div>
+        <div :class="$style.localeBox">
+          <span
+            :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
+            @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
+          >
+            {{ $i18n.locale }}
+          </span>
+          <LocaleCnanger
+            v-if="hasLocaleChangerOpened"
+            :class="$style.localeChanger"
+            @changeLocale="hasLocaleChangerOpened = false"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -30,20 +42,26 @@
 
 <script>
 import { mapState } from 'vuex';
+import LocaleCnanger from '@/components/LocaleChanger.vue';
 
 export default {
+  components: { LocaleCnanger },
   props: {
     isCartOpened: {
       default: false,
       type: Boolean,
     },
   },
+  data() {
+    return {
+      hasLocaleChangerOpened: false,
+    };
+  },
   computed: {
     ...mapState('PaymentForm', [
       'orderData',
     ]),
   },
-
   mounted() {
     this.$addCssRules({
       [`.${this.$style.left}`]: {
@@ -67,6 +85,9 @@ export default {
       [`.${this.$style.additional}`]: {
         color: this.$gui.headerTextColor,
       },
+      [`.${this.$style.locale}`]: {
+        color: this.$gui.headerTextColor,
+      },
     });
   },
 
@@ -80,6 +101,7 @@ export default {
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/directional.scss';
 
 .header {
   display: flex;
@@ -210,6 +232,10 @@ export default {
   font-weight: 500;
   line-height: 18px;
 
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
+
   &._opened {
     display: flex;
     width: 100%;
@@ -257,17 +283,37 @@ export default {
   line-height: 40px;
   height: 40px;
   align-items: center;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
-.lang {
+.localeBox {
+  position: relative;
   margin-left: 10px;
+}
+.locale {
   font-size: 12px;
-  color: #71757a;
   cursor: pointer;
   line-height: 15px;
   height: 15px;
+  text-transform: uppercase;
 
   &:hover {
     color: #06eaa7;
+  }
+}
+.localeChanger {
+  position: absolute;
+  top: 40px;
+  width: 240px;
+  max-height: 380px;
+  transform: translateX(-50%);
+  height: auto;
+  z-index: 10;
+
+  @include if-rtl {
+    transform: translateX(50%);
   }
 }
 </style>

@@ -11,6 +11,13 @@ export default {
 
     formBackgroundColor: '#424c66',
 
+    localeChangerBorderColor: 'rgba(255, 255, 255, 0.2)',
+    localeChangerBoxColor: '#333b50',
+    localeChangerColor: 'rgba(255, 255, 255, 0.7)',
+    localeChangerCurrentColor: '#06eaa7',
+    localeChangerHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
+    localeChangerHoverColor: '#06eaa7',
+
     buttonAlign: 'center',
     buttonColor: '#fff',
     buttonBoxColor: '#5b88de',
@@ -59,6 +66,13 @@ export default {
     cartTotalStrokeColor: '#C2C2C4',
 
     formBackgroundColor: '#fff',
+
+    localeChangerBorderColor: 'rgba(194, 194, 196, 0.5)',
+    localeChangerBoxColor: '#F3F3F3',
+    localeChangerColor: '#202226',
+    localeChangerCurrentColor: '#06eaa7',
+    localeChangerHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
+    localeChangerHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
     buttonColor: '#fff',

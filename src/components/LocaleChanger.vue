@@ -1,75 +1,142 @@
+<template>
+<div :class="[$style.container, $style[`_${layout}`]]">
+  <UiScrollbarBox :class="$style.scrollbar">
+    <div :class="$style.inner">
+      <div
+        v-for="(locale, localeCode) in locales"
+        :key="localeCode"
+        :class="[$style.item, { [$style._current]: $i18n.locale === localeCode }]"
+        @click="changeLocale(localeCode)"
+      >
+        <div :class="$style.icon">
+          <component :is="iconLang(localeCode)" />
+        </div>
+
+        <div :class="$style.label">
+          {{ locale.label }}
+        </div>
+      </div>
+    </div>
+  </UiScrollbarBox>
+</div>
+</template>
+
 <script>
-import { includes } from 'lodash-es';
-
-function isRtlLang(lang) {
-  const rtlLangs = ['ar'];
-
-  return includes(rtlLangs, lang);
-}
+import { includes, upperFirst } from 'lodash-es';
+import locales from '@/locales/scheme';
 
 export default {
-  name: 'locale-changer',
+  name: 'localeСhanger',
+  props: {
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
+    },
+  },
   data() {
     return {
-      langs: ['ar', 'en', 'ru'],
+      locales,
     };
   },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.container}`]: {
+        'background-color': this.$gui.localeChangerBoxColor,
+      },
+      [`.${this.$style.item}`]: {
+        color: this.$gui.localeChangerColor,
+        'border-bottom-color': this.$gui.localeChangerBorderColor,
+      },
+      [`.${this.$style.item}.${this.$style._current}`]: {
+        color: this.$gui.localeChangerCurrentColor,
+      },
+      [`.${this.$style.item}:hover`]: {
+        color: this.$gui.localeChangerHoverColor,
+        'border-bottom-color': this.$gui.localeChangerHoverBorderColor,
+      },
+    });
+  },
   methods: {
-    changeLocale(lang) {
-      this.$i18n.locale = lang;
+    changeLocale(locale) {
+      this.$i18n.locale = locale;
 
-      if (isRtlLang(lang)) {
+      if (this.locales[locale].rtl) {
         this.$changeDirection('rtl');
       } else {
         this.$changeDirection('ltr');
       }
+
+      this.$emit('changeLocale', locale);
+    },
+    iconLang(locale) {
+      return `IconLang${upperFirst(locale)}`;
     },
   },
 };
 </script>
 
-<template>
-  <div class="locale-changer">
-    <span
-      class="locale-changer__item"
-      v-for="lang in langs"
-      :key="lang"
-      @click="changeLocale(lang)"
-    >
-      <span
-        class="locale-changer__button"
-        :class="{'_clickable': $i18n.locale !== lang}"
-      >{{lang}}</span>
-    </span>
-  </div>
-</template>
+<style module lang="scss">
+@import '@/assets/styles/directional.scss';
 
-<style lang="scss">
-.locale-changer {
-  line-height: 16px;
+$border-color: rgba(#C2C2C4, 0.5);
+$hover-border-color: rgba(#C2C2C4, 0.8);
+$hover-option-color: #06eaa7;
 
-  &__item {
-    & + & {
-      &::before {
-        content: '|';
-        color: $ui-color-grey72;
-        font-size: 10px;
-        margin: 0 5px;
-      }
-    }
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px 5px 10px 40px;
+  overflow: hidden;
+}
+.inner {
+  padding-right: 35px;
+}
+.scrollbar {
+  height: 100%;
+}
+.item {
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  line-height: 24px;
+  margin: 0;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-top: 16px;
+
+  &:hover {
+    color: $hover-option-color;
+    border-color: $hover-border-color;
   }
 
-  &__button {
-    font-size: 13px;
-    text-decoration: none;
-    color: $ui-color-grey58;
-
-    &._clickable {
-      color: $ui-color-grey13;
-      border-bottom-width: 1px;
-      border-bottom-style: dotted;
-      cursor: pointer;
-    }
+  &._current {
+    color: $hover-option-color;
   }
+
+  &._empty {
+    display: none;
+  }
+}
+.icon {
+  border-radius: 3px;
+  overflow: hidden;
+  height: 18px;
+
+  @include if-ltr {
+    margin-right: 12px;
+  }
+
+  @include if-rtl {
+    margin-left: 12px;
+  }
+}
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

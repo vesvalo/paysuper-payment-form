@@ -116,7 +116,7 @@ export default {
 
   @media screen and (min-width: 640px) {
     padding: 0;
-    max-width: 420px;
+    max-width: 480px;
   }
 }
 .main {
