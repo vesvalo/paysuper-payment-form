@@ -3,9 +3,9 @@
   <div :class="$style.left"></div>
   <div :class="$style.right">
     <div :class="$style.links">
-      <a href="#" :class="$style.link">User Agreement</a>
-      <a href="#" :class="$style.link">Refund Policy</a>
-      <a href="#" :class="$style.link">Support</a>
+      <a href="#" :class="$style.link">{{$t('LayoutFooter.userAgreement')}}</a>
+      <a href="#" :class="$style.link">{{$t('LayoutFooter.refundPolicy')}}</a>
+      <a href="#" :class="$style.link">{{$t('LayoutFooter.support')}}</a>
     </div>
   </div>
 </div>
@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: 'LayoutFooter',
   mounted() {
     this.$addCssRules({
       [`.${this.$style.left}`]: {

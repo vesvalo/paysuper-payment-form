@@ -4,7 +4,7 @@
     v-model="innerValue.cardNumber"
     :class="$style.formItem"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
-    :errorText="$t('cardNumberInvalid')"
+    :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
     name="pan"
   />
   <div :class="$style.formItem">
@@ -14,8 +14,8 @@
       name="cc-exp"
       :class="$style.expiry"
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
-      :errorText="$t('expiryDateInvalid')"
-      :label="$t('expiryDate')"
+      :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
+      :label="$t('FormSectionBankCard.expiryDate')"
     />
     <UiTextField
       :class="$style.cvv"
@@ -24,8 +24,8 @@
       type="password"
       name="cvv"
       :hasError="$isFieldInvalid('innerValue.cvv')"
-      :errorText="$t('cvvError')"
-      :label="$t('cvv')"
+      :errorText="$t('FormSectionBankCard.cvvError')"
+      :label="$t('FormSectionBankCard.cvv')"
     />
   </div>
   <UiTextField
@@ -33,9 +33,9 @@
     mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
     name="card_holder"
     :hasError="$isFieldInvalid('innerValue.cardHolder')"
-    :errorText="$t('cardHolderError')"
+    :errorText="$t('FormSectionBankCard.cardHolderError')"
     :class="$style.formItem"
-    :label="$t('cardholder')"
+    :label="$t('FormSectionBankCard.cardholder')"
   />
   <UiTextField
     :class="$style.formItem"
@@ -44,14 +44,14 @@
     type="email"
     name="email"
     :hasError="$isFieldInvalid('innerValue.email')"
-    :errorText="$t('emailInvalid')"
-    :label="$t('email')"
+    :errorText="$t('FormSectionBankCard.emailInvalid')"
+    :label="$t('FormSectionBankCard.email')"
   />
   <div :class="[$style.formItem, $style.remember]">
     <UiCheckbox
       v-model="innerValue.hasRemembered"
     >
-      {{ $t('remember') }}
+      {{ $t('FormSectionBankCard.remember') }}
     </UiCheckbox>
   </div>
 </div>
@@ -205,32 +205,3 @@ export default {
   padding: 18px 0;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "cardNumberInvalid": "Card number is invalid",
-    "expiryDate": "Expiry date",
-    "expiryDateInvalid": "Expiry date is invalid",
-    "cvv": "CVC/CVV",
-    "cvvError": "Invalid value",
-    "cardholder": "Cardholder name",
-    "cardHolderError": "Enter cardholder name",
-    "email": "Email to receive the purchase",
-    "emailInvalid": "Email is invalid",
-    "remember": "Remember me"
-  },
-  "ru": {
-    "cardNumberInvalid": "Неверный номер карты",
-    "expiryDate": "Срок действия",
-    "expiryDateInvalid": "Неверный срок действия",
-    "cvv": "CVC/CVV",
-    "cvvError": "Неверное значение",
-    "cardholder": "Владелец карты",
-    "cardHolderError": "Введите владельца карты",
-    "email": "Email",
-    "emailInvalid": "Неверный email",
-    "remember": "Запомнить"
-  }
-}
-</i18n>
