@@ -8,8 +8,8 @@
           <IconSupport :class="$style.iconSupport" />
         </span>
         <span
-          :class="[$style.link, $style._locale]"
-          @click="hasLocaleChangerOpened = true"
+          :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
+          @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
         >
           {{ $i18n.locale }}
         </span>
@@ -49,11 +49,13 @@ export default {
       [`.${this.$style.iconSupport}`]: {
         fill: this.$gui.headerTextColor,
       },
+      [`.${this.$style.locale}.${this.$style._opened}::after`]: {
+        'border-bottom-color': this.$gui.localeChangerBoxColor,
+      },
     });
   },
 };
 </script>
-
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
@@ -73,7 +75,7 @@ export default {
   display: flex;
   align-items: center;
   flex-grow: 0;
-  padding: 20px;
+  padding: 0 20px;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -83,7 +85,8 @@ export default {
   display: flex;
   font-size: 12px;
   font-weight: 500;
-  line-height: 20px;
+  line-height: 60px;
+  height: 60px;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -99,9 +102,21 @@ export default {
   &:not(:last-child) {
     margin-right: 16px;
   }
+}
+.locale {
+  position: relative;
+  text-transform: uppercase;
 
-  &._locale {
-    text-transform: uppercase;
+  &._opened::after {
+    position: absolute;
+    content: '';
+    bottom: 0px;
+    border: 8px solid transparent;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 16px;
   }
 }
 .iconSupport {

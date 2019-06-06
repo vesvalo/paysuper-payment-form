@@ -41,6 +41,14 @@ export default {
       locales,
     };
   },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.container}`]: {
+        color: this.$gui.cartTextColor,
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+    });
+  },
   methods: {
     changeLocale(locale) {
       this.$i18n.locale = locale;
@@ -63,8 +71,6 @@ export default {
 <style module lang="scss">
 @import '@/assets/styles/directional.scss';
 
-$color: #202226;
-$box-color: #f3f3f3;
 $border-color: rgba(#C2C2C4, 0.5);
 $hover-border-color: rgba(#C2C2C4, 0.8);
 $hover-option-color: #06eaa7;
@@ -73,16 +79,11 @@ $hover-option-color: #06eaa7;
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 10px 20px 10px 40px;
+  padding: 10px 5px 10px 40px;
   overflow: hidden;
-
-  &._modal {
-    background-color: $box-color;
-    color: $color;
-  }
 }
 .inner {
-  padding-right: 20px;
+  padding-right: 35px;
 }
 .scrollbar {
   height: 100%;
