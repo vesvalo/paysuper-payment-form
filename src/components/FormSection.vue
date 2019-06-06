@@ -45,15 +45,15 @@ export default {
 
       paymentMethodOptions: {
         BANKCARD: {
-          label: this.$i18n.t('card'),
+          label: this.$t('FormSection.card'),
           iconComponent: 'IconCard',
         },
         NETELLER: {
-          label: this.$i18n.t('neteller'),
+          label: this.$t('FormSection.neteller'),
           iconComponent: 'IconCard',
         },
         ALIPAY: {
-          label: this.$i18n.t('alipay'),
+          label: this.$t('FormSection.alipay'),
           iconComponent: 'IconCard',
           types: {
             ewallet: {
@@ -62,15 +62,15 @@ export default {
           },
         },
         BITCOIN: {
-          label: this.$i18n.t('bitcoin'),
+          label: this.$t('FormSection.bitcoin'),
           iconComponent: 'IconCard',
         },
         QIWI: {
-          label: this.$i18n.t('qiwi'),
+          label: this.$t('FormSection.qiwi'),
           iconComponent: 'IconQiwi',
         },
         WEBMONEY: {
-          label: this.$i18n.t('webmoney'),
+          label: this.$t('FormSection.webmoney'),
           iconComponent: 'IconWebmoney',
         },
       },
@@ -174,7 +174,7 @@ export default {
           :value="activePaymentMethodId"
           :class="$style.formItem"
           :options="paymentMethodsSelectList"
-          :prependLabel="$t('prependLabel')"
+          :prependLabel="$t('FormSection.prependLabel')"
           @input="setActivePaymentMethodById"
         />
 
@@ -191,8 +191,8 @@ export default {
             v-model="ewalletValue.number"
             name="ewallet"
             :hasError="$isFieldInvalid('ewalletValue.number')"
-            :errorText="$t('ewalletNumberError')"
-            :label="$t('placeholderEwallet', {name: activePaymentMethod.name})"
+            :errorText="$t('FormSection.ewalletNumberError')"
+            :label="$t('FormSection.placeholderEwallet', {name: activePaymentMethod.name})"
           />
           <UiTextField
             :class="$style.formItem"
@@ -201,8 +201,8 @@ export default {
             type="email"
             name="ewalletValue.email"
             :hasError="$isFieldInvalid('ewalletValue.email')"
-            :errorText="$t('emailInvalid')"
-            :label="$t('email')"
+            :errorText="$t('FormSection.emailInvalid')"
+            :label="$t('FormSection.email')"
           />
         </template>
       </div>
@@ -215,7 +215,8 @@ export default {
       @click="submitPaymentForm"
     >
       <IconLock slot="before" />
-      {{$t('payButtonPrefix')}} {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+      {{$t('FormSection.payButtonPrefix')}}
+      {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
     </UiButton>
   </div>
 </div>
@@ -279,62 +280,3 @@ export default {
   width: 100%;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "prependLabel": "Pay with",
-    "card": "Card",
-    "neteller": "Neteller",
-    "alipay": "Alipay",
-    "bitcoin": "Bitcoin",
-    "paypal": "PayPal",
-    "yandex": "Yandex.Money",
-    "amazon": "Amazon Pay",
-    "union": "Union Pay",
-    "jcb": "JCB",
-    "wechat": "Wechat Pay",
-    "qiwi": "QIWI",
-    "webmoney": "Webmoney",
-    "btc": "BTC",
-    "expiryDate": "Expiry date",
-    "expiryDateInvalid": "Expiry date is invalid",
-    "cvv": "CVC/CVV",
-    "cardholder": "Cardholder name",
-    "email": "Email to receive the purchase",
-    "emailInvalid": "Email is invalid",
-    "remember": "Remember me",
-    "ewalletNumberError": "The number is invalid",
-    "placeholderEmail": "Enter your email",
-    "placeholderEwallet": "{name} wallet number",
-    "payButtonPrefix": "PAY"
-  },
-  "ru": {
-    "prependLabel": "Тип оплаты:",
-    "card": "Карта",
-    "neteller": "Neteller",
-    "alipay": "Alipay",
-    "bitcoin": "Bitcoin",
-    "paypal": "PayPal",
-    "yandex": "Yandex.Money",
-    "amazon": "Amazon Pay",
-    "union": "Union Pay",
-    "jcb": "JCB",
-    "wechat": "Wechat Pay",
-    "qiwi": "QIWI",
-    "webmoney": "Webmoney",
-    "btc": "BTC",
-    "expiryDate": "Срок действия",
-    "expiryDateInvalid": "Неверный срок действия",
-    "cvv": "CVC/CVV",
-    "cardholder": "Владелец карты",
-    "email": "Email",
-    "emailInvalid": "Неверный email",
-    "remember": "Запомнить",
-    "ewalletNumberError": "Неверный номер",
-    "placeholderEmail": "Введите ваш email",
-    "placeholderEwallet": "Номер кошелька {name}",
-    "payButtonPrefix": "ОПЛАТИТЬ"
-  }
-}
-</i18n>

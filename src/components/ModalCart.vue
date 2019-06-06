@@ -2,7 +2,7 @@
 <div :class="$style.layout">
   <div :class="$style.header">
     <a href="#" :class="$style.link">{{orderData.project.name}}</a>
-    <a href="#" :class="$style.link">My Profile</a>
+    <a href="#" :class="$style.link">{{$t('ModalCart.profile')}}</a>
   </div>
 
   <div :class="$style.content">
@@ -10,8 +10,8 @@
   </div>
 
   <div :class="$style.footer">
-    <a href="#" :class="$style.link">Terms of Use</a>
-    <a href="#" :class="$style.link">Support</a>
+    <a href="#" :class="$style.link">{{$t('ModalCart.termsOfUse')}}</a>
+    <a href="#" :class="$style.link">{{$t('ModalCart.support')}}</a>
   </div>
 </div>
 </template>

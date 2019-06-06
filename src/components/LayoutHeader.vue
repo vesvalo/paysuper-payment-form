@@ -11,7 +11,7 @@
       </div>
       <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
         <div :class="$style.id">id897632299</div>
-        <div :class="$style.terms">Terms of Use</div>
+        <div :class="$style.terms">{{$t('LayoutHeader.termsOfUse')}}</div>
       </div>
     </div>
   </div>

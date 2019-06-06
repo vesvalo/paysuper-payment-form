@@ -11,5 +11,89 @@
   "product": "Продукт",
   "commission": "Комиссия",
   "vat": "НДС",
-  "summ": "Сумма"
+  "summ": "Сумма",
+  "ActionProcessing": {
+    "title": "Вы будете переадресованы на сайт <br>банка для прохождения 3d security",
+    "description": [
+      "После прохождения 3d security. Информация <br>",
+      "о поступлении денег может прийти с задержкой. <br>",
+      "Всё зависит от банка, через который проходит оплата."
+    ]
+  },
+  "ActionResult": {
+    "declined": {
+      "title": "Отклонено",
+      "subtitle": "У вас недостаточно средств",
+      "description": "Пожалуйста, вернитесь <br>и попробуйте другой способ оплаты"
+    },
+    "error": {
+      "title": "Не повезло",
+      "subtitle": "Произошла ошибка",
+      "description": "Эта ошибка<br> случается 1 раз из 10 000!"
+    },
+    "success": {
+      "title": "Погнали!",
+      "titleSubSlave": "Введите этот ключ в Настройках. Инструкция",
+      "descriptionSlaveInitial": "Введите email, чтобы получить счёт",
+      "descriptionSlaveFinal": "Мы выслали подтверждение оплате <br>и ссылку доступа на",
+      "email": "Email"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Подытог",
+    "taxes": "Сборы",
+    "total": "Итог"
+  },
+  "FormSection": {
+    "prependLabel": "Тип оплаты:",
+    "card": "Карта",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "expiryDate": "Срок действия",
+    "expiryDateInvalid": "Неверный срок действия",
+    "cvv": "CVC/CVV",
+    "cardholder": "Владелец карты",
+    "email": "Email",
+    "emailInvalid": "Неверный email",
+    "remember": "Запомнить",
+    "ewalletNumberError": "Неверный номер",
+    "placeholderEmail": "Введите ваш email",
+    "placeholderEwallet": "Номер кошелька {name}",
+    "payButtonPrefix": "ОПЛАТИТЬ"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Неверный номер карты",
+    "expiryDate": "Срок действия",
+    "expiryDateInvalid": "Неверный срок действия",
+    "cvv": "CVC/CVV",
+    "cvvError": "Неверное значение",
+    "cardholder": "Владелец карты",
+    "cardHolderError": "Введите владельца карты",
+    "email": "Email",
+    "emailInvalid": "Неверный email",
+    "remember": "Запомнить"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Пользовательское соглашение",
+    "refundPolicy": "Политика возвратов",
+    "support": "Поддержка"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Условия использования"
+  },
+  "ModalCart": {
+    "termsOfUse": "Условия использования",
+    "profile": "Мой профиль",
+    "support": "Поддержка"
+  }
 }

@@ -124,19 +124,19 @@ export default {
       <div :class="$style.totals">
         <div :class="$style.items">
           <div :class="[$style.item, $style.subtotal]">
-            <span :class="[$style.itemCell, $style._title]">{{$t('subtotal')}}</span>
+            <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.subtotal')}}</span>
             <span :class="[$style.itemCell, $style._price]">
               {{orderData.amount.toFixed(2)}} {{orderData.currency}}
             </span>
           </div>
           <div :class="[$style.item, $style.taxes]">
-            <span :class="[$style.itemCell, $style._title]">{{$t('taxes')}}</span>
+            <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.taxes')}}</span>
             <span :class="[$style.itemCell, $style._price]">
               {{orderData.vat.toFixed(2)}} {{orderData.currency}}
             </span>
           </div>
           <div :class="[$style.item, $style._total]">
-            <span :class="[$style.itemCell, $style._title]">{{$t('total')}}</span>
+            <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.total')}}</span>
             <span :class="[$style.itemCell, $style._price]">
               {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
             </span>

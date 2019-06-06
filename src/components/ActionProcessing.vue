@@ -32,14 +32,18 @@ export default {
     <div>
       <h2
         :class="$style.titleMain"
-        v-html="$t('title')"
+        v-html="$t('ActionProcessing.title')"
       >
       </h2>
     </div>
     <div
       :class="$style.description"
     >
-      <span v-for="(chunk, index) in $t('description')" v-html="chunk" :key="index"></span>
+      <span
+        v-for="(chunk, index) in $t('ActionProcessing.description')"
+        v-html="chunk"
+        :key="index"
+      ></span>
     </div>
     <div :class="$style.preloader">
       <UiSimplePreloader />
@@ -82,16 +86,3 @@ export default {
   margin-top: 60px;
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "title": "You will now be redirected<br>to the bank site for passing 3d security",
-    "description": [
-      "After passing the 3d security, ",
-      "the status of receiving money may <br>come with a delay, ",
-      "it depends directly on the bank in which you pay"
-    ]
-  }
-}
-</i18n>

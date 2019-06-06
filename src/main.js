@@ -86,7 +86,7 @@ async function mountApp(formData, options = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = formData.viewSchemeConfig || viewSchemes[formData.viewScheme || 'light'];
+  Vue.prototype.$gui = formData.viewSchemeConfig || viewSchemes[formData.viewScheme || 'dark'];
   Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
