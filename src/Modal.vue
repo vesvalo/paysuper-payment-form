@@ -5,7 +5,6 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import { postMessage } from './postMessage';
-import cartTestData from './cartTestData';
 
 export default {
   components: {
@@ -17,7 +16,6 @@ export default {
   },
   data() {
     return {
-      cartTestData,
       opened: false,
     };
   },
@@ -43,7 +41,7 @@ export default {
     @close="closeModal"
   >
     <ModalCart>
-      <CartSection :items="cartTestData" />
+      <CartSection />
     </ModalCart>
 
     <ModalForm>

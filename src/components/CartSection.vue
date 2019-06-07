@@ -159,7 +159,7 @@ export default {
   flex-direction: column;
 
   &._layout-modal {
-    padding: 58px 0;
+    padding: 40px 0;
   }
 
   &._layout-page {
@@ -216,6 +216,10 @@ export default {
 .scrollbarBox {
   min-height: 100%;
   width: 100%;
+
+  .cartSection._layput-modal & {
+    padding: 20px 0;
+  }
 }
 
 .innerContainer {

@@ -100,9 +100,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .header {
   display: flex;
   flex-grow: 0;

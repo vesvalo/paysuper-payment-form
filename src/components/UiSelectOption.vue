@@ -2,7 +2,7 @@
 <label :class="[$style.option, { [$style._empty]: optionIsEmpty }]">
   <div
     v-if="option.iconComponent"
-    :class="$style.icon"
+    :class="[$style.icon, $style[`_${iconPosition}`]]"
   >
     <component :is="option.iconComponent" />
   </div>
@@ -22,10 +22,20 @@
 </template>
 
 <script>
-import { isEmpty } from 'lodash-es';
+import { includes, isEmpty } from 'lodash-es';
 
 export default {
   props: {
+    iconPosition: {
+      default: 'left',
+      type: String,
+      validator(value) {
+        return includes(['left', 'right'], value);
+      },
+    },
+    /**
+     * @type {{ label: string, value: string, iconComponent?: string }}
+     */
     option: {
       default: () => ({}),
       type: Object,
@@ -57,7 +67,6 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-@import '@/assets/styles/directional.scss';
 
 $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
@@ -87,6 +96,10 @@ $hover-option-color: #06eaa7;
   }
 }
 .icon {
+  &._right {
+    order: 2;
+  }
+
   @include if-ltr {
     margin-right: 12px;
   }
@@ -99,6 +112,7 @@ $hover-option-color: #06eaa7;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-grow: 1;
 }
 .input {
   height: 0;

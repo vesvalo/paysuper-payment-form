@@ -223,8 +223,6 @@ export default {
 </template>
 
 <style module lang="scss">
-@import '@/assets/styles/directional.scss';
-
 .formSection {
   display: flex;
   flex-wrap: wrap;

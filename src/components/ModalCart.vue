@@ -40,9 +40,6 @@ export default {
 
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .layout {
   width: 320px;
   min-height: 100%;
@@ -53,17 +50,25 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px 20px 0;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   z-index: 2;
+  overflow: visible;
+  box-shadow: 0px 20px 0px 0px darken(rgba(#333b50, 0.9), 0.5%),
+    0px 1px 0px 0px rgba(#333b50, 0.35),
+    0px 2px 0px 0px rgba(#333b50, 0.3),
+    0px 3px 0px 0px rgba(#333b50, 0.25),
+    0px 4px 0px 0px rgba(#333b50, 0.2),
+    0px 5px 0px 0px rgba(#333b50, 0.15),
+    0px 6px 0px 0px rgba(#333b50, 0.1),
+    0px 7px 0px 0px rgba(#333b50, 0.05);
 }
 .link {
   font-size: 12px;
   font-weight: 500;
-  line-height: 18px;
   text-decoration: none;
   line-height: 20px;
 
@@ -81,12 +86,20 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+  padding: 0 20px 20px;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 2;
+  box-shadow: 0 -20px 0 0 darken(rgba(#333b50, 0.9), 0.5%),
+    0 -1px 0 0 rgba(#333b50, 0.35),
+    0 -2px 0 0 rgba(#333b50, 0.3),
+    0 -3px 0 0 rgba(#333b50, 0.25),
+    0 -4px 0 0 rgba(#333b50, 0.2),
+    0 -5px 0 0 rgba(#333b50, 0.15),
+    0 -6px 0 0 rgba(#333b50, 0.1),
+    0 -7px 0 0 rgba(#333b50, 0.05);
 
   & > .link {
     @include if-ltr {

@@ -31,8 +31,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-
 .footer {
   display: flex;
   flex-grow: 0;
@@ -49,26 +47,31 @@ export default {
 .links {
   display: flex;
   line-height: 18px;
-  padding: 12px 0 52px;
+  padding: 52px 0 52px;
   width: 100%;
   margin: 0 30px;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     height: 3px;
     left: 0;
     right: 0;
-    top: 27px;
+    top: 30px;
   }
 
   @media screen and (min-width: 640px) {
     margin: 0 0 0 5.5vw;
     padding: 80px 0 50px;
     justify-content: flex-start;
+    padding-top: 12px;
+
+    &::before {
+      top: -40px;
+    }
   }
 
   @media screen and (min-width: 1080px) {

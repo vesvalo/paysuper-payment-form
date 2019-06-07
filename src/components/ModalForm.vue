@@ -58,9 +58,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .layout {
   display: flex;
   width: 320px;

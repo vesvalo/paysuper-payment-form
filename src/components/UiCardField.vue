@@ -47,6 +47,9 @@ export default {
     };
   },
   computed: {},
+  created() {
+    
+  },
   methods: {
     cardChange(value) {
       this.$emit('input', value);
@@ -61,8 +64,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/directional.scss';
-
 .container {
   position: relative;
   width: 100%;

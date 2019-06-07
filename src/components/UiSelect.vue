@@ -9,7 +9,7 @@
   >
     <div
       v-if="selectedItem.iconComponent"
-      :class="$style.icon"
+      :class="[$style.icon, $style[`_${iconPosition}`]]"
     >
       <component :is="selectedItem.iconComponent" />
     </div>
@@ -28,6 +28,7 @@
         <UiSelectOption
           v-for="option in actualOtions"
           :key="option.value"
+          :iconPosition="iconPosition"
           :option="option"
           :selectId="selectId"
           @input="emitChange"
@@ -41,9 +42,10 @@
 <script>
 import { directive as clickaway } from 'vue-clickaway';
 import {
-  get,
   filter,
   find,
+  get,
+  includes,
   uniqueId,
 } from 'lodash-es';
 
@@ -68,6 +70,17 @@ export default {
       default: false,
       type: Boolean,
     },
+    iconPosition: {
+      default: 'left',
+      type: String,
+      validator(value) {
+        return includes(['left', 'right'], value);
+      },
+    },
+    /**
+     * @typedef {{ label: string, value: string, iconComponent?: string }} Option
+     * @type {Option[]}
+     */
     options: {
       default: () => [],
       type: Array,
@@ -168,7 +181,6 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-@import '@/assets/styles/directional.scss';
 
 $font-family: 'Quicksand', 'Comfortaa', sans-serif;
 
@@ -229,6 +241,10 @@ $secondary-input-size: 14px;
 .icon {
   flex-grow: 0;
 
+  &._right {
+    order: 2;
+  }
+
   @include if-ltr {
     margin-right: 12px;
   }
@@ -257,6 +273,7 @@ $secondary-input-size: 14px;
   height: 24px;
   display: flex;
   align-items: center;
+  order: 3;
 
   & > svg {
     fill: $input-color;
