@@ -149,6 +149,8 @@ export default {
 </template>
 
 <style lang="scss" module>
+@import '@/assets/styles/directional.scss';
+
 .cartSection {
   width: 100%;
   min-height: 100%;
@@ -308,8 +310,13 @@ export default {
   display: table-cell;
 
   &._title {
-    width: 90%;
+    width: 74%;
     padding-right: 10px;
+
+    @include if-rtl {
+      padding-right: 0;
+      padding-left: 10px;
+    }
   }
 
   &._price {
