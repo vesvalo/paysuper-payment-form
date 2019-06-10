@@ -217,7 +217,7 @@ export default {
   min-height: 100%;
   width: 100%;
 
-  .cartSection._layput-modal & {
+  .cartSection._layout-modal & {
     padding: 20px 0;
   }
 }

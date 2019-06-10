@@ -1,6 +1,17 @@
 <template>
 <div :class="[$style.formSectionBankCard]">
+  <UiCardSelect
+    v-if="hasCardsInStorage && !anotherCard"
+    v-model="innerValue.cardNumber"
+    :class="$style.formItem"
+    :cards="cards"
+    :hasError="$isFieldInvalid('innerValue.cardNumber')"
+    :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
+    @anotherCard="anotherCard = true"
+    @removeCard="$emit('removeCard', $event)"
+  />
   <UiCardField
+    v-else
     v-model="innerValue.cardNumber"
     name="pan"
     :class="$style.formItem"
@@ -97,6 +108,14 @@ export default {
       required: true,
       type: RegExp,
     },
+    /**
+     * @typedef {{ cardNumber: string, expiryDate: string, cardHolder: string }} Card
+     * @type {Card[]}
+     */
+    cards: {
+      default: () => [],
+      type: Array,
+    },
     initialEmail: {
       type: String,
       required: true,
@@ -121,6 +140,7 @@ export default {
         cardHolder: '',
         hasRemembered: false,
       },
+      anotherCard: false,
     };
   },
 
@@ -138,7 +158,7 @@ export default {
   },
 
   validations() {
-    const lala = {
+    return {
       innerValue: {
         cardNumber: {
           required,
@@ -161,8 +181,12 @@ export default {
         ),
       },
     };
+  },
 
-    return lala;
+  computed: {
+    hasCardsInStorage() {
+      return this.cards.length;
+    },
   },
 
   methods: {

@@ -5,7 +5,7 @@
 >
   <div
     :class="[$style.selected, { [$style._focused]: focused }]"
-    @click="focused = !focused"
+    @click="focused ? blur() : focus()"
   >
     <div
       v-if="selectedItem.iconComponent"
@@ -28,12 +28,15 @@
         <UiSelectOption
           v-for="option in actualOtions"
           :key="option.value"
+          :isRemovable="isRemovable"
           :iconPosition="iconPosition"
           :option="option"
           :selectId="selectId"
           @input="emitChange"
+          @remove="remove(option.value)"
         />
       </div>
+      <slot name="additional"/>
     </UiScrollbarBox>
   </div>
 </div>
@@ -62,6 +65,10 @@ export default {
       default: '',
       type: String,
     },
+    isRemovable: {
+      default: false,
+      type: Boolean,
+    },
     prependLabel: {
       default: '',
       type: String,
@@ -78,7 +85,12 @@ export default {
       },
     },
     /**
-     * @typedef {{ label: string, value: string, iconComponent?: string }} Option
+     * @typedef {{
+     *  label: string,
+     *  value: string,
+     *  iconComponent?: string,
+     *  additional?: string
+     * }} Option
      * @type {Option[]}
      */
     options: {
@@ -103,11 +115,12 @@ export default {
     return {
       focused: false,
       selectValue: this.value || get(this.options, '0.value', ''),
+      innerOptions: this.options,
     };
   },
   computed: {
     actualOtions() {
-      return filter(this.options, option => option.value !== this.selectValue);
+      return filter(this.innerOptions, option => option.value !== this.selectValue);
     },
     selectClasses() {
       return [
@@ -163,17 +176,30 @@ export default {
   },
   methods: {
     blur() {
+      this.$emit('blur');
       this.focused = false;
+    },
+    focus() {
+      this.$emit('focus');
+      this.focused = true;
     },
     emitChange(value) {
       this.selectValue = value;
       this.focused = false;
+      this.$emit('blur');
       this.$emit('input', value);
+    },
+    remove(value) {
+      this.innerOptions = filter(this.innerOptions, option => option.value !== value);
+      this.$emit('remove', value);
     },
   },
   watch: {
     value(val) {
       this.selectValue = val;
+    },
+    options(val) {
+      this.innerOptions = val;
     },
   },
 };
@@ -210,10 +236,6 @@ $secondary-input-size: 14px;
   font-family: $font-family;
   padding: 18px 0;
 
-  &._focused {
-    height: 100%;
-  }
-
   &._disabled {
     opacity: $disabled-opacity;
     pointer-events: none;
@@ -239,6 +261,8 @@ $secondary-input-size: 14px;
   }
 }
 .icon {
+  display: flex;
+  align-items: center;
   flex-grow: 0;
 
   &._right {
@@ -297,6 +321,7 @@ $secondary-input-size: 14px;
   white-space: nowrap;
   width: calc(100% + 20px);
   top: 42px;
+  padding-bottom: 18px;
 
   &._focused {
     transition: transform 0.2s ease-out;

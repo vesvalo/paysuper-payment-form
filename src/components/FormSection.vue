@@ -82,6 +82,7 @@ export default {
       'orderData',
       'initialEmail',
       'activePaymentMethodId',
+      'cards',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
 
@@ -132,7 +133,11 @@ export default {
 
   methods: {
     ...mapActions('PaymentForm', [
-      'setActivePaymentMethodById', 'createPayment', 'hidePaymentError', 'usePaymentApi',
+      'setActivePaymentMethodById',
+      'createPayment',
+      'hidePaymentError',
+      'usePaymentApi',
+      'removeCard',
     ]),
 
     submitPaymentForm() {
@@ -182,8 +187,10 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="bankCardValue"
+          :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
           :initialEmail="initialEmail"
+          @removeCard="removeCard"
         />
         <template v-else>
           <UiTextField
@@ -245,6 +252,11 @@ export default {
 }
 
 .scrollbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   flex-grow: 1;

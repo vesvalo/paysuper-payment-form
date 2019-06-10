@@ -9,6 +9,18 @@
 
   <div :class="$style.label">
     {{ option.label }}
+
+    <div :class="$style.additionalLabel">
+      {{ option.additional }}
+    </div>
+  </div>
+
+  <div
+    v-if="isRemovable"
+    :class="$style.remove"
+    @click.prevent="$emit('remove')"
+  >
+    {{ $t('remove') }}
   </div>
 
   <input
@@ -26,6 +38,10 @@ import { includes, isEmpty } from 'lodash-es';
 
 export default {
   props: {
+    isRemovable: {
+      default: false,
+      type: Boolean,
+    },
     iconPosition: {
       default: 'left',
       type: String,
@@ -34,7 +50,7 @@ export default {
       },
     },
     /**
-     * @type {{ label: string, value: string, iconComponent?: string }}
+     * @type {{ label: string, value: string, iconComponent?: string, additional?: string }}
      */
     option: {
       default: () => ({}),
@@ -89,23 +105,44 @@ $hover-option-color: #06eaa7;
   &:hover {
     color: $hover-option-color;
     border-color: $hover-border-color;
+
+    & > .remove {
+      display: block;
+    }
   }
 
   &._empty {
     display: none;
   }
 }
+.remove {
+  display: none;
+  font-size: 12px;
+  color: #fc7e57;
+  padding: 0 2px;
+}
 .icon {
+  display: flex;
+  align-items: center;
+
   &._right {
     order: 2;
+
+    @include if-ltr {
+      margin: 0 0 0 12px;
+    }
+
+    @include if-rtl {
+      margin: 0 12px 0 0;
+    }
   }
 
   @include if-ltr {
-    margin-right: 12px;
+    margin: 0 12px 0 0;
   }
 
   @include if-rtl {
-    margin-left: 12px;
+    margin: 0 0 0 12px;
   }
 }
 .label {
@@ -113,6 +150,18 @@ $hover-option-color: #06eaa7;
   text-overflow: ellipsis;
   white-space: nowrap;
   flex-grow: 1;
+}
+.additionalLabel {
+  display: inline-block;
+  font-size: 10px;
+
+  @include if-ltr {
+    margin: 0 0 0 16px;
+  }
+
+  @include if-rtl {
+    margin: 0 16px 0 0;
+  }
 }
 .input {
   height: 0;

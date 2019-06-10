@@ -48,7 +48,7 @@ export default {
   },
   computed: {},
   created() {
-    
+
   },
   methods: {
     cardChange(value) {
