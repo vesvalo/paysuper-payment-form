@@ -20,7 +20,7 @@
     :class="$style.remove"
     @click.prevent="$emit('remove')"
   >
-    {{ $t('remove') }}
+    {{ $t('Ui.remove') }}
   </div>
 
   <input

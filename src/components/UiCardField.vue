@@ -4,7 +4,7 @@
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     mask="#### #### #### ####"
-    :label="$t('cardNumber')"
+    :label="$t('Ui.cardNumber')"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
     @input="cardChange"
@@ -46,10 +46,6 @@ export default {
       innerValue: this.value,
     };
   },
-  computed: {},
-  created() {
-
-  },
   methods: {
     cardChange(value) {
       this.$emit('input', value);
@@ -81,14 +77,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "cardNumber": "Card number"
-  },
-  "ru": {
-    "cardNumber": "Номер карты"
-  }
-}
-</i18n>

@@ -5,7 +5,7 @@
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     iconPosition="right"
     :isRemovable="true"
-    :label="$t('cardNumber')"
+    :label="$t('Ui.cardNumber')"
     :options="options"
     :value="innerValue"
     @input="$emit('input', $event)"
@@ -20,7 +20,7 @@
       @click="$emit('anotherCard')"
     >
       <IconPlus :class="$style.iconPlus" />
-      {{ $t('anotherCard') }}
+      {{ $t('Ui.anotherCard') }}
     </div>
   </UiSelect>
 </div>
@@ -136,16 +136,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "anotherCard": "Another card",
-    "cardNumber": "Card number"
-  },
-  "ru": {
-    "anotherCard": "Другая карта",
-    "cardNumber": "Номер карты"
-  }
-}
-</i18n>

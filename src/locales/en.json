@@ -95,5 +95,10 @@
     "termsOfUse": "Terms of Use",
     "profile": "My profile",
     "support": "Support"
+  },
+  "Ui": {
+    "remove": "Delete",
+    "anotherCard": "Another card",
+    "cardNumber": "Card number"
   }
 }

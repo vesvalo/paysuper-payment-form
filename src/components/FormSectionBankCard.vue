@@ -60,7 +60,10 @@
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
   />
-  <div :class="[$style.formItem, $style.remember]">
+  <div
+    v-if="!hasCardsInStorage || anotherCard"
+    :class="[$style.formItem, $style.remember]"
+  >
     <UiCheckbox v-model="innerValue.hasRemembered">
       {{ $t('FormSectionBankCard.remember') }}
       <IconInfo :class="$style.rememberInfo" />

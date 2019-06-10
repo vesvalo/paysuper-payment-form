@@ -345,13 +345,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "subtotal": "Subtotal",
-    "taxes": "Taxes",
-    "total": "Total"
-  }
-}
-</i18n>
