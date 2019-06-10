@@ -6,6 +6,7 @@ import IconCardFail from '@/components/IconCardFail.vue';
 import IconCardSuccess from '@/components/IconCardSuccess.vue';
 import IconLetsPlay from '@/components/IconLetsPlay.vue';
 import UiTextField from '@/components/UiTextField.vue';
+import { includes } from 'lodash-es';
 
 export default {
   name: 'ActionResult',
@@ -21,19 +22,21 @@ export default {
   },
 
   props: {
-    content: {
+    type: {
+      required: true,
       type: String,
-      default: 'success',
+      validator(value) {
+        return includes(['customError'], value);
+      },
+    },
+
+    message: {
+      type: String,
     },
 
     step: {
       type: String,
       default: 'initial',
-    },
-
-    paymentMethod: {
-      type: String,
-      default: 'card',
     },
 
     code: {
@@ -45,32 +48,38 @@ export default {
   data() {
     return {
       email: '',
-      contents: {
-        declined: {
-          title: this.$t('ActionResult.declined.title'),
-          subtitle: this.$t('ActionResult.declined.subtitle'),
-          iconComponent: {
-            card: 'IconCardCracked',
-            other: 'IconTotemFail',
-          },
-          description: this.$t('ActionResult.declined.description'),
-        },
-        error: {
+      types: {
+        customError: {
           title: this.$t('ActionResult.error.title'),
           subtitle: this.$t('ActionResult.error.subtitle'),
-          iconComponent: {
-            card: 'IconCardFail',
-            other: 'IconTotemFail',
-          },
+          iconComponent: 'IconCardFail',
           description: this.$t('ActionResult.error.description'),
         },
-        success: {
-          title: this.$t('ActionResult.success.title'),
-          iconComponent: {
-            card: 'IconCardSuccess',
-            other: 'IconTotemSuccess',
-          },
-        },
+        // declined: {
+        //   title: this.$t('ActionResult.declined.title'),
+        //   subtitle: this.$t('ActionResult.declined.subtitle'),
+        //   iconComponent: {
+        //     card: 'IconCardCracked',
+        //     other: 'IconTotemFail',
+        //   },
+        //   description: this.$t('ActionResult.declined.description'),
+        // },
+        // error: {
+        //   title: this.$t('ActionResult.error.title'),
+        //   subtitle: this.$t('ActionResult.error.subtitle'),
+        //   iconComponent: {
+        //     card: 'IconCardFail',
+        //     other: 'IconTotemFail',
+        //   },
+        //   description: this.$t('ActionResult.error.description'),
+        // },
+        // success: {
+        //   title: this.$t('ActionResult.success.title'),
+        //   iconComponent: {
+        //     card: 'IconCardSuccess',
+        //     other: 'IconTotemSuccess',
+        //   },
+        // },
       },
     };
   },
@@ -80,8 +89,8 @@ export default {
 <template>
   <div :class="$style.actionResult">
     <div>
-      <h2 :class="$style.titleMain">{{contents[content].title}}</h2>
-      <div v-if="content === 'success'">
+      <h2 :class="$style.titleMain">{{types[type].title}}</h2>
+      <div v-if="type === 'success'">
         <p :class="$style.titleSubSlave">
           {{$t('ActionResult.success.titleSubSlave')}}
         </p>
@@ -90,12 +99,12 @@ export default {
       <p
         :class="$style.titleSub"
         v-else
-      >{{contents[content].subtitle}}</p>
+      >{{types[type].subtitle}}</p>
     </div>
     <div :class="$style.icon">
-      <component :is="contents[content].iconComponent[paymentMethod]" />
+      <component :is="types[type].iconComponent" />
     </div>
-    <div v-if="content === 'success'">
+    <div v-if="type === 'success'">
       <template v-if="step === 'initial'">
         <p :class="$style.descriptionSlave">
           {{$t('ActionResult.success.descriptionSlaveInitial')}}
@@ -119,7 +128,7 @@ export default {
       :class="$style.description"
       v-else
     >
-      <span v-html="contents[content].description"></span>
+      <span v-html="message || types[type].description"></span>
     </div>
   </div>
 </template>
@@ -129,9 +138,8 @@ export default {
   text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  height: 100%;
-  padding: 0px 40px 20px;
+  padding: 12px 0 20px;
+  width: 100%;
 }
 
 .titleMain {
@@ -155,6 +163,13 @@ export default {
   font-size: 12px;
   line-height: 18px;
   margin-bottom: 5px;
+}
+
+.icon {
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .code {

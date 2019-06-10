@@ -69,7 +69,8 @@
     "ewalletNumberError": "The number is invalid",
     "placeholderEmail": "Enter your email",
     "placeholderEwallet": "{name} wallet number",
-    "payButtonPrefix": "PAY"
+    "payButtonPrefix": "PAY",
+    "tryAgain": "TRY AGAIN"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Card number is invalid",

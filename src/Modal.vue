@@ -1,4 +1,6 @@
 <script>
+import { mapState } from 'vuex';
+import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
 import Modal from '@/components/Modal.vue';
@@ -13,11 +15,17 @@ export default {
     Modal,
     ModalCart,
     ModalForm,
+    ActionProcessing,
   },
+
   data() {
     return {
       opened: false,
     };
+  },
+
+  computed: {
+    ...mapState('PaymentForm', ['isLoading']),
   },
 
   mounted() {
@@ -47,6 +55,11 @@ export default {
     <ModalForm>
       <FormSection />
     </ModalForm>
+
+    <ActionProcessing
+      :class="$style.preloader"
+      v-if="isLoading"
+    />
   </Modal>
 </div>
 </template>
@@ -63,5 +76,14 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.preloader {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }
 </style>

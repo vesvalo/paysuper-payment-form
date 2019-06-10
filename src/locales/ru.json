@@ -69,7 +69,8 @@
     "ewalletNumberError": "Неверный номер",
     "placeholderEmail": "Введите ваш email",
     "placeholderEwallet": "Номер кошелька {name}",
-    "payButtonPrefix": "ОПЛАТИТЬ"
+    "payButtonPrefix": "ОПЛАТИТЬ",
+    "tryAgain": "ПОВТОРИТЬ"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Неверный номер карты",

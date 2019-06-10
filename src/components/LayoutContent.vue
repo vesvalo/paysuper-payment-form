@@ -14,12 +14,15 @@
         <slot name="form" />
       </div>
     </div>
+
+
   </div>
 </div>
 </template>
 
 <script>
 export default {
+
   props: {
     isCartOpened: {
       default: true,

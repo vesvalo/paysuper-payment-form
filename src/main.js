@@ -84,11 +84,13 @@ async function mountApp(formData, optionsCustom = {}) {
   const VueApp = Vue.extend(appComponent);
 
   Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
-  Vue.prototype.$changeDirection('ltr');
 
   new VueApp({
     store,
     i18n: i18n(options.language),
+    created() {
+      this.$changeDirection('ltr');
+    },
   }).$mount('#p1payone-form');
 }
 

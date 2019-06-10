@@ -249,6 +249,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: -5px;
+  padding-top: 5px;
 }
 
 .imageItem {
