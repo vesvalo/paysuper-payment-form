@@ -5,7 +5,7 @@
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     iconPosition="right"
     :isRemovable="true"
-    :label="$t('Ui.cardNumber')"
+    :label="$t('UiCardSelect.cardNumber')"
     :options="options"
     :value="innerValue"
     @input="$emit('input', $event)"
@@ -20,7 +20,7 @@
       @click="$emit('anotherCard')"
     >
       <IconPlus :class="$style.iconPlus" />
-      {{ $t('Ui.anotherCard') }}
+      {{ $t('UiCardSelect.anotherCard') }}
     </div>
   </UiSelect>
 </div>

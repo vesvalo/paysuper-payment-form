@@ -96,9 +96,14 @@
     "profile": "Мой профиль",
     "support": "Поддержка"
   },
-  "Ui": {
-    "remove": "Удалить",
+  "UiCardField": {
+    "cardNumber": "Номер карты"
+  },
+  "UiCardSelect": {
     "anotherCard": "Другая карта",
     "cardNumber": "Номер карты"
+  },
+  "UiSelectOption": {
+    "remove": "Удалить"
   }
 }

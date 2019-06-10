@@ -4,7 +4,7 @@
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     mask="#### #### #### ####"
-    :label="$t('Ui.cardNumber')"
+    :label="$t('UiCardField.cardNumber')"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
     @input="cardChange"

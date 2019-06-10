@@ -5,9 +5,11 @@ export default {
     headerServiceTitleColor: '#fff',
 
     cartBackgroundColor: '#333b50',
+    cartBoxShadowColor: 'rgb(50, 58, 78)',
+    cartHoverTextColor: '#06eaa7',
     cartTextColor: 'rgba(255, 255, 255, 0.7)',
-    cartTotalTextColor: '#06eaa7',
     cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
+    cartTotalTextColor: '#06eaa7',
 
     formBackgroundColor: '#424c66',
 
@@ -61,9 +63,11 @@ export default {
     headerServiceTitleColor: '#5b88de',
 
     cartBackgroundColor: '#F3F3F3',
+    cartBoxShadowColor: 'rgb(243, 243, 243)',
+    cartHoverTextColor: '#06eaa7',
     cartTextColor: '#202226',
-    cartTotalTextColor: '#202226',
     cartTotalStrokeColor: '#C2C2C4',
+    cartTotalTextColor: '#202226',
 
     formBackgroundColor: '#fff',
 

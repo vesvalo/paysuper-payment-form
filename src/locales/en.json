@@ -96,9 +96,14 @@
     "profile": "My profile",
     "support": "Support"
   },
-  "Ui": {
-    "remove": "Delete",
+  "UiCardField": {
+    "cardNumber": "Card number"
+  },
+  "UiCardSelect": {
     "anotherCard": "Another card",
     "cardNumber": "Card number"
+  },
+  "UiSelectOption": {
+    "remove": "Delete"
   }
 }

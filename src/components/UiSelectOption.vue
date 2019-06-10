@@ -20,7 +20,7 @@
     :class="$style.remove"
     @click.prevent="$emit('remove')"
   >
-    {{ $t('Ui.remove') }}
+    {{ $t('UiSelectOption.remove') }}
   </div>
 
   <input

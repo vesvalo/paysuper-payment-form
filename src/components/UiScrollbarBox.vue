@@ -2,13 +2,19 @@
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 export default {
+  components: {
+    VuePerfectScrollbar,
+  },
   props: {
     settings: {
       type: Object,
     },
   },
-  components: {
-    VuePerfectScrollbar,
+  mounted() {
+    this.settings = {
+      ...this.settings,
+      swicher: false,
+    };
   },
 };
 </script>
@@ -37,6 +43,10 @@ export default {
     width: 3px;
     right: 5px;
     border-radius: 4px;
+  }
+
+  &.ps > .ps__scrollbar-y-rail {
+    opacity: 0.6;
   }
 }
 </style>
