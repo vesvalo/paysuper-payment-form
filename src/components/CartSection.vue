@@ -40,7 +40,11 @@ export default {
       'orderData',
     ]),
     items() {
-      return this.orderData.items;
+      return this.orderData.items || [{
+        name: this.$t('CartSection.voluntaryAmount'),
+        amount: this.orderData.amount,
+        currency: this.orderData.currency,
+      }];
     },
     images() {
       return this.items.slice(0, 7).map(

@@ -42,7 +42,8 @@
   "CartSection": {
     "subtotal": "Подытог",
     "taxes": "Сборы",
-    "total": "Итог"
+    "total": "Итог",
+    "voluntaryAmount": "Произвольная сумма"
   },
   "FormSection": {
     "prependLabel": "Тип оплаты:",

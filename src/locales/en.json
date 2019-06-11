@@ -42,7 +42,8 @@
   "CartSection": {
     "subtotal": "Subtotal",
     "taxes": "Taxes",
-    "total": "Total"
+    "total": "Total",
+    "voluntaryAmount": "Voluntary amount"
   },
   "FormSection": {
     "prependLabel": "Pay with",

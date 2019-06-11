@@ -49,6 +49,9 @@ export default {
     return {
       email: '',
       types: {
+        // 1. Охуевший тотем - нахватка средств или специальная ошибка (+ жёлтый текст и опции)
+        // 2. Карта с крестиком - неведомая ошибка
+        // 3. Разбитая карта - общая ошибка с текстом
         customError: {
           title: this.$t('ActionResult.error.title'),
           subtitle: this.$t('ActionResult.error.subtitle'),
