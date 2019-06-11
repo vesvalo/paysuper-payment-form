@@ -5,7 +5,7 @@ export default {
     headerServiceTitleColor: '#fff',
 
     cartBackgroundColor: '#333b50',
-    cartBoxShadowColor: 'rgb(50, 58, 78)',
+    cartBoxShadowColor: 'rgba(51, 59, 80, 0.8)',
     cartHoverTextColor: '#06eaa7',
     cartTextColor: 'rgba(255, 255, 255, 0.7)',
     cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
@@ -63,7 +63,7 @@ export default {
     headerServiceTitleColor: '#5b88de',
 
     cartBackgroundColor: '#F3F3F3',
-    cartBoxShadowColor: 'rgb(243, 243, 243)',
+    cartBoxShadowColor: 'rgba(243, 243, 243, 0.8)',
     cartHoverTextColor: '#06eaa7',
     cartTextColor: '#202226',
     cartTotalStrokeColor: '#C2C2C4',
