@@ -28,6 +28,9 @@ export default {
   },
   mounted() {
     this.$addCssRules({
+      [`.${this.$style.content}`]: {
+        'background-color': this.$gui.formBackgroundColor,
+      },
       [`.${this.$style.left}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
@@ -40,18 +43,21 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-
 .content {
   flex-grow: 1;
 
   @media screen and (min-width: 640px) {
     display: flex;
+    background-color: none;
   }
 }
 .box {
   display: flex;
   flex-wrap: wrap;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   @media screen and (min-width: 640px) {
     flex-grow: 1;
@@ -62,6 +68,10 @@ export default {
   flex-basis: 320px;
   flex-grow: 1;
   justify-content: flex-end;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   @media screen and (min-width: 640px) {
     padding-right: 5.5vw;
@@ -76,7 +86,7 @@ export default {
     padding-right: 60px;
 
     & > .mainBox {
-      padding-left: 5.5vw;
+      padding-left: 60px;
     }
   }
 }
@@ -85,6 +95,10 @@ export default {
   flex-direction: column;
   flex-basis: 320px;
   flex-grow: 1;
+
+  @include if-rtl {
+    align-items: flex-end;
+  }
 
   @media screen and (min-width: 640px) {
     padding-left: 5.5vw;

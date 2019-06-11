@@ -1,6 +1,6 @@
 import axios from 'axios';
 import assert from 'assert';
-import { find, includes } from 'lodash-es';
+import { filter, find, includes } from 'lodash-es';
 import getFunctionalUrls from '../getFunctionalUrls';
 import { postMessage } from '../postMessage';
 import PaymentConnection from './helpers/PaymentConnection';
@@ -36,6 +36,7 @@ export default {
     paymentResultMessage: '',
     isModal: false,
     testFinalSuccess: false,
+    cards: [],
   },
 
   getters: {
@@ -53,6 +54,9 @@ export default {
   mutations: {
     apiUrl(state, value) {
       state.apiUrl = value;
+    },
+    cards(state, value) {
+      state.cards = value;
     },
     orderID(state, value) {
       state.orderID = value;
@@ -97,9 +101,20 @@ export default {
       commit('isModal', options.isModal);
 
       const orderData = formData.payment_form_data;
+
       commit('orderID', orderData.id);
       commit('orderData', orderData);
       commit('activePaymentMethodId', orderData.payment_methods[0].id);
+
+      if (localStorage) {
+        const cards = localStorage.getItem('cards');
+
+        try {
+          commit('cards', JSON.parse(cards) || []);
+        } catch (e) {
+          commit('cards', []);
+        }
+      }
     },
 
     setActivePaymentMethodById({ commit }, value) {
@@ -111,10 +126,16 @@ export default {
     },
 
     async createPayment({ state, getters, commit }, {
-      cardNumber, expiryDate, cvv, cardHolder, ewallet, email,
+      cardNumber, expiryDate, cvv, cardHolder, ewallet, email, hasRemembered,
     }) {
       postMessage('PAYMENT_BEFORE_CREATED');
       commit('isLoading', true);
+
+      if (hasRemembered) {
+        const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
+        commit('cards', cards);
+        localStorage.setItem('cards', JSON.stringify(cards));
+      }
 
       const paymentConnection = new PaymentConnection(window, state.orderID, state.token);
       paymentConnection
@@ -231,6 +252,11 @@ export default {
     },
     finishPaymentCreation({ commit }) {
       setPaymentStatus(commit, 'PENDING');
+    },
+    removeCard({ commit, state }, cardNumber) {
+      const cards = filter(state.cards, card => card.cardNumber !== cardNumber);
+      commit('cards', cards);
+      localStorage.setItem('cards', JSON.stringify(cards));
     },
   },
 };

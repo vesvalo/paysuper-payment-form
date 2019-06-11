@@ -5,9 +5,11 @@ export default {
     headerServiceTitleColor: '#fff',
 
     cartBackgroundColor: '#333b50',
+    cartBoxShadowColor: 'rgba(51, 59, 80, 0.8)',
+    cartHoverTextColor: '#06eaa7',
     cartTextColor: 'rgba(255, 255, 255, 0.7)',
-    cartTotalTextColor: '#06eaa7',
     cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
+    cartTotalTextColor: '#06eaa7',
 
     formBackgroundColor: '#424c66',
 
@@ -54,6 +56,7 @@ export default {
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#424c66',
+    selectRemoveColor: '#fc7e57',
   },
   light: {
     headerTextColor: '#71757A',
@@ -61,9 +64,11 @@ export default {
     headerServiceTitleColor: '#5b88de',
 
     cartBackgroundColor: '#F3F3F3',
+    cartBoxShadowColor: 'rgba(243, 243, 243, 0.8)',
+    cartHoverTextColor: '#06eaa7',
     cartTextColor: '#202226',
-    cartTotalTextColor: '#202226',
     cartTotalStrokeColor: '#C2C2C4',
+    cartTotalTextColor: '#202226',
 
     formBackgroundColor: '#fff',
 
@@ -110,5 +115,6 @@ export default {
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#fff',
+    selectRemoveColor: '#fc7e57',
   },
 };

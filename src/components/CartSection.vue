@@ -159,7 +159,7 @@ export default {
   flex-direction: column;
 
   &._layout-modal {
-    padding: 58px 0;
+    padding: 40px 0;
   }
 
   &._layout-page {
@@ -216,6 +216,10 @@ export default {
 .scrollbarBox {
   min-height: 100%;
   width: 100%;
+
+  .cartSection._layout-modal & {
+    padding: 20px 0 30px;
+  }
 }
 
 .innerContainer {
@@ -295,7 +299,6 @@ export default {
   &._total {
     font-size: 16px;
     line-height: 20px;
-    color: #06eaa7;
     font-weight: bold;
   }
 }
@@ -310,8 +313,15 @@ export default {
   }
 
   &._price {
-    text-align: right;
     white-space: nowrap;
+
+    @include if-ltr {
+      text-align: right;
+    }
+
+    @include if-rtl {
+      text-align: left;
+    }
   }
 }
 
@@ -341,13 +351,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "subtotal": "Subtotal",
-    "taxes": "Taxes",
-    "total": "Total"
-  }
-}
-</i18n>

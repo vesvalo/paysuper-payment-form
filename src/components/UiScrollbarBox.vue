@@ -2,19 +2,30 @@
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 
 export default {
+  components: {
+    VuePerfectScrollbar,
+  },
   props: {
     settings: {
       type: Object,
     },
   },
-  components: {
-    VuePerfectScrollbar,
+  data() {
+    return {
+      innerSettings: { ...this.settings },
+    };
+  },
+  mounted() {
+    this.innerSettings = {
+      ...this.innerSettings,
+      swicher: false,
+    };
   },
 };
 </script>
 
 <template>
-<VuePerfectScrollbar class="ui-scrollbar-box" :settings="settings">
+<VuePerfectScrollbar class="ui-scrollbar-box" :settings="innerSettings">
   <slot></slot>
 </VuePerfectScrollbar>
 </template>
@@ -37,6 +48,10 @@ export default {
     width: 3px;
     right: 5px;
     border-radius: 4px;
+  }
+
+  &.ps > .ps__scrollbar-y-rail {
+    opacity: 0.6;
   }
 }
 </style>

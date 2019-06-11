@@ -2,13 +2,25 @@
 <label :class="[$style.option, { [$style._empty]: optionIsEmpty }]">
   <div
     v-if="option.iconComponent"
-    :class="$style.icon"
+    :class="[$style.icon, $style[`_${iconPosition}`]]"
   >
     <component :is="option.iconComponent" />
   </div>
 
   <div :class="$style.label">
     {{ option.label }}
+
+    <div :class="$style.additionalLabel">
+      {{ option.additional }}
+    </div>
+  </div>
+
+  <div
+    v-if="isRemovable"
+    :class="$style.remove"
+    @click.prevent="$emit('remove')"
+  >
+    {{ $t('UiSelectOption.remove') }}
   </div>
 
   <input
@@ -22,10 +34,24 @@
 </template>
 
 <script>
-import { isEmpty } from 'lodash-es';
+import { includes, isEmpty } from 'lodash-es';
 
 export default {
   props: {
+    isRemovable: {
+      default: false,
+      type: Boolean,
+    },
+    iconPosition: {
+      default: 'left',
+      type: String,
+      validator(value) {
+        return includes(['left', 'right'], value);
+      },
+    },
+    /**
+     * @type {{ label: string, value: string, iconComponent?: string, additional?: string }}
+     */
     option: {
       default: () => ({}),
       type: Object,
@@ -50,55 +76,80 @@ export default {
         color: this.$gui.selectFocusBorderColor,
         'border-color': this.$gui.selectHoverBorderColor,
       },
+      [`.${this.$style.remove}`]: {
+        color: this.$gui.selectRemoveColor,
+      },
     });
   },
 };
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-@import '@/assets/styles/directional.scss';
-
-$font-family: 'Quicksand', 'Comfortaa', sans-serif;
-
-$background-color: transparent;
-$input-color: #fff;
-$border-color: rgba(255, 255, 255, 0.2);
-$hover-border-color: rgba(255, 255, 255, 0.5);
-$hover-option-color: #06eaa7;
-
 .option {
   cursor: pointer;
   display: flex;
   height: 40px;
   line-height: 24px;
   margin: 0;
-  color: $input-color;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid transparent;
   padding-top: 16px;
 
   &:hover {
-    color: $hover-option-color;
-    border-color: $hover-border-color;
+    & > .remove {
+      display: block;
+    }
   }
 
   &._empty {
     display: none;
   }
 }
+.remove {
+  display: none;
+  font-size: 12px;
+  padding: 0 2px;
+}
 .icon {
+  display: flex;
+  align-items: center;
+
+  &._right {
+    order: 2;
+
+    @include if-ltr {
+      margin: 0 0 0 12px;
+    }
+
+    @include if-rtl {
+      margin: 0 12px 0 0;
+    }
+  }
+
   @include if-ltr {
-    margin-right: 12px;
+    margin: 0 12px 0 0;
   }
 
   @include if-rtl {
-    margin-left: 12px;
+    margin: 0 0 0 12px;
   }
 }
 .label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex-grow: 1;
+}
+.additionalLabel {
+  display: inline-block;
+  font-size: 10px;
+
+  @include if-ltr {
+    margin: 0 0 0 16px;
+  }
+
+  @include if-rtl {
+    margin: 0 16px 0 0;
+  }
 }
 .input {
   height: 0;

@@ -95,5 +95,15 @@
     "termsOfUse": "Terms of Use",
     "profile": "My profile",
     "support": "Support"
+  },
+  "UiCardField": {
+    "cardNumber": "Card number"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Another card",
+    "cardNumber": "Card number"
+  },
+  "UiSelectOption": {
+    "remove": "Delete"
   }
 }

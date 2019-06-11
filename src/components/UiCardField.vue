@@ -4,7 +4,7 @@
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     mask="#### #### #### ####"
-    :label="$t('cardNumber')"
+    :label="$t('UiCardField.cardNumber')"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
     @input="cardChange"
@@ -46,7 +46,6 @@ export default {
       innerValue: this.value,
     };
   },
-  computed: {},
   methods: {
     cardChange(value) {
       this.$emit('input', value);
@@ -61,8 +60,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/directional.scss';
-
 .container {
   position: relative;
   width: 100%;
@@ -80,14 +77,3 @@ export default {
   }
 }
 </style>
-
-<i18n>
-{
-  "en": {
-    "cardNumber": "Card number"
-  },
-  "ru": {
-    "cardNumber": "Номер карты"
-  }
-}
-</i18n>

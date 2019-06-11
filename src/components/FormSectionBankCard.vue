@@ -1,57 +1,72 @@
 <template>
 <div :class="[$style.formSectionBankCard]">
-  <UiCardField
+  <UiCardSelect
+    v-if="hasCardsInStorage && !anotherCard"
     v-model="innerValue.cardNumber"
+    :class="$style.formItem"
+    :cards="cards"
+    :hasError="$isFieldInvalid('innerValue.cardNumber')"
+    :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
+    @anotherCard="anotherCard = true"
+    @removeCard="$emit('removeCard', $event)"
+  />
+  <UiCardField
+    v-else
+    v-model="innerValue.cardNumber"
+    name="pan"
     :class="$style.formItem"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-    name="pan"
   />
   <div :class="$style.formItem">
     <UiTextField
       v-model="innerValue.expiryDate"
-      mask="##/##"
       name="cc-exp"
+      mask="##/##"
       :class="$style.expiry"
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
       :label="$t('FormSectionBankCard.expiryDate')"
     />
-    <UiTextField
-      :class="$style.cvv"
-      v-model="innerValue.cvv"
-      mask="###"
-      type="password"
-      name="cvv"
-      :hasError="$isFieldInvalid('innerValue.cvv')"
-      :errorText="$t('FormSectionBankCard.cvvError')"
-      :label="$t('FormSectionBankCard.cvv')"
-    />
+    <div :class="$style.cvvBox">
+      <UiTextField
+        v-model="innerValue.cvv"
+        name="cvv"
+        mask="###"
+        type="password"
+        :hasError="$isFieldInvalid('innerValue.cvv')"
+        :errorText="$t('FormSectionBankCard.cvvError')"
+        :label="$t('FormSectionBankCard.cvv')"
+      />
+      <IconInfo :class="$style.cvvInfo" />
+    </div>
   </div>
   <UiTextField
     v-model="innerValue.cardHolder"
-    mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
     name="card_holder"
+    mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
     :hasError="$isFieldInvalid('innerValue.cardHolder')"
     :errorText="$t('FormSectionBankCard.cardHolderError')"
     :class="$style.formItem"
     :label="$t('FormSectionBankCard.cardholder')"
   />
   <UiTextField
-    :class="$style.formItem"
     v-if="!initialEmail"
     v-model="innerValue.email"
-    type="email"
     name="email"
+    type="email"
+    :class="$style.formItem"
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
   />
-  <div :class="[$style.formItem, $style.remember]">
-    <UiCheckbox
-      v-model="innerValue.hasRemembered"
-    >
+  <div
+    v-if="!hasCardsInStorage || anotherCard"
+    :class="[$style.formItem, $style.remember]"
+  >
+    <UiCheckbox v-model="innerValue.hasRemembered">
       {{ $t('FormSectionBankCard.remember') }}
+      <IconInfo :class="$style.rememberInfo" />
     </UiCheckbox>
   </div>
 </div>
@@ -96,6 +111,14 @@ export default {
       required: true,
       type: RegExp,
     },
+    /**
+     * @typedef {{ cardNumber: string, expiryDate: string, cardHolder: string }} Card
+     * @type {Card[]}
+     */
+    cards: {
+      default: () => [],
+      type: Array,
+    },
     initialEmail: {
       type: String,
       required: true,
@@ -120,6 +143,7 @@ export default {
         cardHolder: '',
         hasRemembered: false,
       },
+      anotherCard: false,
     };
   },
 
@@ -137,7 +161,7 @@ export default {
   },
 
   validations() {
-    const lala = {
+    return {
       innerValue: {
         cardNumber: {
           required,
@@ -160,8 +184,12 @@ export default {
         ),
       },
     };
+  },
 
-    return lala;
+  computed: {
+    hasCardsInStorage() {
+      return this.cards.length;
+    },
   },
 
   methods: {
@@ -176,8 +204,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/directional.scss';
-
 .formSectionBankCard {
   display: flex;
   flex-wrap: wrap;
@@ -196,12 +222,30 @@ export default {
     margin-right: 20px;
   }
 }
-.cvv {
+.cvvBox {
+  position: relative;
+  width: 100%;
+
   @include if-rtl {
     margin-right: 20px;
   }
 }
+.cvvInfo {
+  position: absolute;
+  top: 20px;
+
+  @include if-ltr {
+    right: 0;
+  }
+
+  @include if-rtl {
+    left: 0;
+  }
+}
 .remember {
   padding: 18px 0;
+}
+.rememberInfo {
+  margin: 0 6px;
 }
 </style>

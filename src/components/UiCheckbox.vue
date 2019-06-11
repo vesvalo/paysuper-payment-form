@@ -90,7 +90,6 @@ export default {
 
 <style module lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-@import '@/assets/styles/directional.scss';
 
 $common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $box-color: transparent;

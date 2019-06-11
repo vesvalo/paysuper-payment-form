@@ -9,6 +9,7 @@ module.exports = {
         data: `
           @import "@/assets/styles/gui.scss";
           @import "@/assets/styles/mixins.scss";
+          @import "@/assets/styles/directional.scss";
         `,
       },
     },

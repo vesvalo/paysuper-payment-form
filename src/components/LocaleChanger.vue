@@ -79,8 +79,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/directional.scss';
-
 $border-color: rgba(#C2C2C4, 0.5);
 $hover-border-color: rgba(#C2C2C4, 0.8);
 $hover-option-color: #06eaa7;

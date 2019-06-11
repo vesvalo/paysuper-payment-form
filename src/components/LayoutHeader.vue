@@ -100,14 +100,15 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .header {
   display: flex;
   flex-grow: 0;
   flex-wrap: wrap-reverse;
   z-index: 1;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
 .left {
   display: flex;
@@ -115,6 +116,10 @@ export default {
   flex-grow: 1;
   flex-wrap: wrap;
   position: relative;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   &:after {
     content: '';
@@ -162,6 +167,10 @@ export default {
   height: 130px;
   justify-content: flex-end;
   position: relative;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   &:after {
     content: '';

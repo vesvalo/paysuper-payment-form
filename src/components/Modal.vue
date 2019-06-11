@@ -66,9 +66,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .layout {
   align-items: center;
   background-color: rgba(#000, 0.7);

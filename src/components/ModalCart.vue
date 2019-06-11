@@ -33,16 +33,33 @@ export default {
       [`.${this.$style.link}`]: {
         color: this.$gui.headerTextColor,
       },
+      [`.${this.$style.link}:hover`]: {
+        color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.header}`]: {
+        'background-image': `
+          linear-gradient(
+            180deg,
+            ${this.$gui.cartBackgroundColor} 51.5%,
+            ${this.$gui.cartBoxShadowColor} 100%
+          )
+        `,
+      },
+      [`.${this.$style.footer}`]: {
+        'background-image': `
+          linear-gradient(
+            180deg,
+            ${this.$gui.cartBoxShadowColor} 0%,
+            ${this.$gui.cartBackgroundColor} 41%
+          )
+        `,
+      },
     });
   },
 };
 </script>
 
-
 <style module lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/directional.scss';
-
 .layout {
   width: 320px;
   min-height: 100%;
@@ -63,13 +80,8 @@ export default {
 .link {
   font-size: 12px;
   font-weight: 500;
-  line-height: 18px;
   text-decoration: none;
   line-height: 20px;
-
-  &:hover {
-    color: #00d697;
-  }
 }
 .content {
   display: flex;
@@ -81,7 +93,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px;
+  padding: 30px 20px 20px;
   position: absolute;
   left: 0;
   right: 0;

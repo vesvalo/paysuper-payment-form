@@ -95,5 +95,15 @@
     "termsOfUse": "Условия использования",
     "profile": "Мой профиль",
     "support": "Поддержка"
+  },
+  "UiCardField": {
+    "cardNumber": "Номер карты"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Другая карта",
+    "cardNumber": "Номер карты"
+  },
+  "UiSelectOption": {
+    "remove": "Удалить"
   }
 }
