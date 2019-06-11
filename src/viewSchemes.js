@@ -56,6 +56,7 @@ export default {
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#424c66',
+    selectRemoveColor: '#fc7e57',
   },
   light: {
     headerTextColor: '#71757A',
@@ -114,5 +115,6 @@ export default {
     selectFocusBorderColor: '#06eaa7',
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#fff',
+    selectRemoveColor: '#fc7e57',
   },
 };

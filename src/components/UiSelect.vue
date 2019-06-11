@@ -115,7 +115,7 @@ export default {
     return {
       focused: false,
       selectValue: this.value || get(this.options, '0.value', ''),
-      innerOptions: this.options,
+      innerOptions: [...this.options],
     };
   },
   computed: {
@@ -209,35 +209,20 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
 
 $font-family: 'Quicksand', 'Comfortaa', sans-serif;
-
-$background-color: transparent;
-$input-color: #fff;
-$options-color: #424c66;
-$border-color: rgba(255, 255, 255, 0.2);
-$hover-border-color: rgba(255, 255, 255, 0.5);
-$focus-border-color: #06eaa7;
-$hover-option-color: #06eaa7;
-$disabled-opacity: 0.7;
-
-$primary-input-size: 16px;
-$secondary-input-size: 14px;
+$primary-input-size: 15px;
 
 .container {
-  background-color: $background-color;
   box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
   vertical-align: top;
-  font-size: $primary-input-size;
   position: relative;
   width: 100%;
-  font-size: 15px;
-  color: $input-color;
+  font-size: $primary-input-size;
   font-family: $font-family;
   padding: 18px 0;
 
   &._disabled {
-    opacity: $disabled-opacity;
     pointer-events: none;
   }
 }
@@ -246,19 +231,10 @@ $secondary-input-size: 14px;
   height: 24px;
   line-height: 24px;
   width: 100%;
-  background-color: $background-color;
   border: none;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid transparent;
   cursor: pointer;
   font-family: $font-family;
-
-  &._focused {
-    border-color: $focus-border-color;
-  }
-
-  &:not(._focused):hover {
-    border-color: $hover-border-color;
-  }
 }
 .icon {
   display: flex;
@@ -284,13 +260,11 @@ $secondary-input-size: 14px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  background-color: $background-color;
   border: none;
   outline: none;
-  color: $input-color;
   cursor: pointer;
   font-family: $font-family;
-  font-size: 15px;
+  font-size: $primary-input-size;
   pointer-events: none;
 }
 .arrow {
@@ -298,10 +272,6 @@ $secondary-input-size: 14px;
   display: flex;
   align-items: center;
   order: 3;
-
-  & > svg {
-    fill: $input-color;
-  }
 
   &._focused {
     & > svg {
@@ -311,7 +281,6 @@ $secondary-input-size: 14px;
 }
 .box {
   position: absolute;
-  background-color: $options-color;
   left: 0;
   z-index: 10;
   text-overflow: ellipsis;

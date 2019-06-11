@@ -82,10 +82,6 @@ export default {
   font-weight: 500;
   text-decoration: none;
   line-height: 20px;
-
-  &:hover {
-    color: #00d697;
-  }
 }
 .content {
   display: flex;

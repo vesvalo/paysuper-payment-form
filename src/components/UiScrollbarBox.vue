@@ -10,9 +10,14 @@ export default {
       type: Object,
     },
   },
+  data() {
+    return {
+      innerSettings: { ...this.settings },
+    };
+  },
   mounted() {
-    this.settings = {
-      ...this.settings,
+    this.innerSettings = {
+      ...this.innerSettings,
       swicher: false,
     };
   },
@@ -20,7 +25,7 @@ export default {
 </script>
 
 <template>
-<VuePerfectScrollbar class="ui-scrollbar-box" :settings="settings">
+<VuePerfectScrollbar class="ui-scrollbar-box" :settings="innerSettings">
   <slot></slot>
 </VuePerfectScrollbar>
 </template>

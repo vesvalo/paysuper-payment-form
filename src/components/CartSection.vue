@@ -218,7 +218,7 @@ export default {
   width: 100%;
 
   .cartSection._layout-modal & {
-    padding: 20px 0;
+    padding: 20px 0 30px;
   }
 }
 
@@ -299,7 +299,6 @@ export default {
   &._total {
     font-size: 16px;
     line-height: 20px;
-    color: #06eaa7;
     font-weight: bold;
   }
 }
@@ -314,8 +313,15 @@ export default {
   }
 
   &._price {
-    text-align: right;
     white-space: nowrap;
+
+    @include if-ltr {
+      text-align: right;
+    }
+
+    @include if-rtl {
+      text-align: left;
+    }
   }
 }
 

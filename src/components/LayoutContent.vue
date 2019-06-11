@@ -55,6 +55,10 @@ export default {
   display: flex;
   flex-wrap: wrap;
 
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
+
   @media screen and (min-width: 640px) {
     flex-grow: 1;
   }
@@ -64,6 +68,10 @@ export default {
   flex-basis: 320px;
   flex-grow: 1;
   justify-content: flex-end;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   @media screen and (min-width: 640px) {
     padding-right: 5.5vw;
@@ -87,6 +95,10 @@ export default {
   flex-direction: column;
   flex-basis: 320px;
   flex-grow: 1;
+
+  @include if-rtl {
+    align-items: flex-end;
+  }
 
   @media screen and (min-width: 640px) {
     padding-left: 5.5vw;

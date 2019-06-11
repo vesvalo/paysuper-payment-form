@@ -76,36 +76,25 @@ export default {
         color: this.$gui.selectFocusBorderColor,
         'border-color': this.$gui.selectHoverBorderColor,
       },
+      [`.${this.$style.remove}`]: {
+        color: this.$gui.selectRemoveColor,
+      },
     });
   },
 };
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-
-$font-family: 'Quicksand', 'Comfortaa', sans-serif;
-
-$background-color: transparent;
-$input-color: #fff;
-$border-color: rgba(255, 255, 255, 0.2);
-$hover-border-color: rgba(255, 255, 255, 0.5);
-$hover-option-color: #06eaa7;
-
 .option {
   cursor: pointer;
   display: flex;
   height: 40px;
   line-height: 24px;
   margin: 0;
-  color: $input-color;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid transparent;
   padding-top: 16px;
 
   &:hover {
-    color: $hover-option-color;
-    border-color: $hover-border-color;
-
     & > .remove {
       display: block;
     }
@@ -118,7 +107,6 @@ $hover-option-color: #06eaa7;
 .remove {
   display: none;
   font-size: 12px;
-  color: #fc7e57;
   padding: 0 2px;
 }
 .icon {

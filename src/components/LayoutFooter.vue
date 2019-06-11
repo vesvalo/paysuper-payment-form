@@ -34,6 +34,10 @@ export default {
 .footer {
   display: flex;
   flex-grow: 0;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 }
 .left {
   @media screen and (min-width: 640px) {
@@ -53,6 +57,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+
+  @include if-rtl {
+    flex-direction: row-reverse;
+  }
 
   &::before {
     content: '';
