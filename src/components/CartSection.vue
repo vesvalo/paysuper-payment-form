@@ -153,8 +153,6 @@ export default {
 </template>
 
 <style lang="scss" module>
-@import '@/assets/styles/directional.scss';
-
 .cartSection {
   width: 100%;
   min-height: 100%;
