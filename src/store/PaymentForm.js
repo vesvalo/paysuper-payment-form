@@ -1,6 +1,8 @@
 import axios from 'axios';
 import assert from 'assert';
-import { filter, find, includes } from 'lodash-es';
+import {
+  filter, find, findIndex, includes,
+} from 'lodash-es';
 import getFunctionalUrls from '../getFunctionalUrls';
 import { postMessage } from '../postMessage';
 import PaymentConnection from './helpers/PaymentConnection';
@@ -31,9 +33,8 @@ export default {
     initialEmail: '',
     activePaymentMethodId: '',
     isLoading: false,
-    isPaymentErrorVisible: false,
+    paymentResult: null,
     paymentStatus: 'NEW',
-    paymentResultMessage: '',
     isModal: false,
     testFinalSuccess: false,
     cards: [],
@@ -73,8 +74,8 @@ export default {
     isLoading(state, value) {
       state.isLoading = value;
     },
-    isPaymentErrorVisible(state, value) {
-      state.isPaymentErrorVisible = value;
+    paymentResult(state, value) {
+      state.paymentResult = value;
     },
     paymentStatus(state, value) {
       assert(
@@ -82,9 +83,6 @@ export default {
         `Payment status "${value}" is not allowed`,
       );
       state.paymentStatus = value;
-    },
-    paymentResultMessage(state, value) {
-      state.paymentResultMessage = value;
     },
     isModal(state, value) {
       state.isModal = value;
@@ -104,7 +102,9 @@ export default {
 
       commit('orderID', orderData.id);
       commit('orderData', orderData);
-      commit('activePaymentMethodId', orderData.payment_methods[0].id);
+
+      const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
+      commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
 
       if (localStorage) {
         const cards = localStorage.getItem('cards');
@@ -122,7 +122,7 @@ export default {
     },
 
     hidePaymentError({ commit }) {
-      commit('isPaymentErrorVisible', false);
+      commit('paymentResult', null);
     },
 
     async createPayment({ state, getters, commit }, {
@@ -150,7 +150,10 @@ export default {
           }
 
           if (data.message) {
-            commit('paymentResultMessage', data.message);
+            commit('paymentResult', {
+              type: 'customError',
+              message: data.message,
+            });
           }
           paymentConnection.closeRedirectWindow();
           setPaymentStatus(commit, data.status);
@@ -190,7 +193,10 @@ export default {
         setPaymentStatus(commit, 'PENDING');
       } catch (error) {
         paymentConnection.closeRedirectWindow();
-        commit('isPaymentErrorVisible', true);
+        commit('paymentResult', {
+          type: 'customError',
+          ...(error.response ? { message: error.response.data.message } : {}),
+        });
         setPaymentStatus(commit, 'FAILED_TO_CREATE');
       }
       commit('isLoading', false);

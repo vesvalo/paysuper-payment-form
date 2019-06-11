@@ -1,12 +1,10 @@
 <script>
-import ActionResult from '@/components/ActionResult.vue';
 import CartSection from '@/components/CartSection.vue';
 import cartTestData from './cartTestData';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
   components: {
-    ActionResult,
     CartSection,
     ActionProcessing,
   },
@@ -17,11 +15,6 @@ export default {
       value: '',
       disabled: false,
       hasError: false,
-      actionResult: {
-        content: 'error',
-        step: 'initial',
-        paymentMethod: 'card',
-      },
       actionProcessing: {
         icon: 'card',
       },
@@ -95,29 +88,6 @@ export default {
     <div class="ui-item">
       <UiSimplePreloader />
     </div>
-    <div>
-      <div style="width: 320px; height: 440px; box-shadow: 0 0 5px #000">
-        <ActionResult
-          :content="actionResult.content"
-          :paymentMethod="actionResult.paymentMethod"
-          :step="actionResult.step"
-        />
-      </div>
-      <select v-model="actionResult.content">
-        <option value="error">error</option>
-        <option value="declined">declined</option>
-        <option value="success">success</option>
-      </select>
-      <select v-model="actionResult.paymentMethod">
-        <option value="card">card</option>
-        <option value="other">other</option>
-      </select>
-      <select v-model="actionResult.step">
-        <option value="initial">initial</option>
-        <option value="final">final</option>
-      </select>
-    </div>
-    <br>
     <div style="width: 640px; height: 510px; box-shadow: 0 0 5px #000; position: relative">
       <ActionProcessing :icon="actionProcessing.icon" />
         <select v-model="actionProcessing.icon">

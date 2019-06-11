@@ -40,7 +40,11 @@ export default {
       'orderData',
     ]),
     items() {
-      return this.orderData.items;
+      return this.orderData.items || [{
+        name: this.$t('CartSection.voluntaryAmount'),
+        amount: this.orderData.amount,
+        currency: this.orderData.currency,
+      }];
     },
     images() {
       return this.items.slice(0, 7).map(
@@ -247,6 +251,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: -5px;
+  padding-top: 5px;
 }
 
 .imageItem {
@@ -308,8 +313,13 @@ export default {
   display: table-cell;
 
   &._title {
-    width: 90%;
+    width: 74%;
     padding-right: 10px;
+
+    @include if-rtl {
+      padding-right: 0;
+      padding-left: 10px;
+    }
   }
 
   &._price {

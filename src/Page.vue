@@ -18,10 +18,17 @@
   </LayoutContent>
 
   <LayoutFooter />
+
+  <ActionProcessing
+    :class="$style.preloader"
+    v-if="isLoading"
+  />
 </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
 import LayoutHeader from '@/components/LayoutHeader.vue';
@@ -35,11 +42,15 @@ export default {
     LayoutHeader,
     LayoutContent,
     LayoutFooter,
+    ActionProcessing,
   },
   data() {
     return {
       isCartOpened: true,
     };
+  },
+  computed: {
+    ...mapState('PaymentForm', ['isLoading']),
   },
 };
 </script>
@@ -59,5 +70,14 @@ export default {
   @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
     height: 100vh;
   }
+}
+
+.preloader {
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }
 </style>

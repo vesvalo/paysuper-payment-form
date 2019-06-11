@@ -70,7 +70,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 0 20px;
+  height: 55px;
   position: absolute;
   left: 0;
   right: 0;

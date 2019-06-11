@@ -3,6 +3,7 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
 import FormSectionBankCard from './FormSectionBankCard.vue';
+import ActionResult from '@/components/ActionResult.vue';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -12,6 +13,7 @@ export default {
   name: 'FormSection',
   components: {
     FormSectionBankCard,
+    ActionResult,
   },
   props: {
     layout: {
@@ -83,6 +85,7 @@ export default {
       'initialEmail',
       'activePaymentMethodId',
       'cards',
+      'paymentResult',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
 
@@ -173,7 +176,11 @@ export default {
 <template>
 <div :class="[$style.formSection, $style[`_layout-${layout}`]]">
   <div :class="$style.content">
-    <UiScrollbarBox :class="$style.scrollbox" :settings="{suppressScrollX: true}">
+    <UiScrollbarBox
+      v-show="!paymentResult"
+      :class="$style.scrollbox"
+      :settings="{suppressScrollX: true}"
+    >
       <div :class="$style.contentInner">
         <UiSelect
           :value="activePaymentMethodId"
@@ -214,6 +221,15 @@ export default {
         </template>
       </div>
     </UiScrollbarBox>
+    <div
+      :class="$style.contentInner"
+      v-if="paymentResult"
+    >
+      <ActionResult
+        :type="paymentResult.type"
+        :message="paymentResult.message"
+      />
+    </div>
   </div>
   <div :class="$style.footer">
     <UiButton
@@ -221,9 +237,14 @@ export default {
       :hasBorderRadius="layout === 'page' ? true : false"
       @click="submitPaymentForm"
     >
-      <IconLock slot="before" />
-      {{$t('FormSection.payButtonPrefix')}}
-      {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+      <template v-if="!paymentResult">
+        <IconLock slot="before" />
+        {{$t('FormSection.payButtonPrefix')}}
+        {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+      </template>
+      <template v-else>
+        {{$t('FormSection.tryAgain')}}
+      </template>
     </UiButton>
   </div>
 </div>
@@ -263,6 +284,10 @@ export default {
 }
 
 .contentInner {
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+
   .formSection._layout-modal & {
     padding: 0 40px 20px;
   }
