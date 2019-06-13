@@ -209,7 +209,6 @@ export default {
   flex-wrap: wrap;
   position: relative;
   align-content: flex-start;
-  height: 100%;
   overflow: hidden;
 }
 .formItem {
