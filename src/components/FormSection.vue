@@ -239,11 +239,15 @@ export default {
     >
       <template v-if="!paymentResult">
         <IconLock slot="before" />
-        {{$t('FormSection.payButtonPrefix')}}
-        {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+        <span>
+          {{ $t('FormSection.payButtonPrefix') }}
+        </span>
+        <span>
+          {{ orderData.total_amount.toFixed(2) }} {{ orderData.currency }}
+        </span>
       </template>
       <template v-else>
-        {{$t('FormSection.tryAgain')}}
+        {{ $t('FormSection.tryAgain') }}
       </template>
     </UiButton>
   </div>

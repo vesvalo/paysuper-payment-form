@@ -7,7 +7,9 @@
     <slot name="before" />
   </span>
 
-  <slot />
+  <div :class="main">
+    <slot />
+  </div>
 
   <span :class="after">
     <slot name="after" />
@@ -33,6 +35,9 @@ export default {
     },
     stateDisabled() {
       return this.$style._disabled;
+    },
+    main() {
+      return this.$style.main;
     },
     before() {
       return this.$style.before;
@@ -140,17 +145,18 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
     opacity: $disabled-opacity;
   }
 }
-
+.main,
+.before,
+.after {
+  &:empty {
+    display: none;
+  }
+}
 .before {
-  display: inline-flex;
-  color: $before-text-color;
   margin-left: $before-margin;
   margin-right: $before-margin;
 }
-
 .after {
-  display: inline-flex;
-  color: $after-text-color;
   margin-left: $after-margin;
   margin-right: $after-margin;
 }
