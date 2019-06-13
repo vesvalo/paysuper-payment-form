@@ -158,7 +158,6 @@ export default {
   min-height: 100%;
   box-sizing: border-box;
   position: relative;
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
 

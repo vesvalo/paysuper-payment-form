@@ -1,6 +1,9 @@
 <template>
 <div :class="[$style.container, $style[`_${layout}`]]">
-  <UiScrollbarBox :class="$style.scrollbar">
+  <UiScrollbarBox
+    :class="$style.scrollbar"
+    :settings="{suppressScrollX: true}"
+  >
     <div :class="$style.inner">
       <div
         v-for="(locale, localeCode) in locales"
@@ -87,14 +90,22 @@ $hover-option-color: #06eaa7;
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 10px 5px 10px 40px;
   overflow: hidden;
+
+  @include if-rtl {
+    direction: ltr;
+  }
 }
 .inner {
-  padding-right: 35px;
+  padding: 10px 40px;
+
+  @include if-rtl {
+    direction: rtl;
+  }
 }
 .scrollbar {
   height: 100%;
+  width: 100%;
 }
 .item {
   cursor: pointer;

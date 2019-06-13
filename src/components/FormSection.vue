@@ -270,14 +270,10 @@ export default {
   align-content: flex-start;
   position: relative;
   width: 100%;
+  max-height: calc(100% - 70px);
 }
 
 .scrollbox {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   height: 100%;
   flex-grow: 1;
