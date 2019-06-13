@@ -1,8 +1,22 @@
 <template>
 <div :class="$style.layout">
   <div :class="$style.header">
-    <a href="#" :class="$style.link">{{orderData.project.name}}</a>
-    <a href="#" :class="$style.link">{{$t('ModalCart.profile')}}</a>
+    <a :class="$style.link">{{ orderData.project.name }}</a>
+    <span
+      :class="$style.link"
+      @mouseenter="isProfileShown = true"
+      @mouseleave="isProfileShown = false"
+    >
+      {{ $t('ModalCart.profile') }}
+      <UiTip
+        innerPosition="right"
+        width="200px"
+        :visible="isProfileShown"
+      >
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.purchaseInformation') }}</a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.paymentManagement') }}</a>
+      </UiTip>
+    </span>
   </div>
 
   <div :class="$style.content">
@@ -10,8 +24,23 @@
   </div>
 
   <div :class="$style.footer">
-    <a href="#" :class="$style.link">{{$t('ModalCart.termsOfUse')}}</a>
-    <a href="#" :class="$style.link">{{$t('ModalCart.support')}}</a>
+    <span
+      :class="$style.link"
+      @mouseenter="isTermsShown = true"
+      @mouseleave="isTermsShown = false"
+    >
+      {{ $t('ModalCart.termsOfUse') }}
+      <UiTip
+        position="top"
+        width="240px"
+        :visible="isTermsShown"
+      >
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+        <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
+      </UiTip>
+    </span>
+    <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
   </div>
 </div>
 </template>
@@ -20,6 +49,12 @@
 import { mapState } from 'vuex';
 
 export default {
+  data() {
+    return {
+      isProfileShown: false,
+      isTermsShown: false,
+    };
+  },
   computed: {
     ...mapState('PaymentForm', [
       'orderData',
@@ -35,6 +70,15 @@ export default {
       },
       [`.${this.$style.link}:hover`]: {
         color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.tipLink}`]: {
+        color: this.$gui.tipHeaderColor,
+      },
+      [`.${this.$style.tipLink}:hover`]: {
+        color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.tipContent}`]: {
+        color: this.$gui.tipContentColor,
       },
       [`.${this.$style.header}`]: {
         'background-image': `
@@ -79,10 +123,26 @@ export default {
   z-index: 2;
 }
 .link {
+  position: relative;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  line-height: 20px;
+  line-height: 18px;
+  cursor: pointer;
+}
+.tipLink {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 18px;
+}
+.tipContent {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  margin-top: 12px;
 }
 .content {
   display: flex;

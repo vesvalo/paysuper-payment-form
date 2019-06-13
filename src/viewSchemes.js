@@ -57,23 +57,27 @@ export default {
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#424c66',
     selectRemoveColor: '#fc7e57',
+
+    tipBoxColor: '#424c66',
+    tipHeaderColor: '#fff',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },
   light: {
-    headerTextColor: '#71757A',
+    headerTextColor: '#71757a',
     headerProjectTitleColor: '#202226',
     headerServiceTitleColor: '#5b88de',
 
-    cartBackgroundColor: '#F3F3F3',
+    cartBackgroundColor: '#f3f3f3',
     cartBoxShadowColor: 'rgba(243, 243, 243, 0.8)',
     cartHoverTextColor: '#06eaa7',
     cartTextColor: '#202226',
-    cartTotalStrokeColor: '#C2C2C4',
+    cartTotalStrokeColor: '#c2c2c4',
     cartTotalTextColor: '#202226',
 
     formBackgroundColor: '#fff',
 
     localeChangerBorderColor: 'rgba(194, 194, 196, 0.5)',
-    localeChangerBoxColor: '#F3F3F3',
+    localeChangerBoxColor: '#f3f3f3',
     localeChangerColor: '#202226',
     localeChangerCurrentColor: '#06eaa7',
     localeChangerHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
@@ -96,7 +100,7 @@ export default {
     preloaderColor: 'rgba(255, 255, 255, 0.1)',
     preloaderSpinColor: '#06eaa7',
 
-    inputBorderColor: '#C2C2C4',
+    inputBorderColor: '#c2c2c4',
     inputBoxColor: 'transparent',
     inputColor: '#202226',
     inputDisabledOpacity: '0.5',
@@ -116,5 +120,9 @@ export default {
     selectHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     selectOptionsBoxColor: '#fff',
     selectRemoveColor: '#fc7e57',
+
+    tipBoxColor: '#5b88de',
+    tipHeaderColor: '#fff',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },
 };
