@@ -28,7 +28,7 @@
     :class="$style.input"
     :name="selectId"
     :value="option.value"
-    @input="$emit('input', option.value)"
+    @change="$emit('input', option.value)"
   >
 </label>
 </template>

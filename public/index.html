@@ -59,9 +59,9 @@
       
       let layout = 'modal';
      
-      if (window.location.pathname.includes('sandbox')) {
+      if (window.location.pathname.indexOf('sandbox') !== -1) {
         layout = 'sandbox';
-      } else if (window.location.pathname.includes('page')) {
+      } else if (window.location.pathname.indexOf('page') !== -1) {
         layout = 'page';
       }
       

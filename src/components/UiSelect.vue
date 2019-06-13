@@ -23,7 +23,10 @@
     </div>
   </div>
   <div :class="[$style.box, { [$style._focused]: focused }]">
-    <UiScrollbarBox :class="$style.scrollbar">
+    <UiScrollbarBox
+      :class="$style.scrollbar"
+      :settings="{suppressScrollX: true}"
+    >
       <div :class="$style.options">
         <UiSelectOption
           v-for="option in actualOtions"
