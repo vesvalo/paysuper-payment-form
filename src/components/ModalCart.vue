@@ -10,15 +10,11 @@
       {{ $t('ModalCart.profile') }}
       <UiTip
         innerPosition="right"
-        width="166px"
+        width="200px"
         :visible="isProfileShown"
       >
-        <a href="#" :class="$style.tipLink">
-          Purchase information
-        </a>
-        <a href="#" :class="$style.tipLink">
-          Payment management
-        </a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.purchaseInformation') }}</a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.paymentManagement') }}</a>
       </UiTip>
     </span>
   </div>
@@ -39,12 +35,9 @@
         width="240px"
         :visible="isTermsShown"
       >
-        <a href="#" :class="$style.tipLink">
-          User Agreement
-        </a>
-        <a href="#" :class="$style.tipLink">
-          Refund Policy
-        </a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
+        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+        <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
       </UiTip>
     </span>
     <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
@@ -79,10 +72,13 @@ export default {
         color: this.$gui.cartHoverTextColor,
       },
       [`.${this.$style.tipLink}`]: {
-        color: this.$gui.headerTextColor,
+        color: this.$gui.tipHeaderColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.tipContent}`]: {
+        color: this.$gui.tipContentColor,
       },
       [`.${this.$style.header}`]: {
         'background-image': `
@@ -131,7 +127,7 @@ export default {
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  line-height: 20px;
+  line-height: 18px;
   cursor: pointer;
 }
 .tipLink {
@@ -139,7 +135,14 @@ export default {
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  line-height: 20px;
+  line-height: 18px;
+}
+.tipContent {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  margin-top: 12px;
 }
 .content {
   display: flex;

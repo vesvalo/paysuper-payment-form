@@ -1,26 +1,5 @@
-<template>
-<div
-  :class="[
-    $style.container,
-    $style[`_${position}`],
-    $style[`_inner-${innerPosition}`],
-    { [$style._shown]: visible || innerVisible }
-  ]"
-  :style="{
-    height: height || 'auto',
-    width: width || 'auto',
-    maxHeight: maxHeight ? maxHeight : undefined,
-  }"
-  @mouseenter="innerVisible = true"
-  @mouseleave="hide"
->
-  <slot />
-</div>
-</template>
-
 <script>
 import { includes } from 'lodash-es';
-import { setTimeout, clearTimeout } from 'timers';
 
 export default {
   props: {
@@ -64,7 +43,6 @@ export default {
   mounted() {
     this.$addCssRules({
       [`.${this.$style.container}`]: {
-        color: this.$gui.tipColor,
         'background-color': this.$gui.tipBoxColor,
       },
       [`.${this.$style.container}.${this.$style._bottom}::after`]: {
@@ -110,6 +88,26 @@ export default {
 };
 </script>
 
+<template>
+<div
+  :class="[
+    $style.container,
+    $style[`_${position}`],
+    $style[`_inner-${innerPosition}`],
+    { [$style._shown]: visible || innerVisible }
+  ]"
+  :style="{
+    height: height || 'auto',
+    width: width || 'auto',
+    maxHeight: maxHeight ? maxHeight : undefined,
+  }"
+  @mouseenter="innerVisible = true"
+  @mouseleave="hide"
+>
+  <slot />
+</div>
+</template>
+
 <style module lang="scss">
 .container {
   position: absolute;
@@ -136,23 +134,42 @@ export default {
 
     &::after {
       bottom: -12px;
-      border-top-color: #fff;
     }
   }
 
   &._inner-right {
-    right: 0;
+    @include if-ltr {
+      right: 0;
 
-    &::after {
-      right: 16px;
+      &::after {
+        right: 20px;
+      }
+    }
+
+    @include if-rtl {
+      left: 0;
+
+      &::after {
+        left: 20px;
+      }
     }
   }
 
   &._inner-left {
-    left: 0;
+    @include if-ltr {
+      left: 0;
 
-    &::after {
-      left: 16px;
+      &::after {
+        left: 20px;
+      }
+    }
+
+    @include if-rtl {
+      right: 0;
+
+      &::after {
+        right: 20px;
+      }
     }
   }
 

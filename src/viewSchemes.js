@@ -59,7 +59,8 @@ export default {
     selectRemoveColor: '#fc7e57',
 
     tipBoxColor: '#424c66',
-    tipColor: '#fff',
+    tipHeaderColor: '#fff',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },
   light: {
     headerTextColor: '#71757a',
@@ -121,6 +122,7 @@ export default {
     selectRemoveColor: '#fc7e57',
 
     tipBoxColor: '#5b88de',
-    tipColor: '#fff',
+    tipHeaderColor: '#fff',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },
 };
