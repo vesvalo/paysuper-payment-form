@@ -59,7 +59,8 @@ export default {
     selectOptionsBoxColor: '#424c66',
     selectRemoveColor: '#fc7e57',
 
-    tipBoxColor: '#424c66',
+    tipCartBoxColor: '#424c66',
+    tipFormBoxColor: '#333B50',
     tipHeaderColor: '#fff',
     tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },
@@ -123,7 +124,8 @@ export default {
     selectOptionsBoxColor: '#fff',
     selectRemoveColor: '#fc7e57',
 
-    tipBoxColor: '#5b88de',
+    tipCartBoxColor: '#5b88de',
+    tipFormBoxColor: '#5b88de',
     tipHeaderColor: '#fff',
     tipContentColor: 'rgba(255, 255, 255, 0.5)',
   },

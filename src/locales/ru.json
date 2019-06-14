@@ -338,12 +338,14 @@
     "expiryDate": "Срок действия",
     "expiryDateInvalid": "Неверный срок действия",
     "cvv": "CVC/CVV",
+    "cvvInfo": "Три цифры<br>на обратной стороне карты",
     "cvvError": "Неверное значение",
     "cardholder": "Владелец карты",
     "cardHolderError": "Введите владельца карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
+    "rememberInfo": "Безопасность хранения платежных данных обеспечивается в соответствии с требованиями стандарта PCI DSS, применением протоколов 3D Secure и SSL",
     "country": "Выберите страну"
   },
   "LayoutFooter": {

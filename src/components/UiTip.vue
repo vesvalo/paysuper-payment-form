@@ -1,5 +1,5 @@
 <script>
-import { includes } from 'lodash-es';
+import { includes, upperFirst } from 'lodash-es';
 
 export default {
   props: {
@@ -19,14 +19,21 @@ export default {
       default: 'left',
       type: String,
       validator(value) {
-        return includes(['left', 'right'], value);
+        return includes(['center', 'left', 'right'], value);
       },
     },
     position: {
-      default: 'bottom',
+      default: 'top',
       type: String,
       validator(value) {
         return includes(['bottom', 'top'], value);
+      },
+    },
+    section: {
+      default: 'cart',
+      type: String,
+      validator(value) {
+        return includes(['cart', 'form'], value);
       },
     },
     visible: {
@@ -41,15 +48,22 @@ export default {
     };
   },
   mounted() {
+    const containerClass = this.$style.container;
+    const sectionClass = this.$style[`_${this.section}`];
+    const tipBoxColor = this.$gui[`tip${upperFirst(this.section)}BoxColor`];
+
     this.$addCssRules({
-      [`.${this.$style.container}`]: {
-        'background-color': this.$gui.tipBoxColor,
+      [`.${containerClass}`]: {
+        color: this.$gui.tipContentColor,
       },
-      [`.${this.$style.container}.${this.$style._bottom}::after`]: {
-        'border-bottom-color': this.$gui.tipBoxColor,
+      [`.${containerClass}.${sectionClass}`]: {
+        'background-color': tipBoxColor,
       },
-      [`.${this.$style.container}.${this.$style._top}::after`]: {
-        'border-top-color': this.$gui.tipBoxColor,
+      [`.${containerClass}.${this.$style._bottom}.${sectionClass}::after`]: {
+        'border-bottom-color': tipBoxColor,
+      },
+      [`.${containerClass}.${this.$style._top}.${sectionClass}::after`]: {
+        'border-top-color': tipBoxColor,
       },
     });
   },
@@ -94,6 +108,7 @@ export default {
     $style.container,
     $style[`_${position}`],
     $style[`_inner-${innerPosition}`],
+    $style[`_${section}`],
     { [$style._shown]: visible || innerVisible }
   ]"
   :style="{
@@ -123,6 +138,10 @@ export default {
     transform: translate3d(0, 20px, 0);
     top: calc(100% + 10px);
 
+    &._inner-center {
+      transform: translate3d(-50%, 20px, 0);
+    }
+
     &::after {
       top: -12px;
     }
@@ -131,6 +150,10 @@ export default {
   &._top {
     transform: translate3d(0, -20px, 0);
     bottom: calc(100% + 10px);
+
+    &._inner-center {
+      transform: translate3d(-50%, -20px, 0);
+    }
 
     &::after {
       bottom: -12px;
@@ -173,10 +196,31 @@ export default {
     }
   }
 
-  &._shown {
+  &._inner-center {
+    left: 50%;
+
+    &::after {
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &._cart,
+  &._form {
+    position: absolute;
+  }
+
+  &._shown,
+  &:hover {
     pointer-events: all;
     opacity: 1;
     transform: translate3d(0, 0, 0);
+
+    &._inner-center {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 
   &::after {
