@@ -1,6 +1,6 @@
 <template>
 <div
-  v-clickaway="blur"
+  v-clickaway="handleClickaway"
   :class="selectClasses"
 >
   <div
@@ -113,6 +113,10 @@ export default {
       default: '',
       type: [String, Number],
     },
+    hasClickawayBlur: {
+      default: true,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -178,6 +182,11 @@ export default {
     });
   },
   methods: {
+    handleClickaway() {
+      if (this.hasClickawayBlur) {
+        this.blur();
+      }
+    },
     blur() {
       this.$emit('blur');
       this.focused = false;

@@ -27,7 +27,7 @@ export default {
       },
     },
 
-    isLoading: {
+    isPaymentLoading: {
       default: false,
       type: Boolean,
     },
@@ -60,7 +60,7 @@ export default {
   >
     <IconLoadingAnimated
       class="base-button__loading"
-      v-if="isLoading"
+      v-if="isPaymentLoading"
       width="13"
       height="13"
       stroke="#333"

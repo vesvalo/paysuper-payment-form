@@ -16,7 +16,7 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
-      'orderID',
+      'orderId',
       'project',
       'paymentStatus',
       'paymentResultMessage',
@@ -27,7 +27,7 @@ export default {
 
     isPaymentFormVisible() {
       const allowedStatuses = ['NEW', 'FAILED_TO_CREATE'];
-      if (this.orderID && includes(allowedStatuses, this.paymentStatus)) {
+      if (this.orderId && includes(allowedStatuses, this.paymentStatus)) {
         return true;
       }
 
@@ -35,7 +35,7 @@ export default {
     },
 
     isAppFailed() {
-      return !this.orderID;
+      return !this.orderId;
     },
   },
 
@@ -93,7 +93,7 @@ export default {
       :paymentResultMessage="paymentResultMessage"
       :activePaymentMethod="activePaymentMethod"
       :project="project"
-      :orderID="orderID"
+      :orderId="orderId"
       @recreateOrder="recreateOrder"
      />
 

@@ -1,5 +1,6 @@
 <template>
 <transition
+  appear
   :enter-class="$style.enter"
   :enter-active-class="$style.enterActive"
   :enter-to-class="$style.enterTo"

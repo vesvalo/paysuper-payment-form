@@ -93,6 +93,7 @@ export default {
   margin: 0;
   border-bottom: 1px solid transparent;
   padding-top: 16px;
+  text-align: left;
 
   &:hover {
     & > .remove {

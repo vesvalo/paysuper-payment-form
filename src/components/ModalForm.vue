@@ -1,5 +1,9 @@
 <template>
 <div :class="$style.layout">
+  <ActionProcessing
+    v-if="isFormLoading"
+    content="no-content"
+  />
   <div :class="$style.box">
     <div :class="$style.header">
       <div :class="$style.links">
@@ -29,14 +33,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import LocaleCnanger from '@/components/LocaleChanger.vue';
+import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
-  components: { LocaleCnanger },
+  components: {
+    LocaleCnanger,
+    ActionProcessing,
+  },
   data() {
     return {
       hasLocaleChangerOpened: false,
     };
+  },
+  computed: {
+    ...mapState('PaymentForm', ['isFormLoading']),
   },
   mounted() {
     this.$addCssRules({
@@ -62,6 +74,7 @@ export default {
   display: flex;
   width: 320px;
   flex-direction: column;
+  position: relative;
 }
 .box {
   display: flex;

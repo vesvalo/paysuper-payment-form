@@ -3,7 +3,6 @@ import assert from 'assert';
 import {
   filter, find, findIndex, includes,
 } from 'lodash-es';
-import getFunctionalUrls from '../getFunctionalUrls';
 import { postMessage } from '../postMessage';
 import PaymentConnection from './helpers/PaymentConnection';
 
@@ -23,27 +22,41 @@ function setPaymentStatus(commit, name) {
   postMessage(`PAYMENT_${name}`);
 }
 
+function setGeoData(commit, data) {
+  if (data.user_ip_data) {
+    commit('userCountry', data.user_ip_data.country);
+
+    if (data.user_ip_data.city) {
+      commit('userCity', data.user_ip_data.city);
+    }
+    if (data.user_ip_data.zip) {
+      commit('userZip', data.user_ip_data.zip);
+    }
+  }
+}
+
 export default {
   namespaced: true,
 
   state: {
-    apiUrl: '',
-    orderID: '',
+    orderId: '',
     orderData: null,
-    initialEmail: '',
     activePaymentMethodId: '',
-    isLoading: false,
-    paymentResult: null,
+    isPaymentLoading: false,
+    isFormLoading: false,
+    actionResult: null,
     paymentStatus: 'NEW',
     isModal: false,
     testFinalSuccess: false,
     cards: [],
+    isUserLocationCheckRequested: false,
+    isUserLocationRestricted: false,
+    userCountry: 'RU',
+    userCity: '',
+    userZip: '',
   },
 
   getters: {
-    urls(state) {
-      return getFunctionalUrls(state.apiUrl);
-    },
     activePaymentMethod(state) {
       return find(state.orderData.payment_methods, { id: state.activePaymentMethodId });
     },
@@ -53,29 +66,26 @@ export default {
   },
 
   mutations: {
-    apiUrl(state, value) {
-      state.apiUrl = value;
-    },
     cards(state, value) {
       state.cards = value;
     },
-    orderID(state, value) {
-      state.orderID = value;
+    orderId(state, value) {
+      state.orderId = value;
     },
     orderData(state, value) {
       state.orderData = value;
     },
-    initialEmail(state, value) {
-      state.initialEmail = value;
-    },
     activePaymentMethodId(state, value) {
       state.activePaymentMethodId = value;
     },
-    isLoading(state, value) {
-      state.isLoading = value;
+    isPaymentLoading(state, value) {
+      state.isPaymentLoading = value;
     },
-    paymentResult(state, value) {
-      state.paymentResult = value;
+    isFormLoading(state, value) {
+      state.isFormLoading = value;
+    },
+    actionResult(state, value) {
+      state.actionResult = value;
     },
     paymentStatus(state, value) {
       assert(
@@ -90,21 +100,42 @@ export default {
     testFinalSuccess(state, value) {
       state.testFinalSuccess = value;
     },
+    isUserLocationCheckRequested(state, value) {
+      state.isUserLocationCheckRequested = value;
+    },
+    isUserLocationRestricted(state, value) {
+      state.isUserLocationRestricted = value;
+    },
+    userCountry(state, value) {
+      state.userCountry = value;
+    },
+    userCity(state, value) {
+      state.userCity = value;
+    },
+    userZip(state, value) {
+      state.userZip = value;
+    },
   },
 
   actions: {
-    async initState({ commit }, { formData, options }) {
-      commit('apiUrl', options.apiUrl);
-      commit('initialEmail', options.email);
+    async initState({ commit }, { orderData, options }) {
       commit('isModal', options.isModal);
 
-      const orderData = formData.payment_form_data;
-
-      commit('orderID', orderData.id);
+      commit('orderId', orderData.id);
       commit('orderData', orderData);
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
       commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
+
+      setGeoData(commit, orderData);
+
+      if (!orderData.country_payments_allowed) {
+        if (orderData.country_change_allowed) {
+          commit('isUserLocationCheckRequested', true);
+        } else {
+          commit('isUserLocationRestricted', true);
+        }
+      }
 
       if (localStorage) {
         const cards = localStorage.getItem('cards');
@@ -121,15 +152,16 @@ export default {
       commit('activePaymentMethodId', value);
     },
 
-    hidePaymentError({ commit }) {
-      commit('paymentResult', null);
+    clearActionResult({ commit }) {
+      commit('actionResult', null);
     },
 
-    async createPayment({ state, getters, commit }, {
+    async createPayment({
+      state, getters, rootState, commit,
+    }, {
       cardNumber, expiryDate, cvv, cardHolder, ewallet, email, hasRemembered,
     }) {
       postMessage('PAYMENT_BEFORE_CREATED');
-      commit('isLoading', true);
 
       if (hasRemembered) {
         const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
@@ -137,20 +169,20 @@ export default {
         localStorage.setItem('cards', JSON.stringify(cards));
       }
 
-      const paymentConnection = new PaymentConnection(window, state.orderID, state.token);
+      const paymentConnection = new PaymentConnection(window, state.orderId, state.token);
       paymentConnection
         .init()
         .on('newPaymentStatus', (data) => {
           if (
             // Just in case. Its probably unnecessary
-            data.order_id !== state.orderID
+            data.order_id !== state.orderId
             || !includes(availableChannelStatuses, data.status)
           ) {
             return;
           }
 
           if (data.message) {
-            commit('paymentResult', {
+            commit('actionResult', {
               type: 'customError',
               message: data.message,
             });
@@ -171,7 +203,7 @@ export default {
         month: expiryDate.slice(0, 2),
         year: expiryDate.slice(2, 4),
         card_holder: cardHolder,
-        order_id: state.orderID,
+        order_id: state.orderId,
         pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
       };
@@ -183,7 +215,7 @@ export default {
 
       try {
         const { data } = await axios.post(
-          getters.urls.apiPathCreatePayment,
+          `${rootState.apiUrl}/api/v1/payment`,
           request,
         );
         paymentConnection.setRedirectWindowLocation(data.redirect_url);
@@ -193,68 +225,12 @@ export default {
         setPaymentStatus(commit, 'PENDING');
       } catch (error) {
         paymentConnection.closeRedirectWindow();
-        commit('paymentResult', {
+        commit('actionResult', {
           type: 'customError',
           ...(error.response ? { message: error.response.data.message } : {}),
         });
         setPaymentStatus(commit, 'FAILED_TO_CREATE');
       }
-      commit('isLoading', false);
-    },
-
-    usePaymentApi({ dispatch }) {
-      // Supported payment methods
-      const supportedInstruments = [{
-        supportedMethods: ['basic-card'],
-        data: {
-          supportedNetworks: [
-            'visa', 'mastercard', 'amex', 'discover',
-            'diners', 'jcb', 'unionpay',
-          ],
-        },
-      }];
-
-      // Checkout details
-      const details = {
-        displayItems: [
-          {
-            label: 'Original donation amount',
-            amount: { currency: 'USD', value: '65.00' },
-          }, {
-            label: 'Friends and family discount',
-            amount: { currency: 'USD', value: '-10.00' },
-          },
-        ],
-        total: {
-          label: 'Total due',
-          amount: { currency: 'USD', value: '55.00' },
-        },
-      };
-
-      const options = {
-        requestPayerEmail: true,
-      };
-
-      // 1. Create a `PaymentRequest` instance
-      const request = new PaymentRequest(supportedInstruments, details, options);
-
-      // 2. Show the native UI with `.show()`
-      request.show()
-        .then(async (result) => {
-          const data = {
-            cardNumber: result.details.cardNumber,
-            cardHolder: result.details.cardholderName,
-            month: result.details.expiryMonth,
-            year: result.details.expiryYear,
-            cvv: result.details.cardSecurityCode,
-            email: result.payerEmail,
-          };
-          result.complete('success');
-          dispatch('createPayment', data);
-        })
-        .catch(() => {
-          // user just closed the window
-        });
     },
     finishPaymentCreation({ commit }) {
       setPaymentStatus(commit, 'PENDING');
@@ -263,6 +239,91 @@ export default {
       const cards = filter(state.cards, card => card.cardNumber !== cardNumber);
       commit('cards', cards);
       localStorage.setItem('cards', JSON.stringify(cards));
+    },
+
+    async checkPaymentAccount({
+      state, rootState, commit,
+    }, account) {
+      const request = {
+        method_id: state.activePaymentMethodId,
+        account,
+      };
+
+      const response = await axios.patch(
+        `${rootState.apiUrl}/api/v1/orders/${state.orderId}/customer`,
+        request,
+      );
+      setGeoData(commit, response.data);
+      if (response.data.user_address_data_required) {
+        commit('isUserLocationCheckRequested', true);
+      }
+    },
+
+    async checkUserLanguage({
+      state, rootState, commit,
+    }, lang) {
+      const request = {
+        lang,
+      };
+
+      try {
+        const response = await axios.patch(
+          `${rootState.apiUrl}/api/v1/orders/${state.orderId}/language`,
+          request,
+        );
+        setGeoData(commit, response.data);
+        if (response.data.user_address_data_required) {
+          commit('isUserLocationCheckRequested', true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    updateUserCountry({ commit }, userCountry) {
+      commit('userCountry', userCountry);
+    },
+
+    setPaymentLoading({ commit }, value) {
+      commit('isPaymentLoading', value);
+    },
+
+    setFormLoading({ commit }, value) {
+      commit('isFormLoading', value);
+    },
+
+    async updateBillingData({ state, rootState }) {
+      const request = {
+        country: state.userCountry,
+      };
+
+      try {
+        const response = await axios.post(
+          `${rootState.apiUrl}/api/v1/orders/${state.orderId}/billing_address`,
+          request,
+        );
+        console.log(11111, 'updateBillingData response', response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async checkUserCountry({ state, commit, rootState }) {
+      try {
+        const response = await axios.get(`${rootState.apiUrl}/api/v1/country/${state.userCountry}`);
+        if (!response.data.payments_allowed) {
+          if (response.data.change_allowed) {
+            commit('isUserLocationCheckRequested', true);
+          } else {
+            commit('isUserLocationRestricted', true);
+          }
+        }
+        console.log(11111, 'checkUserCountry response', response);
+      } catch (error) {
+        console.error(error);
+      }
+
+      commit('isUserLocationCheckRequested', false);
     },
   },
 };

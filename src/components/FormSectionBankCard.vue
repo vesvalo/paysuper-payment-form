@@ -51,7 +51,6 @@
     :label="$t('FormSectionBankCard.cardholder')"
   />
   <UiTextField
-    v-if="!initialEmail"
     v-model="innerValue.email"
     name="email"
     type="email"
@@ -59,6 +58,14 @@
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
+  />
+  <UiSelect
+    :label="$t('FormSectionBankCard.country')"
+    :value="country"
+    :options="countries"
+    :hasClickawayBlur="false"
+    @blur="handleCountrySelectBlur"
+    @input="$emit('changeCountry', $event)"
   />
   <div
     v-if="!hasCardsInStorage || anotherCard"
@@ -119,12 +126,16 @@ export default {
       default: () => [],
       type: Array,
     },
-    initialEmail: {
+    value: {
+      type: Object,
+    },
+    country: {
       type: String,
       required: true,
     },
-    value: {
-      type: Object,
+    countries: {
+      type: Array,
+      required: true,
     },
   },
 
@@ -177,11 +188,10 @@ export default {
         cardHolder: {
           required,
         },
-        ...(
-          !this.initialEmail
-            ? { email: { required, email } }
-            : {}
-        ),
+        email: {
+          required,
+          email,
+        },
       },
     };
   },
@@ -199,6 +209,11 @@ export default {
         isValid: !this.$v.$invalid,
       };
     },
+    handleCountrySelectBlur() {
+      setTimeout(() => {
+        this.$emit('updateScrollbar');
+      }, 300);
+    },
   },
 };
 </script>
@@ -209,7 +224,7 @@ export default {
   flex-wrap: wrap;
   position: relative;
   align-content: flex-start;
-  overflow: hidden;
+  height: 100%;
 }
 .formItem {
   display: flex;

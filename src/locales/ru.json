@@ -6,7 +6,7 @@
     "minLength": "Слишком короткое значение",
     "wrongFormatType": "Неверный формат значения"
   },
-  "orderID": "Номер платежа",
+  "orderId": "Номер платежа",
   "account": "Учётная запись",
   "product": "Продукт",
   "commission": "Комиссия",
@@ -21,15 +21,19 @@
     ]
   },
   "ActionResult": {
-    "declined": {
+    "noMoneyError": {
       "title": "Отклонено",
       "subtitle": "У вас недостаточно средств",
       "description": "Пожалуйста, вернитесь <br>и попробуйте другой способ оплаты"
     },
-    "error": {
+    "unknownError": {
       "title": "Не повезло",
       "subtitle": "Произошла ошибка",
       "description": "Эта ошибка<br> случается 1 раз из 10 000!"
+    },
+    "customError": {
+      "title": "Не повезло",
+      "subtitle": "Произошла ошибка"
     },
     "success": {
       "title": "Погнали!",
@@ -71,7 +75,9 @@
     "placeholderEmail": "Введите ваш email",
     "placeholderEwallet": "Номер кошелька {name}",
     "payButtonPrefix": "ОПЛАТИТЬ",
-    "tryAgain": "ПОВТОРИТЬ"
+    "tryAgain": "ПОВТОРИТЬ",
+    "save": "СОХРАНИТЬ",
+    "ok": "OK"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Неверный номер карты",
@@ -83,7 +89,8 @@
     "cardHolderError": "Введите владельца карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
-    "remember": "Запомнить"
+    "remember": "Запомнить",
+    "country": "Страна"
   },
   "LayoutFooter": {
     "userAgreement": "Пользовательское соглашение",
@@ -92,6 +99,9 @@
   },
   "LayoutHeader": {
     "termsOfUse": "Условия использования"
+  },
+  "PaymentAreaWarning": {
+    "country": "Страна"
   },
   "ModalCart": {
     "termsOfUse": "Условия использования",

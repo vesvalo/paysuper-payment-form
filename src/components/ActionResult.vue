@@ -52,30 +52,24 @@ export default {
         // 1. Охуевший тотем - нахватка средств или специальная ошибка (+ жёлтый текст и опции)
         // 2. Карта с крестиком - неведомая ошибка
         // 3. Разбитая карта - общая ошибка с текстом
-        customError: {
-          title: this.$t('ActionResult.error.title'),
-          subtitle: this.$t('ActionResult.error.subtitle'),
-          iconComponent: 'IconCardFail',
-          description: this.$t('ActionResult.error.description'),
+        noMoneyError: {
+          title: this.$t('ActionResult.noMoneyError.title'),
+          subtitle: this.$t('ActionResult.noMoneyError.subtitle'),
+          iconComponent: 'IconTotemFail',
+          description: this.$t('ActionResult.noMoneyError.description'),
         },
-        // declined: {
-        //   title: this.$t('ActionResult.declined.title'),
-        //   subtitle: this.$t('ActionResult.declined.subtitle'),
-        //   iconComponent: {
-        //     card: 'IconCardCracked',
-        //     other: 'IconTotemFail',
-        //   },
-        //   description: this.$t('ActionResult.declined.description'),
-        // },
-        // error: {
-        //   title: this.$t('ActionResult.error.title'),
-        //   subtitle: this.$t('ActionResult.error.subtitle'),
-        //   iconComponent: {
-        //     card: 'IconCardFail',
-        //     other: 'IconTotemFail',
-        //   },
-        //   description: this.$t('ActionResult.error.description'),
-        // },
+        unknownError: {
+          title: this.$t('ActionResult.unknownError.title'),
+          subtitle: this.$t('ActionResult.unknownError.subtitle'),
+          iconComponent: 'IconCardFail',
+          description: this.$t('ActionResult.unknownError.description'),
+        },
+        customError: {
+          title: this.$t('ActionResult.customError.title'),
+          subtitle: this.$t('ActionResult.customError.subtitle'),
+          iconComponent: 'IconCardCracked',
+          description: this.$t('ActionResult.customError.description'),
+        },
         // success: {
         //   title: this.$t('ActionResult.success.title'),
         //   iconComponent: {

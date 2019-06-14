@@ -34,19 +34,19 @@ class WindowMock {
 
 describe('PaymentConnection', () => {
   const window = new WindowMock();
-  const orderID = '123';
+  const orderId = '123';
   const token = 'imFake';
 
-  it('should contain orderID & token', () => {
-    const paymentConnection = new PaymentConnection(window, orderID, token);
-    expect(paymentConnection.orderID).toEqual(orderID);
+  it('should contain orderId & token', () => {
+    const paymentConnection = new PaymentConnection(window, orderId, token);
+    expect(paymentConnection.orderId).toEqual(orderId);
     expect(paymentConnection.token).toEqual(token);
   });
 
   it('should close redirectWindow on final success', () => {
     let finalSuccess = false;
     let closed = false;
-    const paymentConnection = new PaymentConnection(window, orderID, token);
+    const paymentConnection = new PaymentConnection(window, orderId, token);
     paymentConnection
       .init()
       .on('finalSuccess', () => {
@@ -68,7 +68,7 @@ describe('PaymentConnection', () => {
   it('should not close redirectWindow on final success if source is off', () => {
     let finalSuccess = false;
     let closed = false;
-    const paymentConnection = new PaymentConnection(window, orderID, token);
+    const paymentConnection = new PaymentConnection(window, orderId, token);
     paymentConnection
       .init()
       .on('finalSuccess', () => {
@@ -88,7 +88,7 @@ describe('PaymentConnection', () => {
 
   it('should emit special event if redirectWindow is closed by user', (done) => {
     let result = false;
-    const paymentConnection = new PaymentConnection(window, orderID, token);
+    const paymentConnection = new PaymentConnection(window, orderId, token);
     paymentConnection
       .init()
       .on('redirectWindowClosedByUser', () => {
@@ -103,7 +103,7 @@ describe('PaymentConnection', () => {
   });
 
   it('should be able to set redirectWindow location', () => {
-    const paymentConnection = new PaymentConnection(window, orderID, token);
+    const paymentConnection = new PaymentConnection(window, orderId, token);
     const url = 'test';
     paymentConnection
       .init()
