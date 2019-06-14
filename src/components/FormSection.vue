@@ -250,10 +250,11 @@ export default {
 <template>
 <div :class="[$style.formSection, $style[`_layout-${layout}`]]">
   <div :class="$style.content">
-    <UiScrollbarBox
-      :class="$style.scrollbox"
-      :settings="{suppressScrollX: true}"
+    <component
       ref="scrollbar"
+      :is="layout === 'modal' ? 'UiScrollbarBox' : 'div'"
+      :class="$style.scrollbox"
+      :settings="layout === 'modal' ? {suppressScrollX: true} : undefined"
     >
       <div
         v-show="isPaymentFormVisible"
@@ -316,7 +317,7 @@ export default {
           @changeCountry="newUserCountry = $event"
         />
       </div>
-    </UiScrollbarBox>
+    </component>
   </div>
   <div :class="$style.footer">
     <UiButton

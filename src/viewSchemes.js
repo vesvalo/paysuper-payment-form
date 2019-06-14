@@ -13,12 +13,19 @@ export default {
 
     formBackgroundColor: '#424c66',
 
-    localeChangerBorderColor: 'rgba(255, 255, 255, 0.2)',
-    localeChangerBoxColor: '#333b50',
-    localeChangerColor: 'rgba(255, 255, 255, 0.7)',
-    localeChangerCurrentColor: '#06eaa7',
-    localeChangerHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
-    localeChangerHoverColor: '#06eaa7',
+    localeChangerModalBorderColor: 'rgba(255, 255, 255, 0.2)',
+    localeChangerModalBoxColor: '#333b50',
+    localeChangerModalColor: 'rgba(255, 255, 255, 0.7)',
+    localeChangerModalCurrentColor: '#06eaa7',
+    localeChangerModalHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
+    localeChangerModalHoverColor: '#06eaa7',
+
+    localeChangerPageBorderColor: 'rgba(255, 255, 255, 0.2)',
+    localeChangerPageBoxColor: '#333b50',
+    localeChangerPageColor: 'rgba(255, 255, 255, 0.7)',
+    localeChangerPageCurrentColor: '#06eaa7',
+    localeChangerPageHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
+    localeChangerPageHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
     buttonColor: '#fff',
@@ -78,12 +85,19 @@ export default {
 
     formBackgroundColor: '#fff',
 
-    localeChangerBorderColor: 'rgba(194, 194, 196, 0.5)',
-    localeChangerBoxColor: '#f3f3f3',
-    localeChangerColor: '#202226',
-    localeChangerCurrentColor: '#06eaa7',
-    localeChangerHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
-    localeChangerHoverColor: '#06eaa7',
+    localeChangerModalBorderColor: 'rgba(194, 194, 196, 0.5)',
+    localeChangerModalBoxColor: '#f3f3f3',
+    localeChangerModalColor: '#202226',
+    localeChangerModalCurrentColor: '#06eaa7',
+    localeChangerModalHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
+    localeChangerModalHoverColor: '#06eaa7',
+
+    localeChangerPageBorderColor: 'transparent',
+    localeChangerPageBoxColor: '#5b88de',
+    localeChangerPageColor: '#fff',
+    localeChangerPageCurrentColor: '#06eaa7',
+    localeChangerPageHoverBorderColor: 'transparent',
+    localeChangerPageHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
     buttonColor: '#fff',

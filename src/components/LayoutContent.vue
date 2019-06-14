@@ -14,8 +14,6 @@
         <slot name="form" />
       </div>
     </div>
-
-
   </div>
 </div>
 </template>

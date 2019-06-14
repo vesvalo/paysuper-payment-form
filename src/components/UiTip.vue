@@ -133,6 +133,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s ease-in-out;
+  z-index: 20;
 
   &._bottom {
     transform: translate3d(0, 20px, 0);
