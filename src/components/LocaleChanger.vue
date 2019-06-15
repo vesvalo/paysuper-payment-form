@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { includes, upperFirst } from 'lodash-es';
 import locales from '@/locales/scheme';
 
@@ -63,6 +64,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions('PaymentForm', ['checkUserLanguage']),
     changeLocale(locale) {
       this.$i18n.locale = locale;
 
@@ -73,6 +75,7 @@ export default {
       }
 
       this.$emit('changeLocale', locale);
+      this.checkUserLanguage(locale);
     },
     iconLang(locale) {
       return `IconLang${upperFirst(locale)}`;
@@ -82,8 +85,8 @@ export default {
 </script>
 
 <style module lang="scss">
-$border-color: rgba(#C2C2C4, 0.5);
-$hover-border-color: rgba(#C2C2C4, 0.8);
+$border-color: rgba(#c2c2c4, 0.5);
+$hover-border-color: rgba(#c2c2c4, 0.8);
 $hover-option-color: #06eaa7;
 
 .container {

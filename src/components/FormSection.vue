@@ -4,6 +4,7 @@ import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
 import FormSectionBankCard from './FormSectionBankCard.vue';
 import ActionResult from '@/components/ActionResult.vue';
+import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -14,6 +15,7 @@ export default {
   components: {
     FormSectionBankCard,
     ActionResult,
+    PaymentAreaWarning,
   },
   props: {
     layout: {
@@ -76,18 +78,25 @@ export default {
           iconComponent: 'IconWebmoney',
         },
       },
+
+      newUserCountry: '',
+      isBankCardNumberValidating: false,
+      validatedBankCardNumberPart: '',
     };
   },
 
   computed: {
     ...mapState('PaymentForm', [
       'orderData',
-      'initialEmail',
       'activePaymentMethodId',
       'cards',
-      'paymentResult',
+      'actionResult',
+      'isUserLocationCheckRequested',
+      'isUserLocationRestricted',
+      'userCountry',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
+    ...mapGetters('Dictionaries', ['countriesCode2']),
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -107,6 +116,36 @@ export default {
     isBankCardPayment() {
       return this.activePaymentMethod.type === 'bank_card';
     },
+
+    isPaymentFormVisible() {
+      if (this.actionResult || this.isUserLocationCheckRequested || this.isUserLocationRestricted) {
+        return false;
+      }
+
+      return true;
+    },
+  },
+
+  watch: {
+    'bankCardValue.cardNumber': async function watchCardNumber(value) {
+      if (
+        value.length >= 6
+        && (
+          !this.validatedBankCardNumberPart
+          || value.indexOf(this.validatedBankCardNumberPart) === -1
+        )
+      ) {
+        this.isBankCardNumberValidating = true;
+
+        try {
+          await this.checkPaymentAccount(value);
+          this.validatedBankCardNumberPart = value;
+        } catch (error) {
+          console.error(error);
+        }
+        this.isBankCardNumberValidating = false;
+      }
+    },
   },
 
   validations() {
@@ -125,26 +164,57 @@ export default {
             return getRegexp(this.activePaymentMethod.account_regexp).test(value);
           },
         },
-        ...(
-          !this.initialEmail
-            ? { email: { required, email } }
-            : {}
-        ),
+        email: {
+          required,
+          email,
+        },
       },
     };
+  },
+
+  created() {
+    this.bankCardValue.email = this.orderData.email;
+    this.ewalletValue.email = this.orderData.email;
   },
 
   methods: {
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById',
       'createPayment',
-      'hidePaymentError',
+      'clearActionResult',
       'usePaymentApi',
       'removeCard',
+      'checkPaymentAccount',
+      'updateUserCountry',
+      'updateBillingData',
+      'checkUserCountry',
+      'setPaymentLoading',
+      'setFormLoading',
     ]),
 
-    submitPaymentForm() {
-      this.hidePaymentError();
+    handleMainButtonClick() {
+      if (this.isUserLocationCheckRequested) {
+        this.submitUserCountry();
+      }
+
+      if (this.isUserLocationRestricted) {
+        this.$emit('close');
+      }
+
+      if (this.isPaymentFormVisible) {
+        this.submitPaymentForm();
+      }
+    },
+
+    async submitUserCountry() {
+      this.updateUserCountry(this.newUserCountry);
+      this.setFormLoading(true);
+      await this.checkUserCountry();
+      this.setFormLoading(false);
+    },
+
+    async submitPaymentForm() {
+      this.clearActionResult();
       this.$v.$touch();
 
       const isValidArray = [
@@ -161,13 +231,17 @@ export default {
         return;
       }
 
+      this.setPaymentLoading(true);
       this.createPayment({
         ...this.bankCardValue,
         ewallet: this.ewalletValue.number,
-        email: this.initialEmail || (
-          this.isBankCardPayment ? this.bankCardValue.email : this.ewalletValue.email
-        ),
+        email: this.isBankCardPayment ? this.bankCardValue.email : this.ewalletValue.email,
       });
+      this.setPaymentLoading(false);
+    },
+
+    updateScrollbar() {
+      this.$refs.scrollbar.update();
     },
   },
 };
@@ -177,11 +251,14 @@ export default {
 <div :class="[$style.formSection, $style[`_layout-${layout}`]]">
   <div :class="$style.content">
     <UiScrollbarBox
-      v-show="!paymentResult"
       :class="$style.scrollbox"
       :settings="{suppressScrollX: true}"
+      ref="scrollbar"
     >
-      <div :class="$style.contentInner">
+      <div
+        v-show="isPaymentFormVisible"
+        :class="$style.contentInner"
+      >
         <UiSelect
           :value="activePaymentMethodId"
           :class="$style.formItem"
@@ -194,9 +271,11 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="bankCardValue"
+          :country="userCountry"
+          :countries="countriesCode2"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
-          :initialEmail="initialEmail"
+          @updateScrollbar="updateScrollbar"
           @removeCard="removeCard"
         />
         <template v-else>
@@ -210,7 +289,6 @@ export default {
           />
           <UiTextField
             :class="$style.formItem"
-            v-if="!initialEmail"
             v-model="ewalletValue.email"
             type="email"
             name="ewalletValue.email"
@@ -220,24 +298,33 @@ export default {
           />
         </template>
       </div>
+      <div
+        :class="$style.contentInner"
+        v-if="!isPaymentFormVisible"
+      >
+        <ActionResult
+          v-if="actionResult"
+          :type="actionResult.type"
+          :message="actionResult.message"
+        />
+        <PaymentAreaWarning
+          v-if="isUserLocationCheckRequested || isUserLocationRestricted"
+          :country="userCountry"
+          :countries="countriesCode2"
+          :content="isUserLocationRestricted ? 'restricted' : 'select-location'"
+          @updateScrollbar="updateScrollbar"
+          @changeCountry="newUserCountry = $event"
+        />
+      </div>
     </UiScrollbarBox>
-    <div
-      :class="$style.contentInner"
-      v-if="paymentResult"
-    >
-      <ActionResult
-        :type="paymentResult.type"
-        :message="paymentResult.message"
-      />
-    </div>
   </div>
   <div :class="$style.footer">
     <UiButton
       :class="$style.payBtn"
       :hasBorderRadius="layout === 'page' ? true : false"
-      @click="submitPaymentForm"
+      @click="handleMainButtonClick"
     >
-      <template v-if="!paymentResult">
+      <template v-if="isPaymentFormVisible">
         <IconLock slot="before" />
         <span>
           {{ $t('FormSection.payButtonPrefix') }}
@@ -246,8 +333,14 @@ export default {
           {{ orderData.total_amount.toFixed(2) }} {{ orderData.currency }}
         </span>
       </template>
-      <template v-else>
+      <template v-if="actionResult">
         {{ $t('FormSection.tryAgain') }}
+      </template>
+      <template v-if="isUserLocationCheckRequested">
+        {{$t('FormSection.save')}}
+      </template>
+      <template v-if="isUserLocationRestricted">
+        {{$t('FormSection.ok')}}
       </template>
     </UiButton>
   </div>
@@ -257,7 +350,7 @@ export default {
 <style module lang="scss">
 .formSection {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   flex-direction: column;
   align-content: space-between;
   position: relative;

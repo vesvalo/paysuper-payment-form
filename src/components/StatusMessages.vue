@@ -25,8 +25,8 @@
               <span class="payment-report-list__value">{{project.name}}</span>
             </li>
             <li class="payment-report-list__item">
-              <span class="payment-report-list__key">{{ $t('orderID') }}</span>
-              <span class="payment-report-list__value">{{orderID}}</span>
+              <span class="payment-report-list__key">{{ $t('orderId') }}</span>
+              <span class="payment-report-list__value">{{orderId}}</span>
             </li>
             <li class="payment-report-list__item">
               <span class="payment-report-list__key">{{ $t('vat') }}</span>
@@ -113,7 +113,7 @@ export default {
       type: Object,
     },
 
-    orderID: {
+    orderId: {
       required: true,
       type: String,
     },

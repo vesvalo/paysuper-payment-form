@@ -64,13 +64,13 @@ async function mountApp(formData, optionsCustom = {}) {
     isModal: true,
     viewScheme: 'dark',
     viewSchemeConfig: null,
-    layout: 'modal',
+    layout: 'page',
     isPageInsideIframe,
     language,
     ...optionsCustom,
   };
 
-  await store.dispatch('PaymentForm/initState', {
+  await store.dispatch('initState', {
     formData,
     options,
   });

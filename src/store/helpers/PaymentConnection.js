@@ -6,10 +6,10 @@ const websocketServerUrl = window.PAYSUPER_WEBSOCKET_URL
 
 
 export default class PaymentConnection extends Events.EventEmitter {
-  constructor(window, orderID, token) {
+  constructor(window, orderId, token) {
     super();
     this.window = window;
-    this.orderID = orderID;
+    this.orderId = orderId;
     this.token = token;
 
     this.centrifuge = null;
@@ -21,7 +21,7 @@ export default class PaymentConnection extends Events.EventEmitter {
   init() {
     this.centrifuge = new Centrifuge(websocketServerUrl);
     this.centrifuge.setToken(this.token);
-    this.centrifuge.subscribe(`paysuper:order#${this.orderID}`, ({ data }) => {
+    this.centrifuge.subscribe(`paysuper:order#${this.orderId}`, ({ data }) => {
       this.emit('newPaymentStatus', data);
     });
     this.centrifuge.connect();

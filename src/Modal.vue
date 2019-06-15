@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState('PaymentForm', ['isLoading']),
+    ...mapState('PaymentForm', ['isPaymentLoading']),
   },
 
   mounted() {
@@ -53,12 +53,12 @@ export default {
     </ModalCart>
 
     <ModalForm>
-      <FormSection />
+      <FormSection @close="closeModal" />
     </ModalForm>
 
     <ActionProcessing
       :class="$style.preloader"
-      v-if="isLoading"
+      v-if="isPaymentLoading"
     />
   </Modal>
 </div>
@@ -76,14 +76,5 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
-}
-
-.preloader {
-  position: absolute;
-  z-index: 100;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
 }
 </style>

@@ -40,13 +40,13 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
-      'orderID',
+      'orderId',
       'account',
       'project',
       'initialEmail',
       'paymentMethods',
       'activePaymentMethodId',
-      'isLoading',
+      'isPaymentLoading',
       'isPaymentErrorVisible',
       'isModal',
     ]),
@@ -106,12 +106,12 @@ export default {
   methods: {
     ...mapActions(['reportResize']),
     ...mapActions('PaymentForm', [
-      'setActivePaymentMethod', 'createPayment', 'hidePaymentError', 'usePaymentApi',
+      'setActivePaymentMethod', 'createPayment', 'clearActionResult', 'usePaymentApi',
     ]),
 
     submitPaymentForm() {
       this.reportFormResize();
-      this.hidePaymentError();
+      this.clearActionResult();
       this.$v.$touch();
 
       const isValidArray = [
@@ -184,8 +184,8 @@ export default {
         </div>
         <div class="payment-form-info">
           <div class="payment-form-info__item">
-            <span class="payment-form-info__key">{{ $t('orderID') }}:</span>
-            <span class="payment-form-info__value">{{orderID}}</span>
+            <span class="payment-form-info__key">{{ $t('orderId') }}:</span>
+            <span class="payment-form-info__value">{{orderId}}</span>
           </div>
           <div class="payment-form-info__item" v-if="account">
             <span class="payment-form-info__key">{{ $t('account') }}:</span>
@@ -246,7 +246,7 @@ export default {
         <base-button
           class="payment-form-footer__submit-button"
           type="submit"
-          :isLoading="isLoading"
+          :isPaymentLoading="isPaymentLoading"
         >
           {{ $t('procceedButtonText') }}
         </base-button>

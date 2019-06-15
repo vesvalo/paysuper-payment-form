@@ -1,36 +1,32 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import PaymentForm from './PaymentForm';
-import { postMessage } from '../postMessage';
+import PaymentFormStore from './PaymentFormStore';
+import DictionariesStore from './DictionariesStore';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    lastSize: {
-      width: 0,
-      height: 0,
-    },
+    apiUrl: '',
   },
   mutations: {
-    lastSize(state, value) {
-      state.lastSize = value;
+    apiUrl(state, value) {
+      state.apiUrl = value;
     },
   },
   actions: {
-    reportResize({ state, commit }, newSize) {
-      if (
-        state.lastSize.width === newSize.width
-        && state.lastSize.height === newSize.height
-      ) {
-        return;
-      }
-      postMessage('FORM_RESIZE', newSize);
-      commit('lastSize', newSize);
+    async initState({ commit, dispatch }, { formData, options }) {
+      commit('apiUrl', options.apiUrl);
+      const orderData = formData.payment_form_data;
+      await Promise.all([
+        dispatch('PaymentForm/initState', { orderData, options }),
+        dispatch('Dictionaries/initState'),
+      ]);
     },
   },
 
   modules: {
-    PaymentForm,
+    PaymentForm: PaymentFormStore,
+    Dictionaries: DictionariesStore,
   },
 });

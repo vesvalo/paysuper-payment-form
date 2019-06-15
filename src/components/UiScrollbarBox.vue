@@ -21,11 +21,21 @@ export default {
       swicher: false,
     };
   },
+
+  methods: {
+    update() {
+      this.$refs.vuePerfectScrollbar.update();
+    },
+  },
 };
 </script>
 
 <template>
-<VuePerfectScrollbar class="ui-scrollbar-box" :settings="innerSettings">
+<VuePerfectScrollbar
+  class="ui-scrollbar-box"
+  ref="vuePerfectScrollbar"
+  :settings="innerSettings"
+>
   <slot></slot>
 </VuePerfectScrollbar>
 </template>

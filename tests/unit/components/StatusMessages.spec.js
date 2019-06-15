@@ -23,7 +23,7 @@ const propsDataDefault = {
     name: 'My dear tests',
   },
 
-  orderID: '1234',
+  orderId: '1234',
 };
 
 describe('StatusMessages.vue', () => {
