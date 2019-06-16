@@ -99,13 +99,6 @@ export default {
 </script>
 
 <style module lang="scss">
-<<<<<<< HEAD
-$border-color: rgba(#c2c2c4, 0.5);
-$hover-border-color: rgba(#c2c2c4, 0.8);
-$hover-option-color: #06eaa7;
-
-=======
->>>>>>> Fix UiTips
 .container {
   position: relative;
   width: 100%;
