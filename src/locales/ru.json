@@ -344,7 +344,7 @@
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
-    "country": "Страна"
+    "country": "Выберите страну"
   },
   "LayoutFooter": {
     "userAgreement": "Пользовательское соглашение",
@@ -355,7 +355,7 @@
     "termsOfUse": "Условия использования"
   },
   "PaymentAreaWarning": {
-    "country": "Страна"
+    "country": "Выберите страну"
   },
   "ModalCart": {
     "termsOfUse": "Условия использования",

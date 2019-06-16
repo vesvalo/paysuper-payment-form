@@ -344,7 +344,7 @@
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",
-    "country": "Country"
+    "country": "Select the country"
   },
   "LayoutFooter": {
     "userAgreement": "User Agreement",
@@ -365,7 +365,7 @@
     "refundAdditionalInfo": "You can return this game in 10 days"
   },
   "PaymentAreaWarning": {
-    "country": "Country"
+    "country": "Select the country"
   },
   "UiCardField": {
     "cardNumber": "Card number"
