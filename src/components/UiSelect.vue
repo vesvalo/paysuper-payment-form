@@ -8,13 +8,13 @@
     @click="focused ? blur() : focus()"
   >
     <div
-      v-if="selectedItem.iconComponent"
+      v-if="selectedItem && selectedItem.iconComponent"
       :class="[$style.icon, $style[`_${iconPosition}`]]"
     >
       <component :is="selectedItem.iconComponent" />
     </div>
     <input
-      :class="[$style.input, { [$style._focused]: focused }]"
+      :class="[$style.input, { [$style._focused]: focused }, { [$style._empty]: !selectValue }]"
       :value="label"
       :readonly="true"
     />
@@ -50,7 +50,6 @@ import { directive as clickaway } from 'vue-clickaway';
 import {
   filter,
   find,
-  get,
   includes,
   uniqueId,
 } from 'lodash-es';
@@ -74,6 +73,10 @@ export default {
     },
     prependLabel: {
       default: '',
+      type: String,
+    },
+    placeholderLabel: {
+      default: 'Select a value',
       type: String,
     },
     disabled: {
@@ -121,7 +124,7 @@ export default {
   data() {
     return {
       focused: false,
-      selectValue: this.value || get(this.options, '0.value', ''),
+      selectValue: this.value || '',
       innerOptions: [...this.options],
     };
   },
@@ -133,7 +136,6 @@ export default {
       return [
         this.$style.container,
         this.focused ? this.$style._focused : '',
-        this.selectValue === '' ? this.$style._empty : '',
         this.disabled ? this.$style._disabled : '',
       ];
     },
@@ -141,7 +143,7 @@ export default {
       return find(this.options, { value: this.selectValue });
     },
     selectedLabel() {
-      return this.selectedItem ? this.selectedItem.label : '';
+      return this.selectedItem ? this.selectedItem.label : this.placeholderLabel;
     },
     selectId() {
       return uniqueId('select');
@@ -172,6 +174,9 @@ export default {
       [`.${this.$style.input}`]: {
         color: this.$gui.selectColor,
         'background-color': this.$gui.selectBoxColor,
+      },
+      [`.${this.$style.input}.${this.$style._empty}`]: {
+        color: this.$gui.selectPlaceholderColor,
       },
       [`.${this.$style.arrow} > svg`]: {
         fill: this.$gui.selectColor,
@@ -236,6 +241,10 @@ $primary-input-size: 15px;
 
   &._disabled {
     pointer-events: none;
+  }
+
+  &._empty {
+    color: black;
   }
 }
 .selected {

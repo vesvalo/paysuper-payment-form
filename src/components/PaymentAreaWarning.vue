@@ -53,9 +53,9 @@ export default {
     </div>
     <div v-if="content === 'select-location'">
       <UiSelect
-        :label="$t('PaymentAreaWarning.country')"
         :value="country"
         :options="countries"
+        :placeholderLabel="$t('PaymentAreaWarning.country')"
         :hasClickawayBlur="false"
         @blur="handleCountrySelectBlur"
         @input="$emit('changeCountry', $event)"

@@ -96,7 +96,7 @@ export default {
       'userCountry',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
-    ...mapGetters('Dictionaries', ['countriesCode2']),
+    ...mapGetters('Dictionaries', ['countries']),
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -272,7 +272,7 @@ export default {
           ref="bankCardForm"
           v-model="bankCardValue"
           :country="userCountry"
-          :countries="countriesCode2"
+          :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
           @updateScrollbar="updateScrollbar"
@@ -310,7 +310,7 @@ export default {
         <PaymentAreaWarning
           v-if="isUserLocationCheckRequested || isUserLocationRestricted"
           :country="userCountry"
-          :countries="countriesCode2"
+          :countries="countries"
           :content="isUserLocationRestricted ? 'restricted' : 'select-location'"
           @updateScrollbar="updateScrollbar"
           @changeCountry="newUserCountry = $event"
