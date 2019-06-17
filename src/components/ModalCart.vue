@@ -10,6 +10,7 @@
       {{ $t('ModalCart.profile') }}
       <UiTip
         innerPosition="right"
+        position="bottom"
         width="200px"
         :visible="isProfileShown"
       >
@@ -31,7 +32,6 @@
     >
       {{ $t('ModalCart.termsOfUse') }}
       <UiTip
-        position="top"
         width="240px"
         :visible="isTermsShown"
       >

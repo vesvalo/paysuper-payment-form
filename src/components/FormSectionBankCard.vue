@@ -38,7 +38,24 @@
         :errorText="$t('FormSectionBankCard.cvvError')"
         :label="$t('FormSectionBankCard.cvv')"
       />
-      <IconInfo :class="$style.cvvInfo" />
+      <div
+        :class="$style.cvvInfo"
+        @mouseenter="isCvvInfoShown = true"
+        @mouseleave="isCvvInfoShown = false"
+      >
+        <IconInfo />
+        <UiTip
+          innerPosition="right"
+          section="form"
+          :class="$style.cvvTip"
+          :visible="isCvvInfoShown"
+        >
+          <div :class="$style.cvvContainer">
+            <IconCvvCard :class="$style.cvvIconCard" />
+            <div v-html="$t('FormSectionBankCard.cvvInfo')" />
+          </div>
+        </UiTip>
+      </div>
     </div>
   </div>
   <UiTextField
@@ -60,11 +77,11 @@
     :label="$t('FormSectionBankCard.email')"
   />
   <UiSelect
+    maxHeight="240px"
     :value="country"
     :options="countries"
     :placeholderLabel="$t('FormSectionBankCard.country')"
-    :hasClickawayBlur="false"
-    @blur="handleCountrySelectBlur"
+    :hasReversible="true"
     @input="$emit('changeCountry', $event)"
   />
   <div
@@ -73,7 +90,21 @@
   >
     <UiCheckbox v-model="innerValue.hasRemembered">
       {{ $t('FormSectionBankCard.remember') }}
-      <IconInfo :class="$style.rememberInfo" />
+      <div
+        :class="$style.rememberInfo"
+        @mouseenter="isRememberInfoShown = true"
+        @mouseleave="isRememberInfoShown = false"
+      >
+        <IconInfo />
+        <UiTip
+          innerPosition="center"
+          section="form"
+          width="220px"
+          :visible="isRememberInfoShown"
+        >
+          {{ $t('FormSectionBankCard.rememberInfo') }}
+        </UiTip>
+      </div>
     </UiCheckbox>
   </div>
 </div>
@@ -155,6 +186,8 @@ export default {
         hasRemembered: false,
       },
       anotherCard: false,
+      isCvvInfoShown: false,
+      isRememberInfoShown: false,
     };
   },
 
@@ -209,11 +242,6 @@ export default {
         isValid: !this.$v.$invalid,
       };
     },
-    handleCountrySelectBlur() {
-      setTimeout(() => {
-        this.$emit('updateScrollbar');
-      }, 300);
-    },
   },
 };
 </script>
@@ -246,7 +274,9 @@ export default {
 }
 .cvvInfo {
   position: absolute;
+  display: flex;
   top: 20px;
+  cursor: pointer;
 
   @include if-ltr {
     right: 0;
@@ -256,10 +286,38 @@ export default {
     left: 0;
   }
 }
+.cvvTip {
+  @include if-ltr {
+    margin-right: -20px;
+  }
+
+  @include if-rtl {
+    margin-left: -20px;
+  }
+}
+.cvvContainer {
+  display: flex;
+  padding: 8px 5px;
+  width: 250px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.cvvIconCard {
+  @include if-ltr {
+    margin-right: 10px;
+  }
+
+  @include if-rtl {
+    margin-left: 10px;
+  }
+}
 .remember {
   padding: 18px 0;
 }
 .rememberInfo {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
   margin: 0 6px;
 }
 </style>

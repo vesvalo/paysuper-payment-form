@@ -11,7 +11,23 @@
       </div>
       <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
         <div :class="$style.id">id897632299</div>
-        <div :class="$style.terms">{{$t('LayoutHeader.termsOfUse')}}</div>
+        <div
+          :class="$style.terms"
+          @mouseenter="isTermsShown = true"
+          @mouseleave="isTermsShown = false"
+        >
+          {{$t('LayoutHeader.termsOfUse')}}
+          <UiTip
+            width="240px"
+            innerPosition="right"
+            position="bottom"
+            :visible="isTermsShown"
+          >
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+            <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
+          </UiTip>
+        </div>
       </div>
     </div>
   </div>
@@ -24,15 +40,26 @@
         <div :class="$style.localeBox">
           <span
             :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
-            @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
+            @mouseenter="hasLocaleChangerOpened = true"
+            @mouseleave="hasLocaleChangerOpened = false"
           >
             {{ $i18n.locale }}
           </span>
-          <LocaleCnanger
-            v-if="hasLocaleChangerOpened"
-            :class="$style.localeChanger"
-            @changeLocale="hasLocaleChangerOpened = false"
-          />
+          <UiTip
+            innerPosition="right"
+            position="bottom"
+            section="form"
+            width="180px"
+            maxHeight="390px"
+            :class="$style.localeTip"
+            :visible="hasLocaleChangerOpened"
+          >
+            <LocaleCnanger
+              layout="page"
+              :class="$style.localeChanger"
+              @changeLocale="hasLocaleChangerOpened = false"
+            />
+          </UiTip>
         </div>
       </div>
     </div>
@@ -55,6 +82,7 @@ export default {
   data() {
     return {
       hasLocaleChangerOpened: false,
+      isTermsShown: false,
     };
   },
   computed: {
@@ -87,6 +115,18 @@ export default {
       },
       [`.${this.$style.locale}`]: {
         color: this.$gui.headerTextColor,
+      },
+      [`.${this.$style.locale}:hover`]: {
+        color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.tipLink}`]: {
+        color: this.$gui.tipHeaderColor,
+      },
+      [`.${this.$style.tipLink}:hover`]: {
+        color: this.$gui.cartHoverTextColor,
+      },
+      [`.${this.$style.tipContent}`]: {
+        color: this.$gui.tipContentColor,
       },
     });
   },
@@ -266,6 +306,21 @@ export default {
 .id {
   margin-right: 20px;
 }
+.terms {
+  position: relative;
+  cursor: pointer;
+}
+.tipLink,
+.tipContent {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 18px;
+}
+.tipContent {
+  margin-top: 12px;
+}
 .wrap {
   cursor: pointer;
   height: 24px;
@@ -300,6 +355,18 @@ export default {
 .localeBox {
   position: relative;
   margin-left: 10px;
+
+  & > .localeTip {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    margin-right: -20px;
+
+    @include if-rtl {
+      margin-right: 0;
+      margin-left: -20px;
+    }
+  }
 }
 .locale {
   font-size: 12px;
@@ -307,22 +374,5 @@ export default {
   line-height: 15px;
   height: 15px;
   text-transform: uppercase;
-
-  &:hover {
-    color: #06eaa7;
-  }
-}
-.localeChanger {
-  position: absolute;
-  top: 40px;
-  width: 240px;
-  max-height: 380px;
-  transform: translateX(-50%);
-  height: auto;
-  z-index: 10;
-
-  @include if-rtl {
-    transform: translateX(50%);
-  }
 }
 </style>

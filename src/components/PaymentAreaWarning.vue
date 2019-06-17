@@ -28,14 +28,6 @@ export default {
       required: true,
     },
   },
-
-  methods: {
-    handleCountrySelectBlur() {
-      setTimeout(() => {
-        this.$emit('updateScrollbar');
-      }, 300);
-    },
-  },
 };
 </script>
 
@@ -53,11 +45,11 @@ export default {
     </div>
     <div v-if="content === 'select-location'">
       <UiSelect
+        maxHeight="240px"
         :value="country"
         :options="countries"
         :placeholderLabel="$t('PaymentAreaWarning.country')"
-        :hasClickawayBlur="false"
-        @blur="handleCountrySelectBlur"
+        :hasReversible="true"
         @input="$emit('changeCountry', $event)"
       />
     </div>

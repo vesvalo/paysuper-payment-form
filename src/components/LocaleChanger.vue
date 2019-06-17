@@ -4,11 +4,15 @@
     :class="$style.scrollbar"
     :settings="{suppressScrollX: true}"
   >
-    <div :class="$style.inner">
+    <div :class="[$style.inner, $style[`_${layout}`]]">
       <div
         v-for="(locale, localeCode) in locales"
         :key="localeCode"
-        :class="[$style.item, { [$style._current]: $i18n.locale === localeCode }]"
+        :class="[
+          $style.item,
+          $style[`_${layout}`],
+          { [$style._current]: $i18n.locale === localeCode }
+        ]"
         @click="changeLocale(localeCode)"
       >
         <div :class="$style.icon">
@@ -46,20 +50,30 @@ export default {
     };
   },
   mounted() {
+    const layoutClass = this.$style[`_${this.layout}`];
+    const itemClass = this.$style.item;
+    const layout = upperFirst(this.layout);
+    const borderColor = this.$gui[`localeChanger${layout}BorderColor`];
+    const boxColor = this.$gui[`localeChanger${layout}BoxColor`];
+    const color = this.$gui[`localeChanger${layout}Color`];
+    const currentColor = this.$gui[`localeChanger${layout}CurrentColor`];
+    const hoverBorderColor = this.$gui[`localeChanger${layout}HoverBorderColor`];
+    const hoverColor = this.$gui[`localeChanger${layout}HoverColor`];
+
     this.$addCssRules({
-      [`.${this.$style.container}`]: {
-        'background-color': this.$gui.localeChangerBoxColor,
+      [`.${this.$style.container}.${layoutClass}`]: {
+        'background-color': boxColor,
       },
-      [`.${this.$style.item}`]: {
-        color: this.$gui.localeChangerColor,
-        'border-bottom-color': this.$gui.localeChangerBorderColor,
+      [`.${itemClass}.${layoutClass}`]: {
+        color,
+        'border-bottom-color': borderColor,
       },
-      [`.${this.$style.item}.${this.$style._current}`]: {
-        color: this.$gui.localeChangerCurrentColor,
+      [`.${itemClass}.${this.$style._current}.${layoutClass}`]: {
+        color: currentColor,
       },
-      [`.${this.$style.item}:hover`]: {
-        color: this.$gui.localeChangerHoverColor,
-        'border-bottom-color': this.$gui.localeChangerHoverBorderColor,
+      [`.${itemClass}.${layoutClass}:hover`]: {
+        color: hoverColor,
+        'border-bottom-color': hoverBorderColor,
       },
     });
   },
@@ -85,15 +99,24 @@ export default {
 </script>
 
 <style module lang="scss">
-$border-color: rgba(#c2c2c4, 0.5);
-$hover-border-color: rgba(#c2c2c4, 0.8);
-$hover-option-color: #06eaa7;
-
 .container {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  z-index: 20;
+
+  &._modal {
+    overflow: hidden;
+  }
+
+  &._page {
+    padding-left: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 6px;
+  }
 
   @include if-rtl {
     direction: ltr;
@@ -101,6 +124,10 @@ $hover-option-color: #06eaa7;
 }
 .inner {
   padding: 10px 40px;
+
+  &._page {
+    padding: 4px 20px 16px 0;
+  }
 
   @include if-rtl {
     direction: rtl;
@@ -120,13 +147,10 @@ $hover-option-color: #06eaa7;
   border-bottom-style: solid;
   padding-top: 16px;
 
-  &:hover {
-    color: $hover-option-color;
-    border-color: $hover-border-color;
-  }
-
+  &._page,
+  &._modal,
   &._current {
-    color: $hover-option-color;
+    cursor: pointer;
   }
 
   &._empty {

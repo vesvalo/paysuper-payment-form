@@ -1,6 +1,6 @@
 <template>
 <div
-  v-clickaway="handleClickaway"
+  v-clickaway="blur"
   :class="selectClasses"
 >
   <div
@@ -18,14 +18,15 @@
       :value="label"
       :readonly="true"
     />
-    <div :class="[$style.arrow, { [$style._focused]: focused }]">
+    <div :class="[$style.arrow, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
       <IconArrow />
     </div>
   </div>
-  <div :class="[$style.box, { [$style._focused]: focused }]">
+  <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
     <UiScrollbarBox
       :class="$style.scrollbar"
       :settings="{suppressScrollX: true}"
+      :style="{ maxHeight: maxHeight || undefined }"
     >
       <div :class="$style.options">
         <UiSelectOption
@@ -83,6 +84,14 @@ export default {
       default: false,
       type: Boolean,
     },
+    hasReversible: {
+      default: false,
+      type: Boolean,
+    },
+    maxHeight: {
+      default: '',
+      type: String,
+    },
     iconPosition: {
       default: 'left',
       type: String,
@@ -115,10 +124,6 @@ export default {
     value: {
       default: '',
       type: [String, Number],
-    },
-    hasClickawayBlur: {
-      default: true,
-      type: Boolean,
     },
   },
   data() {
@@ -187,11 +192,6 @@ export default {
     });
   },
   methods: {
-    handleClickaway() {
-      if (this.hasClickawayBlur) {
-        this.blur();
-      }
-    },
     blur() {
       this.$emit('blur');
       this.focused = false;
@@ -299,6 +299,18 @@ $primary-input-size: 15px;
       transform: rotateX(180deg);
     }
   }
+
+  &._reverse {
+    & > svg {
+      transform: rotateX(180deg);
+    }
+
+    &._focused {
+      & > svg {
+        transform: rotateX(0deg);
+      }
+    }
+  }
 }
 .box {
   position: absolute;
@@ -316,6 +328,12 @@ $primary-input-size: 15px;
   &._focused {
     transition: transform 0.2s ease-out;
     transform: scaleY(1);
+  }
+
+  &._reverse {
+    top: auto;
+    bottom: 42px;
+    transform-origin: bottom;
   }
 }
 .scrollbar {

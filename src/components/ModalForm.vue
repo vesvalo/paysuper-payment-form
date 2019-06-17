@@ -62,7 +62,7 @@ export default {
         fill: this.$gui.headerTextColor,
       },
       [`.${this.$style.locale}.${this.$style._opened}::after`]: {
-        'border-bottom-color': this.$gui.localeChangerBoxColor,
+        'border-bottom-color': this.$gui.localeChangerModalBoxColor,
       },
     });
   },
