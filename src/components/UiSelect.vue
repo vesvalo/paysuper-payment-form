@@ -254,6 +254,7 @@ $primary-input-size: 15px;
   width: 100%;
   border: none;
   border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease-out;
   cursor: pointer;
   font-family: $font-family;
 }
@@ -293,6 +294,10 @@ $primary-input-size: 15px;
   display: flex;
   align-items: center;
   order: 3;
+
+  & > svg {
+    transition: transform 0.2s ease-out;
+  }
 
   &._focused {
     & > svg {

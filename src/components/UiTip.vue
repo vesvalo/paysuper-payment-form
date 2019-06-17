@@ -112,8 +112,8 @@ export default {
     { [$style._shown]: visible || innerVisible }
   ]"
   :style="{
-    height: height || 'auto',
-    width: width || 'auto',
+    height: height || undefined,
+    width: width || undefined,
     maxHeight: maxHeight ? maxHeight : undefined,
   }"
   @mouseenter="innerVisible = true"
@@ -132,7 +132,7 @@ export default {
   padding: 12px 15px;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-out;
   z-index: 20;
 
   &._bottom {

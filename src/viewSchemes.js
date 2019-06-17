@@ -37,8 +37,11 @@ export default {
     buttonAfterColor: '#fff',
 
     checkboxColor: '#fff',
+    checkboxIconColor: '#fff',
     checkboxHoverColor: '#06eaa7',
-    checkboxCheckedColor: '#06eaa7',
+    checkboxHoverIconColor: '#06eaa7',
+    checkboxCheckedColor: '#fff',
+    checkboxCheckedIconColor: '#06eaa7',
     checkboxDisabledOpacity: '0.7',
 
     preloaderColor: 'rgba(255, 255, 255, 0.1)',
@@ -66,10 +69,17 @@ export default {
     selectOptionsBoxColor: '#424c66',
     selectRemoveColor: '#fc7e57',
 
+    cardSelectAddCardColor: '#fff',
+    cardSelectAddCardHoverColor: '#06eaa7',
+
     tipCartBoxColor: '#424c66',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
     tipFormBoxColor: '#333B50',
     tipHeaderColor: '#fff',
-    tipContentColor: 'rgba(255, 255, 255, 0.5)',
+    tipLinkHoverColor: '#06eaa7',
+
+    iconInfoColor: 'rgba(255, 255, 255, 0.3)',
+    iconInfoHoverColor: '#06eaa7',
   },
   light: {
     headerTextColor: '#71757a',
@@ -80,7 +90,7 @@ export default {
     cartBoxShadowColor: 'rgba(243, 243, 243, 0.8)',
     cartHoverTextColor: '#06eaa7',
     cartTextColor: '#202226',
-    cartTotalStrokeColor: '#c2c2c4',
+    cartTotalStrokeColor: 'rgba(194, 194, 196, 0.5)',
     cartTotalTextColor: '#202226',
 
     formBackgroundColor: '#fff',
@@ -92,11 +102,11 @@ export default {
     localeChangerModalHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
     localeChangerModalHoverColor: '#06eaa7',
 
-    localeChangerPageBorderColor: 'transparent',
+    localeChangerPageBorderColor: 'rgba(255, 255, 255, 0.2)',
     localeChangerPageBoxColor: '#5b88de',
     localeChangerPageColor: '#fff',
     localeChangerPageCurrentColor: '#06eaa7',
-    localeChangerPageHoverBorderColor: 'transparent',
+    localeChangerPageHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
     localeChangerPageHoverColor: '#06eaa7',
 
     buttonAlign: 'center',
@@ -109,8 +119,11 @@ export default {
     buttonAfterColor: '#fff',
 
     checkboxColor: '#202226',
+    checkboxIconColor: '#202226',
     checkboxHoverColor: '#06eaa7',
-    checkboxCheckedColor: '#06eaa7',
+    checkboxHoverIconColor: '#06eaa7',
+    checkboxCheckedColor: '#202226',
+    checkboxCheckedIconColor: '#06eaa7',
     checkboxDisabledOpacity: '0.7',
 
     preloaderColor: 'rgba(255, 255, 255, 0.1)',
@@ -138,9 +151,16 @@ export default {
     selectOptionsBoxColor: '#fff',
     selectRemoveColor: '#fc7e57',
 
+    cardSelectAddCardColor: '#202226',
+    cardSelectAddCardHoverColor: '#06eaa7',
+
     tipCartBoxColor: '#5b88de',
+    tipContentColor: 'rgba(255, 255, 255, 0.5)',
     tipFormBoxColor: '#5b88de',
     tipHeaderColor: '#fff',
-    tipContentColor: 'rgba(255, 255, 255, 0.5)',
+    tipLinkHoverColor: '#06eaa7',
+
+    iconInfoColor: 'rgba(113, 117, 122, 0.3)',
+    iconInfoHoverColor: '#06eaa7',
   },
 };

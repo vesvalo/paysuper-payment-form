@@ -75,7 +75,7 @@ export default {
         color: this.$gui.tipHeaderColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.tipLinkHoverColor,
       },
       [`.${this.$style.tipContent}`]: {
         color: this.$gui.tipContentColor,
