@@ -49,6 +49,7 @@ export default {
         :value="country"
         :options="countries"
         :placeholderLabel="$t('PaymentAreaWarning.country')"
+        :hasReversible="true"
         @input="$emit('changeCountry', $event)"
       />
     </div>
