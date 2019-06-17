@@ -51,6 +51,7 @@ export default {
     cards: [],
     isUserLocationCheckRequested: false,
     isUserLocationRestricted: false,
+    hasLocationCheckRequests: false,
     userCountry: 'RU',
     userCity: '',
     userZip: '',
@@ -102,6 +103,9 @@ export default {
     },
     isUserLocationCheckRequested(state, value) {
       state.isUserLocationCheckRequested = value;
+      if (value) {
+        state.hasLocationCheckRequests = true;
+      }
     },
     isUserLocationRestricted(state, value) {
       state.isUserLocationRestricted = value;
@@ -206,6 +210,16 @@ export default {
         order_id: state.orderId,
         pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
+        store_data: hasRemembered,
+        ...(
+          state.hasLocationCheckRequests
+            ? {
+              country: state.userCountry,
+              city: state.userCity,
+              zip: state.userZip,
+            }
+            : {}
+        ),
       };
       if (getters.activePaymentMethod.type === 'crypto') {
         request.address = ewallet;
