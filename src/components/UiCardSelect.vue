@@ -4,6 +4,7 @@
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
     iconPosition="right"
+    maxHeight="240px"
     :isRemovable="true"
     :label="$t('UiCardSelect.cardNumber')"
     :options="options"
@@ -81,6 +82,16 @@ export default {
       }));
     },
   },
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.anotherCard}`]: {
+        color: this.$gui.selectColor,
+      },
+      [`.${this.$style.anotherCard} > svg`]: {
+        fill: this.$gui.selectColor,
+      },
+    });
+  },
   watch: {
     value(value) {
       this.innerValue = value;
@@ -100,7 +111,7 @@ export default {
   display: flex;
   align-items: center;
   color: #fff;
-  margin-top: 24px;
+  margin-top: 18px;
 
   &:hover {
     color: #06eaa7;

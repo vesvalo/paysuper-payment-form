@@ -239,10 +239,6 @@ export default {
       });
       this.setPaymentLoading(false);
     },
-
-    updateScrollbar() {
-      this.$refs.scrollbar.update();
-    },
   },
 };
 </script>
@@ -251,7 +247,6 @@ export default {
 <div :class="[$style.formSection, $style[`_layout-${layout}`]]">
   <div :class="$style.content">
     <component
-      ref="scrollbar"
       :is="layout === 'modal' ? 'UiScrollbarBox' : 'div'"
       :class="$style.scrollbox"
       :settings="layout === 'modal' ? {suppressScrollX: true} : undefined"
@@ -261,6 +256,7 @@ export default {
         :class="$style.contentInner"
       >
         <UiSelect
+          maxHeight="240px"
           :value="activePaymentMethodId"
           :class="$style.formItem"
           :options="paymentMethodsSelectList"
@@ -276,7 +272,6 @@ export default {
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
-          @updateScrollbar="updateScrollbar"
           @removeCard="removeCard"
         />
         <template v-else>
@@ -313,7 +308,6 @@ export default {
           :country="userCountry"
           :countries="countries"
           :content="isUserLocationRestricted ? 'restricted' : 'select-location'"
-          @updateScrollbar="updateScrollbar"
           @changeCountry="newUserCountry = $event"
         />
       </div>

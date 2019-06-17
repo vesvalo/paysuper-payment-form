@@ -77,11 +77,11 @@
     :label="$t('FormSectionBankCard.email')"
   />
   <UiSelect
+    maxHeight="240px"
     :value="country"
     :options="countries"
     :placeholderLabel="$t('FormSectionBankCard.country')"
-    :hasClickawayBlur="false"
-    @blur="handleCountrySelectBlur"
+    :hasReversible="true"
     @input="$emit('changeCountry', $event)"
   />
   <div
@@ -241,11 +241,6 @@ export default {
       return {
         isValid: !this.$v.$invalid,
       };
-    },
-    handleCountrySelectBlur() {
-      setTimeout(() => {
-        this.$emit('updateScrollbar');
-      }, 300);
     },
   },
 };
