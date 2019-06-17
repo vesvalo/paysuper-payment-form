@@ -60,9 +60,9 @@
     :label="$t('FormSectionBankCard.email')"
   />
   <UiSelect
-    :label="$t('FormSectionBankCard.country')"
     :value="country"
     :options="countries"
+    :placeholderLabel="$t('FormSectionBankCard.country')"
     :hasClickawayBlur="false"
     @blur="handleCountrySelectBlur"
     @input="$emit('changeCountry', $event)"

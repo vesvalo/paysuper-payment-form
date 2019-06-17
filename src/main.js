@@ -5,6 +5,7 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
+import locales from '@/locales/scheme';
 import Sandbox from './Sandbox.vue';
 import Page from './Page.vue';
 import Modal from './Modal.vue';
@@ -87,9 +88,16 @@ async function mountApp(formData, optionsCustom = {}) {
 
   new VueApp({
     store,
-    i18n: i18n(options.language),
+    i18n,
     created() {
-      this.$changeDirection('ltr');
+      const locale = options.language;
+      this.$i18n.locale = locale;
+
+      if (locales[locale].rtl) {
+        this.$changeDirection('rtl');
+      } else {
+        this.$changeDirection('ltr');
+      }
     },
   }).$mount('#p1payone-form');
 }
