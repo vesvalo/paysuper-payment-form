@@ -26,7 +26,7 @@ export default {
       required: true,
       type: String,
       validator(value) {
-        return includes(['customError'], value);
+        return includes(['noMoneyError', 'unknownError', 'customError', 'success'], value);
       },
     },
 
@@ -70,13 +70,15 @@ export default {
           iconComponent: 'IconCardCracked',
           description: this.$t('ActionResult.customError.description'),
         },
-        // success: {
-        //   title: this.$t('ActionResult.success.title'),
-        //   iconComponent: {
-        //     card: 'IconCardSuccess',
-        //     other: 'IconTotemSuccess',
-        //   },
-        // },
+        success: {
+          title: this.$t('ActionResult.success.title'),
+          titleSubSlave: this.$t('ActionResult.success.titleSubSlave'),
+          descriptionSlaveFinal: this.$t('ActionResult.success.descriptionSlaveFinal'),
+          descriptionSlaveInitial: this.$t('ActionResult.success.descriptionSlaveInitial'),
+          email: this.$t('ActionResult.success.email'),
+          iconComponent: 'IconTotemSuccess',
+          // iconComponent: 'IconCardSuccess',
+        },
       },
     };
   },
@@ -89,7 +91,7 @@ export default {
       <h2 :class="$style.titleMain">{{types[type].title}}</h2>
       <div v-if="type === 'success'">
         <p :class="$style.titleSubSlave">
-          {{$t('ActionResult.success.titleSubSlave')}}
+          {{types[type].titleSubSlave}}
         </p>
         <p :class="$style.code">{{code}}</p>
       </div>
@@ -104,18 +106,18 @@ export default {
     <div v-if="type === 'success'">
       <template v-if="step === 'initial'">
         <p :class="$style.descriptionSlave">
-          {{$t('ActionResult.success.descriptionSlaveInitial')}}
+          {{types[type].descriptionSlaveInitial}}
         </p>
         <UiTextField
           v-model="email"
-          :label="$t('ActionResult.success.email')"
+          :label="types[type].email"
           @input="$emit('emailChange', $event)"
         />
       </template>
       <template v-if="step === 'final' && email">
         <p
           :class="$style.descriptionSlave"
-          v-html="$t('ActionResult.success.descriptionSlaveFinal')"
+          v-html="types[type].descriptionSlaveFinal"
         >
         </p>
         <p :class="$style.email">{{email}}</p>

@@ -20,8 +20,9 @@
   <LayoutFooter />
 
   <ActionProcessing
+    v-if="isPaymentLoading || isFormLoading"
     :class="$style.preloader"
-    v-if="isPaymentLoading"
+    :content="isFormLoading ? 'no-content' : '3d-security'"
   />
 </div>
 </template>
@@ -50,7 +51,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('PaymentForm', ['isPaymentLoading']),
+    ...mapState('PaymentForm', ['isPaymentLoading', 'isFormLoading']),
   },
 };
 </script>

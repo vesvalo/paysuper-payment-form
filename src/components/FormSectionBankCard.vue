@@ -76,14 +76,30 @@
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
   />
-  <UiSelect
-    maxHeight="240px"
-    :value="country"
-    :options="countries"
-    :placeholderLabel="$t('FormSectionBankCard.country')"
-    :hasReversible="true"
-    @input="$emit('changeCountry', $event)"
-  />
+  <template v-if="isGeoFieldsVisible">
+    <UiSelect
+      maxHeight="240px"
+      v-model="innerValue.country"
+      :options="countries"
+      :placeholderLabel="$t('FormSectionBankCard.country')"
+      :hasReversible="true"
+    />
+    <template v-if="innerValue.country === 'US'">
+      <UiTextField
+        v-model="innerValue.city"
+        name="city"
+        :class="$style.formItem"
+        :label="$t('FormSectionBankCard.city')"
+      />
+      <UiTextField
+        v-model="innerValue.zip"
+        name="zip"
+        :class="$style.formItem"
+        :label="$t('FormSectionBankCard.zip')"
+      />
+    </template>
+  </template>
+
   <div
     v-if="!hasCardsInStorage || anotherCard"
     :class="[$style.formItem, $style.remember]"
@@ -112,7 +128,7 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators';
-import { toInteger, extend } from 'lodash-es';
+import { toInteger, extend, forEach } from 'lodash-es';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
@@ -160,12 +176,12 @@ export default {
     value: {
       type: Object,
     },
-    country: {
-      type: String,
-      required: true,
-    },
     countries: {
       type: Array,
+      required: true,
+    },
+    isGeoFieldsVisible: {
+      type: Boolean,
       required: true,
     },
   },
@@ -177,14 +193,7 @@ export default {
 
   data() {
     return {
-      innerValue: {
-        email: '',
-        cardNumber: '',
-        expiryDate: '',
-        cvv: '',
-        cardHolder: '',
-        hasRemembered: false,
-      },
+      innerValue: extend({}, this.value),
       anotherCard: false,
       isCvvInfoShown: false,
       isRememberInfoShown: false,
@@ -192,13 +201,9 @@ export default {
   },
 
   watch: {
-    value(value) {
-      extend(this.innerValue, value);
-    },
-
-    innerValue: {
+    value: {
       handler(value) {
-        this.$emit('change', value);
+        extend(this.innerValue, value);
       },
       deep: true,
     },
@@ -235,7 +240,22 @@ export default {
     },
   },
 
+  created() {
+    this.emitOnInnerValueChanges();
+  },
+
   methods: {
+    emitOnInnerValueChanges() {
+      forEach(this.innerValue, (a, key) => {
+        this.$watch(`innerValue.${key}`, (value) => {
+          // For v-model
+          this.$emit('change', this.innerValue);
+
+          // to watch certain field
+          this.$emit(`${key}Change`, value);
+        });
+      });
+    },
     validate() {
       this.$v.$touch();
       return {

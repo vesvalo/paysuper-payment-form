@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { sortBy } from 'lodash-es';
 import i18n from '@/i18n';
 
 export default {
@@ -10,10 +11,13 @@ export default {
 
   getters: {
     countries(state) {
-      return state.countries.map(item => ({
-        label: i18n.t(`countries.${item.iso_code_a2}`),
-        value: item.iso_code_a2,
-      }));
+      const countries = state.countries
+        .filter(item => item.payments_allowed)
+        .map(item => ({
+          label: i18n.t(`countries.${item.iso_code_a2}`),
+          value: item.iso_code_a2,
+        }));
+      return sortBy(countries, 'label');
     },
   },
 

@@ -10,11 +10,6 @@ export default {
   },
 
   props: {
-    country: {
-      type: String,
-      required: true,
-    },
-
     content: {
       type: String,
       default: 'card',
@@ -28,16 +23,25 @@ export default {
       required: true,
     },
   },
+
+  data() {
+    return {
+      country: '',
+    };
+  },
 };
 </script>
 
 <template>
   <div :class="$style.actionResult">
     <div>
-      <h2 :class="$style.titleMain">Oooops</h2>
+      <h2 :class="$style.titleMain">{{$t('PaymentAreaWarning.oops')}}</h2>
       <p :class="$style.titleSub">
-        We cannot accept payments in your area.<br>
-        <span v-if="content === 'select-location'">Wrong area? Choose the right one</span>
+        <span v-html="$t('PaymentAreaWarning.cantAcceptPayments')"></span>
+        <span
+          v-if="content === 'select-location'"
+          v-html="$t('PaymentAreaWarning.chooseAnotherArea')"
+        ></span>
       </p>
     </div>
     <div :class="$style.icon">

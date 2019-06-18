@@ -12,14 +12,43 @@ const availableChannelStatuses = [
 
 const allowedPaymentStatuses = [
   // These ones are custom
-  'NEW', 'CREATED', 'FAILED_TO_CREATE', 'PENDING', 'INTERRUPTED',
+  'NEW', 'BEFORE_CREATED', 'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
   // Those are from BE
   ...availableChannelStatuses,
 ];
 
-function setPaymentStatus(commit, name) {
+const actionResultsByStatus = {
+  COMPLETED: () => ({ type: 'success' }),
+  DECLINED: () => ({ type: 'unknownError' }),
+  CANCELLED: () => ({ type: 'unknownError' }),
+  INTERRUPTED: () => ({ type: 'customError', message: 'User has closed the redirect window' }),
+  FAILED_TO_CREATE(data) {
+    if (data) {
+      return {
+        type: 'customError',
+        message: data.message,
+      };
+    }
+    return { type: 'unknownError' };
+  },
+};
+
+function setPaymentStatus(commit, name, extraData) {
   commit('paymentStatus', name);
   postMessage(`PAYMENT_${name}`);
+
+  const actionResult = actionResultsByStatus[name];
+  if (actionResult) {
+    commit('actionResult', actionResult(extraData));
+  }
+
+  if (name === 'BEFORE_CREATED') {
+    commit('isPaymentLoading', true);
+  }
+
+  if (includes(['FAILED_TO_CREATE', 'INTERRUPTED', 'COMPLETED', 'DECLINED', 'CANCELLED'], name)) {
+    commit('isPaymentLoading', false);
+  }
 }
 
 function setGeoData(commit, data) {
@@ -49,9 +78,9 @@ export default {
     isModal: false,
     testFinalSuccess: false,
     cards: [],
-    isUserLocationCheckRequested: false,
-    isUserLocationRestricted: false,
-    hasLocationCheckRequests: false,
+    isUserCountryConfirmRequested: false,
+    isUserCountryRestricted: false,
+    hasCountryConfirmRequests: false,
     userCountry: 'RU',
     userCity: '',
     userZip: '',
@@ -101,14 +130,14 @@ export default {
     testFinalSuccess(state, value) {
       state.testFinalSuccess = value;
     },
-    isUserLocationCheckRequested(state, value) {
-      state.isUserLocationCheckRequested = value;
+    isUserCountryConfirmRequested(state, value) {
+      state.isUserCountryConfirmRequested = value;
       if (value) {
-        state.hasLocationCheckRequests = true;
+        state.hasCountryConfirmRequests = true;
       }
     },
-    isUserLocationRestricted(state, value) {
-      state.isUserLocationRestricted = value;
+    isUserCountryRestricted(state, value) {
+      state.isUserCountryRestricted = value;
     },
     userCountry(state, value) {
       state.userCountry = value;
@@ -135,21 +164,21 @@ export default {
 
       if (!orderData.country_payments_allowed) {
         if (orderData.country_change_allowed) {
-          commit('isUserLocationCheckRequested', true);
+          commit('isUserCountryConfirmRequested', true);
         } else {
-          commit('isUserLocationRestricted', true);
+          commit('isUserCountryRestricted', true);
         }
       }
 
-      if (localStorage) {
-        const cards = localStorage.getItem('cards');
+      // if (localStorage) {
+      //   const cards = localStorage.getItem('cards');
 
-        try {
-          commit('cards', JSON.parse(cards) || []);
-        } catch (e) {
-          commit('cards', []);
-        }
-      }
+      //   try {
+      //     commit('cards', JSON.parse(cards) || []);
+      //   } catch (e) {
+      //     commit('cards', []);
+      //   }
+      // }
     },
 
     setActivePaymentMethodById({ commit }, value) {
@@ -161,11 +190,12 @@ export default {
     },
 
     async createPayment({
-      state, getters, rootState, commit,
+      state, rootState, commit,
     }, {
-      cardNumber, expiryDate, cvv, cardHolder, ewallet, email, hasRemembered,
+      cardNumber, expiryDate, cvv, cardHolder, ewallet, crypto, email, hasRemembered,
+      country, city, zip,
     }) {
-      postMessage('PAYMENT_BEFORE_CREATED');
+      setPaymentStatus(commit, 'BEFORE_CREATED');
 
       if (hasRemembered) {
         const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
@@ -173,23 +203,17 @@ export default {
         localStorage.setItem('cards', JSON.stringify(cards));
       }
 
-      const paymentConnection = new PaymentConnection(window, state.orderId, state.token);
+      const paymentConnection = new PaymentConnection(window, state.orderId, state.orderData.token);
       paymentConnection
         .init()
         .on('newPaymentStatus', (data) => {
+          console.log(11111, 'newPaymentStatus', data);
           if (
             // Just in case. Its probably unnecessary
             data.order_id !== state.orderId
             || !includes(availableChannelStatuses, data.status)
           ) {
             return;
-          }
-
-          if (data.message) {
-            commit('actionResult', {
-              type: 'customError',
-              message: data.message,
-            });
           }
           paymentConnection.closeRedirectWindow();
           setPaymentStatus(commit, data.status);
@@ -211,21 +235,21 @@ export default {
         pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
         store_data: hasRemembered,
+        ewallet,
+        crypto,
         ...(
-          state.hasLocationCheckRequests
+          state.hasCountryConfirmRequests
             ? {
-              country: state.userCountry,
-              city: state.userCity,
-              zip: state.userZip,
+              country,
+              city,
+              zip,
             }
             : {}
         ),
+        country: 'RU',
+        city: 'Краснодар',
+        zip: '350028',
       };
-      if (getters.activePaymentMethod.type === 'crypto') {
-        request.address = ewallet;
-      } else {
-        request.ewallet = ewallet;
-      }
 
       try {
         const { data } = await axios.post(
@@ -233,21 +257,16 @@ export default {
           request,
         );
         paymentConnection.setRedirectWindowLocation(data.redirect_url);
-        postMessage('PAYMENT_CREATED', {
+        setPaymentStatus(commit, 'CREATED', {
           redirectUrl: data.redirect_url,
         });
-        setPaymentStatus(commit, 'PENDING');
       } catch (error) {
         paymentConnection.closeRedirectWindow();
-        commit('actionResult', {
-          type: 'customError',
-          ...(error.response ? { message: error.response.data.message } : {}),
-        });
-        setPaymentStatus(commit, 'FAILED_TO_CREATE');
+        setPaymentStatus(
+          commit, 'FAILED_TO_CREATE',
+          (error.response ? error.response.data : undefined),
+        );
       }
-    },
-    finishPaymentCreation({ commit }) {
-      setPaymentStatus(commit, 'PENDING');
     },
     removeCard({ commit, state }, cardNumber) {
       const cards = filter(state.cards, card => card.cardNumber !== cardNumber);
@@ -269,7 +288,7 @@ export default {
       );
       setGeoData(commit, response.data);
       if (response.data.user_address_data_required) {
-        commit('isUserLocationCheckRequested', true);
+        commit('isUserCountryConfirmRequested', true);
       }
     },
 
@@ -287,7 +306,7 @@ export default {
         );
         setGeoData(commit, response.data);
         if (response.data.user_address_data_required) {
-          commit('isUserLocationCheckRequested', true);
+          commit('isUserCountryConfirmRequested', true);
         }
       } catch (error) {
         console.error(error);
@@ -296,6 +315,7 @@ export default {
 
     updateUserCountry({ commit }, userCountry) {
       commit('userCountry', userCountry);
+      commit('isUserCountryConfirmRequested', false);
     },
 
     setPaymentLoading({ commit }, value) {
@@ -320,24 +340,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-
-    async checkUserCountry({ state, commit, rootState }) {
-      try {
-        const response = await axios.get(`${rootState.apiUrl}/api/v1/country/${state.userCountry}`);
-        if (!response.data.payments_allowed) {
-          if (response.data.change_allowed) {
-            commit('isUserLocationCheckRequested', true);
-          } else {
-            commit('isUserLocationRestricted', true);
-          }
-        }
-        console.log(11111, 'checkUserCountry response', response);
-      } catch (error) {
-        console.error(error);
-      }
-
-      commit('isUserLocationCheckRequested', false);
     },
   },
 };

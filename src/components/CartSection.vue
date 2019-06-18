@@ -40,19 +40,18 @@ export default {
       'orderData',
     ]),
     items() {
-      return this.orderData.items || [{
-        name: this.$t('CartSection.voluntaryAmount'),
-        amount: this.orderData.amount,
-        currency: this.orderData.currency,
-      }];
+      return this.orderData.items;
     },
     images() {
+      if (!this.items) {
+        return null;
+      }
       return this.items.slice(0, 7).map(
         item => (item.images ? item.images[0] : 'https://ci-print.ru/assets/images/blog-1.jpg'),
       );
     },
     promoImage() {
-      if (this.items.length !== 1 || this.view !== 'promo') {
+      if (!this.items || this.items.length !== 1 || this.view !== 'promo') {
         return '';
       }
       return `url(${this.items[0].promo})`;
@@ -97,7 +96,7 @@ export default {
 >
   <UiScrollbarBox :class="$style.scrollbarBox" :settings="{suppressScrollX: true}">
     <div :class="$style.innerContainer">
-      <div v-if="!promoImage" :class="$style.images">
+      <div v-if="images && !promoImage" :class="$style.images">
         <div
           v-for="(img, index) in images"
           :class="[$style.imageItem, $style[`_count-${images.length}`]]"
@@ -111,16 +110,31 @@ export default {
       </div>
       <div :class="$style.listing">
         <div :class="$style.items">
+          <template v-if="items">
+            <div
+              v-for="item in items"
+              :class="$style.item"
+              :key="item.id"
+            >
+              <span :class="[$style.itemCell, $style._title]">
+                {{item.name}}
+              </span>
+              <span :class="[$style.itemCell, $style._price]">
+                <span :class="$style.oldPrice" v-if="item.discount">
+                  {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
+                {{item.amount}} {{item.currency}}
+              </span>
+            </div>
+          </template>
           <div
-            v-for="item in items"
+            v-else
             :class="$style.item"
-            :key="item.id"
           >
-            <span :class="[$style.itemCell, $style._title]">{{item.name}}</span>
+            <span :class="[$style.itemCell, $style._title]">
+              {{$t('CartSection.voluntaryAmount')}}
+            </span>
             <span :class="[$style.itemCell, $style._price]">
-              <span :class="$style.oldPrice" v-if="item.discount">
-                {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
-              {{item.amount}} {{item.currency}}
+              {{orderData.amount}} {{orderData.currency}}
             </span>
           </div>
         </div>
@@ -249,8 +263,13 @@ export default {
 .images {
   display: flex;
   flex-wrap: wrap;
-  margin: -5px;
   padding-top: 5px;
+  margin: -5px -5px 9px -5px;
+}
+
+.listing {
+  position: relative;
+  z-index: 1;
 }
 
 .imageItem {
@@ -339,12 +358,6 @@ export default {
   text-decoration: line-through;
   padding-right: 6px;
   font-weight: 100;
-}
-
-.listing {
-  margin-top: 14px;
-  position: relative;
-  z-index: 1;
 }
 
 .totals {

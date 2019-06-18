@@ -33,18 +33,18 @@ export default {
 
   data() {
     return {
-      bankCardValue: {
-        email: '',
+      paymentData: {
         cardNumber: '',
         expiryDate: '',
         cvv: '',
         cardHolder: '',
         hasRemembered: false,
-      },
-
-      ewalletValue: {
+        country: '',
+        city: '',
+        zip: '',
         email: '',
-        number: '',
+        ewallet: '',
+        crypto: '',
       },
 
       paymentMethodOptions: {
@@ -80,8 +80,8 @@ export default {
       },
 
       newUserCountry: '',
-      isBankCardNumberValidating: false,
-      validatedBankCardNumberPart: '',
+      isBankCardNumberChecking: false,
+      checkedBankCardNumberPart: '',
     };
   },
 
@@ -91,9 +91,10 @@ export default {
       'activePaymentMethodId',
       'cards',
       'actionResult',
-      'isUserLocationCheckRequested',
-      'isUserLocationRestricted',
+      'isUserCountryConfirmRequested',
+      'isUserCountryRestricted',
       'userCountry',
+      'hasCountryConfirmRequests',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
     ...mapGetters('Dictionaries', ['countries']),
@@ -118,33 +119,11 @@ export default {
     },
 
     isPaymentFormVisible() {
-      if (this.actionResult || this.isUserLocationCheckRequested || this.isUserLocationRestricted) {
+      if (this.actionResult || this.isUserCountryConfirmRequested || this.isUserCountryRestricted) {
         return false;
       }
 
       return true;
-    },
-  },
-
-  watch: {
-    'bankCardValue.cardNumber': async function watchCardNumber(value) {
-      if (
-        value.length >= 6
-        && (
-          !this.validatedBankCardNumberPart
-          || value.indexOf(this.validatedBankCardNumberPart) === -1
-        )
-      ) {
-        this.isBankCardNumberValidating = true;
-
-        try {
-          await this.checkPaymentAccount(value);
-          this.validatedBankCardNumberPart = value;
-        } catch (error) {
-          console.error(error);
-        }
-        this.isBankCardNumberValidating = false;
-      }
     },
   },
 
@@ -154,8 +133,9 @@ export default {
     }
 
     return {
-      ewalletValue: {
-        number: {
+      paymentData: {
+        // ewallet or crypto
+        [this.activePaymentMethod.type]: {
           required,
           wrongFormatType(value) {
             if (!this.activePaymentMethod.account_regexp) {
@@ -173,8 +153,8 @@ export default {
   },
 
   created() {
-    this.bankCardValue.email = this.orderData.email;
-    this.ewalletValue.email = this.orderData.email;
+    this.paymentData.email = this.orderData.email;
+    this.paymentData.country = this.userCountry;
   },
 
   methods: {
@@ -187,34 +167,23 @@ export default {
       'checkPaymentAccount',
       'updateUserCountry',
       'updateBillingData',
-      'checkUserCountry',
       'setPaymentLoading',
       'setFormLoading',
     ]),
 
     handleMainButtonClick() {
-      if (this.isUserLocationCheckRequested) {
-        this.submitUserCountry();
-      }
-
-      if (this.isUserLocationRestricted) {
+      if (this.isUserCountryConfirmRequested) {
+        this.updateUserCountry(this.newUserCountry);
+      } else if (this.isUserCountryRestricted) {
         this.$emit('close');
-      }
-
-      if (this.isPaymentFormVisible) {
+      } else if (this.actionResult) {
+        this.clearActionResult();
+      } else if (this.isPaymentFormVisible) {
         this.submitPaymentForm();
       }
     },
 
-    async submitUserCountry() {
-      this.updateUserCountry(this.newUserCountry);
-      this.setFormLoading(true);
-      await this.checkUserCountry();
-      this.setFormLoading(false);
-    },
-
     async submitPaymentForm() {
-      this.clearActionResult();
       this.$v.$touch();
 
       const isValidArray = [
@@ -231,13 +200,34 @@ export default {
         return;
       }
 
-      this.setPaymentLoading(true);
       this.createPayment({
-        ...this.bankCardValue,
-        ewallet: this.ewalletValue.number,
-        email: this.isBankCardPayment ? this.bankCardValue.email : this.ewalletValue.email,
+        ...this.paymentData,
       });
-      this.setPaymentLoading(false);
+    },
+
+    setNewUserCountry(value) {
+      this.newUserCountry = value;
+      this.paymentData.country = value;
+    },
+
+    async checkBankCardNumber(value) {
+      if (
+        value.length >= 6
+        && (
+          !this.checkedBankCardNumberPart
+          || value.indexOf(this.checkedBankCardNumberPart) === -1
+        )
+      ) {
+        this.isBankCardNumberChecking = true;
+
+        try {
+          await this.checkPaymentAccount(value);
+          this.checkedBankCardNumberPart = value;
+        } catch (error) {
+          console.error(error);
+        }
+        this.isBankCardNumberChecking = false;
+      }
     },
   },
 };
@@ -267,28 +257,29 @@ export default {
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"
-          v-model="bankCardValue"
-          :country="userCountry"
+          v-model="paymentData"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+          :isGeoFieldsVisible="hasCountryConfirmRequests"
+          @cardNumberChange="checkBankCardNumber"
           @removeCard="removeCard"
         />
         <template v-else>
           <UiTextField
             :class="$style.formItem"
-            v-model="ewalletValue.number"
-            name="ewallet"
-            :hasError="$isFieldInvalid('ewalletValue.number')"
-            :errorText="$t('FormSection.ewalletNumberError')"
-            :label="$t('FormSection.placeholderEwallet', {name: activePaymentMethod.name})"
+            v-model="paymentData[activePaymentMethod.type]"
+            :name="activePaymentMethod.type"
+            :hasError="$isFieldInvalid(`paymentData.${activePaymentMethod.type}`)"
+            :errorText="$t('FormSection.abstractNumberError')"
+            :label="$t('FormSection.abstractNumberPlaceholder', {name: activePaymentMethod.name})"
           />
           <UiTextField
             :class="$style.formItem"
-            v-model="ewalletValue.email"
+            v-model="paymentData.email"
             type="email"
-            name="ewalletValue.email"
-            :hasError="$isFieldInvalid('ewalletValue.email')"
+            name="email"
+            :hasError="$isFieldInvalid('paymentData.email')"
             :errorText="$t('FormSection.emailInvalid')"
             :label="$t('FormSection.email')"
           />
@@ -304,11 +295,10 @@ export default {
           :message="actionResult.message"
         />
         <PaymentAreaWarning
-          v-if="isUserLocationCheckRequested || isUserLocationRestricted"
-          :country="userCountry"
+          v-if="isUserCountryConfirmRequested || isUserCountryRestricted"
           :countries="countries"
-          :content="isUserLocationRestricted ? 'restricted' : 'select-location'"
-          @changeCountry="newUserCountry = $event"
+          :content="isUserCountryRestricted ? 'restricted' : 'select-location'"
+          @changeCountry="setNewUserCountry"
         />
       </div>
     </component>
@@ -331,11 +321,11 @@ export default {
       <template v-if="actionResult">
         {{ $t('FormSection.tryAgain') }}
       </template>
-      <template v-if="isUserLocationCheckRequested">
+      <template v-if="isUserCountryConfirmRequested">
         {{$t('FormSection.save')}}
       </template>
-      <template v-if="isUserLocationRestricted">
-        {{$t('FormSection.ok')}}
+      <template v-if="isUserCountryRestricted">
+        {{$t('FormSection.close')}}
       </template>
     </UiButton>
   </div>
