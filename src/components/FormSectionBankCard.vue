@@ -272,7 +272,6 @@ export default {
   flex-wrap: wrap;
   position: relative;
   align-content: flex-start;
-  height: 100%;
 }
 .formItem {
   display: flex;
