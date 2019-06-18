@@ -36,7 +36,7 @@
     <div :class="$style.inner">
       <div :class="$style.title">Pay Super</div>
       <div :class="$style.icons">
-        <IconSupport color="#71757a" />
+        <IconSupport :class="$style.support" />
         <div :class="$style.localeBox">
           <span
             :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
@@ -49,7 +49,6 @@
             innerPosition="right"
             position="bottom"
             section="form"
-            width="180px"
             maxHeight="390px"
             :class="$style.localeTip"
             :visible="hasLocaleChangerOpened"
@@ -107,6 +106,15 @@ export default {
       [`.${this.$style.project}`]: {
         color: this.$gui.headerProjectTitleColor,
       },
+      [`.${this.$style.wrap} > svg`]: {
+        fill: this.$gui.headerProjectTitleColor,
+      },
+      [`.${this.$style.support}`]: {
+        fill: this.$gui.headerTextColor,
+      },
+      [`.${this.$style.support}:hover`]: {
+        fill: this.$gui.cartHoverTextColor,
+      },
       [`.${this.$style.title}`]: {
         color: this.$gui.headerServiceTitleColor,
       },
@@ -123,7 +131,7 @@ export default {
         color: this.$gui.tipHeaderColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.tipLinkHoverColor,
       },
       [`.${this.$style.tipContent}`]: {
         color: this.$gui.tipContentColor,
@@ -281,10 +289,6 @@ export default {
   font-weight: 500;
   line-height: 18px;
 
-  @include if-rtl {
-    flex-direction: row-reverse;
-  }
-
   &._opened {
     display: flex;
     width: 100%;
@@ -336,6 +340,9 @@ export default {
     display: none;
   }
 }
+.support {
+  cursor: pointer;
+}
 .title {
   font-size: 30px;
   line-height: 40px;
@@ -347,10 +354,6 @@ export default {
   line-height: 40px;
   height: 40px;
   align-items: center;
-
-  @include if-rtl {
-    flex-direction: row-reverse;
-  }
 }
 .localeBox {
   position: relative;
@@ -361,11 +364,21 @@ export default {
     display: flex;
     flex-direction: column;
     margin-right: -20px;
+    width: calc(100vw - 40px);
 
     @include if-rtl {
       margin-right: 0;
       margin-left: -20px;
     }
+
+    @media screen and (min-width: 640px) {
+      width: 180px;
+    }
+  }
+
+  @include if-rtl {
+    margin-right: 10px;
+    margin-left: 0;
   }
 }
 .locale {

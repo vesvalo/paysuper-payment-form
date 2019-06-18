@@ -22,10 +22,7 @@ export default {
 
 <style module lang="scss">
 $border-width: 4px;
-$color: #06eaa7;
 $default-position: 45deg;
-$main-fill-color: #fff;
-$main-color: rgba($main-fill-color, 0.1);
 $size: 32px;
 
 .container {
@@ -37,10 +34,8 @@ $size: 32px;
   }
 
   background-color: transparent;
-  border-color: $main-color;
   border-radius: $size / 2;
   border-style: solid;
-  border-top-color: $color;
   border-width: $border-width;
   box-sizing: border-box;
   display: inline-block;

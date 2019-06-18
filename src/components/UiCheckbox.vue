@@ -59,13 +59,22 @@ export default {
         color: this.$gui.checkboxColor,
         'border-color': this.$gui.checkboxColor,
       },
-      [`.${this.container}:hover`]: {
+      [`.${this.container}:hover, .${this.container}.${this.stateChecked}:hover`]: {
         color: this.$gui.checkboxHoverColor,
         'border-color': this.$gui.checkboxHoverColor,
       },
       [`.${this.container}.${this.stateChecked}`]: {
         color: this.$gui.checkboxCheckedColor,
         'border-color': this.$gui.checkboxCheckedColor,
+      },
+      [`.${this.check} > svg`]: {
+        fill: this.$gui.checkboxIconColor,
+      },
+      [`.${this.container}:hover > .${this.check} > svg`]: {
+        fill: this.$gui.checkboxHoverIconColor,
+      },
+      [`.${this.container}.${this.stateChecked} > .${this.check} > svg`]: {
+        fill: this.$gui.checkboxCheckedIconColor,
       },
       [`.${this.container}.${this.stateDisabled}`]: {
         opacity: this.$gui.checkboxDisabledOpacity,
@@ -89,41 +98,23 @@ export default {
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-
-$common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
-$box-color: transparent;
-$disabled-opacity: 0.5;
-$border-color: #fff;
-$hover-check-color: #06eaa7;
-$text-color: #fff;
-$hover-text-color: #06eaa7;
 $label-margin: 10px;
 
 .container {
   display: inline-flex;
   align-items: center;
   position: relative;
-  font-family: $common-font-family;
   vertical-align: top;
   cursor: pointer;
-  color: $text-color;
   border-width: 0;
-  border-color: $border-color;
-
-  &:hover {
-    color: $hover-text-color;
-    border-color: $hover-check-color;
-  }
+  transition: border-color 0.2s ease-out, color 0.2s ease-out;
 
   &._disabled {
     pointer-events: none;
-    opacity: $disabled-opacity;
   }
 
   &._checked {
-    color: $hover-text-color;
-    border-color: $hover-check-color;
+    cursor: pointer;
   }
 }
 
@@ -143,7 +134,6 @@ $label-margin: 10px;
   border-width: 1px;
   border-color: inherit;
   border-style: solid;
-  background-color: $box-color;
   box-sizing: border-box;
   height: 20px;
   width: 20px;

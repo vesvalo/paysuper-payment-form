@@ -92,6 +92,7 @@ export default {
   line-height: 24px;
   margin: 0;
   border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease-out;
   padding-top: 16px;
 
   &:hover {
@@ -138,6 +139,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   flex-grow: 1;
+  transition: color 0.2s ease-out;
 }
 .additionalLabel {
   display: inline-block;

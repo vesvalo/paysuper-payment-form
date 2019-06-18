@@ -85,10 +85,16 @@ export default {
   mounted() {
     this.$addCssRules({
       [`.${this.$style.anotherCard}`]: {
-        color: this.$gui.selectColor,
+        color: this.$gui.cardSelectAddCardColor,
       },
-      [`.${this.$style.anotherCard} > svg`]: {
-        fill: this.$gui.selectColor,
+      [`.${this.$style.iconPlus}`]: {
+        fill: this.$gui.cardSelectAddCardColor,
+      },
+      [`.${this.$style.anotherCard}:hover`]: {
+        color: this.$gui.cardSelectAddCardHoverColor,
+      },
+      [`.${this.$style.anotherCard}:hover > .${this.$style.iconPlus}`]: {
+        fill: this.$gui.cardSelectAddCardHoverColor,
       },
     });
   },
@@ -112,38 +118,21 @@ export default {
   align-items: center;
   color: #fff;
   margin-top: 18px;
-
-  &:hover {
-    color: #06eaa7;
-
-    & > svg {
-      fill: #06eaa7;
-    }
-  }
+  transition: color 0.2s ease-out;
 
   @include if-rtl {
     margin-right: 20px;
   }
 }
 .iconPlus {
+  transition: fill 0.2s ease-out;
+
   @include if-ltr {
     margin-right: 12px;
   }
 
   @include if-rtl {
     margin-left: 12px;
-  }
-}
-.mastercard {
-  position: absolute;
-  top: 21px;
-
-  @include if-ltr {
-    right: 0;
-  }
-
-  @include if-rtl {
-    left: 0;
   }
 }
 </style>

@@ -68,22 +68,22 @@ export default {
     height: 3px;
     left: 0;
     right: 0;
-    top: 30px;
+    top: 24px;
   }
 
   @media screen and (min-width: 640px) {
     margin: 0 0 0 5.5vw;
-    padding: 80px 0 50px;
+    padding: 12px 0 40px;
     justify-content: flex-start;
-    padding-top: 12px;
+    margin-top: 30px;
 
     &::before {
-      top: -40px;
+      top: -24px;
     }
   }
 
   @media screen and (min-width: 1080px) {
-    margin: 0 0 0 60px;
+    margin: 30px 0 0 60px;
   }
 }
 .link {

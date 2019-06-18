@@ -211,7 +211,7 @@ $input-font-weight: 300;
 $input-transition: border-color 0.2s ease-out;
 
 $label-color: rgba(#fff, 0.5);
-$label-transition: transform 0.2s ease-out, color 0.2s linear;
+$label-transition: transform 0.2s ease-out, color 0.2s ease-out;
 
 $main-font-size: 15px;
 $main-height: 24px;
