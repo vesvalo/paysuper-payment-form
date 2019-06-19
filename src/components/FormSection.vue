@@ -245,16 +245,14 @@ export default {
         v-show="isPaymentFormVisible"
         :class="$style.contentInner"
       >
-        <div :class="$style.paymentMethod">
-          <UiSelect
-            maxHeight="240px"
-            :value="activePaymentMethodId"
-            :class="$style.formItem"
-            :options="paymentMethodsSelectList"
-            :prependLabel="$t('FormSection.prependLabel')"
-            @input="setActivePaymentMethodById"
-          />
-        </div>
+        <UiSelect
+          maxHeight="240px"
+          :value="activePaymentMethodId"
+          :class="$style.formItem"
+          :options="paymentMethodsSelectList"
+          :prependLabel="$t('FormSection.prependLabel')"
+          @input="setActivePaymentMethodById"
+        />
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"
@@ -377,12 +375,7 @@ export default {
     }
   }
 }
-.paymentMethod {
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  align-content: flex-start;
-}
+
 .formItem {
   display: flex;
   justify-content: space-between;
