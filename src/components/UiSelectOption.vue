@@ -10,7 +10,10 @@
   <div :class="$style.label">
     {{ option.label }}
 
-    <div :class="$style.additionalLabel">
+    <div
+      v-if="option.additional"
+      :class="$style.additionalLabel"
+    >
       {{ option.additional }}
     </div>
   </div>
@@ -86,6 +89,7 @@ export default {
 
 <style module lang="scss">
 .option {
+  position: relative;
   cursor: pointer;
   display: flex;
   height: 40px;
@@ -113,6 +117,9 @@ export default {
 .icon {
   display: flex;
   align-items: center;
+  flex-grow: 0;
+  width: 18px;
+  justify-content: flex-start;
 
   &._right {
     order: 2;
