@@ -18,7 +18,7 @@
         >
           {{$t('LayoutHeader.termsOfUse')}}
           <UiTip
-            width="240px"
+            width="180px"
             innerPosition="right"
             position="bottom"
             :visible="isTermsShown"

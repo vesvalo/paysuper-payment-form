@@ -253,7 +253,6 @@ export default {
           :prependLabel="$t('FormSection.prependLabel')"
           @input="setActivePaymentMethodById"
         />
-
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"

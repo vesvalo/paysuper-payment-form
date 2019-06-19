@@ -341,9 +341,6 @@ $primary-input-size: 15px;
     transform-origin: bottom;
   }
 }
-.scrollbar {
-  height: 100%;
-}
 .options {
   width: 100%;
   padding-right: 20px;
