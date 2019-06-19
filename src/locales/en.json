@@ -325,13 +325,13 @@
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",
-    "ewalletNumberError": "The number is invalid",
+    "abstractNumberError": "The number is invalid",
+    "abstractNumberPlaceholder": "{name} wallet number",
     "placeholderEmail": "Enter your email",
-    "placeholderEwallet": "{name} wallet number",
     "payButtonPrefix": "PAY",
     "tryAgain": "TRY AGAIN",
     "save": "SAVE",
-    "ok": "OK"
+    "close": "CLOSE"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Card number is invalid",
@@ -346,7 +346,9 @@
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",
     "rememberInfo": "Security of billing data storage is provided in accordance with the requirements of the PCI DSS standard, using 3D Secure and SSL protocols",
-    "country": "Select the country"
+    "country": "Country",
+    "city": "City",
+    "zip": "ZIP code"
   },
   "LayoutFooter": {
     "userAgreement": "User Agreement",
@@ -367,6 +369,9 @@
     "refundAdditionalInfo": "You can return this game in 10 days"
   },
   "PaymentAreaWarning": {
+    "oops": "Oooops",
+    "cantAcceptPayments": "We cannot accept payments in your area.<br>",
+    "chooseAnotherArea": "Wrong area? Choose the right one",
     "country": "Select the country"
   },
   "UiCardField": {

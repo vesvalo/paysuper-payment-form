@@ -1,9 +1,5 @@
 <template>
 <div :class="$style.layout">
-  <ActionProcessing
-    v-if="isFormLoading"
-    content="no-content"
-  />
   <div :class="$style.box">
     <div :class="$style.header">
       <div :class="$style.links">
@@ -35,12 +31,10 @@
 <script>
 import { mapState } from 'vuex';
 import LocaleCnanger from '@/components/LocaleChanger.vue';
-import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
   components: {
     LocaleCnanger,
-    ActionProcessing,
   },
   data() {
     return {

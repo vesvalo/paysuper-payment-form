@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState('PaymentForm', ['isPaymentLoading']),
+    ...mapState('PaymentForm', ['isPaymentLoading', 'isFormLoading']),
   },
 
   mounted() {
@@ -57,8 +57,9 @@ export default {
     </ModalForm>
 
     <ActionProcessing
+      v-if="isPaymentLoading || isFormLoading"
       :class="$style.preloader"
-      v-if="isPaymentLoading"
+      :content="isFormLoading ? 'no-content' : '3d-security'"
     />
   </Modal>
 </div>

@@ -325,13 +325,13 @@
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
-    "ewalletNumberError": "Неверный номер",
+    "abstractNumberError": "Неверный номер",
+    "abstractNumberPlaceholder": "Номер кошелька {name}",
     "placeholderEmail": "Введите ваш email",
-    "placeholderEwallet": "Номер кошелька {name}",
     "payButtonPrefix": "ОПЛАТИТЬ",
     "tryAgain": "ПОВТОРИТЬ",
     "save": "СОХРАНИТЬ",
-    "ok": "OK"
+    "close": "ЗАКРЫТЬ"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Неверный номер карты",
@@ -346,7 +346,9 @@
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
     "rememberInfo": "Безопасность хранения платежных данных обеспечивается в соответствии с требованиями стандарта PCI DSS, применением протоколов 3D Secure и SSL",
-    "country": "Выберите страну"
+    "country": "Страна",
+    "city": "Город",
+    "zip": "Почтовый индекс"
   },
   "LayoutFooter": {
     "userAgreement": "Пользовательское соглашение",
@@ -357,6 +359,9 @@
     "termsOfUse": "Условия использования"
   },
   "PaymentAreaWarning": {
+    "oops": "Оооопаньки",
+    "cantAcceptPayments": "Мы не можем принимать платежи в вашей стране. ",
+    "chooseAnotherArea": "Мы ошиблись?",
     "country": "Выберите страну"
   },
   "ModalCart": {

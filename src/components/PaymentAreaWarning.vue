@@ -10,11 +10,6 @@ export default {
   },
 
   props: {
-    country: {
-      type: String,
-      required: true,
-    },
-
     content: {
       type: String,
       default: 'card',
@@ -28,16 +23,25 @@ export default {
       required: true,
     },
   },
+
+  data() {
+    return {
+      country: '',
+    };
+  },
 };
 </script>
 
 <template>
   <div :class="$style.actionResult">
     <div>
-      <h2 :class="$style.titleMain">Oooops</h2>
+      <h2 :class="$style.titleMain">{{$t('PaymentAreaWarning.oops')}}</h2>
       <p :class="$style.titleSub">
-        We cannot accept payments in your area.<br>
-        <span v-if="content === 'select-location'">Wrong area? Choose the right one</span>
+        <span v-html="$t('PaymentAreaWarning.cantAcceptPayments')"></span>
+        <span
+          v-if="content === 'select-location'"
+          v-html="$t('PaymentAreaWarning.chooseAnotherArea')"
+        ></span>
       </p>
     </div>
     <div :class="$style.icon">
@@ -58,7 +62,6 @@ export default {
 
 <style lang="scss" module>
 .actionResult {
-  text-align: center;
   display: flex;
   flex-direction: column;
   padding: 12px 0 20px;
@@ -70,6 +73,7 @@ export default {
   font-weight: bold;
   font-size: 25px;
   line-height: 31px;
+  text-align: center;
   margin: 0 0 10px;
 }
 
@@ -78,6 +82,7 @@ export default {
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
+  text-align: center;
 }
 
 .icon {
@@ -92,20 +97,6 @@ export default {
   font-size: 18px;
   line-height: 22px;
   color: #06eaa7;
-}
-
-.description {
-  color: #fff;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 23px;
-}
-
-.descriptionSlave {
-  color: darken(#fff, 30%);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
 }
 
 .email {
