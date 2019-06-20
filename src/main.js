@@ -74,13 +74,6 @@ async function mountApp(formData, optionsCustom = {}) {
   const VueApp = Vue.extend(appComponent);
 
   Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
-  Vue.mixin({
-    computed: {
-      $localeShortLabel() {
-        return localesScheme[this.$i18n.locale].label;
-      },
-    },
-  });
 
   new VueApp({
     store,
