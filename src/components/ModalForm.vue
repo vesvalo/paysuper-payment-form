@@ -11,7 +11,7 @@
           :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
           @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
         >
-          {{ $i18n.getLocaleShortLabel() }}
+          {{ $i18n.getLocaleLabel() }}
         </span>
       </div>
     </div>
@@ -110,7 +110,6 @@ export default {
 }
 .locale {
   position: relative;
-  text-transform: uppercase;
 
   &._opened::after {
     position: absolute;

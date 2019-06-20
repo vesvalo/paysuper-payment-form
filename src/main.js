@@ -77,7 +77,7 @@ async function mountApp(formData, optionsCustom = {}) {
   Vue.mixin({
     computed: {
       $localeShortLabel() {
-        return localesScheme[this.$i18n.locale].shortLabel;
+        return localesScheme[this.$i18n.locale].label;
       },
     },
   });

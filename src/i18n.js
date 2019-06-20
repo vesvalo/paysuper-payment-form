@@ -21,8 +21,8 @@ function loadLocaleMessages() {
   return messages;
 }
 
-VueI18n.prototype.getLocaleShortLabel = function getLocaleShortLabel() {
-  return localesScheme[this.locale].shortLabel;
+VueI18n.prototype.getLocaleLabel = function getLocaleLabel() {
+  return localesScheme[this.locale].label;
 };
 
 export default new VueI18n({
