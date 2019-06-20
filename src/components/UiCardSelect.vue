@@ -29,7 +29,9 @@
 
 <script>
 import { get, map, upperFirst } from 'lodash-es';
-import { getCardSystemType, prepareCardNumber, prepareCardExpiry } from '@/helpers';
+import getCardSystemType from '@/helpers/getCardSystemType';
+import prepareCardNumber from '@/helpers/prepareCardNumber';
+import prepareCardExpiry from '@/helpers/prepareCardExpiry';
 
 export default {
   model: {

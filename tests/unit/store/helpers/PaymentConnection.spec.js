@@ -1,4 +1,4 @@
-import PaymentConnection from '@/store/helpers/PaymentConnection';
+import PaymentConnection from '@/tools/PaymentConnection';
 
 class WindowMock {
   constructor() {

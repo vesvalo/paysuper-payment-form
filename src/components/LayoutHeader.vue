@@ -43,7 +43,7 @@
             @mouseenter="hasLocaleChangerOpened = true"
             @mouseleave="hasLocaleChangerOpened = false"
           >
-            {{ $i18n.locale }}
+            {{ $i18n.getLocaleShortLabel() }}
           </span>
           <UiTip
             innerPosition="right"

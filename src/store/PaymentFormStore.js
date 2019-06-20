@@ -4,7 +4,7 @@ import {
   filter, find, findIndex, includes,
 } from 'lodash-es';
 import { postMessage } from '../postMessage';
-import PaymentConnection from './helpers/PaymentConnection';
+import PaymentConnection from '@/tools/PaymentConnection';
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED', 'CANCELLED',
@@ -294,7 +294,8 @@ export default {
 
     async checkUserLanguage({
       state, rootState, commit,
-    }, lang) {
+    }, locale) {
+      const [lang] = locale.split('-');
       const request = {
         lang,
       };

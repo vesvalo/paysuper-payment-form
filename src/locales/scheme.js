@@ -1,5 +1,5 @@
 export default {
-  ar: { label: 'العربية', rtl: true },
-  en: { label: 'English' },
-  ru: { label: 'Русский' },
+  'ar-SA': { label: 'العربية', shortLabel: 'AR', rtl: true },
+  'en-US': { label: 'English', shortLabel: 'EN' },
+  'ru-RU': { label: 'Русский', shortLabel: 'RU' },
 };

@@ -11,7 +11,7 @@
           :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
           @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
         >
-          {{ $i18n.locale }}
+          {{ $i18n.getLocaleShortLabel() }}
         </span>
       </div>
     </div>

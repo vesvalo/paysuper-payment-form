@@ -5,17 +5,18 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
-import locales from '@/locales/scheme';
-import Sandbox from './Sandbox.vue';
-import Page from './Page.vue';
-import Modal from './Modal.vue';
-import './plugins/vuelidate';
-import store from './store/RootStore';
-import i18n from './i18n';
-import { postMessage, receiveMessages } from './postMessage';
-import viewSchemes from './viewSchemes';
-import './globalComponents';
-import './vueExtentions';
+import Sandbox from '@/Sandbox.vue';
+import Page from '@/Page.vue';
+import Modal from '@/Modal.vue';
+import '@/plugins/vuelidate';
+import store from '@/store/RootStore';
+import i18n from '@/i18n';
+import { postMessage, receiveMessages } from '@/postMessage';
+import localesScheme from '@/locales/scheme';
+import getLanguage from '@/helpers/getLanguage';
+import viewSchemes from '@/viewSchemes';
+import '@/globalComponents';
+import '@/vueExtentions';
 
 Vue.config.productionTip = false;
 
@@ -27,18 +28,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const isPageInsideIframe = window.location !== window.parent.location;
-
-/**
- * Cuts out language 2-letters code from navigator.language
- *
- * @return {String}
- */
-function getLanguage() {
-  if (navigator && navigator.language) {
-    return navigator.language.slice(0, 2);
-  }
-  return 'en';
-}
 
 /**
  * Mounts the app into element
@@ -58,7 +47,7 @@ async function mountApp(formData, optionsCustom = {}) {
     document.body.classList.add('inside-iframe');
   }
 
-  const language = getLanguage();
+  const language = getLanguage(localesScheme, navigator);
   const options = {
     apiUrl: window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one',
     email: '',
@@ -85,6 +74,13 @@ async function mountApp(formData, optionsCustom = {}) {
   const VueApp = Vue.extend(appComponent);
 
   Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
+  Vue.mixin({
+    computed: {
+      $localeShortLabel() {
+        return localesScheme[this.$i18n.locale].shortLabel;
+      },
+    },
+  });
 
   new VueApp({
     store,
@@ -93,7 +89,7 @@ async function mountApp(formData, optionsCustom = {}) {
       const locale = options.language;
       this.$i18n.locale = locale;
 
-      if (locales[locale].rtl) {
+      if (localesScheme[locale].rtl) {
         this.$changeDirection('rtl');
       } else {
         this.$changeDirection('ltr');
