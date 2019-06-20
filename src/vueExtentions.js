@@ -34,7 +34,7 @@ function $changeLocale(locale) {
   const dir = localesScheme[locale].rtl ? 'rtl' : 'ltr';
   document.body.style.direction = dir;
 
-  const font = fontsScheme[localesScheme[locale].fontFamily || 'Quicksand'];
+  const font = fontsScheme[localesScheme[locale].font || 'Quicksand'];
   if (!font.isLoaded) {
     webfontloader.load({
       google: {
