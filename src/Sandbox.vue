@@ -115,10 +115,6 @@ export default {
 
 <style lang="scss">
 @import '@/assets/styles/reset.scss';
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-body {
-  font-family: $common-font-family;
-}
 .sandbox {
   width: 100vw;
   height: 100vh;

@@ -6,6 +6,9 @@ import {
   isEmpty,
   reduce,
 } from 'lodash-es';
+import webfontloader from 'webfontloader';
+import localesScheme from '@/locales/scheme';
+import fontsScheme from '@/fontsScheme';
 
 function objectToCss(obj) {
   return reduce(obj, (result, value, key) => `${result}${key}:${value};`, '');
@@ -25,9 +28,23 @@ function $addCssRules(rules) {
     }
   });
 }
-function $changeDirection(dir = 'ltr') {
-  this.$direction = dir;
+
+function $changeLocale(locale) {
+  this.$i18n.locale = locale;
+  const dir = localesScheme[locale].rtl ? 'rtl' : 'ltr';
   document.body.style.direction = dir;
+
+  const font = fontsScheme[localesScheme[locale].font || 'Quicksand'];
+  if (!font.isLoaded) {
+    webfontloader.load({
+      google: {
+        families: [font.googleFontQuery],
+      },
+    });
+    font.isLoaded = true;
+  }
+
+  document.body.style.fontFamily = font.fontFamily;
 }
 
 function $getFieldErrorMessages(fieldPath) {
@@ -55,7 +72,7 @@ function $isFieldInvalid(fieldPath) {
 
 extend(Vue.prototype, {
   $addCssRules,
-  $changeDirection,
+  $changeLocale,
   $getFieldErrorMessages,
   $isFieldInvalid,
 });

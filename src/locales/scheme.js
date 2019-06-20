@@ -4,7 +4,7 @@ export default {
   'en-US': { label: 'English' },
   'es-ES': { label: 'Español' },
   'ar-SA': { label: 'العربية', rtl: true },
-  'ru-RU': { label: 'Русский' },
+  'ru-RU': { label: 'Русский', font: 'Comfortaa' },
   'pt-BR': { label: 'Бразильский португальский' },
   'pt-PT': { label: 'Португальский' },
   'fr-FR': { label: 'Francias' },

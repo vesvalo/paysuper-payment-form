@@ -80,14 +80,7 @@ export default {
   methods: {
     ...mapActions('PaymentForm', ['checkUserLanguage']),
     changeLocale(locale) {
-      this.$i18n.locale = locale;
-
-      if (this.locales[locale].rtl) {
-        this.$changeDirection('rtl');
-      } else {
-        this.$changeDirection('ltr');
-      }
-
+      this.$changeLocale(locale);
       this.$emit('changeLocale', locale);
       this.checkUserLanguage(locale);
     },

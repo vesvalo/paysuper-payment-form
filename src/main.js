@@ -79,14 +79,7 @@ async function mountApp(formData, optionsCustom = {}) {
     store,
     i18n,
     created() {
-      const locale = options.language;
-      this.$i18n.locale = locale;
-
-      if (localesScheme[locale].rtl) {
-        this.$changeDirection('rtl');
-      } else {
-        this.$changeDirection('ltr');
-      }
+      this.$changeLocale(options.language);
     },
   }).$mount('#p1payone-form');
 }
