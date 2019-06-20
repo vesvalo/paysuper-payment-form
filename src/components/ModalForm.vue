@@ -9,6 +9,7 @@
         </span>
         <span
           :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
+          :title="$i18n.getLocaleLabel()"
           @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
         >
           {{ $i18n.getLocaleLabel() }}
@@ -90,8 +91,9 @@ export default {
   display: flex;
   font-size: 12px;
   font-weight: 500;
-  line-height: 60px;
-  height: 60px;
+  line-height: 55px;
+  height: 55px;
+  width: 100%;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -99,6 +101,7 @@ export default {
 }
 .link {
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     color: #00d697;
@@ -110,6 +113,10 @@ export default {
 }
 .locale {
   position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 30px;
 
   &._opened::after {
     position: absolute;
@@ -131,7 +138,7 @@ export default {
 .content {
   display: flex;
   flex-grow: 1;
-  max-height: calc(100% - 60px);
+  max-height: calc(100% - 55px);
   position: relative;
 }
 .localeChanger {

@@ -154,7 +154,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 30px 20px 20px;
+  padding: 36px 20px 16px;
   position: absolute;
   left: 0;
   right: 0;
