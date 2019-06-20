@@ -223,9 +223,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-
-$font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $primary-input-size: 15px;
 
 .container {
@@ -236,7 +233,6 @@ $primary-input-size: 15px;
   position: relative;
   width: 100%;
   font-size: $primary-input-size;
-  font-family: $font-family;
   padding: 18px 0;
 
   &._disabled {
@@ -256,7 +252,7 @@ $primary-input-size: 15px;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease-out;
   cursor: pointer;
-  font-family: $font-family;
+  font-family: inherit;
 }
 .icon {
   display: flex;
@@ -285,7 +281,7 @@ $primary-input-size: 15px;
   border: none;
   outline: none;
   cursor: pointer;
-  font-family: $font-family;
+  font-family: inherit;
   font-size: $primary-input-size;
   pointer-events: none;
 }

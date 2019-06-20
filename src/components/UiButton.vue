@@ -87,14 +87,11 @@ export default {
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Quicksand&subset=cyrillic,cyrillic-ext');
-
 $after-margin: 12px;
 $before-margin: 12px;
 $after-text-color: #fff;
 $before-text-color: #fff;
 $box-color: #5b88de;
-$font-family: 'Quicksand', 'Comfortaa', sans-serif;
 $font-size: 20px;
 $font-weight: 700;
 $height: 70px;
@@ -115,7 +112,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   position: relative;
   display: inline-flex;
   background-color: $box-color;
-  font-family: $font-family;
+  font-family: inherit;
   font-size: $font-size;
   font-weight: $font-weight;
   height: $height;

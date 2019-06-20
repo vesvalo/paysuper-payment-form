@@ -190,10 +190,6 @@ export default {
 </script>
 
 <style module lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400|Quicksand&subset=cyrillic,cyrillic-ext');
-
-$common-font-family: 'Quicksand', 'Comfortaa', sans-serif;
-
 $error-box-color: #fc7e57;
 $error-font-color: #fff;
 $error-font-size: 10px;
@@ -222,7 +218,6 @@ $main-additional-height: 18px;
   padding: $main-additional-height 0;
   position: relative;
   width: 100%;
-  font-family: $common-font-family;
   font-style: normal;
   font-weight: $input-font-weight;
   text-align: left;
@@ -242,7 +237,7 @@ $main-additional-height: 18px;
   box-sizing: border-box;
   color: $input-font-color;
   display: block;
-  font-family: $common-font-family;
+  font-family: inherit;
   font-weight: $input-font-weight;
   font-size: $main-font-size;
   height: $main-height;
