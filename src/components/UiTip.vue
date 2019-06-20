@@ -134,6 +134,11 @@ export default {
   pointer-events: none;
   transition: all 0.2s ease-out;
   z-index: 20;
+  cursor: auto;
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    cursor: default;
+  }
 
   &._bottom {
     transform: translate3d(0, 20px, 0);
@@ -144,7 +149,7 @@ export default {
     }
 
     &::after {
-      top: -12px;
+      top: -11px;
     }
   }
 
@@ -157,7 +162,7 @@ export default {
     }
 
     &::after {
-      bottom: -12px;
+      bottom: -11px;
     }
   }
 
