@@ -4,6 +4,7 @@
 
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import localesScheme from '@/locales/scheme';
 
 Vue.use(VueI18n);
 
@@ -20,10 +21,11 @@ function loadLocaleMessages() {
   return messages;
 }
 
-const fallbackLocale = process.env.VUE_APP_I18N_FALLBACK_LOCALE;
+VueI18n.prototype.getLocaleLabel = function getLocaleLabel() {
+  return localesScheme[this.locale].label;
+};
+
 export default new VueI18n({
-  fallbackLocale,
-  locale: fallbackLocale,
   messages: loadLocaleMessages(),
   silentTranslationWarn: true,
 });

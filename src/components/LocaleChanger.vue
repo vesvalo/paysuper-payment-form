@@ -92,7 +92,8 @@ export default {
       this.checkUserLanguage(locale);
     },
     iconLang(locale) {
-      return `IconLang${upperFirst(locale)}`;
+      const [lang] = locale.split('-');
+      return `IconLang${upperFirst(lang)}`;
     },
   },
 };

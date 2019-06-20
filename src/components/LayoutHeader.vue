@@ -43,7 +43,7 @@
             @mouseenter="hasLocaleChangerOpened = true"
             @mouseleave="hasLocaleChangerOpened = false"
           >
-            {{ $i18n.locale }}
+            {{ $i18n.getLocaleLabel() }}
           </span>
           <UiTip
             innerPosition="right"
@@ -386,6 +386,5 @@ export default {
   cursor: pointer;
   line-height: 15px;
   height: 15px;
-  text-transform: uppercase;
 }
 </style>
