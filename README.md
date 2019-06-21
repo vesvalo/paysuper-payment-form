@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Build Status](https://api.travis-ci.org/ProtocolONE/payone-js-payment-form.svg?branch=master)](https://travis-ci.org/ProtocolONE/token_one)
 [![codecov](https://codecov.io/gh/paysuper/paysuper-payment-form/branch/master/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-payment-form)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paysuper_paysuper-payment-form&metric=alert_status)](https://sonarcloud.io/dashboard?id=paysuper_paysuper-payment-form
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=paysuper_paysuper-payment-form&metric=alert_status)](https://sonarcloud.io/dashboard?id=paysuper_paysuper-payment-form)
 
 ## Usage
 
