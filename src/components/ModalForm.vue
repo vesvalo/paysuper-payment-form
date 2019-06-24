@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import LocaleCnanger from '@/components/LocaleChanger.vue';
 
 export default {
@@ -41,9 +40,6 @@ export default {
     return {
       hasLocaleChangerOpened: false,
     };
-  },
-  computed: {
-    ...mapState('PaymentForm', ['isFormLoading']),
   },
   mounted() {
     this.$addCssRules({

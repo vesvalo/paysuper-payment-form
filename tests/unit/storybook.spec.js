@@ -3,29 +3,112 @@ import { forEach } from 'lodash-es';
 const scheme = {
   UiButton: [
     'default',
-    'with-before-and-after-content',
-    'disabled',
   ],
   UiCheckbox: [
     'default',
-    'disabled',
   ],
   UiTextField: [
     'default',
-    'disabled',
-    'with-error',
+  ],
+  UiSelect: [
+    'default',
+    'focused',
+  ],
+  UiTip: [
+    'default',
+  ],
+  UiCardField: [
+    'default',
+  ],
+  Modal: [
+    {
+      story: 'default',
+      wait: 300,
+    },
+  ],
+  Page: [
+    {
+      story: 'default',
+      testName: 'wide 1',
+      viewport: {
+        width: 1150,
+        height: 700,
+      },
+    },
+    {
+      story: 'default',
+      testName: 'wide 2',
+      viewport: {
+        width: 875,
+        height: 700,
+      },
+    },
+    {
+      story: 'default',
+      testName: 'mobile 1',
+      viewport: {
+        width: 500,
+        height: 900,
+      },
+    },
+    {
+      story: 'default',
+      testName: 'mobile 2',
+      viewport: {
+        width: 300,
+        height: 900,
+      },
+    },
+    {
+      story: 'cart open',
+      testName: 'mobile 3',
+      viewport: {
+        width: 500,
+        height: 900,
+      },
+    },
+    {
+      story: 'cart open',
+      testName: 'mobile 4',
+      viewport: {
+        width: 300,
+        height: 900,
+      },
+    },
   ],
 };
 
 forEach(scheme, (list, key) => {
   describe(`Storybook ${key}`, () => {
     list.forEach((option) => {
-      it(`should render ${option}`, async () => {
+      let config = {
+        story: 'default',
+        wait: 0,
+      };
+      if (typeof option === 'string') {
+        config.story = option;
+      } else {
+        config = {
+          ...config,
+          ...option,
+        };
+      }
+      it(`should render ${config.testName || config.story}`, async () => {
         await page.goto(
-          `http://localhost:6006/iframe.html?selectedKind=${key}&selectedStory=${option}`,
+          `http://localhost:6006/iframe.html?selectedKind=${key}&selectedStory=${config.story}`,
         );
-        const image = await page.screenshot();
-        expect(image).toMatchImageSnapshot();
+
+        if (config.viewport) {
+          await page.setViewport(config.viewport);
+        }
+
+        return new Promise((resolve) => {
+          setTimeout(async () => {
+            const image = await page.screenshot();
+            expect(image).toMatchImageSnapshot();
+            resolve();
+          }, config.wait);
+        });
       });
     });
   });

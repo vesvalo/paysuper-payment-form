@@ -2,7 +2,7 @@
 <div :class="$style.header">
   <div :class="$style.left">
     <div :class="$style.inner">
-      <div :class="$style.project">{{orderData.project.name}}</div>
+      <div :class="$style.project">{{projectName}}</div>
       <div
         :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
         @click="toggleCart"
@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import LocaleCnanger from '@/components/LocaleChanger.vue';
 
 export default {
@@ -77,17 +76,16 @@ export default {
       default: false,
       type: Boolean,
     },
+    projectName: {
+      required: true,
+      type: String,
+    },
   },
   data() {
     return {
       hasLocaleChangerOpened: false,
       isTermsShown: false,
     };
-  },
-  computed: {
-    ...mapState('PaymentForm', [
-      'orderData',
-    ]),
   },
   mounted() {
     this.$addCssRules({

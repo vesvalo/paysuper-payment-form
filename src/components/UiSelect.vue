@@ -125,10 +125,14 @@ export default {
       default: '',
       type: [String, Number],
     },
+    isFocused: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
-      focused: false,
+      focused: this.isFocused,
       selectValue: this.value || '',
       innerOptions: [...this.options],
     };
@@ -217,6 +221,9 @@ export default {
     },
     options(val) {
       this.innerOptions = val;
+    },
+    isFocused(value) {
+      this.focused = value;
     },
   },
 };
