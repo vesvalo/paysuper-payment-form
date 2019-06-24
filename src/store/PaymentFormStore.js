@@ -197,11 +197,11 @@ export default {
     }) {
       setPaymentStatus(commit, 'BEFORE_CREATED');
 
-      if (hasRemembered) {
-        const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
-        commit('cards', cards);
-        localStorage.setItem('cards', JSON.stringify(cards));
-      }
+      // if (hasRemembered) {
+      //   const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
+      //   commit('cards', cards);
+      //   localStorage.setItem('cards', JSON.stringify(cards));
+      // }
 
       const paymentConnection = new PaymentConnection(window, state.orderId, state.orderData.token);
       paymentConnection
@@ -236,7 +236,7 @@ export default {
         payment_method_id: state.activePaymentMethodId,
         store_data: hasRemembered,
         ewallet,
-        crypto,
+        address: crypto,
         ...(
           state.hasCountryConfirmRequests
             ? {

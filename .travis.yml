@@ -23,12 +23,12 @@ jobs:
     - set -e
     - yarn lint
     - yarn test
-    - yarn build
-    #- rclone copy tests/unit/components/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
+    - yarn build --frozen-lockfile
+    #- rclone copy tests/unit/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
     #  --s3-endpoint=$S3_HOST
     - rclone copy dist :s3://paysuper/form/dev/ --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
       --s3-endpoint=$S3_HOST
-    - yarn coverage:publish
+    #- yarn coverage:publish
     - sonar-scanner
   - name: release
     if: "(tag =~ ^v)"
@@ -36,7 +36,7 @@ jobs:
     - set -e
     - yarn lint
     - yarn test
-    - yarn build
+    - yarn build --frozen-lockfile
     - rclone copy dist :s3://paysuper/form/latest/ --s3-access-key-id=$S3_ACCESS_KEY
       --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
     - rclone copy dist :s3://paysuper/form/$TRAVIS_TAG/ --s3-access-key-id=$S3_ACCESS_KEY
