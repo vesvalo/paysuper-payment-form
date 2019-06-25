@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState('PaymentForm', ['isPaymentLoading', 'isFormLoading']),
+    ...mapState('PaymentForm', ['orderData', 'isPaymentLoading', 'isFormLoading']),
   },
 
   mounted() {
@@ -48,7 +48,7 @@ export default {
     :opened="opened"
     @close="closeModal"
   >
-    <ModalCart>
+    <ModalCart :projectName="orderData.project.name">
       <CartSection />
     </ModalCart>
 

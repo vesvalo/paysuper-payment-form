@@ -3,6 +3,9 @@ const puppeteer = require('puppeteer');
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
 const toMatchImageSnapshot = configureToMatchImageSnapshot({
+  customDiffConfig: {
+    threshold: '0.1'
+  }
   // failureThreshold: '0.001',
   // failureThresholdType: 'percent'
 });

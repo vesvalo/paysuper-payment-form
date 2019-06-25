@@ -2,6 +2,7 @@
 <div :class="$style.layout">
   <LayoutHeader
     :isCartOpened="isCartOpened"
+    :projectName="orderData.project.name"
     @toggleCart="isCartOpened = !isCartOpened"
   />
 
@@ -51,7 +52,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('PaymentForm', ['isPaymentLoading', 'isFormLoading']),
+    ...mapState('PaymentForm', ['orderData', 'isPaymentLoading', 'isFormLoading']),
   },
 };
 </script>

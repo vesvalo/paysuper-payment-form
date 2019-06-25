@@ -1,7 +1,7 @@
 <template>
 <div :class="$style.layout">
   <div :class="$style.header">
-    <a :class="$style.link">{{ orderData.project.name }}</a>
+    <a :class="$style.link">{{ projectName }}</a>
     <span
       :class="$style.link"
       @mouseenter="isProfileShown = true"
@@ -46,19 +46,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 export default {
+  props: {
+    projectName: {
+      required: true,
+      type: String,
+    },
+  },
   data() {
     return {
       isProfileShown: false,
       isTermsShown: false,
     };
-  },
-  computed: {
-    ...mapState('PaymentForm', [
-      'orderData',
-    ]),
   },
   mounted() {
     this.$addCssRules({
