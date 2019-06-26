@@ -34,20 +34,19 @@ export default {
       type: String,
     },
 
-    step: {
+    orderId: {
+      required: true,
       type: String,
-      default: 'initial',
     },
 
-    code: {
+    email: {
+      required: true,
       type: String,
-      default: '88456-89735-87635-98372',
     },
   },
 
   data() {
     return {
-      email: '',
       types: {
         // 1. Охуевший тотем - нахватка средств или специальная ошибка (+ жёлтый текст и опции)
         // 2. Карта с крестиком - неведомая ошибка
@@ -93,7 +92,7 @@ export default {
         <p :class="$style.titleSubSlave">
           {{types[type].titleSubSlave}}
         </p>
-        <p :class="$style.code">{{code}}</p>
+        <p :class="$style.code">{{orderId}}</p>
       </div>
       <p
         :class="$style.titleSub"
@@ -104,7 +103,7 @@ export default {
       <component :is="types[type].iconComponent" />
     </div>
     <div v-if="type === 'success'">
-      <template v-if="step === 'initial'">
+      <template v-if="false">
         <p :class="$style.descriptionSlave">
           {{types[type].descriptionSlaveInitial}}
         </p>
@@ -114,14 +113,12 @@ export default {
           @input="$emit('emailChange', $event)"
         />
       </template>
-      <template v-if="step === 'final' && email">
-        <p
-          :class="$style.descriptionSlave"
-          v-html="types[type].descriptionSlaveFinal"
-        >
-        </p>
-        <p :class="$style.email">{{email}}</p>
-      </template>
+      <p
+        :class="$style.descriptionSlave"
+        v-html="types[type].descriptionSlaveFinal"
+      >
+      </p>
+      <p :class="$style.email">{{email}}</p>
     </div>
     <div
       :class="$style.description"
@@ -173,9 +170,10 @@ export default {
 
 .code {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 12px;
   line-height: 22px;
   color: #06eaa7;
+  margin: 0 -20px;
 }
 
 .description {

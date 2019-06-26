@@ -177,7 +177,11 @@ export default {
       } else if (this.isUserCountryRestricted) {
         this.$emit('close');
       } else if (this.actionResult) {
-        this.clearActionResult();
+        if (this.actionResult.type === 'success') {
+          this.$emit('close');
+        } else {
+          this.clearActionResult();
+        }
       } else if (this.isPaymentFormVisible) {
         this.submitPaymentForm();
       }
@@ -292,6 +296,8 @@ export default {
           v-if="actionResult"
           :type="actionResult.type"
           :message="actionResult.message"
+          :orderId="orderData.id"
+          :email="paymentData.email"
         />
         <PaymentAreaWarning
           v-if="isUserCountryConfirmRequested || isUserCountryRestricted"
@@ -318,7 +324,7 @@ export default {
         </span>
       </template>
       <template v-if="actionResult">
-        {{ $t('FormSection.tryAgain') }}
+        {{ actionResult.type === 'success' ? $t('FormSection.ok') : $t('FormSection.tryAgain') }}
       </template>
       <template v-if="isUserCountryConfirmRequested">
         {{$t('FormSection.save')}}
