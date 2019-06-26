@@ -94,7 +94,7 @@ export default {
       'isUserCountryConfirmRequested',
       'isUserCountryRestricted',
       'userCountry',
-      'hasCountryConfirmRequests',
+      'isGeoFieldsExposed',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
     ...mapGetters('Dictionaries', ['countries']),
@@ -264,7 +264,7 @@ export default {
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
-          :isGeoFieldsVisible="hasCountryConfirmRequests"
+          :isGeoFieldsExposed="isGeoFieldsExposed"
           @cardNumberChange="checkBankCardNumber"
           @removeCard="removeCard"
         />

@@ -157,6 +157,10 @@ export default {
         'background-color': this.$gui.inputBoxColor,
         'border-color': this.$gui.inputBorderColor,
       },
+      [`.${this.input}:-webkit-autofill, .${this.input}:-internal-autofill-selected`]: {
+        '-webkit-box-shadow': `inset 0 0 0 50px ${this.$gui.formBackgroundColor}`,
+        '-webkit-text-fill-color': this.$gui.inputColor,
+      },
       [`.${this.input}:hover`]: {
         'border-color': this.$gui.inputHoverBorderColor,
       },
@@ -246,6 +250,11 @@ $main-additional-height: 18px;
   padding: 0;
   transition: $input-transition;
   width: 100%;
+
+  &:-webkit-autofill,
+  &:-internal-autofill-selected {
+    -webkit-box-shadow: inset 0 0 0 50px red;
+  }
 
   &:hover {
     border-color: scale-color($input-border-color, $alpha: 37.5%);
