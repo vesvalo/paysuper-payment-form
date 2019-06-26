@@ -61,7 +61,6 @@
   <UiTextField
     v-model="innerValue.cardHolder"
     name="card_holder"
-    mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU"
     :hasError="$isFieldInvalid('innerValue.cardHolder')"
     :errorText="$t('FormSectionBankCard.cardHolderError')"
     :class="$style.formItem"
@@ -76,7 +75,7 @@
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
   />
-  <template v-if="isGeoFieldsVisible">
+  <template v-if="isGeoFieldsExposed">
     <UiSelect
       maxHeight="240px"
       v-model="innerValue.country"
@@ -180,7 +179,7 @@ export default {
       type: Array,
       required: true,
     },
-    isGeoFieldsVisible: {
+    isGeoFieldsExposed: {
       type: Boolean,
       required: true,
     },

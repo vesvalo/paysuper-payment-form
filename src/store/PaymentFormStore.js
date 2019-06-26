@@ -51,7 +51,7 @@ function setPaymentStatus(commit, name, extraData) {
   }
 }
 
-function setGeoData(commit, data) {
+function setGeoParams(commit, data) {
   if (data.user_ip_data) {
     commit('userCountry', data.user_ip_data.country);
 
@@ -61,6 +61,19 @@ function setGeoData(commit, data) {
     if (data.user_ip_data.zip) {
       commit('userZip', data.user_ip_data.zip);
     }
+  }
+
+  if (data.country_payments_allowed === false) {
+    commit('isGeoFieldsExposed', true);
+    if (data.country_change_allowed) {
+      commit('isUserCountryConfirmRequested', true);
+    } else {
+      commit('isUserCountryRestricted', true);
+    }
+  }
+
+  if (data.user_address_data_required) {
+    commit('isGeoFieldsExposed', true);
   }
 }
 
@@ -80,7 +93,7 @@ export default {
     cards: [],
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
-    hasCountryConfirmRequests: false,
+    isGeoFieldsExposed: false,
     userCountry: 'RU',
     userCity: '',
     userZip: '',
@@ -132,12 +145,12 @@ export default {
     },
     isUserCountryConfirmRequested(state, value) {
       state.isUserCountryConfirmRequested = value;
-      if (value) {
-        state.hasCountryConfirmRequests = true;
-      }
     },
     isUserCountryRestricted(state, value) {
       state.isUserCountryRestricted = value;
+    },
+    isGeoFieldsExposed(state, value) {
+      state.isGeoFieldsExposed = value;
     },
     userCountry(state, value) {
       state.userCountry = value;
@@ -160,15 +173,7 @@ export default {
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
       commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
 
-      setGeoData(commit, orderData);
-
-      if (!orderData.country_payments_allowed) {
-        if (orderData.country_change_allowed) {
-          commit('isUserCountryConfirmRequested', true);
-        } else {
-          commit('isUserCountryRestricted', true);
-        }
-      }
+      setGeoParams(commit, orderData);
 
       // if (localStorage) {
       //   const cards = localStorage.getItem('cards');
@@ -238,7 +243,7 @@ export default {
         ewallet,
         address: crypto,
         ...(
-          state.hasCountryConfirmRequests
+          state.isGeoFieldsExposed
             ? {
               country,
               city,
@@ -286,10 +291,7 @@ export default {
         `${rootState.apiUrl}/api/v1/orders/${state.orderId}/customer`,
         request,
       );
-      setGeoData(commit, response.data);
-      if (response.data.user_address_data_required) {
-        commit('isUserCountryConfirmRequested', true);
-      }
+      setGeoParams(commit, response.data);
     },
 
     async checkUserLanguage({
@@ -305,10 +307,7 @@ export default {
           `${rootState.apiUrl}/api/v1/orders/${state.orderId}/language`,
           request,
         );
-        setGeoData(commit, response.data);
-        if (response.data.user_address_data_required) {
-          commit('isUserCountryConfirmRequested', true);
-        }
+        setGeoParams(commit, response.data);
       } catch (error) {
         console.error(error);
       }
