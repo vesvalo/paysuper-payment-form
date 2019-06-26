@@ -291,9 +291,9 @@
     },
     "success": {
       "title": "Let's play!",
-      "titleSubSlave": "Enter this key in Settings. Instruction",
+      "titleSubSlave": "Your transaction ID is",
       "descriptionSlaveInitial": "Leave your email to recieve the bill",
-      "descriptionSlaveFinal": "We sent payment confirmation <br>and access link to",
+      "descriptionSlaveFinal": "We sent payment bill to",
       "email": "Email"
     }
   },
@@ -331,7 +331,8 @@
     "payButtonPrefix": "PAY",
     "tryAgain": "TRY AGAIN",
     "save": "SAVE",
-    "close": "CLOSE"
+    "close": "CLOSE",
+    "ok": "OK"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Card number is invalid",

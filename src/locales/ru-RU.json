@@ -291,9 +291,9 @@
     },
     "success": {
       "title": "Погнали!",
-      "titleSubSlave": "Введите этот ключ в Настройках. Инструкция",
+      "titleSubSlave": "ID вашего платежа:",
       "descriptionSlaveInitial": "Введите email, чтобы получить счёт",
-      "descriptionSlaveFinal": "Мы выслали подтверждение оплате <br>и ссылку доступа на",
+      "descriptionSlaveFinal": "Мы выслали чек на",
       "email": "Email"
     }
   },
@@ -331,7 +331,8 @@
     "payButtonPrefix": "ОПЛАТИТЬ",
     "tryAgain": "ПОВТОРИТЬ",
     "save": "СОХРАНИТЬ",
-    "close": "ЗАКРЫТЬ"
+    "close": "ЗАКРЫТЬ",
+    "ok": "OK"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Неверный номер карты",
