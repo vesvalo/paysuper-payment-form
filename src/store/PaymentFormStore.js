@@ -5,6 +5,7 @@ import {
 } from 'lodash-es';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
+import i18n from '@/i18n';
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED', 'CANCELLED',
@@ -19,14 +20,23 @@ const allowedPaymentStatuses = [
 
 const actionResultsByStatus = {
   COMPLETED: () => ({ type: 'success' }),
-  DECLINED: () => ({ type: 'unknownError' }),
-  CANCELLED: () => ({ type: 'unknownError' }),
-  INTERRUPTED: () => ({ type: 'customError', message: 'User has closed the redirect window' }),
+  DECLINED(data) {
+    return {
+      type: 'customError',
+      message: i18n.t(`errorCodes.${data.decline.code}`),
+    };
+  },
+  // CANCELLED: () => ({ type: 'unknownError' }),
+  INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
   FAILED_TO_CREATE(data) {
+    console.log(11111, 'FAILED_TO_CREATE', data);
     if (data) {
+      if (data.code === 'fm000025') {
+        return { type: 'unknownError' };
+      }
       return {
         type: 'customError',
-        message: data.message,
+        message: i18n.t(`errorCodes.${data.code}`),
       };
     }
     return { type: 'unknownError' };
@@ -221,7 +231,7 @@ export default {
             return;
           }
           paymentConnection.closeRedirectWindow();
-          setPaymentStatus(commit, data.status);
+          setPaymentStatus(commit, data.status, data);
         })
         .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
