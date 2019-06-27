@@ -98,7 +98,7 @@ export default {
     isFormLoading: false,
     actionResult: null,
     paymentStatus: 'NEW',
-    isModal: false,
+    options: false,
     testFinalSuccess: false,
     cards: [],
     isUserCountryConfirmRequested: false,
@@ -147,8 +147,8 @@ export default {
       );
       state.paymentStatus = value;
     },
-    isModal(state, value) {
-      state.isModal = value;
+    options(state, value) {
+      state.options = value;
     },
     testFinalSuccess(state, value) {
       state.testFinalSuccess = value;
@@ -175,7 +175,7 @@ export default {
 
   actions: {
     async initState({ commit }, { orderData, options }) {
-      commit('isModal', options.isModal);
+      commit('options', options);
 
       commit('orderId', orderData.id);
       commit('orderData', orderData);
@@ -218,8 +218,14 @@ export default {
       //   localStorage.setItem('cards', JSON.stringify(cards));
       // }
 
-      const paymentConnection = new PaymentConnection(window, state.orderId, state.orderData.token);
-      paymentConnection
+      const paymentConnection = new PaymentConnection(
+        {
+          window,
+          orderId: state.orderId,
+          token: state.orderData.token,
+          options: state.options,
+        },
+      )
         .init()
         .on('newPaymentStatus', (data) => {
           console.log(11111, 'newPaymentStatus', data);
@@ -266,12 +272,24 @@ export default {
         zip: '350028',
       };
 
+      let redirectUrl = '';
+      let delayHasPassed = false;
+      setTimeout(() => {
+        if (redirectUrl) {
+          paymentConnection.setRedirectWindowLocation(redirectUrl);
+        }
+        delayHasPassed = true;
+      }, 2500);
+
       try {
         const { data } = await axios.post(
           `${rootState.apiUrl}/api/v1/payment`,
           request,
         );
-        paymentConnection.setRedirectWindowLocation(data.redirect_url);
+        redirectUrl = data.redirect_url;
+        if (delayHasPassed) {
+          paymentConnection.setRedirectWindowLocation(redirectUrl);
+        }
         setPaymentStatus(commit, 'CREATED', {
           redirectUrl: data.redirect_url,
         });

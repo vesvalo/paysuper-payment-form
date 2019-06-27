@@ -1,7 +1,8 @@
 import assert from 'assert';
-import { invert } from 'lodash-es';
+import { invert, includes, get } from 'lodash-es';
 
 export const payoneSdkSourceName = 'PAYSUPER_JS_SDK';
+export const payoneFormSourceName = 'PAYSUPER_PAYMENT_FORM';
 
 export const sendingMessagesNames = {
   INITED: 'inited',
@@ -20,13 +21,15 @@ export const sendingMessagesNames = {
 
 export const receivingMessagesNames = invert({
   REQUEST_INIT_FORM: 'requestInitForm',
+  INITED: 'inited',
 });
 
 export function postMessage(nameID, data = {}) {
   const name = sendingMessagesNames[nameID];
   assert(name, `Undefiend postMessage nameID: ${nameID}`);
-  window.parent.postMessage({
-    source: 'PAYSUPER_PAYMENT_FORM',
+  const target = window.opener ? window.opener : window.parent;
+  target.postMessage({
+    source: payoneFormSourceName,
     name,
     data,
   }, '*');
@@ -34,7 +37,10 @@ export function postMessage(nameID, data = {}) {
 
 export function receiveMessages(from, objectWithCallbacks) {
   from.addEventListener('message', (event) => {
-    if (event.data && event.data.source !== payoneSdkSourceName) {
+    const source = get(event, 'data.source');
+    if (
+      !includes([payoneSdkSourceName, payoneFormSourceName], source)
+    ) {
       return;
     }
     const { name } = event.data;

@@ -69,6 +69,9 @@
         layout = 'sandbox';
       } else if (window.location.pathname.indexOf('page') !== -1) {
         layout = 'page';
+      } else if (window.location.pathname.indexOf('loading') !== -1) {
+        layout = 'loading';
+        window.PAYSUPER_FORM_DATA = undefined;
       }
       
       window.PAYSUPER_FORM_OPTIONS = {

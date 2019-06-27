@@ -1,16 +1,19 @@
 import Centrifuge from 'centrifuge';
 import Events from 'events';
+import { receiveMessages, payoneFormSourceName } from '@/postMessage';
 
 const websocketServerUrl = window.PAYSUPER_WEBSOCKET_URL
   || 'wss://cf.tst.protocol.one/connection/websocket';
 
-
 export default class PaymentConnection extends Events.EventEmitter {
-  constructor(window, orderId, token) {
+  constructor({
+    window, orderId, token, options,
+  }) {
     super();
     this.window = window;
     this.orderId = orderId;
     this.token = token;
+    this.options = options;
 
     this.centrifuge = null;
 
@@ -26,13 +29,34 @@ export default class PaymentConnection extends Events.EventEmitter {
     });
     this.centrifuge.connect();
 
-    this.redirectWindow = this.window.open('', '_blank');
+    this.redirectWindow = this.window.open(
+      process.env.NODE_ENV === 'development'
+        ? 'http://localhost:4040/loading'
+        : 'https://paysupermgmt.tst.protocol.one/payform-loading',
+      '_blank',
+    );
     this.redirectWindowClosedInterval = setInterval(() => {
       if (this.redirectWindow.closed) {
         this.emit('redirectWindowClosedByUser');
         this.closeRedirectWindow();
       }
     }, 200);
+
+    receiveMessages(window, {
+      INITED: () => {
+        this.redirectWindow.postMessage({
+          source: payoneFormSourceName,
+          name: 'requestInitForm',
+          data: {
+            formData: {},
+            options: {
+              ...this.options,
+              layout: 'loading',
+            },
+          },
+        }, '*');
+      },
+    });
 
     this.window.addEventListener('message', (event) => {
       if (

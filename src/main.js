@@ -8,6 +8,7 @@ import assert from 'assert';
 import Sandbox from '@/Sandbox.vue';
 import Page from '@/Page.vue';
 import Modal from '@/Modal.vue';
+import Loading from '@/Loading.vue';
 import '@/plugins/vuelidate';
 import store from '@/store/RootStore';
 import i18n from '@/i18n';
@@ -36,22 +37,19 @@ const isPageInsideIframe = window.location !== window.parent.location;
  * @param {Object} optionsCustom
  */
 async function mountApp(formData, optionsCustom = {}) {
-  if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
-    assert(formData, 'The initial data supposed to be recieved through postMessage is not defined');
-  } else {
-    assert(formData, 'Define "window.PAYSUPER_FORM_DATA" property to set initial data');
+  if (!window.opener) {
+    if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
+      assert(formData, 'The initial data supposed to be recieved through postMessage is not defined');
+    } else {
+      assert(formData, 'Define "window.PAYSUPER_FORM_DATA" property to set initial data');
+    }
   }
   assert(document.querySelector('#p1payone-form'), 'Define "#p1payone-form" element in the document');
-
-  if (isPageInsideIframe) {
-    document.body.classList.add('inside-iframe');
-  }
 
   const language = getLanguage(localesScheme, navigator);
   const options = {
     apiUrl: window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one',
     email: '',
-    isModal: true,
     viewScheme: 'dark',
     viewSchemeConfig: null,
     layout: 'page',
@@ -60,14 +58,18 @@ async function mountApp(formData, optionsCustom = {}) {
     ...optionsCustom,
   };
 
-  await store.dispatch('initState', {
-    formData,
-    options,
-  });
+  if (options.layout !== 'loading') {
+    await store.dispatch('initState', {
+      formData,
+      options,
+    });
+  }
 
   let appComponent = Modal;
   if (options.layout === 'page') {
     appComponent = Page;
+  } else if (options.layout === 'loading') {
+    appComponent = Loading;
   } else if (process.env.NODE_ENV === 'development' && options.layout === 'sandbox') {
     appComponent = Sandbox;
   }
@@ -86,7 +88,7 @@ async function mountApp(formData, optionsCustom = {}) {
 
 postMessage('INITED');
 
-if (isPageInsideIframe) {
+if (window.opener || isPageInsideIframe) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { formData, options } = data;
