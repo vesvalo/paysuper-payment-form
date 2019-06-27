@@ -93,6 +93,15 @@ const scheme = {
       },
     },
   ],
+  LocaleChanger: [
+    {
+      story: 'default',
+      viewport: {
+        width: 400,
+        height: 1450,
+      },
+    },
+  ],
 };
 
 forEach(scheme, (list, key) => {

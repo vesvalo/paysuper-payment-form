@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Barcode+128&display=swap');
-
 html, body, button, input, select {
-  -webkit-font-smoothing : antialiased !important;
-  font-family: 'Libre Barcode 128', cursive;
+  -webkit-font-smoothing: antialiased !important;
+  font-family: myfontfamily;
   text-rendering: optimizeLegibility !important; 
   background-color: #000;
+}
+input {
+  color: transparent !important;
 }
