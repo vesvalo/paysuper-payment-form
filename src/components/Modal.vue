@@ -109,15 +109,13 @@ export default {
 .enter,
 .leaveTo {
   opacity: 0;
-  transform: scale(1.2);
 }
 .enterTo,
 .leave {
   opacity: 1;
-  transform: scale(1);
 }
 .enterActive,
 .leaveActive {
-  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
+  transition: opacity 0.2s ease-in-out;
 }
 </style>
