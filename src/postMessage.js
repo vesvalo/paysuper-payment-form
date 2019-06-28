@@ -8,6 +8,8 @@ export const sendingMessagesNames = {
   INITED: 'inited',
   LOADED: 'loaded',
   FORM_RESIZE: 'formResize',
+  PAYMENT_FAILED_TO_BEGIN: 'paymentFailedToBegin',
+  PAYMENT_NEW: 'paymentNew',
   PAYMENT_BEFORE_CREATED: 'paymentBeforeCreated',
   PAYMENT_CREATED: 'paymentCreated',
   PAYMENT_FAILED_TO_CREATE: 'paymentFailedToCreate',

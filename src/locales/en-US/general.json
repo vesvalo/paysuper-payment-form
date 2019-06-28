@@ -130,5 +130,10 @@
   },
   "UiSelectOption": {
     "remove": "Delete"
+  },
+  "OrderCreationError": {
+    "title": "We're sorry, but we could not create the order to make the payment",
+    "tryAgain": "TRY AGAIN",
+    "unknownError": "This error occurs in 1 case out of 10 000!"
   }
 }

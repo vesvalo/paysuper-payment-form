@@ -13,12 +13,21 @@ const availableChannelStatuses = [
 
 const allowedPaymentStatuses = [
   // These ones are custom
-  'NEW', 'BEFORE_CREATED', 'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
+  'INITIAL', 'FAILED_TO_BEGIN', 'NEW', 'BEFORE_CREATED', 'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
   // Those are from BE
   ...availableChannelStatuses,
 ];
 
 const actionResultsByStatus = {
+  FAILED_TO_BEGIN(data) {
+    if (data) {
+      return {
+        type: 'customError',
+        message: i18n.t(`errorCodes.${data.code}`),
+      };
+    }
+    return { type: 'unknownError' };
+  },
   COMPLETED: () => ({ type: 'success' }),
   DECLINED(data) {
     return {
@@ -92,12 +101,13 @@ export default {
 
   state: {
     orderId: '',
+    orderParams: null,
     orderData: null,
     activePaymentMethodId: '',
     isPaymentLoading: false,
     isFormLoading: false,
     actionResult: null,
-    paymentStatus: 'NEW',
+    paymentStatus: 'INITIAL',
     options: false,
     testFinalSuccess: false,
     cards: [],
@@ -124,6 +134,9 @@ export default {
     },
     orderId(state, value) {
       state.orderId = value;
+    },
+    orderParams(state, value) {
+      state.orderParams = value;
     },
     orderData(state, value) {
       state.orderData = value;
@@ -176,8 +189,8 @@ export default {
   actions: {
     async initState({ commit, dispatch }, { orderParams, options }) {
       commit('options', options);
-
-      await dispatch('createOrder', orderParams);
+      commit('orderParams', orderParams);
+      await dispatch('createOrder');
 
       // if (localStorage) {
       //   const cards = localStorage.getItem('cards');
@@ -190,9 +203,10 @@ export default {
       // }
     },
 
-    async createOrder({ commit, rootState }, {
-      project, token, products, amount, currency,
-    }) {
+    async createOrder({ state, commit, rootState }) {
+      const {
+        project, token, products, amount, currency,
+      } = state.orderParams;
       if (amount) {
         assert(currency, 'PaySuper: currency is not set');
       }
@@ -215,8 +229,13 @@ export default {
         commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
 
         setGeoParams(commit, orderData);
+        setPaymentStatus(commit, 'NEW');
       } catch (error) {
         console.error(error);
+        setPaymentStatus(
+          commit, 'FAILED_TO_BEGIN',
+          (error.response ? error.response.data : undefined),
+        );
       }
     },
 

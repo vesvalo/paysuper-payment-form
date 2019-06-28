@@ -1,14 +1,14 @@
 <script>
 import { includes } from 'lodash-es';
-import IconTotemFail from '@/components/IconCardSecurity.vue';
-import IconTotemSuccess from '@/components/IconProcessSecurity.vue';
+import IconCardSecurity from '@/components/IconCardSecurity.vue';
+import IconProcessSecurity from '@/components/IconProcessSecurity.vue';
 
 export default {
   name: 'ActionProcessing',
 
   components: {
-    IconTotemFail,
-    IconTotemSuccess,
+    IconCardSecurity,
+    IconProcessSecurity,
   },
 
   props: {
@@ -52,8 +52,8 @@ export default {
     <div :class="$style.content">
       <template v-if="content === '3d-security'">
         <div :class="$style.icon">
-          <IconTotemFail v-if="icon === 'card'" />
-          <IconTotemSuccess v-if="icon === 'other'" />
+          <IconCardSecurity v-if="icon === 'card'" />
+          <IconProcessSecurity v-if="icon === 'other'" />
         </div>
         <div>
           <h2

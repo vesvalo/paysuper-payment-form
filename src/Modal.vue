@@ -1,11 +1,12 @@
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
+import OrderCreationError from '@/components/OrderCreationError.vue';
 import { postMessage } from './postMessage';
 
 export default {
@@ -16,6 +17,7 @@ export default {
     ModalCart,
     ModalForm,
     ActionProcessing,
+    OrderCreationError,
   },
 
   data() {
@@ -25,7 +27,9 @@ export default {
   },
 
   computed: {
-    ...mapState('PaymentForm', ['orderData', 'isPaymentLoading', 'isFormLoading']),
+    ...mapState('PaymentForm', [
+      'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
+    ]),
   },
 
   beforeMount() {
@@ -33,9 +37,17 @@ export default {
   },
 
   methods: {
+    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+
     closeModal() {
       this.opened = false;
       postMessage('MODAL_CLOSED');
+    },
+
+    async tryToCreateOrder() {
+      this.setFormLoading(true);
+      await this.createOrder();
+      this.setFormLoading(false);
     },
   },
 };
@@ -48,7 +60,7 @@ export default {
     @close="closeModal"
   >
     <transition
-      v-if="orderData"
+      v-if="paymentStatus === 'NEW'"
       appear
       :enter-class="$style.enter"
       :enter-active-class="$style.enterActive"
@@ -70,8 +82,13 @@ export default {
 
     <ActionProcessing
       v-if="isPaymentLoading || isFormLoading"
-      :class="$style.preloader"
       :content="isFormLoading ? 'no-content' : '3d-security'"
+    />
+    <OrderCreationError
+      v-if="paymentStatus === 'FAILED_TO_BEGIN'"
+      :message="actionResult.message"
+      :type="actionResult.type"
+      @tryAgain="tryToCreateOrder"
     />
   </Modal>
 </div>
