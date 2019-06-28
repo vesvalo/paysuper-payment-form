@@ -47,21 +47,32 @@ export default {
     :opened="opened"
     @close="closeModal"
   >
-    <template v-if="orderData">
-      <ModalCart :projectName="orderData.project.name">
-        <CartSection />
-      </ModalCart>
+    <transition
+      v-if="orderData"
+      appear
+      :enter-class="$style.enter"
+      :enter-active-class="$style.enterActive"
+      :enter-to-class="$style.enterTo"
+      :leave-class="$style.leave"
+      :leave-active-class="$style.leaveActive"
+      :leave-to-class="$style.leaveTo"
+    >
+      <div :class="$style.transitionContainer">
+        <ModalCart :projectName="orderData.project.name">
+          <CartSection />
+        </ModalCart>
 
-      <ModalForm>
-        <FormSection @close="closeModal" />
-      </ModalForm>
+        <ModalForm>
+          <FormSection @close="closeModal" />
+        </ModalForm>
+      </div>
+    </transition>
 
-      <ActionProcessing
-        v-if="isPaymentLoading || isFormLoading"
-        :class="$style.preloader"
-        :content="isFormLoading ? 'no-content' : '3d-security'"
-      />
-    </template>
+    <ActionProcessing
+      v-if="isPaymentLoading || isFormLoading"
+      :class="$style.preloader"
+      :content="isFormLoading ? 'no-content' : '3d-security'"
+    />
   </Modal>
 </div>
 </template>
@@ -76,5 +87,22 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+.transitionContainer {
+  display: flex;
+}
+
+.enter,
+.leaveTo {
+  opacity: 0;
+}
+.enterTo,
+.leave {
+  opacity: 1;
+}
+.enterActive,
+.leaveActive {
+  transition: opacity 0.15s ease-in-out;
 }
 </style>

@@ -147,6 +147,6 @@ export default {
 }
 .enterActive,
 .leaveActive {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
 }
 </style>
