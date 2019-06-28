@@ -15,11 +15,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async initState({ commit, dispatch }, { formData, options }) {
+    async initState({ commit, dispatch }, { orderParams, options }) {
       commit('apiUrl', options.apiUrl);
-      const orderData = formData.payment_form_data;
       await Promise.all([
-        dispatch('PaymentForm/initState', { orderData, options }),
+        dispatch('PaymentForm/initState', { orderParams, options }),
         dispatch('Dictionaries/initState'),
       ]);
     },

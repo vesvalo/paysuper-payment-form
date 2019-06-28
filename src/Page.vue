@@ -54,6 +54,9 @@ export default {
   computed: {
     ...mapState('PaymentForm', ['orderData', 'isPaymentLoading', 'isFormLoading']),
   },
+  beforeMount() {
+    postMessage('LOADED');
+  },
 };
 </script>
 

@@ -69,7 +69,6 @@ export default {
 <style module lang="scss">
 .layout {
   align-items: center;
-  background-color: rgba(#000, 0.7);
   display: flex;
   height: 100vh;
   justify-content: center;
@@ -119,6 +118,6 @@ export default {
 }
 .enterActive,
 .leaveActive {
-  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
+  transition: opacity 0.15s ease-in, transform 0.15s ease-in;
 }
 </style>

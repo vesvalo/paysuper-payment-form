@@ -20,7 +20,7 @@ export default {
 
   data() {
     return {
-      opened: false,
+      opened: true,
     };
   },
 
@@ -28,9 +28,8 @@ export default {
     ...mapState('PaymentForm', ['orderData', 'isPaymentLoading', 'isFormLoading']),
   },
 
-  mounted() {
+  beforeMount() {
     postMessage('LOADED');
-    this.opened = true;
   },
 
   methods: {
@@ -48,19 +47,21 @@ export default {
     :opened="opened"
     @close="closeModal"
   >
-    <ModalCart :projectName="orderData.project.name">
-      <CartSection />
-    </ModalCart>
+    <template v-if="orderData">
+      <ModalCart :projectName="orderData.project.name">
+        <CartSection />
+      </ModalCart>
 
-    <ModalForm>
-      <FormSection @close="closeModal" />
-    </ModalForm>
+      <ModalForm>
+        <FormSection @close="closeModal" />
+      </ModalForm>
 
-    <ActionProcessing
-      v-if="isPaymentLoading || isFormLoading"
-      :class="$style.preloader"
-      :content="isFormLoading ? 'no-content' : '3d-security'"
-    />
+      <ActionProcessing
+        v-if="isPaymentLoading || isFormLoading"
+        :class="$style.preloader"
+        :content="isFormLoading ? 'no-content' : '3d-security'"
+      />
+    </template>
   </Modal>
 </div>
 </template>

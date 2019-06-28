@@ -33,18 +33,22 @@ const isPageInsideIframe = window.location !== window.parent.location;
 /**
  * Mounts the app into element
  *
- * @param {Object} formData
+ * @param {Object} orderParams
  * @param {Object} optionsCustom
  */
-async function mountApp(formData, optionsCustom = {}) {
+async function mountApp(orderParams, optionsCustom = {}) {
+  assert(
+    document.querySelector('#p1payone-form'),
+    'Define "#p1payone-form" element in the document to mount the app',
+  );
+
   if (!window.opener) {
-    if (isPageInsideIframe && process.env.NODE_ENV === 'development') {
-      assert(formData, 'The initial data supposed to be recieved through postMessage is not defined');
+    if (isPageInsideIframe) {
+      assert(orderParams, 'The order params are not recieved');
     } else {
-      assert(formData, 'Define "window.PAYSUPER_FORM_DATA" property to set initial data');
+      assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" in not defined or empty');
     }
   }
-  assert(document.querySelector('#p1payone-form'), 'Define "#p1payone-form" element in the document');
 
   const language = getLanguage(localesScheme, navigator);
   const options = {
@@ -59,8 +63,8 @@ async function mountApp(formData, optionsCustom = {}) {
   };
 
   if (options.layout !== 'loading') {
-    await store.dispatch('initState', {
-      formData,
+    store.dispatch('initState', {
+      orderParams,
       options,
     });
   }
@@ -86,24 +90,16 @@ async function mountApp(formData, optionsCustom = {}) {
   }).$mount('#p1payone-form');
 }
 
-postMessage('INITED');
-
 if (window.opener || isPageInsideIframe) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
-      const { formData, options } = data;
-
-      /**
-       * Outside formData inserting is restricted in production mode
-       */
-      if (process.env.NODE_ENV === 'development') {
-        mountApp(formData, options);
-      } else {
-        mountApp(window.PAYSUPER_FORM_DATA, options);
-      }
+      const { orderParams, options } = data;
+      mountApp(orderParams, options);
     },
   });
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp(window.PAYSUPER_FORM_DATA, window.PAYSUPER_FORM_OPTIONS);
+  mountApp(window.PAYSUPER_ORDER_PARAMS, window.PAYSUPER_FORM_OPTIONS);
 }
+
+postMessage('INITED');

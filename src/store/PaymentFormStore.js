@@ -174,16 +174,10 @@ export default {
   },
 
   actions: {
-    async initState({ commit }, { orderData, options }) {
+    async initState({ commit, dispatch }, { orderParams, options }) {
       commit('options', options);
 
-      commit('orderId', orderData.id);
-      commit('orderData', orderData);
-
-      const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
-      commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
-
-      setGeoParams(commit, orderData);
+      await dispatch('createOrder', orderParams);
 
       // if (localStorage) {
       //   const cards = localStorage.getItem('cards');
@@ -194,6 +188,36 @@ export default {
       //     commit('cards', []);
       //   }
       // }
+    },
+
+    async createOrder({ commit, rootState }, {
+      project, token, products, amount, currency,
+    }) {
+      if (amount) {
+        assert(currency, 'PaySuper: currency is not set');
+      }
+      try {
+        const { data } = await axios.post(
+          `${rootState.apiUrl}/api/v1/order`,
+          {
+            project,
+            ...(token ? { token } : {}),
+            ...(products ? { products } : {}),
+            ...(amount ? { amount, currency } : {}),
+          },
+        );
+        const orderData = data.payment_form_data;
+
+        commit('orderId', orderData.id);
+        commit('orderData', orderData);
+
+        const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
+        commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
+
+        setGeoParams(commit, orderData);
+      } catch (error) {
+        console.error(error);
+      }
     },
 
     setActivePaymentMethodById({ commit }, value) {
@@ -279,7 +303,7 @@ export default {
           paymentConnection.setRedirectWindowLocation(redirectUrl);
         }
         delayHasPassed = true;
-      }, 2500);
+      }, 2000);
 
       try {
         const { data } = await axios.post(
