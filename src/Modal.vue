@@ -85,7 +85,7 @@ export default {
       :content="isFormLoading ? 'no-content' : '3d-security'"
     />
     <OrderCreationError
-      v-if="paymentStatus === 'FAILED_TO_BEGIN'"
+      v-if="!isFormLoading && paymentStatus === 'FAILED_TO_BEGIN'"
       :message="actionResult.message"
       :type="actionResult.type"
       @tryAgain="tryToCreateOrder"
