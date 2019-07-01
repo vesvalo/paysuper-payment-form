@@ -98,6 +98,7 @@ export default {
   right: 0;
   padding: 20px;
   cursor: pointer;
+  z-index: 10000;
 
   &:hover > .iconClose {
     fill: #00d697;

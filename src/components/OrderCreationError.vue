@@ -22,6 +22,14 @@ export default {
   components: {
     IconTotemFail,
   },
+
+  mounted() {
+    this.$addCssRules({
+      [`.${this.$style.orderCreationError}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
+    });
+  },
 };
 </script>
 
@@ -35,7 +43,7 @@ export default {
   :leave-active-class="$style.leaveActive"
   :leave-to-class="$style.leaveTo"
 >
-  <div :class="$style.actionProcessing">
+  <div :class="$style.orderCreationError">
     <div :class="$style.content">
       <div :class="$style.icon">
         <IconTotemFail/>
@@ -65,24 +73,32 @@ export default {
 </template>
 
 <style lang="scss" module>
-.actionProcessing {
+.orderCreationError {
   text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
   width: 100%;
+  position: relative;
+  z-index: 1000;
+
+  &._layout-page {
+  }
 }
 
 .content {
   padding: 10px 40px 40px;
+  width: 650px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .icon {
+  margin-bottom: 30px;
 }
 
 .titleMain {
@@ -90,7 +106,7 @@ export default {
   font-weight: bold;
   font-size: 25px;
   line-height: 31px;
-  margin: 0 0 18px;
+  margin: 0 0 40px;
 }
 
 .description {
@@ -101,6 +117,7 @@ export default {
 }
 
 .footer {
+  width: 100%;
 }
 
 .button {
