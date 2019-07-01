@@ -7,6 +7,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
+import ModalStubPreloader from '@/components/ModalStubPreloader.vue';
 import { postMessage } from './postMessage';
 
 export default {
@@ -18,6 +19,7 @@ export default {
     ModalForm,
     ActionProcessing,
     OrderCreationError,
+    ModalStubPreloader,
   },
 
   data() {
@@ -59,33 +61,27 @@ export default {
     :opened="opened"
     @close="closeModal"
   >
-    <transition
+    <ModalStubPreloader
+      v-if="paymentStatus === 'INITIAL'"
+    />
+    <template
       v-if="paymentStatus === 'NEW'"
-      appear
-      :enter-class="$style.enter"
-      :enter-active-class="$style.enterActive"
-      :enter-to-class="$style.enterTo"
-      :leave-class="$style.leave"
-      :leave-active-class="$style.leaveActive"
-      :leave-to-class="$style.leaveTo"
     >
-      <div :class="$style.transitionContainer">
-        <ModalCart :projectName="orderData.project.name">
-          <CartSection />
-        </ModalCart>
+      <ModalCart :projectName="orderData.project.name">
+        <CartSection />
+      </ModalCart>
 
-        <ModalForm>
-          <FormSection @close="closeModal" />
-        </ModalForm>
-      </div>
-    </transition>
+      <ModalForm>
+        <FormSection @close="closeModal" />
+      </ModalForm>
+    </template>
 
     <ActionProcessing
       v-if="isPaymentLoading || isFormLoading"
       :content="isFormLoading ? 'no-content' : '3d-security'"
     />
     <OrderCreationError
-      v-if="!isFormLoading && paymentStatus === 'FAILED_TO_BEGIN'"
+      v-if="paymentStatus === 'FAILED_TO_BEGIN'"
       :message="actionResult.message"
       :type="actionResult.type"
       @tryAgain="tryToCreateOrder"
@@ -120,6 +116,6 @@ export default {
 }
 .enterActive,
 .leaveActive {
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.05s ease-in-out;
 }
 </style>
