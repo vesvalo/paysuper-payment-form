@@ -101,21 +101,4 @@ export default {
   align-items: center;
   display: flex;
 }
-
-.transitionContainer {
-  display: flex;
-}
-
-.enter,
-.leaveTo {
-  opacity: 0;
-}
-.enterTo,
-.leave {
-  opacity: 1;
-}
-.enterActive,
-.leaveActive {
-  transition: opacity 0.05s ease-in-out;
-}
 </style>
