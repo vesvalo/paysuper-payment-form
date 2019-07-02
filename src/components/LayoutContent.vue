@@ -4,14 +4,22 @@
     <div :class="$style.left">
       <div :class="[$style.mainBox, {[$style._closed]: !isCartOpened}]">
         <div :class="$style.main">
-          <slot name="cart" />
+          <StubPreloaderCart
+            v-if="isLoading"
+            layout="page"
+          />
+          <slot v-else name="cart" />
         </div>
       </div>
     </div>
 
     <div :class="$style.right">
       <div :class="$style.mainBox">
-        <slot name="form" />
+        <StubPreloaderForm
+          v-if="isLoading"
+          layout="page"
+        />
+        <slot v-else name="form" />
       </div>
     </div>
   </div>
@@ -19,11 +27,22 @@
 </template>
 
 <script>
+import StubPreloaderCart from '@/components/StubPreloaderCart.vue';
+import StubPreloaderForm from '@/components/StubPreloaderForm.vue';
+
 export default {
+  components: {
+    StubPreloaderCart,
+    StubPreloaderForm,
+  },
 
   props: {
     isCartOpened: {
       default: true,
+      type: Boolean,
+    },
+    isLoading: {
+      default: false,
       type: Boolean,
     },
   },

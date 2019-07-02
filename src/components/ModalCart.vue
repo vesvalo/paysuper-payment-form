@@ -1,9 +1,9 @@
 <script>
-import StubPreloaderCart from '@/components/StubPreloaderCart.vue';
+import StubPreloaderCartModal from '@/components/StubPreloaderCartModal.vue';
 
 export default {
   components: {
-    StubPreloaderCart,
+    StubPreloaderCartModal,
   },
   props: {
     projectName: {
@@ -66,15 +66,8 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <transition
-    :enter-class="$style.enter"
-    :enter-active-class="$style.enterActive"
-    :enter-to-class="$style.enterTo"
-    :leave-class="$style.leave"
-    :leave-active-class="$style.leaveActive"
-    :leave-to-class="$style.leaveTo"
-  >
-    <StubPreloaderCart
+  <UiTransitionFade>
+    <StubPreloaderCartModal
       v-if="isLoading"
       :class="$style.stub"
     />
@@ -125,7 +118,7 @@ export default {
         <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
       </div>
     </div>
-  </transition>
+  </UiTransitionFade>
 </div>
 </template>
 
@@ -207,18 +200,5 @@ export default {
       }
     }
   }
-}
-
-.enter,
-.leaveTo {
-  opacity: 0;
-}
-.enterTo,
-.leave {
-  opacity: 1;
-}
-.enterActive,
-.leaveActive {
-  transition: opacity 0.15s ease-in-out;
 }
 </style>

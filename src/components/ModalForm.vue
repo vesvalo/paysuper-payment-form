@@ -1,11 +1,11 @@
 <script>
 import LocaleChanger from '@/components/LocaleChanger.vue';
-import StubPreloaderForm from '@/components/StubPreloaderForm.vue';
+import StubPreloaderFormModal from '@/components/StubPreloaderFormModal.vue';
 
 export default {
   components: {
     LocaleChanger,
-    StubPreloaderForm,
+    StubPreloaderFormModal,
   },
   props: {
     isLoading: {
@@ -39,15 +39,8 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <transition
-    :enter-class="$style.enter"
-    :enter-active-class="$style.enterActive"
-    :enter-to-class="$style.enterTo"
-    :leave-class="$style.leave"
-    :leave-active-class="$style.leaveActive"
-    :leave-to-class="$style.leaveTo"
-  >
-    <StubPreloaderForm
+  <UiTransitionFade>
+    <StubPreloaderFormModal
       v-if="isLoading"
       :class="$style.stub"
     />
@@ -80,7 +73,7 @@ export default {
         />
       </div>
     </div>
-  </transition>
+  </UiTransitionFade>
 </div>
 </template>
 
@@ -173,18 +166,5 @@ export default {
   left: 0;
   width: 100%;
   height: calc(100% - 70px);
-}
-
-.enter,
-.leaveTo {
-  opacity: 0;
-}
-.enterTo,
-.leave {
-  opacity: 1;
-}
-.enterActive,
-.leaveActive {
-  transition: opacity 0.15s ease-in-out;
 }
 </style>

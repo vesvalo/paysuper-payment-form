@@ -1,16 +1,21 @@
 <script>
+import { includes } from 'lodash-es';
+
 export default {
   name: 'StubPreloaderCart',
 
+  props: {
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
+    },
+  },
+
   mounted() {
     this.$addCssRules({
-      [`
-        .${this.$style.cartStubHeader}:before,
-        .${this.$style.cartStubHeader}:after,
-        .${this.$style.cartStubFooter}:before
-      `]: {
-        'background-color': this.$gui.stubContentColorSecondary,
-      },
       [` 
         .${this.$style.cartStubImage},
         .${this.$style.cartStubItem}:before,
@@ -30,8 +35,7 @@ export default {
 </script>
 
 <template>
-<div :class="$style.stubPreloaderCart">
-  <div :class="$style.cartStubHeader"></div>
+<div :class="[$style.stubPreloaderCart, $style[`_layout-${layout}`]]">
   <div :class="$style.cartStubImages">
     <span
       :class="$style.cartStubImage"
@@ -46,41 +50,20 @@ export default {
       :key="n"
     ></span>
   </div>
-  <div :class="$style.cartStubFooter"></div>
 </div>
 </template>
 
 <style lang="scss" module>
 .stubPreloaderCart {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-}
 
-.cartStubHeader {
-  height: 55px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  &:before,
-  &:after {
-    height: 7px;
-    content: '';
-  }
-  &:before {
-    width: 100px;
-  }
-  &:after {
-    width: 60px;
+  &._layout-page {
+    margin: 80px 0;
+    padding: 0;
   }
 }
-
 .cartStubImages {
   display: flex;
 }
@@ -134,19 +117,6 @@ export default {
     &:before {
       width: 60px;
     }
-  }
-}
-
-.cartStubFooter {
-  display: flex;
-  align-items: flex-end;
-  flex-grow: 1;
-  padding-bottom: 22px;
-
-  &:before {
-    height: 7px;
-    width: 70px;
-    content: '';
   }
 }
 </style>

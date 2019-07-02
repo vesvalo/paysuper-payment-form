@@ -3,9 +3,17 @@
   <div :class="$style.left"></div>
   <div :class="$style.right">
     <div :class="$style.links">
-      <a href="#" :class="$style.link">{{$t('LayoutFooter.userAgreement')}}</a>
-      <a href="#" :class="$style.link">{{$t('LayoutFooter.refundPolicy')}}</a>
-      <a href="#" :class="$style.link">{{$t('LayoutFooter.support')}}</a>
+      <div
+        v-if="isLoading"
+        :class="$style.stub"
+      >
+        <span></span>
+      </div>
+      <template v-else>
+        <a href="#" :class="$style.link">{{$t('LayoutFooter.userAgreement')}}</a>
+        <a href="#" :class="$style.link">{{$t('LayoutFooter.refundPolicy')}}</a>
+        <a href="#" :class="$style.link">{{$t('LayoutFooter.support')}}</a>
+      </template>
     </div>
   </div>
 </div>
@@ -14,6 +22,14 @@
 <script>
 export default {
   name: 'LayoutFooter',
+
+  props: {
+    isLoading: {
+      default: false,
+      type: Boolean,
+    },
+  },
+
   mounted() {
     this.$addCssRules({
       [`.${this.$style.left}`]: {
@@ -24,6 +40,13 @@ export default {
       },
       [`.${this.$style.links}:before`]: {
         'background-color': this.$gui.cartBackgroundColor,
+      },
+      [`
+        .${this.$style.stub}:before,
+        .${this.$style.stub} span,
+        .${this.$style.stub}:after
+      `]: {
+        'background-color': this.$gui.stubContentColorSecondary,
       },
     });
   },
@@ -103,6 +126,20 @@ export default {
     @media screen and (min-width: 640px) {
       margin-right: 30px;
     }
+  }
+}
+
+.stub {
+  display: flex;
+  width: 100%;
+
+  &:before,
+  &:after,
+  span {
+    content: '';
+    width: 110px;
+    height: 7px;
+    margin-right: 25px;
   }
 }
 </style>

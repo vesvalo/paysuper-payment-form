@@ -28,6 +28,29 @@ storiesOf('Page', module)
       </div>
     `,
   }))
+  .add('loading', () => ({
+    components: { LayoutHeader, LayoutContent, LayoutFooter },
+    data() {
+      return {
+        isCartOpened: true,
+      };
+    },
+    template: `
+      <div>
+        <LayoutHeader
+          projectName="Test"
+          :isLoading="true"
+        />
+      
+        <LayoutContent :isLoading="true">
+          <div slot="cart" style="height: 200px">111</div>
+          <div slot="form" style="height: 200px">222</div>
+        </LayoutContent>
+      
+        <LayoutFooter :isLoading="true" />
+      </div>
+    `,
+  }))
   .add('cart open', () => ({
     components: { LayoutHeader, LayoutContent, LayoutFooter },
     data() {

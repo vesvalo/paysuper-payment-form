@@ -1,16 +1,21 @@
 <script>
+import { includes } from 'lodash-es';
+
 export default {
   name: 'StubPreloaderForm',
 
+  props: {
+    layout: {
+      type: String,
+      default: 'modal',
+      validator(value) {
+        return includes(['modal', 'page'], value);
+      },
+    },
+  },
+
   mounted() {
     this.$addCssRules({
-      [`
-        .${this.$style.formStubHeader}:before,
-        .${this.$style.formStubHeader} span,
-        .${this.$style.formStubHeader}:after
-      `]: {
-        'background-color': this.$gui.stubContentColorSecondary,
-      },
       [` 
         .${this.$style.formStubItem}:before,
         .${this.$style.formStubItem}:after,
@@ -27,10 +32,7 @@ export default {
 </script>
 
 <template>
-<div :class="$style.stubPreloaderForm">
-  <div :class="$style.formStubHeader">
-    <span></span>
-  </div>
+<div :class="[$style.stubPreloaderForm, $style[`_layout-${layout}`]]">
   <div :class="$style.formStubItems">
     <span
       :class="$style.formStubItem"
@@ -46,37 +48,12 @@ export default {
 
 <style lang="scss" module>
 .stubPreloaderForm {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
-}
+  flex-grow: 1;
 
-.formStubHeader {
-  height: 55px;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-
-  &:before,
-  &:after {
-    height: 7px;
-    content: '';
-  }
-  &:before {
-    width: 60px;
-  }
-  span {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin: 0 10px;
-  }
-  &:after {
-    width: 20px;
+  &._layout-page {
+    margin: 60px 0;
   }
 }
 
@@ -84,6 +61,10 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 0 40px;
+
+  .stubPreloaderForm._layout-page & {
+    padding: 0;
+  }
 }
 
 .formStubItem {
@@ -92,7 +73,7 @@ export default {
   margin-top: 50px;
 
   &:first-child {
-    margin-top: 20px;
+    margin-top: 24px;
   }
 
   &:before {
@@ -136,6 +117,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .stubPreloaderForm._layout-page & {
+      margin-top: 77px;
+      border-radius: 12px;
+    }
 
     &:before {
       width: 100px;

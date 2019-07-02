@@ -2,65 +2,81 @@
 <div :class="$style.header">
   <div :class="$style.left">
     <div :class="$style.inner">
-      <div :class="$style.project">{{projectName}}</div>
       <div
-        :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
-        @click="toggleCart"
+        v-if="isLoading"
+        :class="$style.leftStub"
       >
-        <IconArrow />
+        <span></span>
       </div>
-      <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
-        <div :class="$style.id">id897632299</div>
+      <template v-else>
+        <div :class="$style.project">{{projectName}}</div>
         <div
-          :class="$style.terms"
-          @mouseenter="isTermsShown = true"
-          @mouseleave="isTermsShown = false"
+          :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
+          @click="toggleCart"
         >
-          {{$t('LayoutHeader.termsOfUse')}}
-          <UiTip
-            width="180px"
-            innerPosition="right"
-            position="bottom"
-            :visible="isTermsShown"
-          >
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
-            <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
-          </UiTip>
+          <IconArrow />
         </div>
-      </div>
+        <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
+          <div :class="$style.id">id897632299</div>
+          <div
+            :class="$style.terms"
+            @mouseenter="isTermsShown = true"
+            @mouseleave="isTermsShown = false"
+          >
+            {{$t('LayoutHeader.termsOfUse')}}
+            <UiTip
+              width="180px"
+              innerPosition="right"
+              position="bottom"
+              :visible="isTermsShown"
+            >
+              <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
+              <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+              <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
+            </UiTip>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 
   <div :class="$style.right">
     <div :class="$style.inner">
-      <div :class="$style.title">Pay Super</div>
-      <div :class="$style.icons">
-        <IconSupport :class="$style.support" />
-        <div :class="$style.localeBox">
-          <span
-            :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
-            @mouseenter="hasLocaleChangerOpened = true"
-            @mouseleave="hasLocaleChangerOpened = false"
-          >
-            {{ $i18n.getLocaleLabel() }}
-          </span>
-          <UiTip
-            innerPosition="right"
-            position="bottom"
-            section="form"
-            maxHeight="390px"
-            :class="$style.localeTip"
-            :visible="hasLocaleChangerOpened"
-          >
-            <LocaleCnanger
-              layout="page"
-              :class="$style.localeChanger"
-              @changeLocale="hasLocaleChangerOpened = false"
-            />
-          </UiTip>
-        </div>
+      <div
+        v-if="isLoading"
+        :class="$style.rightStub"
+      >
+        <span></span>
       </div>
+      <template v-else>
+        <div :class="$style.title">Pay Super</div>
+        <div :class="$style.icons">
+          <IconSupport :class="$style.support" />
+          <div :class="$style.localeBox">
+            <span
+              :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
+              @mouseenter="hasLocaleChangerOpened = true"
+              @mouseleave="hasLocaleChangerOpened = false"
+            >
+              {{ $i18n.getLocaleLabel() }}
+            </span>
+            <UiTip
+              innerPosition="right"
+              position="bottom"
+              section="form"
+              maxHeight="390px"
+              :class="$style.localeTip"
+              :visible="hasLocaleChangerOpened"
+            >
+              <LocaleCnanger
+                layout="page"
+                :class="$style.localeChanger"
+                @changeLocale="hasLocaleChangerOpened = false"
+              />
+            </UiTip>
+          </div>
+        </div>
+      </template>
     </div>
   </div>
 </div>
@@ -80,6 +96,10 @@ export default {
       required: true,
       type: String,
     },
+    isLoading: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -94,6 +114,16 @@ export default {
       },
       [`.${this.$style.left}:after`]: {
         'background-color': this.$gui.formBackgroundColor,
+      },
+      [`
+        .${this.$style.leftStub}:before,
+        .${this.$style.leftStub} span:before,
+        .${this.$style.leftStub} span:after,
+        .${this.$style.rightStub}:before,
+        .${this.$style.rightStub} span:before,
+        .${this.$style.rightStub} span:after
+      `]: {
+        'background-color': this.$gui.stubContentColorPrimary,
       },
       [`.${this.$style.right}`]: {
         'background-color': this.$gui.formBackgroundColor,
@@ -206,6 +236,7 @@ export default {
     }
   }
 }
+
 .right {
   display: flex;
   flex-basis: 320px;
@@ -257,6 +288,7 @@ export default {
     }
   }
 }
+
 .inner {
   display: flex;
   width: 100%;
@@ -269,6 +301,72 @@ export default {
     align-items: flex-start;
   }
 }
+
+.leftStub {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  padding-top: 10px;
+
+  &:before {
+    content: '';
+    width: 100px;
+    height: 20px;
+  }
+
+  span {
+    display: flex;
+
+    &:before,
+    &:after {
+      content: '';
+      width: 50px;
+      height: 10px;
+    }
+
+    &:after {
+      width: 60px;
+      margin-left: 15px;
+    }
+  }
+}
+
+.rightStub {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  height: 40px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+
+  &:before {
+    content: '';
+    width: 160px;
+    height: 30px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+
+    &:before {
+      content: '';
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    &:after {
+      content: '';
+      width: 50px;
+      height: 10px;
+    }
+  }
+}
+
 .project {
   line-height: 24px;
   height: 24px;
