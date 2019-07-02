@@ -1,40 +1,17 @@
-<template>
-<div :class="$style.layout">
-  <div :class="$style.box">
-    <div :class="$style.header">
-      <div :class="$style.links">
-        <span :class="$style.link">Pay Super</span>
-        <span :class="$style.link">
-          <IconSupport :class="$style.iconSupport" />
-        </span>
-        <span
-          :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
-          :title="$i18n.getLocaleLabel()"
-          @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
-        >
-          {{ $i18n.getLocaleLabel() }}
-        </span>
-      </div>
-    </div>
-
-    <div :class="$style.content">
-      <slot />
-      <LocaleCnanger
-        v-if="hasLocaleChangerOpened"
-        :class="$style.localeChanger"
-        @changeLocale="hasLocaleChangerOpened = false"
-      />
-    </div>
-  </div>
-</div>
-</template>
-
 <script>
-import LocaleCnanger from '@/components/LocaleChanger.vue';
+import LocaleChanger from '@/components/LocaleChanger.vue';
+import StubPreloaderForm from '@/components/StubPreloaderForm.vue';
 
 export default {
   components: {
-    LocaleCnanger,
+    LocaleChanger,
+    StubPreloaderForm,
+  },
+  props: {
+    isLoading: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -60,12 +37,65 @@ export default {
 };
 </script>
 
+<template>
+<div :class="$style.layout">
+  <transition
+    :enter-class="$style.enter"
+    :enter-active-class="$style.enterActive"
+    :enter-to-class="$style.enterTo"
+    :leave-class="$style.leave"
+    :leave-active-class="$style.leaveActive"
+    :leave-to-class="$style.leaveTo"
+  >
+    <StubPreloaderForm
+      v-if="isLoading"
+      :class="$style.stub"
+    />
+    <div
+      v-else
+      :class="$style.box"
+    >
+      <div :class="$style.header">
+        <div :class="$style.links">
+          <span :class="$style.link">Pay Super</span>
+          <span :class="$style.link">
+            <IconSupport :class="$style.iconSupport" />
+          </span>
+          <span
+            :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
+            :title="$i18n.getLocaleLabel()"
+            @click="hasLocaleChangerOpened = !hasLocaleChangerOpened"
+          >
+            {{ $i18n.getLocaleLabel() }}
+          </span>
+        </div>
+      </div>
+
+      <div :class="$style.content">
+        <slot />
+        <LocaleChanger
+          v-if="hasLocaleChangerOpened"
+          :class="$style.localeChanger"
+          @changeLocale="hasLocaleChangerOpened = false"
+        />
+      </div>
+    </div>
+  </transition>
+</div>
+</template>
+
 <style module lang="scss">
 .layout {
-  display: flex;
   width: 320px;
+  min-height: 100%;
+  display: flex;
   flex-direction: column;
   position: relative;
+}
+.wrapper {
+  min-height: 100%;
+  position: relative;
+  display: flex;
 }
 .box {
   display: flex;
@@ -143,5 +173,18 @@ export default {
   left: 0;
   width: 100%;
   height: calc(100% - 70px);
+}
+
+.enter,
+.leaveTo {
+  opacity: 0;
+}
+.enterTo,
+.leave {
+  opacity: 1;
+}
+.enterActive,
+.leaveActive {
+  transition: opacity 0.15s ease-in-out;
 }
 </style>

@@ -26,6 +26,10 @@ const scheme = {
       wait: 300,
     },
     {
+      story: 'loading',
+      wait: 300,
+    },
+    {
       story: 'order error',
       wait: 300,
     },
