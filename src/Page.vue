@@ -27,6 +27,10 @@ export default {
     ...mapState('PaymentForm', [
       'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
     ]),
+
+    isLoading() {
+      return this.paymentStatus === 'INITIAL';
+    },
   },
   beforeMount() {
     postMessage('LOADED');
@@ -46,38 +50,31 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <transition
-    v-if="paymentStatus === 'NEW'"
-    appear
-    :enter-class="$style.enter"
-    :enter-active-class="$style.enterActive"
-    :enter-to-class="$style.enterTo"
-    :leave-class="$style.leave"
-    :leave-active-class="$style.leaveActive"
-    :leave-to-class="$style.leaveTo"
+  <LayoutHeader
+    :isCartOpened="isCartOpened"
+    :projectName="orderData ? orderData.project.name : ''"
+    :isLoading="isLoading"
+    @toggleCart="isCartOpened = !isCartOpened"
+  />
+
+  <LayoutContent
+    :isCartOpened="isCartOpened"
+    :isLoading="isLoading"
   >
-    <div :class="$style.transitionContainer">
-      <LayoutHeader
-        :isCartOpened="isCartOpened"
-        :projectName="orderData.project.name"
-        @toggleCart="isCartOpened = !isCartOpened"
-      />
+    <CartSection
+      slot="cart"
+      layout="page"
+      :isCartOpened="isCartOpened"
+    />
+    <FormSection
+      slot="form"
+      layout="page"
+    />
+  </LayoutContent>
 
-      <LayoutContent :isCartOpened="isCartOpened">
-        <CartSection
-          slot="cart"
-          layout="page"
-          :isCartOpened="isCartOpened"
-        />
-        <FormSection
-          slot="form"
-          layout="page"
-        />
-      </LayoutContent>
-
-      <LayoutFooter />
-    </div>
-  </transition>
+  <LayoutFooter
+    :isLoading="isLoading"
+  />
 
   <ActionProcessing
     v-if="isPaymentLoading || isFormLoading"
@@ -97,8 +94,7 @@ export default {
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
 
-.layout,
-.transitionContainer {
+.layout {
   display: flex;
   min-height: 100vh;
   width: 100%;

@@ -60,14 +60,6 @@ const scheme = {
       },
     },
     {
-      story: 'default',
-      testName: 'mobile 2',
-      viewport: {
-        width: 300,
-        height: 900,
-      },
-    },
-    {
       story: 'cart open',
       testName: 'mobile 3',
       viewport: {
@@ -75,11 +67,28 @@ const scheme = {
         height: 900,
       },
     },
+
     {
-      story: 'cart open',
-      testName: 'mobile 4',
+      story: 'loading',
+      testName: 'loading wide 1',
       viewport: {
-        width: 300,
+        width: 1150,
+        height: 700,
+      },
+    },
+    {
+      story: 'loading',
+      testName: 'loading wide 2',
+      viewport: {
+        width: 875,
+        height: 700,
+      },
+    },
+    {
+      story: 'loading',
+      testName: 'loading mobile 1',
+      viewport: {
+        width: 500,
         height: 900,
       },
     },
