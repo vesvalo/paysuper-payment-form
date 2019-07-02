@@ -1,25 +1,23 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ActionProcessing from '@/components/ActionProcessing.vue';
-import CartSection from '@/components/CartSection.vue';
-import FormSection from '@/components/FormSection.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
+import CartSection from '@/components/CartSection.vue';
+import FormSection from '@/components/FormSection.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
-import ModalStubPreloader from '@/components/ModalStubPreloader.vue';
 import { postMessage } from './postMessage';
 
 export default {
   components: {
-    CartSection,
-    FormSection,
     Modal,
     ModalCart,
     ModalForm,
+    CartSection,
+    FormSection,
     ActionProcessing,
     OrderCreationError,
-    ModalStubPreloader,
   },
 
   data() {
@@ -32,6 +30,10 @@ export default {
     ...mapState('PaymentForm', [
       'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
     ]),
+
+    isLoading() {
+      return this.paymentStatus === 'INITIAL';
+    },
   },
 
   beforeMount() {
@@ -61,20 +63,17 @@ export default {
     :opened="opened"
     @close="closeModal"
   >
-    <ModalStubPreloader
-      v-if="paymentStatus === 'INITIAL'"
-    />
-    <template
-      v-if="paymentStatus === 'NEW'"
+    <ModalCart
+      :isLoading="isLoading"
+      :projectName="orderData ? orderData.project.name : ''"
     >
-      <ModalCart :projectName="orderData.project.name">
-        <CartSection />
-      </ModalCart>
-
-      <ModalForm>
-        <FormSection @close="closeModal" />
-      </ModalForm>
-    </template>
+      <CartSection />
+    </ModalCart>
+    <ModalForm
+      :isLoading="isLoading"
+    >
+      <FormSection @close="closeModal" />
+    </ModalForm>
 
     <ActionProcessing
       v-if="isPaymentLoading || isFormLoading"
@@ -89,7 +88,6 @@ export default {
   </Modal>
 </div>
 </template>
-
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';

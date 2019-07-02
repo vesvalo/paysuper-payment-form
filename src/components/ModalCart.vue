@@ -1,56 +1,18 @@
-<template>
-<div :class="$style.layout">
-  <div :class="$style.header">
-    <a :class="$style.link">{{ projectName }}</a>
-    <span
-      :class="$style.link"
-      @mouseenter="isProfileShown = true"
-      @mouseleave="isProfileShown = false"
-    >
-      {{ $t('ModalCart.profile') }}
-      <UiTip
-        innerPosition="right"
-        position="bottom"
-        width="200px"
-        :visible="isProfileShown"
-      >
-        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.purchaseInformation') }}</a>
-        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.paymentManagement') }}</a>
-      </UiTip>
-    </span>
-  </div>
-
-  <div :class="$style.content">
-    <slot/>
-  </div>
-
-  <div :class="$style.footer">
-    <span
-      :class="$style.link"
-      @mouseenter="isTermsShown = true"
-      @mouseleave="isTermsShown = false"
-    >
-      {{ $t('ModalCart.termsOfUse') }}
-      <UiTip
-        width="240px"
-        :visible="isTermsShown"
-      >
-        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
-        <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
-        <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
-      </UiTip>
-    </span>
-    <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
-  </div>
-</div>
-</template>
-
 <script>
+import StubPreloaderCart from '@/components/StubPreloaderCart.vue';
+
 export default {
+  components: {
+    StubPreloaderCart,
+  },
   props: {
     projectName: {
       required: true,
       type: String,
+    },
+    isLoading: {
+      default: false,
+      type: Boolean,
     },
   },
   data() {
@@ -102,13 +64,85 @@ export default {
 };
 </script>
 
+<template>
+<div :class="$style.layout">
+  <transition
+    :enter-class="$style.enter"
+    :enter-active-class="$style.enterActive"
+    :enter-to-class="$style.enterTo"
+    :leave-class="$style.leave"
+    :leave-active-class="$style.leaveActive"
+    :leave-to-class="$style.leaveTo"
+  >
+    <StubPreloaderCart
+      v-if="isLoading"
+      :class="$style.stub"
+    />
+    <div
+      v-else
+      :class="$style.wrapper"
+    >
+      <div :class="$style.header">
+        <a :class="$style.link">{{ projectName }}</a>
+        <span
+          :class="$style.link"
+          @mouseenter="isProfileShown = true"
+          @mouseleave="isProfileShown = false"
+        >
+          {{ $t('ModalCart.profile') }}
+          <UiTip
+            innerPosition="right"
+            position="bottom"
+            width="200px"
+            :visible="isProfileShown"
+          >
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.purchaseInformation') }}</a>
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.paymentManagement') }}</a>
+          </UiTip>
+        </span>
+      </div>
+
+      <div :class="$style.content">
+        <slot />
+      </div>
+
+      <div :class="$style.footer">
+        <span
+          :class="$style.link"
+          @mouseenter="isTermsShown = true"
+          @mouseleave="isTermsShown = false"
+        >
+          {{ $t('ModalCart.termsOfUse') }}
+          <UiTip
+            width="240px"
+            :visible="isTermsShown"
+          >
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
+            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+            <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
+          </UiTip>
+        </span>
+        <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
+      </div>
+    </div>
+  </transition>
+</div>
+</template>
+
 <style module lang="scss">
 .layout {
   width: 320px;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.wrapper {
+  min-height: 100%;
   position: relative;
   display: flex;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -173,5 +207,18 @@ export default {
       }
     }
   }
+}
+
+.enter,
+.leaveTo {
+  opacity: 0;
+}
+.enterTo,
+.leave {
+  opacity: 1;
+}
+.enterActive,
+.leaveActive {
+  transition: opacity 0.15s ease-in-out;
 }
 </style>

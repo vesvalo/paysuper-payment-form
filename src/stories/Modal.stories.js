@@ -21,6 +21,20 @@ storiesOf('Modal', module)
       </Modal>
     `,
   }))
+  .add('loading', () => ({
+    components: { Modal, ModalCart, ModalForm },
+    template: `
+      <Modal :opened="true">
+        <ModalCart :isLoading="true" projectName="Test">
+          111<br />111<br />111<br />111<br />111<br />111
+        </ModalCart>
+    
+        <ModalForm :isLoading="true">
+          222
+        </ModalForm>
+      </Modal>
+    `,
+  }))
   .add('order error', () => ({
     components: { Modal, OrderCreationError },
     template: `
