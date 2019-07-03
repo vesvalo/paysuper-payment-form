@@ -223,7 +223,6 @@ export default {
     },
 
     async checkBankCardNumber(value) {
-      console.log(11111, includes(value, this.checkedBankCardNumberPart));
       if (
         value.length >= 6
         && !this.isBankCardNumberChecking
