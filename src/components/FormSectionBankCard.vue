@@ -82,19 +82,25 @@
       :options="countries"
       :placeholderLabel="$t('FormSectionBankCard.country')"
       :hasReversible="true"
+      :hasError="$isFieldInvalid('innerValue.country')"
+      :errorText="'ЕБАТЬ!'"
     />
-    <template v-if="innerValue.country === 'US'">
+    <template v-if="isCityAndZipRequired">
       <UiTextField
         v-model="innerValue.city"
         name="city"
         :class="$style.formItem"
         :label="$t('FormSectionBankCard.city')"
+        :hasError="$isFieldInvalid('innerValue.city')"
+        :errorText="$t('FormSectionBankCard.cityInvalid')"
       />
       <UiTextField
         v-model="innerValue.zip"
         name="zip"
         :class="$style.formItem"
         :label="$t('FormSectionBankCard.zip')"
+        :hasError="$isFieldInvalid('innerValue.zip')"
+        :errorText="$t('FormSectionBankCard.zipInvalid')"
       />
     </template>
   </template>
@@ -183,6 +189,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    isZipInvalid: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   model: {
@@ -199,6 +209,15 @@ export default {
     };
   },
 
+  computed: {
+    hasCardsInStorage() {
+      return this.cards.length;
+    },
+    isCityAndZipRequired() {
+      return this.innerValue.country === 'US';
+    },
+  },
+
   watch: {
     value: {
       handler(value) {
@@ -209,34 +228,50 @@ export default {
   },
 
   validations() {
-    return {
-      innerValue: {
-        cardNumber: {
-          required,
-          wrongFormatType(value) {
-            return this.cardNumberValidator.test(value);
-          },
-        },
-        expiryDate: { required, isValidExpiryDate },
-        cvv: {
-          required,
-          minLength: minLength(3),
-        },
-        cardHolder: {
-          required,
-        },
-        email: {
-          required,
-          email,
+    let innerValue = {
+      cardNumber: {
+        required,
+        wrongFormatType(value) {
+          return this.cardNumberValidator.test(value);
         },
       },
+      expiryDate: { required, isValidExpiryDate },
+      cvv: {
+        required,
+        minLength: minLength(3),
+      },
+      cardHolder: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
     };
-  },
 
-  computed: {
-    hasCardsInStorage() {
-      return this.cards.length;
-    },
+    if (this.isGeoFieldsExposed) {
+      innerValue = {
+        ...innerValue,
+        country: {
+          required,
+        },
+      };
+      if (this.isCityAndZipRequired) {
+        innerValue = {
+          ...innerValue,
+          city: {
+            required,
+          },
+          zip: {
+            required,
+            valid: () => !this.isZipInvalid,
+          },
+        };
+      }
+    }
+    return {
+      innerValue,
+    };
   },
 
   created() {

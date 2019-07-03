@@ -95,7 +95,9 @@
     "rememberInfo": "Security of billing data storage is provided in accordance with the requirements of the PCI DSS standard, using 3D Secure and SSL protocols",
     "country": "Country",
     "city": "City",
-    "zip": "ZIP code"
+    "cityInvalid": "Неверный город",
+    "zip": "ZIP code",
+    "zipInvalid": "Неверный почтовый индекс"
   },
   "LayoutFooter": {
     "userAgreement": "User Agreement",

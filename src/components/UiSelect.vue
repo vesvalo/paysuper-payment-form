@@ -22,6 +22,13 @@
       <IconArrow />
     </div>
   </div>
+  <span
+    v-if="isVisibleError"
+    :class="$style.error"
+    :title="errorText"
+  >
+    {{ errorText }}
+  </span>
   <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
     <UiScrollbarBox
       :class="$style.scrollbar"
@@ -129,6 +136,14 @@ export default {
       default: false,
       type: Boolean,
     },
+    errorText: {
+      default: '',
+      type: String,
+    },
+    hasError: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -146,6 +161,7 @@ export default {
         this.$style.container,
         this.focused ? this.$style._focused : '',
         this.disabled ? this.$style._disabled : '',
+        this.isVisibleError ? this.$style._error : '',
       ];
     },
     selectedItem() {
@@ -159,6 +175,13 @@ export default {
     },
     label() {
       return `${this.prependLabel} ${this.selectedLabel} ${this.appendLabel}`.trim();
+    },
+    /**
+     * Error is visible if it exists and error text isn't empty
+     * @return {boolean}
+     */
+    isVisibleError() {
+      return !!(this.hasError && this.errorText);
     },
   },
   mounted() {
@@ -230,7 +253,14 @@ export default {
 </script>
 
 <style module lang="scss">
+$error-box-color: #fc7e57;
+$error-font-color: #fff;
+$error-font-size: 10px;
+$error-font-weight: 600;
+$error-height: 17px;
 $primary-input-size: 15px;
+$main-height: 24px;
+$main-additional-height: 18px;
 
 .container {
   box-sizing: border-box;
@@ -252,14 +282,38 @@ $primary-input-size: 15px;
 }
 .selected {
   display: flex;
-  height: 24px;
-  line-height: 24px;
+  height: $main-height;
+  line-height: $main-height;
   width: 100%;
   border: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease-out;
   cursor: pointer;
   font-family: inherit;
+
+  .container._error & {
+    border-color: $error-box-color;
+  }
+}
+
+.error {
+  background-color: $error-box-color;
+  top: $main-height + $main-additional-height + 2px;
+  color: $error-font-color;
+  display: block;
+  font-size: $error-font-size;
+  font-weight: $error-font-weight;
+  line-height: $error-height;
+  position: absolute;
+  padding: 0 5px;
+
+  @include if-ltr {
+    border-radius: 0 3px 3px 3px;
+  }
+
+  @include if-rtl {
+    border-radius: 3px 0 3px 3px;
+  }
 }
 .icon {
   display: flex;
