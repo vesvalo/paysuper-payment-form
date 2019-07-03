@@ -70,9 +70,14 @@ function $isFieldInvalid(fieldPath) {
   return Boolean(field.$invalid && field.$dirty);
 }
 
+function $getPrice(value, currency) {
+  return new Intl.NumberFormat(this.$i18n.locale, { style: 'currency', currency }).format(value);
+}
+
 extend(Vue.prototype, {
   $addCssRules,
   $changeLocale,
   $getFieldErrorMessages,
   $isFieldInvalid,
+  $getPrice,
 });

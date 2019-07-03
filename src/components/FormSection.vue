@@ -2,9 +2,9 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
-import FormSectionBankCard from './FormSectionBankCard.vue';
 import ActionResult from '@/components/ActionResult.vue';
 import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
+import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -334,7 +334,7 @@ export default {
           {{ $t('FormSection.payButtonPrefix') }}
         </span>
         <span>
-          {{ orderData.total_amount.toFixed(2) }} {{ orderData.currency }}
+          {{ $getPrice(orderData.total_amount, orderData.currency) }}
         </span>
       </template>
       <template v-if="actionResult">
