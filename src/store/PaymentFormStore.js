@@ -72,14 +72,7 @@ function setPaymentStatus(commit, name, extraData) {
 
 function setGeoParams(commit, data) {
   if (data.user_ip_data) {
-    commit('userCountry', data.user_ip_data.country);
-
-    if (data.user_ip_data.city) {
-      commit('userCity', data.user_ip_data.city);
-    }
-    if (data.user_ip_data.zip) {
-      commit('userZip', data.user_ip_data.zip);
-    }
+    commit('userIpGeoData', data.user_ip_data);
   }
 
   if (data.country_payments_allowed === false) {
@@ -100,7 +93,6 @@ export default {
   namespaced: true,
 
   state: {
-    orderId: '',
     orderParams: null,
     orderData: null,
     activePaymentMethodId: '',
@@ -114,9 +106,8 @@ export default {
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
     isGeoFieldsExposed: false,
-    userCountry: 'RU',
-    userCity: '',
-    userZip: '',
+    userIpGeoData: null,
+    isZipInvalid: false,
   },
 
   getters: {
@@ -131,9 +122,6 @@ export default {
   mutations: {
     cards(state, value) {
       state.cards = value;
-    },
-    orderId(state, value) {
-      state.orderId = value;
     },
     orderParams(state, value) {
       state.orderParams = value;
@@ -175,14 +163,11 @@ export default {
     isGeoFieldsExposed(state, value) {
       state.isGeoFieldsExposed = value;
     },
-    userCountry(state, value) {
-      state.userCountry = value;
+    userIpGeoData(state, value) {
+      state.userIpGeoData = value;
     },
-    userCity(state, value) {
-      state.userCity = value;
-    },
-    userZip(state, value) {
-      state.userZip = value;
+    isZipInvalid(state, value) {
+      state.isZipInvalid = value;
     },
   },
 
@@ -222,7 +207,6 @@ export default {
         );
         const orderData = data.payment_form_data;
 
-        commit('orderId', orderData.id);
         commit('orderData', orderData);
 
         const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
@@ -264,7 +248,7 @@ export default {
       const paymentConnection = new PaymentConnection(
         {
           window,
-          orderId: state.orderId,
+          orderId: state.orderData.id,
           token: state.orderData.token,
           options: state.options,
         },
@@ -274,7 +258,7 @@ export default {
           console.log(11111, 'newPaymentStatus', data);
           if (
             // Just in case. Its probably unnecessary
-            data.order_id !== state.orderId
+            data.order_id !== state.orderData.id
             || !includes(availableChannelStatuses, data.status)
           ) {
             return;
@@ -295,7 +279,7 @@ export default {
         month: expiryDate.slice(0, 2),
         year: expiryDate.slice(2, 4),
         card_holder: cardHolder,
-        order_id: state.orderId,
+        order_id: state.orderData.id,
         pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
         store_data: hasRemembered,
@@ -310,9 +294,6 @@ export default {
             }
             : {}
         ),
-        country: 'RU',
-        city: 'Краснодар',
-        zip: '350028',
       };
 
       let redirectUrl = '';
@@ -359,7 +340,7 @@ export default {
       };
 
       const response = await axios.patch(
-        `${rootState.apiUrl}/api/v1/orders/${state.orderId}/customer`,
+        `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
         request,
       );
       setGeoParams(commit, response.data);
@@ -375,7 +356,7 @@ export default {
 
       try {
         const response = await axios.patch(
-          `${rootState.apiUrl}/api/v1/orders/${state.orderId}/language`,
+          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/language`,
           request,
         );
         setGeoParams(commit, response.data);
@@ -384,8 +365,7 @@ export default {
       }
     },
 
-    updateUserCountry({ commit }, userCountry) {
-      commit('userCountry', userCountry);
+    submitUserCountry({ commit }) {
       commit('isUserCountryConfirmRequested', false);
     },
 
@@ -397,19 +377,35 @@ export default {
       commit('isFormLoading', value);
     },
 
-    async updateBillingData({ state, rootState }) {
+    async updateBillingData({ state, commit, rootState }, { country, city, zip }) {
+      if (country === 'US' && (!city || !zip)) {
+        return;
+      }
       const request = {
-        country: state.userCountry,
+        country,
+        ...(city ? { city } : {}),
+        ...(zip ? { zip } : {}),
       };
 
       try {
         const response = await axios.post(
-          `${rootState.apiUrl}/api/v1/orders/${state.orderId}/billing_address`,
+          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/billing_address`,
           request,
         );
-        console.log(11111, 'updateBillingData response', response);
+
+        commit('orderData', {
+          ...state.orderData,
+          ...response.data,
+        });
+
+        commit('isZipInvalid', false);
       } catch (error) {
-        console.error(error);
+        // zip invalid
+        if (error.response && error.response.data.code === 'ma000002') {
+          commit('isZipInvalid', true);
+        } else {
+          console.error(error);
+        }
       }
     },
   },

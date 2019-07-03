@@ -79,7 +79,6 @@ export default {
         },
       },
 
-      newUserCountry: '',
       isBankCardNumberChecking: false,
       checkedBankCardNumberPart: '',
     };
@@ -93,8 +92,9 @@ export default {
       'actionResult',
       'isUserCountryConfirmRequested',
       'isUserCountryRestricted',
-      'userCountry',
+      'userIpGeoData',
       'isGeoFieldsExposed',
+      'isZipInvalid',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
     ...mapGetters('Dictionaries', ['countries']),
@@ -154,7 +154,9 @@ export default {
 
   created() {
     this.paymentData.email = this.orderData.email;
-    this.paymentData.country = this.userCountry;
+    if (this.userIpGeoData) {
+      this.paymentData.country = this.userIpGeoData.country;
+    }
   },
 
   methods: {
@@ -165,7 +167,7 @@ export default {
       'usePaymentApi',
       'removeCard',
       'checkPaymentAccount',
-      'updateUserCountry',
+      'submitUserCountry',
       'updateBillingData',
       'setPaymentLoading',
       'setFormLoading',
@@ -173,7 +175,7 @@ export default {
 
     handleMainButtonClick() {
       if (this.isUserCountryConfirmRequested) {
-        this.updateUserCountry(this.newUserCountry);
+        this.submitUserCountry();
       } else if (this.isUserCountryRestricted) {
         this.$emit('close');
       } else if (this.actionResult) {
@@ -210,16 +212,24 @@ export default {
     },
 
     setNewUserCountry(value) {
-      this.newUserCountry = value;
       this.paymentData.country = value;
+      this.paymentData.city = '';
+      this.paymentData.zip = '';
+      this.requestBillingDataUpdate();
+    },
+
+    requestBillingDataUpdate() {
+      this.updateBillingData(this.paymentData);
     },
 
     async checkBankCardNumber(value) {
+      console.log(11111, includes(value, this.checkedBankCardNumberPart));
       if (
         value.length >= 6
+        && !this.isBankCardNumberChecking
         && (
           !this.checkedBankCardNumberPart
-          || value.indexOf(this.checkedBankCardNumberPart) === -1
+          || !includes(value, this.checkedBankCardNumberPart)
         )
       ) {
         this.isBankCardNumberChecking = true;
@@ -265,7 +275,11 @@ export default {
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
           :isGeoFieldsExposed="isGeoFieldsExposed"
+          :isZipInvalid="isZipInvalid"
           @cardNumberChange="checkBankCardNumber"
+          @countryChange="setNewUserCountry"
+          @cityChange="requestBillingDataUpdate"
+          @zipChange="requestBillingDataUpdate"
           @removeCard="removeCard"
         />
         <template v-else>
