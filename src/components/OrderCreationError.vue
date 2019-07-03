@@ -34,15 +34,7 @@ export default {
 </script>
 
 <template>
-<transition
-  appear
-  :enter-class="$style.enter"
-  :enter-active-class="$style.enterActive"
-  :enter-to-class="$style.enterTo"
-  :leave-class="$style.leave"
-  :leave-active-class="$style.leaveActive"
-  :leave-to-class="$style.leaveTo"
->
+<UiTransitionFade>
   <div :class="$style.orderCreationError">
     <div :class="$style.content">
       <div :class="$style.icon">
@@ -69,7 +61,7 @@ export default {
        >{{$t('OrderCreationError.tryAgain')}}</UiButton>
     </div>
   </div>
-</transition>
+</UiTransitionFade>
 </template>
 
 <style lang="scss" module>
@@ -122,18 +114,5 @@ export default {
 
 .button {
   width: 100%;
-}
-
-.enter,
-.leaveTo {
-  opacity: 0;
-}
-.enterTo,
-.leave {
-  opacity: 1;
-}
-.enterActive,
-.leaveActive {
-  transition: opacity 0.15s ease-in-out;
 }
 </style>
