@@ -28,6 +28,42 @@ addDecorator(() => ({
   created() {
     this.$changeLocale('en-US');
   },
+
+  mounted() {
+    function textNodesUnder(node) {
+      let all = [];
+      // eslint-disable-next-line
+      for (node = node.firstChild; node; node = node.nextSibling) {
+        if (node.nodeType === 3) all.push(node);
+        else all = all.concat(textNodesUnder(node));
+      }
+      return all;
+    }
+    textNodesUnder(this.$el).forEach((item) => {
+      if (item.data.match(/^[\n ]$/)) {
+        return;
+      }
+      const sp1 = document.createElement('span');
+      sp1.innerHTML = item.data.replace(/./g, '<span class="wawa">&nbsp;</span>');
+
+      // заменяем существующий элемент sp2 на созданный нами sp1
+      item.parentNode.replaceChild(sp1, item);
+    });
+
+    const styleElement = document.createElement('style');
+    styleElement.type = 'text/css';
+    styleElement.innerHTML = `
+      .wawa {
+        display: inline !important;
+        border: 0;
+        border-left-width: 1px;
+        border-style: solid;
+      }
+    `;
+    styleElement.appendChild(document.createTextNode(''));
+
+    document.head.appendChild(styleElement);
+  },
 }));
 
 configure(loadStories, module);
