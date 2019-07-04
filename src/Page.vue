@@ -50,31 +50,33 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <LayoutHeader
-    :isCartOpened="isCartOpened"
-    :projectName="orderData ? orderData.project.name : ''"
-    :isLoading="isLoading"
-    @toggleCart="isCartOpened = !isCartOpened"
-  />
-
-  <LayoutContent
-    :isCartOpened="isCartOpened"
-    :isLoading="isLoading"
-  >
-    <CartSection
-      slot="cart"
-      layout="page"
+  <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
+    <LayoutHeader
       :isCartOpened="isCartOpened"
+      :projectName="orderData ? orderData.project.name : ''"
+      :isLoading="isLoading"
+      @toggleCart="isCartOpened = !isCartOpened"
     />
-    <FormSection
-      slot="form"
-      layout="page"
-    />
-  </LayoutContent>
 
-  <LayoutFooter
-    :isLoading="isLoading"
-  />
+    <LayoutContent
+      :isCartOpened="isCartOpened"
+      :isLoading="isLoading"
+    >
+      <CartSection
+        slot="cart"
+        layout="page"
+        :isCartOpened="isCartOpened"
+      />
+      <FormSection
+        slot="form"
+        layout="page"
+      />
+    </LayoutContent>
+
+    <LayoutFooter
+      :isLoading="isLoading"
+    />
+  </template>
 
   <ActionProcessing
     v-if="isPaymentLoading || isFormLoading"

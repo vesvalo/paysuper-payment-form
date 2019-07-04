@@ -9,11 +9,16 @@
     @focus="$emit('focus')"
     @input="cardChange"
   />
-  <IconMastercard :class="$style.mastercard" />
+  <IconMastercard
+    v-if="cartType === 'mastercard'"
+    :class="$style.systemIcon"
+  />
 </div>
 </template>
 
 <script>
+import getCardSystemType from '@/helpers/getCardSystemType';
+
 export default {
   model: {
     prop: 'value',
@@ -46,6 +51,11 @@ export default {
       innerValue: this.value,
     };
   },
+  computed: {
+    cartType() {
+      return getCardSystemType(this.innerValue);
+    },
+  },
   methods: {
     cardChange(value) {
       this.$emit('input', value);
@@ -64,7 +74,7 @@ export default {
   position: relative;
   width: 100%;
 }
-.mastercard {
+.systemIcon {
   position: absolute;
   top: 21px;
 

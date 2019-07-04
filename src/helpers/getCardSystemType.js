@@ -1,7 +1,12 @@
+import creditCardType from 'credit-card-type';
+
 export default function getCardSystemType(cardNumber) {
-  switch (cardNumber[0]) {
-    // Need to add other types and corresponding icons
-    case '4': return 'mastercard';
-    default: return 'mastercard';
+  if (!cardNumber) {
+    return '';
   }
+  const [firstGuess] = creditCardType(String(cardNumber));
+  if (!firstGuess) {
+    return '';
+  }
+  return firstGuess.type;
 }

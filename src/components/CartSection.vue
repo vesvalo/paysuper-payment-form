@@ -71,17 +71,6 @@ export default {
       },
     });
   },
-
-  methods: {
-    getItemPrice(price) {
-      if (!price.discount) {
-        return price.value.toFixed(2);
-      }
-
-      const discountValue = price.value / 100 * price.discount;
-      return (price.value - discountValue).toFixed(2);
-    },
-  },
 };
 </script>
 
@@ -121,8 +110,9 @@ export default {
               </span>
               <span :class="[$style.itemCell, $style._price]">
                 <span :class="$style.oldPrice" v-if="item.discount">
-                  {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
-                {{item.amount}} {{item.currency}}
+                  {{ $getPrice(item.price.value, item.price.currency) }}
+                </span>
+                {{ $getPrice(item.amount, item.currency) }}
               </span>
             </div>
           </template>
@@ -134,7 +124,7 @@ export default {
               {{$t('CartSection.voluntaryAmount')}}
             </span>
             <span :class="[$style.itemCell, $style._price]">
-              {{orderData.amount}} {{orderData.currency}}
+              {{ $getPrice(orderData.amount, orderData.currency) }}
             </span>
           </div>
         </div>
@@ -145,20 +135,20 @@ export default {
             <div :class="[$style.item, $style.subtotal]">
               <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.subtotal')}}</span>
               <span :class="[$style.itemCell, $style._price]">
-                {{orderData.amount.toFixed(2)}} {{orderData.currency}}
+                {{ $getPrice(orderData.amount, orderData.currency) }}
               </span>
             </div>
             <div :class="[$style.item, $style.taxes]">
               <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.taxes')}}</span>
               <span :class="[$style.itemCell, $style._price]">
-                {{orderData.vat.toFixed(2)}} {{orderData.currency}}
+                {{ $getPrice(orderData.vat, orderData.currency) }}
               </span>
             </div>
           </template>
           <div :class="[$style.item, $style._total]">
             <span :class="[$style.itemCell, $style._title]">{{$t('CartSection.total')}}</span>
             <span :class="[$style.itemCell, $style._price]">
-              {{orderData.total_amount.toFixed(2)}} {{orderData.currency}}
+              {{ $getPrice(orderData.total_amount, orderData.currency) }}
             </span>
           </div>
         </div>

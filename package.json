@@ -20,6 +20,7 @@
     "axios": "^0.18.0",
     "centrifuge": "^2.0.0",
     "codecov": "^3.1.0",
+    "credit-card-type": "^8.2.0",
     "lodash-es": "^4.17.11",
     "simple-assert": "^1.0.0",
     "vue": "^2.5.17",

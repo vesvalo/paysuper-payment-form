@@ -28,6 +28,7 @@ storiesOf('UiSelect', module)
         />
         <UiSelect :options="options" :disabled="true" />
         <UiSelect :options="options" :disabled="true" value="11" />
+        <UiSelect :options="options" :hasError="true" errorText="error" />
       </div>
     `,
   }))
