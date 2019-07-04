@@ -40,6 +40,9 @@ addDecorator(() => ({
       return all;
     }
     textNodesUnder(this.$el).forEach((item) => {
+      if (item.data.match(/^[\n ]$/)) {
+        return;
+      }
       const sp1 = document.createElement('span');
       sp1.innerHTML = item.data.replace(/./g, '<span class="wawa">&nbsp;</span>');
 

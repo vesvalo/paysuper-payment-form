@@ -16,6 +16,7 @@ function data() {
 storiesOf('UiSelect', module)
   .add('default', () => ({
     components: { UiSelect },
+    data,
     template: `
       <div>
         <UiSelect />
