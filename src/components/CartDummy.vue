@@ -2,54 +2,62 @@
 export default {
   data() {
     return {
-      dummyImagesColors: ['#985d55', '#4e58a0', '#927f46'],
+      containerWidth: '320px',
     };
   },
-}
+  mounted() {
+    this.$nextTick(() => {
+      this.containerWidth = `${this.$el.clientWidth}px`;
+      this.$addCssRules({
+        [`.${this.$style.imageItemInner}::after, .${this.$style.itemCell}::after`]: {
+          width: this.containerWidth,
+        },
+      });
+    });
+
+    this.$addCssRules({
+      [`.${this.$style.imageItemInner}, .${this.$style.itemCell}`]: {
+        'background-color': this.$gui.dummyContentColor,
+      },
+      [`.${this.$style._total} > .${this.$style.itemCell}`]: {
+        'background-color': this.$gui.dummyTotalColor,
+      },
+      [`.${this.$style.imageItemInner}::after, .${this.$style.itemCell}::after`]: {
+        'background-color': this.$gui.dummyContentSpinColor,
+      },
+      [`.${this.$style._total} > .${this.$style.itemCell}::after`]: {
+        'background-color': this.$gui.dummyTotalSpinColor,
+      },
+    });
+  },
+};
 </script>
 
 <template>
 <div :class="$style.container">
   <div :class="$style.images">
     <div
-      v-for="(color, index) in dummyImagesColors"
+      v-for="index in 3"
       :key="index"
-      :class="[$style.imageItem, $style[`_count-${dummyImagesColors.length}`]]"
-      :style="{backgroundColor: color}"
-    ></div>
-  </div>
-  <div :class="$style.listing">
-    <div :class="$style.items">
-      <div
-        v-for="item in items"
-        :class="$style.item"
-        :key="item.id"
-      >
-        <span :class="[$style.itemCell, $style._title]">
-          {{item.name}}
-        </span>
-        <span :class="[$style.itemCell, $style._price]">
-          <span :class="$style.oldPrice" v-if="item.discount">
-            {{item.price.currency}}{{item.price.value.toFixed(2)}}</span>
-          {{item.amount}} {{item.currency}}
-        </span>
-      </div>
+      :class="$style.imageItem"
+    >
+      <div :class="$style.imageItemInner"></div>
     </div>
   </div>
-  <div :class="$style.totals">
-    <div :class="$style.items">
-      <div :class="[$style.item, $style.subtotal]">
-        <span :class="[$style.itemCell, $style._title]"></span>
-        <span :class="[$style.itemCell, $style._price]"></span>
-      </div>
-      <div :class="[$style.item, $style.taxes]">
-        <span :class="[$style.itemCell, $style._title]"></span>
-        <span :class="[$style.itemCell, $style._price]"></span>
-      </div>
-      <div :class="[$style.item, $style._total]">
-        <span :class="[$style.itemCell, $style._title]"></span>
-        <span :class="[$style.itemCell, $style._price]"></span>
-      </div>
+  <div :class="$style.items">
+    <div
+      v-for="index in 5"
+      :class="$style.item"
+      :key="index"
+    >
+      <span :class="[$style.itemCell, $style._title]"></span>
+      <span :class="[$style.itemCell, $style._price]"></span>
+    </div>
+  </div>
+  <div :class="$style.items">
+    <div :class="[$style.item, $style._total]">
+      <span :class="[$style.itemCell, $style._title]"></span>
+      <span :class="[$style.itemCell, $style._price]"></span>
     </div>
   </div>
 </div>
@@ -68,95 +76,129 @@ export default {
   padding-top: 5px;
   margin: -5px -5px 9px -5px;
 }
-.listing {
-  position: relative;
-  z-index: 1;
-}
 .imageItem {
   flex-grow: 1;
   flex-basis: 20%;
   box-sizing: border-box;
   margin: 5px;
 
-  &._count-5 {
-    &:nth-child(1),
-    &:nth-child(2) {
-      flex-basis: 35%;
-    }
+  &:nth-child(2) > .imageItemInner::after {
+    animation-delay: 0.11s;
   }
 
-  &._count-6,
-  &._count-7 {
-    &:nth-child(1),
-    &:nth-child(2),
-    &:nth-child(3) {
-      flex-basis: 29%;
-    }
+  &:nth-child(3) > .imageItemInner::after {
+    animation-delay: 0.22s;
   }
 }
 .imageItemInner {
   width: 100%;
   padding-top: 100%;
-  background-size: cover;
-  background-position: center;
   border-radius: 5px;
+  position: relative;
+  overflow: hidden;
 
-  .imageItem._count-1 & {
-    padding-top: 67%;
+  &::after {
+    content: '';
+    top: 0;
+    position: absolute;
+    height: 100%;
+    border-radius: 2px;
+    animation: {
+      name: loader;
+      duration: 1.5s;
+      timing-function: linear;
+      iteration-count: infinite;
+      fill-mode: backwards;
+    }
+
+    @include if-rtl {
+      animation-direction: reverse;
+    }
   }
 }
 .items {
-  display: table;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  margin-bottom: 6px;
 }
 .item {
-  display: table-row;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 18px;
+  height: 7px;
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  position: relative;
+
+  &:nth-child(1),
+  &:nth-child(4) {
+    & > .itemCell._title {
+      width: 50%;
+    }
+  }
+
+  &:nth-child(2) {
+    & > .itemCell._title {
+      width: 38%;
+    }
+  }
+
+  &:nth-child(3),
+  &:nth-child(5) {
+    & > .itemCell._title {
+      width: 65%;
+    }
+  }
 
   &._total {
-    font-size: 16px;
-    line-height: 20px;
-    font-weight: bold;
+    height: 10px;
+
+    & > .itemCell {
+      &._title {
+        width: 21%;
+      }
+    }
   }
 }
 .itemCell {
-  padding: 6px 0;
-  display: table-cell;
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
 
-  &._title {
-    width: 74%;
-    padding-right: 10px;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    border-radius: 2px;
+    animation: {
+      name: loader;
+      duration: 1.5s;
+      timing-function: linear;
+      iteration-count: infinite;
+      fill-mode: backwards;
+    }
 
     @include if-rtl {
-      padding-right: 0;
-      padding-left: 10px;
+      animation-direction: reverse;
     }
   }
 
   &._price {
-    white-space: nowrap;
+    width: 14%;
 
-    @include if-ltr {
-      text-align: right;
-    }
-
-    @include if-rtl {
-      text-align: left;
+    &::after {
+      animation-delay: 0.25s;
     }
   }
 }
-.totals {
-  position: relative;
-  z-index: 1;
-  margin-top: 10px;
-  padding: 12px 0 0;
-
-  @media screen and (max-width: 640px) {
-    .cartSection._closed & {
-      margin-top: 0;
-    }
+@keyframes loader {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
   }
 }
 </style>

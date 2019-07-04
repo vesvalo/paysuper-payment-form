@@ -14,19 +14,39 @@ export default {
     },
   },
 
+  data() {
+    return {
+      containerWidth: '320px',
+    };
+  },
+
   mounted() {
+    this.$nextTick(() => {
+      this.containerWidth = `${this.$el.clientWidth}px`;
+      this.$addCssRules({
+        [`
+          .${this.$style.image}::after,
+          .${this.$style.itemCell}::after
+        `]: {
+          width: this.containerWidth,
+        },
+      });
+    });
+
     this.$addCssRules({
-      [` 
-        .${this.$style.cartStubImage},
-        .${this.$style.cartStubItem}:before,
-        .${this.$style.cartStubItem}:after
+      [`
+        .${this.$style.image}::before,
+        .${this.$style.itemCell}
       `]: {
         'background-color': this.$gui.stubContentColorPrimary,
       },
-      [` 
-        .${this.$style.cartStubItem}:nth-child(6):before,
-        .${this.$style.cartStubItem}:nth-child(6):after
+      [`
+        .${this.$style.image}::after,
+        .${this.$style.itemCell}::after
       `]: {
+        'background-color': this.$gui.stubSpinContentColorPrimary,
+      },
+      [`.${this.$style.item}:nth-child(6) > .${this.$style.itemCell}`]: {
         'background-color': this.$gui.stubTotalColor,
       },
     });
@@ -36,24 +56,45 @@ export default {
 
 <template>
 <div :class="[$style.stubPreloaderCart, $style[`_layout-${layout}`]]">
-  <div :class="$style.cartStubImages">
-    <span
-      :class="$style.cartStubImage"
+  <div :class="$style.images">
+    <div
+      :class="$style.image"
       v-for="n in 3"
       :key="n"
-    ></span>
+    ></div>
   </div>
-  <div :class="$style.cartStubItems">
-    <span
-      :class="$style.cartStubItem"
+  <div :class="$style.items">
+    <div
+      :class="$style.item"
       v-for="n in 6"
       :key="n"
-    ></span>
+    >
+      <div :class="[$style.itemCell, $style._left]"></div>
+      <div :class="[$style.itemCell, $style._right]"></div>
+    </div>
   </div>
 </div>
 </template>
 
 <style lang="scss" module>
+@mixin spinElem {
+  top: 0;
+  position: absolute;
+  height: 100%;
+  border-radius: 2px;
+  animation: {
+    name: spin;
+    duration: 1.5s;
+    timing-function: linear;
+    iteration-count: infinite;
+    fill-mode: backwards;
+  }
+
+  @include if-rtl {
+    animation-direction: reverse;
+  }
+}
+
 .stubPreloaderCart {
   display: flex;
   flex-direction: column;
@@ -64,59 +105,94 @@ export default {
     padding: 0;
   }
 }
-.cartStubImages {
+.images {
   display: flex;
 }
-
-.cartStubImage {
-  height: 86px;
+.image {
   width: 33.33%;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+
+  &::after {
+    content: '';
+    @include spinElem;
+  }
+
+  &:nth-child(2)::after {
+    animation-delay: 0.11s;
+  }
+
+  &:nth-child(3)::after {
+    animation-delay: 0.22s;
+  }
 
   & + & {
     margin-left: 11px;
   }
 }
-
-.cartStubItems {
+.items {
   display: flex;
   flex-direction: column;
 }
-
-.cartStubItem {
+.item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 23px;
 
-  &:before,
-  &:after {
-    height: 7px;
-    content: '';
+  &:nth-child(1) > .itemCell._left,
+  &:nth-child(4) > .itemCell._left {
+    width: 50%;
   }
-
-  &:after {
-    width: 38px;
+  &:nth-child(2) > .itemCell._left {
+    width: 38%;
   }
-
-  &:nth-child(1):before,
-  &:nth-child(4):before {
-    width: 138px;
-  }
-  &:nth-child(2):before {
-    width: 108px;
-  }
-  &:nth-child(3):before,
-  &:nth-child(5):before {
-    width: 183px;
+  &:nth-child(3) > .itemCell._left,
+  &:nth-child(5) > .itemCell._left {
+    width: 65%;
   }
   &:nth-child(6) {
-    &:before,
-    &:after {
+    & > .itemCell._left,
+    & > .itemCell._right {
       height: 10px;
     }
-    &:before {
-      width: 60px;
+    & > .itemCell._left {
+      width: 20%;
     }
+  }
+}
+.itemCell {
+  height: 7px;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    @include spinElem;
+  }
+
+  &._right {
+    width: 13%;
+
+    &::after {
+      animation-delay: 0.25s;
+    }
+  }
+}
+@keyframes spin {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
   }
 }
 </style>

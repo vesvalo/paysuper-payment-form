@@ -83,8 +83,11 @@ export default {
     iconInfoHoverColor: '#06eaa7',
 
     stubContentColorPrimary: 'rgba(255, 255, 255, 0.2)',
+    stubSpinContentColorPrimary: 'rgba(255, 255, 255, 0.15)',
     stubContentColorSecondary: 'rgba(255, 255, 255, 0.1)',
-    stubTotalColor: 'rgba(6, 234, 167, 0.2)',
+    stubSpinContentColorSecondary: 'rgba(255, 255, 255, 0.1)',
+    stubTotalColor: 'rgba(6, 234, 167, 0.3)',
+    stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
   },
   light: {
     headerTextColor: '#71757a',
@@ -170,7 +173,10 @@ export default {
     iconInfoHoverColor: '#06eaa7',
 
     stubContentColorPrimary: 'rgba(0, 0, 0, 0.2)',
+    stubSpinContentColorPrimary: 'rgba(0, 0, 0, 0.15)',
     stubContentColorSecondary: 'rgba(0, 0, 0, 0.1)',
+    stubSpinContentColorSecondary: 'rgba(0, 0, 0, 0.1)',
     stubTotalColor: 'rgba(6, 234, 167, 0.2)',
+    stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
   },
 };

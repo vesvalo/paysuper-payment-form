@@ -14,16 +14,33 @@ export default {
     },
   },
 
+  data() {
+    return {
+      containerWidth: '320px',
+    };
+  },
+
   mounted() {
+    this.$nextTick(() => {
+      this.containerWidth = `${this.$el.clientWidth}px`;
+      this.$addCssRules({
+        [`.${this.$style.item}::after`]: {
+          width: this.containerWidth,
+        },
+      });
+    });
+
     this.$addCssRules({
       [` 
-        .${this.$style.formStubItem}:before,
-        .${this.$style.formStubItem}:after,
-        .${this.$style.formStubButton} span:before
+        .${this.$style.item},
+        .${this.$style.button} div::before
       `]: {
         'background-color': this.$gui.stubContentColorPrimary,
       },
-      [`.${this.$style.formStubButton} span`]: {
+      [`.${this.$style.item}::after`]: {
+        'background-color': this.$gui.stubSpinContentColorPrimary,
+      },
+      [`.${this.$style.button} div`]: {
         'background-color': this.$gui.buttonBoxColor,
       },
     });
@@ -33,20 +50,38 @@ export default {
 
 <template>
 <div :class="[$style.stubPreloaderForm, $style[`_layout-${layout}`]]">
-  <div :class="$style.formStubItems">
-    <span
-      :class="$style.formStubItem"
-      v-for="n in 6"
+  <div :class="$style.items">
+    <div
+      :class="$style.item"
+      v-for="n in 8"
       :key="n"
-    ></span>
+    ></div>
   </div>
-  <div :class="$style.formStubButton">
-    <span></span>
+  <div :class="$style.button">
+    <div></div>
   </div>
 </div>
 </template>
 
 <style lang="scss" module>
+@mixin spinElem {
+  top: 0;
+  position: absolute;
+  height: 100%;
+  border-radius: 2px;
+  animation: {
+    name: spin;
+    duration: 1.5s;
+    timing-function: linear;
+    iteration-count: infinite;
+    fill-mode: backwards;
+  }
+
+  @include if-rtl {
+    animation-direction: reverse;
+  }
+}
+
 .stubPreloaderForm {
   display: flex;
   flex-direction: column;
@@ -56,62 +91,81 @@ export default {
     margin: 60px 0;
   }
 }
-
-.formStubItems {
+.items {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   padding: 0 40px;
+  justify-content: space-between;
+  align-items: center;
 
   .stubPreloaderForm._layout-page & {
     padding: 0;
   }
 }
-
-.formStubItem {
+.item {
   display: flex;
   align-items: center;
   margin-top: 50px;
+  border-radius: 2px;
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    content: '';
+    @include spinElem;
+  }
 
   &:first-child {
     margin-top: 24px;
   }
 
-  &:before {
+  &:nth-child(3),
+  &:nth-child(4) {
+    flex-basis: calc(50% - 10px);
+  }
+  &:nth-child(4) {
+    margin-left: 20px;
+
+    &::after {
+      animation-delay: 0.152s;
+    }
+
+    @include if-rtl {
+      margin-right: 20px;
+      margin-left: 0;
+    }
+  }
+
+  &:nth-child(7) {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+  }
+
+  &:nth-child(8) {
     height: 10px;
-    width: 100%;
-    content: '';
-  }
+    width: 45%;
+    margin-left: 10px;
+    margin-right: auto;
 
-  &:nth-child(3) {
-    &:after {
-      content: '';
-      height: 10px;
-      width: 100%;
-      margin-left: 20px;
+    &::after {
+      animation-delay: 0.025s;
     }
-  }
 
-  &:nth-child(6) {
-    &:before {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-    }
-    &:after {
-      content: '';
-      height: 10px;
-      width: 105px;
-      margin-left: 10px;
+    @include if-rtl {
+      margin-right: 10px;
+      margin-left: auto;
     }
   }
 }
-
-.formStubButton {
+.button {
   display: flex;
   align-items: flex-end;
   flex-grow: 1;
 
-  span {
+  & > div {
     height: 70px;
     width: 100%;
     display: flex;
@@ -123,11 +177,19 @@ export default {
       border-radius: 12px;
     }
 
-    &:before {
+    &::before {
       width: 100px;
       height: 15px;
       content: '';
     }
+  }
+}
+@keyframes spin {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
   }
 }
 </style>
