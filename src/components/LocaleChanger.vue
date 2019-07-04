@@ -86,7 +86,12 @@ export default {
     },
     iconLang(locale) {
       const [lang] = locale.split('-');
-      return `IconLang${upperFirst(lang)}`;
+      const componentName = `IconLang${upperFirst(lang)}`;
+
+      if (this.$options.components[componentName]) {
+        return componentName;
+      }
+      return 'IconLangNoIcon';
     },
   },
 };
@@ -155,6 +160,7 @@ export default {
   border-radius: 3px;
   overflow: hidden;
   height: 18px;
+  flex-shrink: 0;
 
   @include if-ltr {
     margin-right: 12px;
