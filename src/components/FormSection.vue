@@ -309,7 +309,7 @@ export default {
       >
         <ActionResult
           v-if="true"
-          type="unknownError"
+          type="customError"
           :orderId="orderData.id"
           :email="paymentData.email"
         />
