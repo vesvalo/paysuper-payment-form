@@ -11,9 +11,9 @@ export default {
   mounted() {
     this.$addCssRules({
       [`
-        .${this.$style.cartStubHeader}:before,
-        .${this.$style.cartStubHeader}:after,
-        .${this.$style.cartStubFooter}:before
+        .${this.$style.cartStubHeader}::before,
+        .${this.$style.cartStubHeader}::after,
+        .${this.$style.cartStubFooter}::before
       `]: {
         'background-color': this.$gui.stubContentColorSecondary,
       },
@@ -48,15 +48,16 @@ export default {
   align-items: center;
   padding: 0 20px;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     height: 7px;
     content: '';
+    border-radius: 2px;
   }
-  &:before {
+  &::before {
     width: 100px;
   }
-  &:after {
+  &::after {
     width: 60px;
   }
 }
@@ -67,10 +68,11 @@ export default {
   flex-grow: 1;
   padding: 0 0 22px 20px;
 
-  &:before {
+  &::before {
     height: 7px;
     width: 70px;
     content: '';
+    border-radius: 2px;
   }
 }
 </style>

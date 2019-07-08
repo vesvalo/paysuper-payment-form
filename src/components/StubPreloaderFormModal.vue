@@ -11,9 +11,9 @@ export default {
   mounted() {
     this.$addCssRules({
       [`
-        .${this.$style.formStubHeader}:before,
-        .${this.$style.formStubHeader} span,
-        .${this.$style.formStubHeader}:after
+        .${this.$style.formStubHeader}::before,
+        .${this.$style.formStubHeader} div,
+        .${this.$style.formStubHeader}::after
       `]: {
         'background-color': this.$gui.stubContentColorSecondary,
       },
@@ -25,7 +25,7 @@ export default {
 <template>
 <div :class="$style.stubPreloaderForm">
   <div :class="$style.formStubHeader">
-    <span></span>
+    <div></div>
   </div>
   <StubPreloaderForm />
 </div>
@@ -48,21 +48,22 @@ export default {
   align-items: center;
   padding: 0 20px;
 
-  &:before,
-  &:after {
+  &::before,
+  &::after {
     height: 7px;
     content: '';
+    border-radius: 2px;
   }
-  &:before {
+  &::before {
     width: 60px;
   }
-  span {
+  div {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     margin: 0 10px;
   }
-  &:after {
+  &::after {
     width: 20px;
   }
 }

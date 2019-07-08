@@ -181,6 +181,7 @@ export default {
       width: 100px;
       height: 15px;
       content: '';
+      border-radius: 2px;
     }
   }
 }
