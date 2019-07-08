@@ -220,7 +220,7 @@ export default {
 
   &._shown,
   &:hover {
-    pointer-events: all;
+    pointer-events: auto;
     opacity: 1;
     transform: translate3d(0, 0, 0);
 

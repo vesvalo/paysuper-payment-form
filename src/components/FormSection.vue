@@ -257,7 +257,7 @@ export default {
       :settings="layout === 'modal' ? {suppressScrollX: true} : undefined"
     >
       <div
-        v-show="!isPaymentFormVisible"
+        v-show="isPaymentFormVisible"
         :class="$style.contentInner"
       >
         <UiSelect
@@ -305,11 +305,12 @@ export default {
       </div>
       <div
         :class="$style.contentInner"
-        v-if="!false"
+        v-if="!isPaymentFormVisible"
       >
         <ActionResult
-          v-if="true"
-          type="customError"
+          v-if="actionResult"
+          :type="actionResult.type"
+          :message="actionResult.message"
           :orderId="orderData.id"
           :email="paymentData.email"
         />

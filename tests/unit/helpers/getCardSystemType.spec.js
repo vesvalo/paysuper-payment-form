@@ -21,3 +21,4 @@ describe('getCardSystemType', () => {
     expect(type).toEqual('visa');
   });
 });
+jest.setTimeout(30000);
