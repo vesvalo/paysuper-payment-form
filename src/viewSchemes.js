@@ -7,6 +7,7 @@ export default {
     cartBackgroundColor: '#333b50',
     cartBoxShadowColor: 'rgba(51, 59, 80, 0.8)',
     cartHoverTextColor: '#06eaa7',
+    cartOldPriceColor: 'rgba(255, 255, 255, 0.3)',
     cartTextColor: 'rgba(255, 255, 255, 0.7)',
     cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
     cartTotalTextColor: '#06eaa7',
@@ -82,8 +83,11 @@ export default {
     iconInfoHoverColor: '#06eaa7',
 
     stubContentColorPrimary: 'rgba(255, 255, 255, 0.2)',
+    stubSpinContentColorPrimary: 'rgba(255, 255, 255, 0.15)',
     stubContentColorSecondary: 'rgba(255, 255, 255, 0.1)',
-    stubTotalColor: 'rgba(6, 234, 167, 0.2)',
+    stubSpinContentColorSecondary: 'rgba(255, 255, 255, 0.1)',
+    stubTotalColor: 'rgba(6, 234, 167, 0.3)',
+    stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
   },
   light: {
     headerTextColor: '#71757a',
@@ -93,6 +97,7 @@ export default {
     cartBackgroundColor: '#f3f3f3',
     cartBoxShadowColor: 'rgba(243, 243, 243, 0.8)',
     cartHoverTextColor: '#06eaa7',
+    cartOldPriceColor: 'rgba(194, 194, 196, 0.3)',
     cartTextColor: '#202226',
     cartTotalStrokeColor: 'rgba(194, 194, 196, 0.5)',
     cartTotalTextColor: '#202226',
@@ -168,7 +173,10 @@ export default {
     iconInfoHoverColor: '#06eaa7',
 
     stubContentColorPrimary: 'rgba(0, 0, 0, 0.2)',
+    stubSpinContentColorPrimary: 'rgba(0, 0, 0, 0.15)',
     stubContentColorSecondary: 'rgba(0, 0, 0, 0.1)',
+    stubSpinContentColorSecondary: 'rgba(0, 0, 0, 0.1)',
     stubTotalColor: 'rgba(6, 234, 167, 0.2)',
+    stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
   },
 };

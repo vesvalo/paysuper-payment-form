@@ -27,8 +27,7 @@
     {{ label }}
   </label>
   <span
-    v-if="isVisibleError"
-    :class="$style.error"
+    :class="[$style.error, { [$style._showed]: isVisibleError }]"
     :title="errorText"
   >
     {{ errorText }}
@@ -321,6 +320,14 @@ $main-additional-height: 18px;
   line-height: $error-height;
   position: absolute;
   padding: 0 5px;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+
+  &._showed {
+    opacity: 1;
+    pointer-events: auto;
+  }
 
   @include if-ltr {
     border-radius: 0 3px 3px 3px;

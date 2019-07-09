@@ -1,8 +1,6 @@
 <script>
 import { includes } from 'lodash-es';
-import {
-  mapState,
-} from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CartSection',
@@ -65,6 +63,9 @@ export default {
       },
       [`.${this.$style.item}.${this.$style._total}`]: {
         color: this.$gui.cartTotalTextColor,
+      },
+      [`.${this.$style.oldPrice}`]: {
+        color: this.$gui.cartOldPriceColor,
       },
       [`.${this.$style.totals}`]: {
         'border-top': `1px solid ${this.$gui.cartTotalStrokeColor}`,
@@ -309,7 +310,6 @@ export default {
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
-  color: rgba(255, 255, 255, 0.7);
 
   &._total {
     font-size: 16px;

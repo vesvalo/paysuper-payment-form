@@ -100,7 +100,10 @@ export default {
       >{{types[type].subtitle}}</p>
     </div>
     <div :class="$style.icon">
-      <component :is="types[type].iconComponent" />
+      <component
+        :is="types[type].iconComponent"
+        :class="$style.iconComponent"
+      />
     </div>
     <div v-if="type === 'success'">
       <template v-if="false">
@@ -168,6 +171,16 @@ export default {
   align-items: center;
 }
 
+.iconComponent {
+  animation: {
+    name: showIcon;
+    duration: 0.4s;
+    timing-function: ease;
+    iteration-count: 1;
+    fill-mode: forwards;
+  }
+}
+
 .code {
   font-weight: bold;
   font-size: 12px;
@@ -196,5 +209,14 @@ export default {
   line-height: 19px;
   color: #ffffff;
   margin-top: 8px;
+}
+
+@keyframes showIcon {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 100%;
+  }
 }
 </style>

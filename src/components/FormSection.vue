@@ -3,8 +3,8 @@ import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
 import ActionResult from '@/components/ActionResult.vue';
-import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
+import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -12,11 +12,13 @@ function getRegexp(value) {
 
 export default {
   name: 'FormSection',
+
   components: {
-    FormSectionBankCard,
     ActionResult,
+    FormSectionBankCard,
     PaymentAreaWarning,
   },
+
   props: {
     layout: {
       type: String,

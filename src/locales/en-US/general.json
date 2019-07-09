@@ -93,9 +93,10 @@
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",
     "rememberInfo": "Security of billing data storage is provided in accordance with the requirements of the PCI DSS standard, using 3D Secure and SSL protocols",
-    "country": "Country",
     "city": "City",
     "cityInvalid": "Неверный город",
+    "country": "Country",
+    "countryInvalid": "Choose the country",
     "zip": "ZIP code",
     "zipInvalid": "Неверный почтовый индекс"
   },

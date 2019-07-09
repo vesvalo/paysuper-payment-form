@@ -83,7 +83,7 @@
       :placeholderLabel="$t('FormSectionBankCard.country')"
       :hasReversible="true"
       :hasError="$isFieldInvalid('innerValue.country')"
-      :errorText="'ЕБАТЬ!'"
+      :errorText="$t('FormSectionBankCard.countryInvalid')"
     />
     <template v-if="isCityAndZipRequired">
       <UiTextField
