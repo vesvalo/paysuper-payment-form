@@ -53,7 +53,6 @@ export default {
   },
   computed: {
     cartType() {
-      console.error(getCardSystemType(this.innerValue));
       return getCardSystemType(this.innerValue);
     },
   },
