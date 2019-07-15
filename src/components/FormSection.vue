@@ -2,6 +2,7 @@
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
 import { includes, get } from 'lodash-es';
+import { event } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
 import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
@@ -176,6 +177,8 @@ export default {
     ]),
 
     handleMainButtonClick() {
+      event('clickPayButton', { event_category: 'userAction' });
+
       if (this.isUserCountryConfirmRequested) {
         this.submitUserCountry();
       } else if (this.isUserCountryRestricted) {
@@ -208,6 +211,7 @@ export default {
         return;
       }
 
+      event('submitPaymentForm');
       this.createPayment({
         ...this.paymentData,
       });

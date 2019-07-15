@@ -1,11 +1,12 @@
 import axios from 'axios';
 import assert from 'assert';
 import {
-  filter, find, findIndex, includes,
+  filter, find, findIndex, get, includes,
 } from 'lodash-es';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import i18n from '@/i18n';
+import { event, set } from '@/analytics';
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED', 'CANCELLED',
@@ -214,8 +215,18 @@ export default {
 
         setGeoParams(commit, orderData);
         setPaymentStatus(commit, 'NEW');
+
+        const items = (get(orderData, 'items') || []).map((item, index) => ({
+          id: item.id,
+          name: item.name,
+          list_name: 'Cart items',
+          list_position: index + 1,
+          price: `${item.amount}`,
+          quantity: 1,
+        }));
+
+        event('begin_checkout', { items });
       } catch (error) {
-        console.error(error);
         setPaymentStatus(
           commit, 'FAILED_TO_BEGIN',
           (error.response ? error.response.data : undefined),
@@ -225,6 +236,11 @@ export default {
 
     setActivePaymentMethodById({ commit }, value) {
       commit('activePaymentMethodId', value);
+      set({ paymentMethodId: value });
+      event('setPaymentMethod', {
+        event_category: 'userAction',
+        paymentMethodId: value,
+      });
     },
 
     clearActionResult({ commit }) {
@@ -313,15 +329,45 @@ export default {
         redirectUrl = data.redirect_url;
         if (delayHasPassed) {
           paymentConnection.setRedirectWindowLocation(redirectUrl);
+
+          const items = (get(state.orderData, 'items') || []).map((item, index) => ({
+            id: item.id,
+            name: item.name,
+            price: item.amount,
+            list_position: `${index + 1}`,
+            quantity: 1,
+          }));
+
+          event('purchase', {
+            transaction_id: state.orderData.id,
+            currency: state.orderData.currency,
+            tax: state.orderData.vat,
+            items: items.length
+              ? items
+              : [{
+                id: state.orderData.id,
+                name: 'Arbitrary amount',
+                price: `${state.orderData.amount}`,
+                quantity: 1,
+              }],
+          });
         }
         setPaymentStatus(commit, 'CREATED', {
           redirectUrl: data.redirect_url,
         });
       } catch (error) {
         paymentConnection.closeRedirectWindow();
+
+        const errorData = get(error, 'response.data') || {};
+
+        event('purchaseFailed', {
+          errorCode: errorData.code || undefined,
+          errorMessage: errorData.message || undefined,
+        });
+
         setPaymentStatus(
           commit, 'FAILED_TO_CREATE',
-          (error.response ? error.response.data : undefined),
+          errorData || undefined,
         );
       }
     },
@@ -329,6 +375,8 @@ export default {
       const cards = filter(state.cards, card => card.cardNumber !== cardNumber);
       commit('cards', cards);
       localStorage.setItem('cards', JSON.stringify(cards));
+
+      event('removeRememberedCard', { event_category: 'userAction' });
     },
 
     async checkPaymentAccount({

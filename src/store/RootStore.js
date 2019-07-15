@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import PaymentFormStore from './PaymentFormStore';
 import DictionariesStore from './DictionariesStore';
+import PaymentFormStore from './PaymentFormStore';
 
 Vue.use(Vuex);
 
@@ -17,15 +17,16 @@ export default new Vuex.Store({
   actions: {
     async initState({ commit, dispatch }, { orderParams, options }) {
       commit('apiUrl', options.apiUrl);
+
       await Promise.all([
-        dispatch('PaymentForm/initState', { orderParams, options }),
         dispatch('Dictionaries/initState'),
+        dispatch('PaymentForm/initState', { orderParams, options }),
       ]);
     },
   },
 
   modules: {
-    PaymentForm: PaymentFormStore,
     Dictionaries: DictionariesStore,
+    PaymentForm: PaymentFormStore,
   },
 });
