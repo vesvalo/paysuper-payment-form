@@ -54,6 +54,7 @@ const actionResultsByStatus = {
 };
 
 function setPaymentStatus(commit, name, extraData) {
+  gtagEvent('changePaymentStatus', { event_label: name });
   commit('paymentStatus', name);
   postMessage(`PAYMENT_${name}`);
 
@@ -225,7 +226,16 @@ export default {
           quantity: 1,
         }));
 
-        gtagEvent('begin_checkout', { items });
+        gtagEvent('begin_checkout', {
+          items: items.length
+            ? items
+            : [{
+              id: project,
+              name: 'Virtual Currency',
+              price: `${orderData.amount}`,
+              quantity: 1,
+            }],
+        });
       } catch (error) {
         setPaymentStatus(
           commit, 'FAILED_TO_BEGIN',
@@ -281,6 +291,30 @@ export default {
           }
           paymentConnection.closeRedirectWindow();
           setPaymentStatus(commit, data.status, data);
+
+          if (data.status === 'COMPLETED') {
+            const items = (get(state.orderData, 'items') || []).map((item, index) => ({
+              id: item.id,
+              name: item.name,
+              price: item.amount,
+              list_position: `${index + 1}`,
+              quantity: 1,
+            }));
+
+            gtagEvent('purchase', {
+              transaction_id: state.orderData.id,
+              currency: state.orderData.currency,
+              tax: state.orderData.vat,
+              items: items.length
+                ? items
+                : [{
+                  id: state.orderParams.project,
+                  name: 'Virtual Currency',
+                  price: `${state.orderData.amount}`,
+                  quantity: 1,
+                }],
+            });
+          }
         })
         .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
@@ -329,28 +363,6 @@ export default {
         redirectUrl = data.redirect_url;
         if (delayHasPassed) {
           paymentConnection.setRedirectWindowLocation(redirectUrl);
-
-          const items = (get(state.orderData, 'items') || []).map((item, index) => ({
-            id: item.id,
-            name: item.name,
-            price: item.amount,
-            list_position: `${index + 1}`,
-            quantity: 1,
-          }));
-
-          gtagEvent('purchase', {
-            transaction_id: state.orderData.id,
-            currency: state.orderData.currency,
-            tax: state.orderData.vat,
-            items: items.length
-              ? items
-              : [{
-                id: state.orderData.id,
-                name: 'Arbitrary amount',
-                price: `${state.orderData.amount}`,
-                quantity: 1,
-              }],
-          });
         }
         setPaymentStatus(commit, 'CREATED', {
           redirectUrl: data.redirect_url,
