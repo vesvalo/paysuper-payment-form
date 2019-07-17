@@ -134,6 +134,7 @@
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators';
 import { toInteger, extend, forEach } from 'lodash-es';
+import { gtagEvent } from '@/analytics';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
@@ -287,6 +288,10 @@ export default {
 
           // to watch certain field
           this.$emit(`${key}Change`, value);
+
+          if (key === 'hasRemembered' && value) {
+            gtagEvent('clickRememberCard', { event_category: 'userAction' });
+          }
         });
       });
     },

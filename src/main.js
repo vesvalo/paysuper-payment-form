@@ -18,10 +18,13 @@ import getLanguage from '@/helpers/getLanguage';
 import viewSchemes from '@/viewSchemes';
 import '@/globalComponents';
 import '@/vueExtentions';
+import { gtagConfig, gtagSet } from '@/analytics';
+
+const isProd = process.env.NODE_ENV === 'production';
 
 Vue.config.productionTip = false;
 
-if (process.env.NODE_ENV === 'production') {
+if (isProd) {
   Sentry.init({
     dsn: 'https://3e4a24900f064243a9de45162660a66d@sentry.tst.protocol.one/3',
     integrations: [new Sentry.Integrations.Vue({ Vue })],
@@ -86,6 +89,14 @@ async function mountApp(orderParams, optionsCustom = {}) {
     i18n,
     created() {
       this.$changeLocale(options.language);
+
+      gtagSet({
+        currency: orderParams.currency,
+        viewType: options.layout,
+        viewScheme: options.viewScheme,
+      });
+
+      gtagConfig('UA-142750977-1', { page_path: `/${options.layout}` });
     },
   }).$mount('#p1payone-form');
 }

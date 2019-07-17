@@ -1,5 +1,6 @@
 <script>
 import StubPreloaderCartModal from '@/components/StubPreloaderCartModal.vue';
+import { gtagEvent } from '@/analytics';
 
 export default {
   components: {
@@ -61,6 +62,11 @@ export default {
       },
     });
   },
+  methods: {
+    fireAnalyticsEvent(elementName) {
+      gtagEvent(`click${elementName}Link`, { event_category: 'userAction' });
+    },
+  },
 };
 </script>
 
@@ -76,7 +82,11 @@ export default {
       :class="$style.wrapper"
     >
       <div :class="$style.header">
-        <a :class="$style.link">{{ projectName }}</a>
+        <a
+          href="#"
+          :class="$style.link"
+          @click="fireAnalyticsEvent('Project')"
+        >{{ projectName }}</a>
         <span
           :class="$style.link"
           @mouseenter="isProfileShown = true"
@@ -89,8 +99,16 @@ export default {
             width="200px"
             :visible="isProfileShown"
           >
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.purchaseInformation') }}</a>
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.paymentManagement') }}</a>
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('PurchaseInformation')"
+            >{{ $t('ModalCart.purchaseInformation') }}</a>
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('PaymentManagement')"
+            >{{ $t('ModalCart.paymentManagement') }}</a>
           </UiTip>
         </span>
       </div>
@@ -110,12 +128,24 @@ export default {
             width="240px"
             :visible="isTermsShown"
           >
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
-            <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('UserAgreement')"
+            >{{ $t('ModalCart.userAgreement') }}</a>
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('RefundPolicy')"
+            >{{ $t('ModalCart.refundPolicy') }}</a>
             <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
           </UiTip>
         </span>
-        <a href="#" :class="$style.link">{{ $t('ModalCart.support') }}</a>
+        <a
+          href="#"
+          :class="$style.link"
+          @click="fireAnalyticsEvent('Support')"
+        >{{ $t('ModalCart.support') }}</a>
       </div>
     </div>
   </UiTransitionFade>
@@ -135,7 +165,6 @@ export default {
   position: relative;
   display: flex;
 }
-
 .header {
   display: flex;
   justify-content: space-between;

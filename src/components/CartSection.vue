@@ -1,6 +1,7 @@
 <script>
 import { includes } from 'lodash-es';
 import { mapState } from 'vuex';
+import { gtagEvent } from '@/analytics';
 
 export default {
   name: 'CartSection',
@@ -72,6 +73,22 @@ export default {
       },
     });
   },
+
+  methods: {
+    clickProduct(index) {
+      gtagEvent('select_content', {
+        content_type: 'product',
+        items: [{
+          id: this.items[index].id,
+          name: this.items[index].name,
+          list_name: 'Cart items',
+          list_position: index + 1,
+          price: `${this.items[index].amount}`,
+          quantity: 1,
+        }],
+      });
+    },
+  },
 };
 </script>
 
@@ -91,6 +108,7 @@ export default {
           v-for="(img, index) in images"
           :class="[$style.imageItem, $style[`_count-${images.length}`]]"
           :key="index"
+          @click="clickProduct(index)"
         >
           <div
             :class="$style.imageItemInner"
@@ -102,11 +120,14 @@ export default {
         <div :class="$style.items">
           <template v-if="items">
             <div
-              v-for="item in items"
+              v-for="(item, index) in items"
               :class="$style.item"
               :key="item.id"
             >
-              <span :class="[$style.itemCell, $style._title]">
+              <span
+                :class="[$style.itemCell, $style._title]"
+                @click="clickProduct(index)"
+              >
                 {{item.name}}
               </span>
               <span :class="[$style.itemCell, $style._price]">

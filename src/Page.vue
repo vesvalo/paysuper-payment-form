@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
+import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
@@ -35,7 +36,11 @@ export default {
   beforeMount() {
     postMessage('LOADED');
   },
-
+  created() {
+    window.addEventListener('beforeunload', () => {
+      gtagEvent('formClosed');
+    });
+  },
   methods: {
     ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
 

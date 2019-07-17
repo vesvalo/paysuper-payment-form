@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
+import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
@@ -46,6 +47,7 @@ export default {
     closeModal() {
       this.opened = false;
       postMessage('MODAL_CLOSED');
+      gtagEvent('formClosed');
     },
 
     async tryToCreateOrder() {

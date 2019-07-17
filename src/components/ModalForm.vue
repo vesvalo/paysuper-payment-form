@@ -1,6 +1,7 @@
 <script>
 import LocaleChanger from '@/components/LocaleChanger.vue';
 import StubPreloaderFormModal from '@/components/StubPreloaderFormModal.vue';
+import { gtagEvent } from '@/analytics';
 
 export default {
   components: {
@@ -34,6 +35,11 @@ export default {
       },
     });
   },
+  methods: {
+    fireAnalyticsEvent(elementName) {
+      gtagEvent(`click${elementName}Link`, { event_category: 'userAction' });
+    },
+  },
 };
 </script>
 
@@ -50,8 +56,14 @@ export default {
     >
       <div :class="$style.header">
         <div :class="$style.links">
-          <span :class="$style.link">Pay Super</span>
-          <span :class="$style.link">
+          <span
+            :class="$style.link"
+            @click="fireAnalyticsEvent('PaySuper')"
+          >Pay Super</span>
+          <span
+            :class="$style.link"
+            @click="fireAnalyticsEvent('IconSupport')"
+          >
             <IconSupport :class="$style.iconSupport" />
           </span>
           <span
