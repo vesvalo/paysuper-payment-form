@@ -18,7 +18,7 @@ import getLanguage from '@/helpers/getLanguage';
 import viewSchemes from '@/viewSchemes';
 import '@/globalComponents';
 import '@/vueExtentions';
-import { config, set } from '@/analytics';
+import { gtagConfig, gtagSet } from '@/analytics';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -90,13 +90,13 @@ async function mountApp(orderParams, optionsCustom = {}) {
     created() {
       this.$changeLocale(options.language);
 
-      set({
+      gtagSet({
         currency: orderParams.currency,
         viewType: options.layout,
         viewScheme: options.viewScheme,
       });
 
-      config('UA-142750977-1', { page_path: `/${options.layout}` });
+      gtagConfig('UA-142750977-1', { page_path: `/${options.layout}` });
     },
   }).$mount('#p1payone-form');
 }

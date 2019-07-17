@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
-import { event } from '@/analytics';
+import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
 import FormSection from '@/components/FormSection.vue';
@@ -38,7 +38,7 @@ export default {
   },
   created() {
     window.addEventListener('beforeunload', () => {
-      event('formClosed');
+      gtagEvent('formClosed');
     });
   },
   methods: {

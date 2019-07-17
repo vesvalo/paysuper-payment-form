@@ -1,7 +1,7 @@
 <script>
 import { includes } from 'lodash-es';
 import { mapState } from 'vuex';
-import { event } from '@/analytics';
+import { gtagEvent } from '@/analytics';
 
 export default {
   name: 'CartSection',
@@ -76,7 +76,7 @@ export default {
 
   methods: {
     clickProduct(index) {
-      event('select_content', {
+      gtagEvent('select_content', {
         content_type: 'product',
         items: [{
           id: this.items[index].id,

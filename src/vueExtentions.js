@@ -9,7 +9,7 @@ import {
 import webfontloader from 'webfontloader';
 import localesScheme from '@/locales/scheme';
 import fontsScheme from '@/fontsScheme';
-import { event, set } from '@/analytics';
+import { gtagEvent, gtagSet } from '@/analytics';
 
 function objectToCss(obj) {
   return reduce(obj, (result, value, key) => `${result}${key}:${value};`, '');
@@ -47,8 +47,8 @@ function $changeLocale(locale) {
 
   document.body.style.fontFamily = font.fontFamily;
 
-  set({ locale });
-  event('setLocale', {
+  gtagSet({ locale });
+  gtagEvent('setLocale', {
     event_category: 'userAction',
     locale,
   });

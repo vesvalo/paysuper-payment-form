@@ -6,7 +6,7 @@ import {
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import i18n from '@/i18n';
-import { event, set } from '@/analytics';
+import { gtagEvent, gtagSet } from '@/analytics';
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED', 'CANCELLED',
@@ -225,7 +225,7 @@ export default {
           quantity: 1,
         }));
 
-        event('begin_checkout', { items });
+        gtagEvent('begin_checkout', { items });
       } catch (error) {
         setPaymentStatus(
           commit, 'FAILED_TO_BEGIN',
@@ -236,8 +236,8 @@ export default {
 
     setActivePaymentMethodById({ commit }, value) {
       commit('activePaymentMethodId', value);
-      set({ paymentMethodId: value });
-      event('setPaymentMethod', {
+      gtagSet({ paymentMethodId: value });
+      gtagEvent('setPaymentMethod', {
         event_category: 'userAction',
         paymentMethodId: value,
       });
@@ -338,7 +338,7 @@ export default {
             quantity: 1,
           }));
 
-          event('purchase', {
+          gtagEvent('purchase', {
             transaction_id: state.orderData.id,
             currency: state.orderData.currency,
             tax: state.orderData.vat,
@@ -360,7 +360,7 @@ export default {
 
         const errorData = get(error, 'response.data') || {};
 
-        event('purchaseFailed', {
+        gtagEvent('purchaseFailed', {
           errorCode: errorData.code || undefined,
           errorMessage: errorData.message || undefined,
         });
@@ -376,7 +376,7 @@ export default {
       commit('cards', cards);
       localStorage.setItem('cards', JSON.stringify(cards));
 
-      event('removeRememberedCard', { event_category: 'userAction' });
+      gtagEvent('removeRememberedCard', { event_category: 'userAction' });
     },
 
     async checkPaymentAccount({
