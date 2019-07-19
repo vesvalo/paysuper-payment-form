@@ -102,10 +102,12 @@ export default {
 
   &:hover > .iconClose {
     fill: #00d697;
+    transform: rotate(360deg)
   }
 }
 .iconClose {
   fill: rgba(#fff, 0.5);
+  transition: transform 0.3s ease-out 0.3s;
 }
 .enter,
 .leaveTo {
