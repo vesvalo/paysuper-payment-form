@@ -9,7 +9,11 @@
         <span></span>
       </div>
       <template v-else>
-        <div :class="$style.project">{{projectName}}</div>
+        <a
+          href="#"
+          :class="$style.project"
+          @click="fireAnalyticsEvent('Project')"
+        >{{ projectName }}</a>
         <div
           :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
           @click="toggleCart"
@@ -17,7 +21,31 @@
           <IconArrow />
         </div>
         <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
-          <div :class="$style.id">id897632299</div>
+          <span
+            :class="$style.profile"
+            @mouseenter="isProfileShown = true"
+            @mouseleave="isProfileShown = false"
+          >
+            {{ $t('LayoutHeader.profile') }}
+            <UiTip
+              innerPosition="left"
+              position="bottom"
+              width="200px"
+              :visible="isProfileShown"
+            >
+              <a
+                href="#"
+                :class="$style.tipLink"
+                @click="fireAnalyticsEvent('PurchaseInformation')"
+              >{{ $t('LayoutHeader.purchaseInformation') }}</a>
+              <a
+                href="#"
+                :class="$style.tipLink"
+                @click="fireAnalyticsEvent('PaymentManagement')"
+              >{{ $t('LayoutHeader.paymentManagement') }}</a>
+            </UiTip>
+          </span>
+
           <div
             :class="$style.terms"
             @mouseenter="isTermsShown = true"
@@ -30,9 +58,17 @@
               position="bottom"
               :visible="isTermsShown"
             >
-              <a href="#" :class="$style.tipLink">{{ $t('ModalCart.userAgreement') }}</a>
-              <a href="#" :class="$style.tipLink">{{ $t('ModalCart.refundPolicy') }}</a>
-              <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
+              <a
+                href="#"
+                :class="$style.tipLink"
+                @click="fireAnalyticsEvent('UserAgreement')"
+              >{{ $t('LayoutHeader.userAgreement') }}</a>
+              <a
+                href="#"
+                :class="$style.tipLink"
+                @click="fireAnalyticsEvent('RefundPolicy')"
+              >{{ $t('LayoutHeader.refundPolicy') }}</a>
+              <span :class="$style.tipContent">{{ $t('LayoutHeader.refundAdditionalInfo') }}</span>
             </UiTip>
           </div>
         </div>
@@ -49,7 +85,11 @@
         <span></span>
       </div>
       <template v-else>
-        <div :class="$style.title">Pay Super</div>
+        <a
+          href="#"
+          :class="$style.title"
+          @click="fireAnalyticsEvent('PaySuper')"
+        >Pay Super</a>
         <div :class="$style.icons">
           <IconSupport :class="$style.support" />
           <div :class="$style.localeBox">
@@ -84,6 +124,7 @@
 
 <script>
 import LocaleCnanger from '@/components/LocaleChanger.vue';
+import { gtagEvent } from '@/analytics';
 
 export default {
   components: { LocaleCnanger },
@@ -104,6 +145,7 @@ export default {
   data() {
     return {
       hasLocaleChangerOpened: false,
+      isProfileShown: false,
       isTermsShown: false,
     };
   },
@@ -134,8 +176,14 @@ export default {
       [`.${this.$style.project}`]: {
         color: this.$gui.headerProjectTitleColor,
       },
+      [`.${this.$style.project}:hover`]: {
+        color: this.$gui.cartHoverTextColor,
+      },
       [`.${this.$style.wrap} > svg`]: {
         fill: this.$gui.headerProjectTitleColor,
+      },
+      [`.${this.$style.wrap}:hover > svg`]: {
+        fill: this.$gui.cartHoverTextColor,
       },
       [`.${this.$style.support}`]: {
         fill: this.$gui.headerTextColor,
@@ -168,7 +216,11 @@ export default {
   },
 
   methods: {
+    fireAnalyticsEvent(elementName) {
+      gtagEvent(`click${elementName}Link`, { event_category: 'userAction' });
+    },
     toggleCart() {
+      gtagEvent('clickToggleCart', { event_category: 'userAction' });
       this.$emit('toggleCart');
     },
   },
@@ -180,7 +232,7 @@ export default {
   display: flex;
   flex-grow: 0;
   flex-wrap: wrap-reverse;
-  z-index: 1;
+  z-index: 2;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -372,6 +424,13 @@ export default {
   height: 24px;
   font-size: 16px;
   font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 
   @media screen and (min-width: 640px) {
     line-height: 40px;
@@ -403,12 +462,20 @@ export default {
     }
   }
 }
-.id {
+.profile {
+  position: relative;
+  cursor: pointer;
   margin-right: 20px;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .terms {
   position: relative;
   cursor: pointer;
+  transition: color 0.2s ease-out;
 }
 .tipLink,
 .tipContent {
@@ -417,6 +484,11 @@ export default {
   font-weight: 500;
   text-decoration: none;
   line-height: 18px;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .tipContent {
   margin-top: 12px;
@@ -425,6 +497,10 @@ export default {
   cursor: pointer;
   height: 24px;
   line-height: 24px;
+
+  & > svg {
+    transition: fill 0.2s ease-out;
+  }
 
   &._opened {
     & > svg {
@@ -438,12 +514,23 @@ export default {
 }
 .support {
   cursor: pointer;
+  transition: fill 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .title {
   font-size: 30px;
   line-height: 40px;
   height: 40px;
   font-weight: bold;
+  transition: color 0.2s ease-out;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .icons {
   display: flex;
@@ -482,5 +569,10 @@ export default {
   cursor: pointer;
   line-height: 15px;
   height: 15px;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 </style>

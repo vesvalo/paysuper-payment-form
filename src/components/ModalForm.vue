@@ -56,16 +56,18 @@ export default {
     >
       <div :class="$style.header">
         <div :class="$style.links">
-          <span
+          <a
+            href="#"
             :class="$style.link"
             @click="fireAnalyticsEvent('PaySuper')"
-          >Pay Super</span>
-          <span
+          >Pay Super</a>
+          <a
+            href="#"
             :class="$style.link"
             @click="fireAnalyticsEvent('IconSupport')"
           >
             <IconSupport :class="$style.iconSupport" />
-          </span>
+          </a>
           <span
             :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
             :title="$i18n.getLocaleLabel()"
@@ -133,9 +135,11 @@ export default {
 .link {
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
 
   &:hover {
     color: #00d697;
+    text-decoration: none;
   }
 
   &:not(:last-child) {

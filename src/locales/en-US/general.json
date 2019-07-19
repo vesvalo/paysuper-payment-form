@@ -106,7 +106,13 @@
     "support": "Support"
   },
   "LayoutHeader": {
-    "termsOfUse": "Terms of Use"
+    "termsOfUse": "Terms of Use",
+    "profile": "My profile",
+    "purchaseInformation": "Purchase information",
+    "paymentManagement": "Payment management",
+    "userAgreement": "User Agreement",
+    "refundPolicy": "Refund Policy",
+    "refundAdditionalInfo": "You can return this game in 10 days"
   },
   "ModalCart": {
     "termsOfUse": "Terms of Use",
