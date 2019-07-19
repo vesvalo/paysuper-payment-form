@@ -52,15 +52,15 @@ export default {
 
       paymentMethodOptions: {
         BANKCARD: {
-          label: this.$t('FormSection.card'),
+          label: 'FormSection.card',
           iconComponent: 'IconCard',
         },
         NETELLER: {
-          label: this.$t('FormSection.neteller'),
+          label: 'FormSection.neteller',
           iconComponent: 'IconCard',
         },
         ALIPAY: {
-          label: this.$t('FormSection.alipay'),
+          label: 'FormSection.alipay',
           iconComponent: 'IconCard',
           types: {
             ewallet: {
@@ -69,15 +69,15 @@ export default {
           },
         },
         BITCOIN: {
-          label: this.$t('FormSection.bitcoin'),
+          label: 'FormSection.bitcoin',
           iconComponent: 'IconCard',
         },
         QIWI: {
-          label: this.$t('FormSection.qiwi'),
+          label: 'FormSection.qiwi',
           iconComponent: 'IconQiwi',
         },
         WEBMONEY: {
-          label: this.$t('FormSection.webmoney'),
+          label: 'FormSection.webmoney',
           iconComponent: 'IconWebmoney',
         },
       },
@@ -111,7 +111,7 @@ export default {
         const type = group.types ? group.types[item.type] : null;
         return {
           value: item.id,
-          label: get(type, 'label') || get(group, 'label'),
+          label: this.$i18n.t(get(type, 'label') || get(group, 'label')),
           iconComponent: get(type, 'iconComponent') || get(group, 'iconComponent'),
         };
       });
