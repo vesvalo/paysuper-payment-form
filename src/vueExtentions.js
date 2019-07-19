@@ -47,8 +47,6 @@ function $changeLocale(locale) {
 
   document.body.style.fontFamily = font.fontFamily;
 
-  console.error(locale);
-
   gtagEvent('setLocale', {
     event_category: 'userAction',
     event_label: locale,

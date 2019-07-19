@@ -39,7 +39,6 @@ const actionResultsByStatus = {
   // CANCELLED: () => ({ type: 'unknownError' }),
   INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
   FAILED_TO_CREATE(data) {
-    console.log(11111, 'FAILED_TO_CREATE', data);
     if (data) {
       if (data.code === 'fm000025') {
         return { type: 'unknownError' };
@@ -281,7 +280,6 @@ export default {
       )
         .init()
         .on('newPaymentStatus', (data) => {
-          console.log(11111, 'newPaymentStatus', data);
           if (
             // Just in case. Its probably unnecessary
             data.order_id !== state.orderData.id
