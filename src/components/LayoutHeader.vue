@@ -149,7 +149,7 @@ export default {
       isTermsShown: false,
     };
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.left}`]: {
         'background-color': this.$gui.cartBackgroundColor,
