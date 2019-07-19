@@ -89,3 +89,11 @@ PaySuper welcomes contributions from anyone and everyone. Please refer to each p
 The master branch of this repository contains the latest stable release of this component.
 
  
+
+### Screenshot testing hint
+https://static.protocol.one/paysuper/form/dev/tests/base-button-spec-js-base-button-vue-should-render-content-1-diff.png
+
+Inside `.travis.yml`
+`#- set -e` 
+vs
+`- rclone copy tests/unit/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST`
