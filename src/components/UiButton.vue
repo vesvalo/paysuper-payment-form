@@ -124,6 +124,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   border-color: $border-color;
   transition: $transition;
   vertical-align: top;
+  white-space: nowrap;
 
   &:hover {
     background-color: $hover-box-color;
