@@ -45,9 +45,9 @@ export default {
     },
   },
 
-  data() {
-    return {
-      types: {
+  computed: {
+    types() {
+      return {
         // 1. Охуевший тотем - нахватка средств или специальная ошибка (+ жёлтый текст и опции)
         // 2. Карта с крестиком - неведомая ошибка
         // 3. Разбитая карта - общая ошибка с текстом
@@ -78,8 +78,8 @@ export default {
           iconComponent: 'IconTotemSuccess',
           // iconComponent: 'IconCardSuccess',
         },
-      },
-    };
+      };
+    },
   },
 };
 </script>
