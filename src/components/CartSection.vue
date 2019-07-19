@@ -230,7 +230,7 @@ export default {
     }
   }
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 639px) {
     &._closed {
       padding: 0 0 10px;
 
@@ -267,7 +267,7 @@ export default {
     padding: 0;
   }
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 639px) {
     .cartSection._closed & {
       padding: 0;
     }
@@ -379,7 +379,7 @@ export default {
   margin-top: 10px;
   padding: 12px 0 0;
 
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 639px) {
     .cartSection._closed & {
       margin-top: 0;
     }

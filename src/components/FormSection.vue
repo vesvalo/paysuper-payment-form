@@ -177,19 +177,22 @@ export default {
     ]),
 
     handleMainButtonClick() {
-      gtagEvent('clickPayButton', { event_category: 'userAction' });
-
       if (this.isUserCountryConfirmRequested) {
+        gtagEvent('confirmUserCountry', { event_category: 'userAction' });
         this.submitUserCountry();
       } else if (this.isUserCountryRestricted) {
+        gtagEvent('isUserCountryRestricted');
         this.$emit('close');
       } else if (this.actionResult) {
         if (this.actionResult.type === 'success') {
+          gtagEvent('clickOkButton', { event_category: 'userAction' });
           this.$emit('close');
         } else {
+          gtagEvent('clickTryAgainButton', { event_category: 'userAction' });
           this.clearActionResult();
         }
       } else if (this.isPaymentFormVisible) {
+        gtagEvent('clickPayButton', { event_category: 'userAction' });
         this.submitPaymentForm();
       }
     },

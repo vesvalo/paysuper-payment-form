@@ -184,6 +184,11 @@ export default {
   text-decoration: none;
   line-height: 18px;
   cursor: pointer;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .tipLink {
   display: block;
@@ -191,6 +196,11 @@ export default {
   font-weight: 500;
   text-decoration: none;
   line-height: 18px;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 .tipContent {
   display: block;

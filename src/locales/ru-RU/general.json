@@ -106,7 +106,13 @@
     "support": "Поддержка"
   },
   "LayoutHeader": {
-    "termsOfUse": "Условия использования"
+    "termsOfUse": "Условия использования",
+    "profile": "Мой профиль",
+    "purchaseInformation": "Информация о покупке",
+    "paymentManagement": "Управление платежами",
+    "userAgreement": "Пользовательское соглашение",
+    "refundPolicy": "Политика возврата",
+    "refundAdditionalInfo": "Вы можете вернуть эту игру в течении 10 дней"
   },
   "PaymentAreaWarning": {
     "oops": "Оооопаньки",

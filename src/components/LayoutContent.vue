@@ -142,15 +142,17 @@ export default {
   width: 100%;
   max-width: 640px;
 
-  @media screen and (max-width: 640px) {
-    &._closed {
-      padding: 0 30px;
-    }
+  &._closed {
+    padding: 0 30px;
   }
 
   @media screen and (min-width: 640px) {
     padding: 0;
     max-width: 480px;
+
+    &._closed {
+      padding: 20px 30px;
+    }
   }
 }
 .main {
