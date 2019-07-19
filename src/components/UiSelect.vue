@@ -326,6 +326,9 @@ $main-additional-height: 18px;
   display: flex;
   align-items: center;
   flex-grow: 0;
+  width: 18px;
+  height: 23px;
+  overflow: hidden;
 
   &._right {
     order: 2;
