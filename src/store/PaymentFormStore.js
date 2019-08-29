@@ -459,7 +459,7 @@ export default {
         commit('isZipInvalid', false);
       } catch (error) {
         // zip invalid
-        if (error.response && error.response.data.code === 'ma000002') {
+        if (error.response && error.response.data.code === 'ma000073') {
           commit('isZipInvalid', true);
         } else {
           console.error(error);

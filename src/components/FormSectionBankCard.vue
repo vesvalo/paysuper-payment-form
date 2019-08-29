@@ -265,7 +265,9 @@ export default {
           },
           zip: {
             required,
-            valid: () => !this.isZipInvalid,
+            wrongValue() {
+              return !this.isZipInvalid;
+            },
           },
         };
       }
