@@ -435,6 +435,9 @@ export default {
       commit('isFormLoading', value);
     },
 
+    /**
+     * Used when geo data changes (country/city/zip)
+     */
     async updateBillingData({ state, commit, rootState }, { country, city, zip }) {
       if (country === 'US' && (!city || !zip)) {
         return;
@@ -458,8 +461,12 @@ export default {
 
         commit('isZipInvalid', false);
       } catch (error) {
-        // zip invalid
-        if (error.response && error.response.data.code === 'ma000073') {
+        const zipErrors = [
+          'fm000050', // zip not found
+          'ma000073', // zip invalid
+        ];
+        const apiErrorCode = get(error, 'error.response.data.code');
+        if (includes(zipErrors, apiErrorCode)) {
           commit('isZipInvalid', true);
         } else {
           console.error(error);
