@@ -465,7 +465,7 @@ export default {
           'fm000050', // zip not found
           'ma000073', // zip invalid
         ];
-        const apiErrorCode = get(error, 'error.response.data.code');
+        const apiErrorCode = get(error, 'response.data.code');
         if (includes(zipErrors, apiErrorCode)) {
           commit('isZipInvalid', true);
         } else {
