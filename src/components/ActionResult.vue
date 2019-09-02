@@ -1,4 +1,5 @@
 <script>
+import { includes } from 'lodash-es';
 import IconTotemFail from '@/components/IconTotemFail.vue';
 import IconTotemSuccess from '@/components/IconTotemSuccess.vue';
 import IconCardCracked from '@/components/IconCardCracked.vue';
@@ -6,7 +7,6 @@ import IconCardFail from '@/components/IconCardFail.vue';
 import IconCardSuccess from '@/components/IconCardSuccess.vue';
 import IconLetsPlay from '@/components/IconLetsPlay.vue';
 import UiTextField from '@/components/UiTextField.vue';
-import { includes } from 'lodash-es';
 
 export default {
   name: 'ActionResult',
