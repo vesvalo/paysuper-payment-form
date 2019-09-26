@@ -191,7 +191,7 @@ export default {
 
     async createOrder({ state, commit, rootState }) {
       const {
-        project, token, products, amount, currency,
+        project, token, products, amount, currency, type,
       } = state.orderParams;
       if (amount) {
         assert(currency, 'PaySuper: currency is not set');
@@ -204,6 +204,7 @@ export default {
             ...(token ? { token } : {}),
             ...(products ? { products } : {}),
             ...(amount ? { amount, currency } : {}),
+            ...(type ? { type } : {}),
           },
         );
         const orderData = data.payment_form_data;
