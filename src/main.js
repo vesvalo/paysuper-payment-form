@@ -82,7 +82,10 @@ async function mountApp(orderParams, optionsCustom = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
+  Vue.prototype.$gui = {
+    ...viewSchemes[options.viewScheme],
+    ...(options.viewSchemeConfig || {}),
+  };
 
   new VueApp({
     store,
