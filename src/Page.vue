@@ -33,16 +33,31 @@ export default {
       return this.paymentStatus === 'INITIAL';
     },
   },
-  beforeMount() {
-    postMessage('LOADED');
-  },
+
   created() {
     window.addEventListener('beforeunload', () => {
       gtagEvent('formClosed');
     });
   },
+  beforeMount() {
+    postMessage('LOADED');
+  },
+  mounted() {
+    this.getAppSizeAndReport();
+    setTimeout(this.getAppSizeAndReport, 100);
+  },
+
   methods: {
+    ...mapActions(['reportResize']),
     ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+
+    getAppSizeAndReport() {
+      const size = {
+        height: this.$el.offsetHeight,
+        width: this.$el.offsetWidth,
+      };
+      this.reportResize(size);
+    },
 
     async tryToCreateOrder() {
       this.setFormLoading(true);

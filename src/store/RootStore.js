@@ -2,16 +2,24 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import DictionariesStore from './DictionariesStore';
 import PaymentFormStore from './PaymentFormStore';
+import { postMessage } from '../postMessage';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     apiUrl: '',
+    lastSize: {
+      width: 0,
+      height: 0,
+    },
   },
   mutations: {
     apiUrl(state, value) {
       state.apiUrl = value;
+    },
+    lastSize(state, value) {
+      state.lastSize = value;
     },
   },
   actions: {
@@ -22,6 +30,17 @@ export default new Vuex.Store({
         dispatch('Dictionaries/initState'),
         dispatch('PaymentForm/initState', { orderParams, options }),
       ]);
+    },
+
+    reportResize({ state, commit }, newSize) {
+      if (
+        state.lastSize.width === newSize.width
+        && state.lastSize.height === newSize.height
+      ) {
+        return;
+      }
+      commit('lastSize', newSize);
+      postMessage('FORM_RESIZE', newSize);
     },
   },
 
