@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     this.getAppSizeAndReport();
-    setTimeout(this.getAppSizeAndReport, 100);
+    setInterval(this.getAppSizeAndReport, 100);
   },
 
   methods: {
