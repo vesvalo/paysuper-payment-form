@@ -75,6 +75,11 @@ async function mountApp(orderParams, optionsCustom = {}) {
   let appComponent = Modal;
   if (options.layout === 'page') {
     appComponent = Page;
+    if (isPageInsideIframe) {
+      // Prevents scrollbar dangling before formResize
+      document.body.style.overflow = 'hidden';
+      document.body.parentNode.style.overflow = 'hidden';
+    }
   } else if (options.layout === 'loading') {
     appComponent = Loading;
   } else if (process.env.NODE_ENV === 'development' && options.layout === 'sandbox') {
@@ -82,7 +87,10 @@ async function mountApp(orderParams, optionsCustom = {}) {
   }
   const VueApp = Vue.extend(appComponent);
 
-  Vue.prototype.$gui = options.viewSchemeConfig || viewSchemes[options.viewScheme];
+  Vue.prototype.$gui = {
+    ...viewSchemes[options.viewScheme],
+    ...(options.viewSchemeConfig || {}),
+  };
 
   new VueApp({
     store,
