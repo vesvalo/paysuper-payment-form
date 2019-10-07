@@ -5,11 +5,12 @@ import {
 } from 'lodash-es';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
+import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import i18n from '@/i18n';
 import { gtagEvent, gtagSet } from '@/analytics';
 
 const availableChannelStatuses = [
-  'COMPLETED', 'DECLINED', 'CANCELLED',
+  'COMPLETED', 'DECLINED',
 ];
 
 const allowedPaymentStatuses = [
@@ -36,7 +37,6 @@ const actionResultsByStatus = {
       message: i18n.t(`errorCodes.${data.decline.code}`),
     };
   },
-  // CANCELLED: () => ({ type: 'unknownError' }),
   INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
   FAILED_TO_CREATE(data) {
     if (data) {
@@ -66,7 +66,7 @@ function setPaymentStatus(commit, name, extraData) {
     commit('isPaymentLoading', true);
   }
 
-  if (includes(['FAILED_TO_CREATE', 'INTERRUPTED', 'COMPLETED', 'DECLINED', 'CANCELLED'], name)) {
+  if (includes(['FAILED_TO_CREATE', 'INTERRUPTED', 'COMPLETED', 'DECLINED'], name)) {
     commit('isPaymentLoading', false);
   }
 }
@@ -345,27 +345,22 @@ export default {
         ),
       };
 
-      let redirectUrl = '';
-      let delayHasPassed = false;
-      setTimeout(() => {
-        if (redirectUrl) {
-          paymentConnection.setRedirectWindowLocation(redirectUrl);
-        }
-        delayHasPassed = true;
-      }, 2000);
-
       try {
-        const { data } = await axios.post(
-          `${rootState.apiUrl}/api/v1/payment`,
-          request,
+        // Delay is used for the redirect window not to open too soon
+        await useDelayedCallbackOnPromise(
+          axios.post(
+            `${rootState.apiUrl}/api/v1/payment`,
+            request,
+          ),
+          ({ data }) => {
+            const redirectUrl = data.redirect_url;
+            paymentConnection.setRedirectWindowLocation(redirectUrl);
+            setPaymentStatus(commit, 'CREATED', {
+              redirectUrl,
+            });
+          },
+          2000,
         );
-        redirectUrl = data.redirect_url;
-        if (delayHasPassed) {
-          paymentConnection.setRedirectWindowLocation(redirectUrl);
-        }
-        setPaymentStatus(commit, 'CREATED', {
-          redirectUrl: data.redirect_url,
-        });
       } catch (error) {
         paymentConnection.closeRedirectWindow();
 
