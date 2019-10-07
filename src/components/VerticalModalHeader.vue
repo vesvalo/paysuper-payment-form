@@ -20,6 +20,9 @@ export default {
   },
   mounted() {
     this.$addCssRules({
+      [`.${this.$style.header}`]: {
+        'background-color': this.$gui.cartBackgroundColor,
+      },
       [`.${this.$style.link}`]: {
         color: this.$gui.headerTextColor,
       },
@@ -61,7 +64,11 @@ export default {
       href="#"
       :class="$style.link"
       @click="fireAnalyticsEvent('PaySuper')"
-    >Pay Super</a>
+    >
+      <div :class="$style.linkEllipsis">
+        Pay Super
+      </div>
+    </a>
     <a
       href="#"
       :class="$style.link"
@@ -74,14 +81,18 @@ export default {
       :title="$i18n.getLocaleLabel()"
       @click="$emit('toggleLocaleChanger')"
     >
-      {{ $i18n.getLocaleLabel() }}
+      <div :class="$style.linkEllipsis">
+        {{ $i18n.getLocaleLabel() }}
+      </div>
     </span>
     <span
       :class="$style.link"
       @mouseenter="isTermsShown = true"
       @mouseleave="isTermsShown = false"
     >
-      {{ $t('ModalCart.termsOfUse') }}
+      <div :class="$style.linkEllipsis">
+        {{ $t('ModalCart.termsOfUse') }}
+      </div>
       <UiTip
         width="240px"
         :visible="isTermsShown"
@@ -104,7 +115,9 @@ export default {
       @mouseenter="isProfileShown = true"
       @mouseleave="isProfileShown = false"
     >
-      {{ $t('ModalCart.profile') }}
+      <div :class="$style.linkEllipsis">
+        {{ $t('ModalCart.profile') }}
+      </div>
       <UiTip
         innerPosition="right"
         position="bottom"
@@ -138,29 +151,37 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 50px;
   z-index: 10;
   width: 100%;
+  flex-wrap: nowrap;
 }
 .links {
-  height: 60px;
+  height: 50px;
   display: flex;
   justify-content: flex-start;
   padding: 0 12px;
+  max-width: calc(100% - 50px);
 }
 .link {
   position: relative;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  line-height: 60px;
+  line-height: 50px;
   cursor: pointer;
   transition: color 0.2s ease-out;
   padding: 0 8px;
+  min-width: 0;
 
   &:hover {
     text-decoration: none;
   }
+}
+.linkEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .iconSupport {
   transition: fill 0.2s ease-out;
@@ -202,8 +223,8 @@ export default {
   margin-top: 12px;
 }
 .close {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   padding: 20px;
   cursor: pointer;
   z-index: 10000;

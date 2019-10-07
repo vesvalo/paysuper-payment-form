@@ -59,7 +59,8 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   align-items: center;
   overflow: hidden;
   background-color: #424c66;
@@ -70,7 +71,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  max-height: calc(100% - 60px);
+  max-height: calc(100% - 50px);
   position: relative;
   width: 100%;
   align-items: center;
@@ -80,7 +81,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(50% - 60px);
+  height: 35vh;
 }
 .enter,
 .leaveTo {

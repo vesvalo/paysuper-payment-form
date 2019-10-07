@@ -9,6 +9,8 @@ import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
 import VerticalModal from '@/components/VerticalModal.vue';
+import VerticalModalCart from '@/components/VerticalModalCart.vue';
+import VerticalModalForm from '@/components/VerticalModalForm.vue';
 import { postMessage } from './postMessage';
 
 export default {
@@ -21,6 +23,8 @@ export default {
     ModalForm,
     OrderCreationError,
     VerticalModal,
+    VerticalModalCart,
+    VerticalModalForm,
   },
 
   data() {
@@ -42,15 +46,23 @@ export default {
     modalComponentName() {
       return this.isVerticalModal ? 'VerticalModal' : 'Modal';
     },
+
+    modalCartComponentName() {
+      return this.isVerticalModal ? 'VerticalModalCart' : 'ModalCart';
+    },
+
+    modalFormComponentName() {
+      return this.isVerticalModal ? 'VerticalModalForm' : 'ModalForm';
+    },
   },
 
   beforeMount() {
     postMessage('LOADED');
 
-    this.isVerticalModal = window.innerWidth < 580;
+    this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
 
     window.addEventListener('resize', () => {
-      this.isVerticalModal = window.innerWidth < 580;
+      this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
     });
   },
 
@@ -80,17 +92,21 @@ export default {
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
-      <ModalCart
+      <component
+        :is="modalCartComponentName"
         :isLoading="isLoading"
-        :projectName="orderData ? orderData.project.name : ''"
       >
         <CartSection />
-      </ModalCart>
-      <ModalForm
+      </component>
+      <component
+        :is="modalFormComponentName"
         :isLoading="isLoading"
       >
-        <FormSection @close="closeModal" />
-      </ModalForm>
+        <FormSection
+          :isVerticalModal="isVerticalModal"
+          @close="closeModal"
+        />
+      </component>
     </template>
 
     <ActionProcessing

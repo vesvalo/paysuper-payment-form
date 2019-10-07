@@ -28,6 +28,10 @@ export default {
         return includes(['modal', 'page'], value);
       },
     },
+    isVerticalModal: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   filters: {
@@ -261,7 +265,11 @@ export default {
 </script>
 
 <template>
-<div :class="[$style.formSection, $style[`_layout-${layout}`]]">
+<div :class="[
+  $style.formSection,
+  $style[`_layout-${layout}`],
+  { [$style[`_is-vertical`]]: isVerticalModal },
+]">
   <div :class="$style.content">
     <component
       :is="layout === 'modal' ? 'UiScrollbarBox' : 'div'"
@@ -374,6 +382,10 @@ export default {
   height: 100%;
   min-height: 448px;
   width: 100%;
+
+  &._is-vertical {
+    min-height: 0;
+  }
 }
 
 .content {
