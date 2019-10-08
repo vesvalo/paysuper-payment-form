@@ -11,8 +11,14 @@ const scheme = {
     'default',
   ],
   UiSelect: [
-    'default',
-    'focused',
+    {
+      story: 'default',
+      wait: 300,
+    },
+    {
+      story: 'focused',
+      wait: 300,
+    },
   ],
   UiTip: [
     'default',
