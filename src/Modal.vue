@@ -2,27 +2,34 @@
 import { mapState, mapActions } from 'vuex';
 import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
+import CartSection from '@/components/CartSection.vue';
+import FormSection from '@/components/FormSection.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
-import CartSection from '@/components/CartSection.vue';
-import FormSection from '@/components/FormSection.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
+import VerticalModal from '@/components/VerticalModal.vue';
+import VerticalModalCart from '@/components/VerticalModalCart.vue';
+import VerticalModalForm from '@/components/VerticalModalForm.vue';
 import { postMessage } from './postMessage';
 
 export default {
   components: {
+    ActionProcessing,
+    CartSection,
+    FormSection,
     Modal,
     ModalCart,
     ModalForm,
-    CartSection,
-    FormSection,
-    ActionProcessing,
     OrderCreationError,
+    VerticalModal,
+    VerticalModalCart,
+    VerticalModalForm,
   },
 
   data() {
     return {
+      isVerticalModal: false,
       opened: true,
     };
   },
@@ -35,14 +42,32 @@ export default {
     isLoading() {
       return this.paymentStatus === 'INITIAL';
     },
+
+    modalComponentName() {
+      return this.isVerticalModal ? 'VerticalModal' : 'Modal';
+    },
+
+    modalCartComponentName() {
+      return this.isVerticalModal ? 'VerticalModalCart' : 'ModalCart';
+    },
+
+    modalFormComponentName() {
+      return this.isVerticalModal ? 'VerticalModalForm' : 'ModalForm';
+    },
   },
 
   beforeMount() {
     postMessage('LOADED');
+    this.updateIsVerticalModal();
+    window.addEventListener('resize', this.updateIsVerticalModal);
   },
 
   methods: {
     ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+
+    updateIsVerticalModal() {
+      this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
+    },
 
     closeModal() {
       this.opened = false;
@@ -60,23 +85,28 @@ export default {
 </script>
 
 <template>
-<div :class="$style.layout">
-  <Modal
+<div :class="[$style.layout, { [$style._vertical]: isVerticalModal }]">
+  <component
+    :is="modalComponentName"
     :opened="opened"
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
-      <ModalCart
+      <component
+        :is="modalCartComponentName"
         :isLoading="isLoading"
-        :projectName="orderData ? orderData.project.name : ''"
       >
         <CartSection />
-      </ModalCart>
-      <ModalForm
+      </component>
+      <component
+        :is="modalFormComponentName"
         :isLoading="isLoading"
       >
-        <FormSection @close="closeModal" />
-      </ModalForm>
+        <FormSection
+          :isVerticalModal="isVerticalModal"
+          @close="closeModal"
+        />
+      </component>
     </template>
 
     <ActionProcessing
@@ -89,7 +119,7 @@ export default {
       :type="actionResult.type"
       @tryAgain="tryToCreateOrder"
     />
-  </Modal>
+  </component>
 </div>
 </template>
 
@@ -97,10 +127,14 @@ export default {
 @import '@/assets/styles/reset.scss';
 
 .layout {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   justify-content: center;
   align-items: center;
   display: flex;
+
+  &._vertical {
+    flex-direction: column;
+  }
 }
 </style>

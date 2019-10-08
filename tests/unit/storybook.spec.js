@@ -11,8 +11,14 @@ const scheme = {
     'default',
   ],
   UiSelect: [
-    'default',
-    'focused',
+    {
+      story: 'default',
+      wait: 300,
+    },
+    {
+      story: 'focused',
+      wait: 300,
+    },
   ],
   UiTip: [
     'default',
@@ -32,6 +38,32 @@ const scheme = {
     {
       story: 'order error',
       wait: 300,
+    },
+  ],
+  VerticalModal: [
+    {
+      story: 'default',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
+    },
+    {
+      story: 'loading',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
+    },
+    {
+      story: 'order error',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
     },
   ],
   Page: [
