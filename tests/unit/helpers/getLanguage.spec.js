@@ -1,6 +1,8 @@
 import { fallbackLocale } from '@/constants';
 import getLanguage from '@/helpers/getLanguage';
 
+jest.setTimeout(30000);
+
 describe('getLanguage', () => {
   const localesScheme = {
     'ru-RU': {},

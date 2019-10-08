@@ -34,6 +34,32 @@ const scheme = {
       wait: 300,
     },
   ],
+  VerticalModal: [
+    {
+      story: 'default',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
+    },
+    {
+      story: 'loading',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
+    },
+    {
+      story: 'order error',
+      wait: 300,
+      viewport: {
+        width: 360,
+        height: 540,
+      },
+    },
+  ],
   Page: [
     {
       story: 'default',

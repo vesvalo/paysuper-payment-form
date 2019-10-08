@@ -58,16 +58,16 @@ export default {
 
   beforeMount() {
     postMessage('LOADED');
-
-    this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
-
-    window.addEventListener('resize', () => {
-      this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
-    });
+    this.updateIsVerticalModal();
+    window.addEventListener('resize', this.updateIsVerticalModal);
   },
 
   methods: {
     ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+
+    updateIsVerticalModal() {
+      this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
+    },
 
     closeModal() {
       this.opened = false;
@@ -127,7 +127,7 @@ export default {
 @import '@/assets/styles/reset.scss';
 
 .layout {
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   justify-content: center;
   align-items: center;

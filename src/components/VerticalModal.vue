@@ -59,8 +59,8 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   align-items: center;
   overflow: hidden;
   background-color: #424c66;

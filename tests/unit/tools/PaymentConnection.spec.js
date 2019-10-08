@@ -1,5 +1,7 @@
 import PaymentConnection from '@/tools/PaymentConnection';
 
+jest.setTimeout(30000);
+
 class WindowMock {
   constructor() {
     this.listeners = {
