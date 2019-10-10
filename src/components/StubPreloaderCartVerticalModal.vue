@@ -50,7 +50,7 @@ export default {
   <div :class="$style.images">
     <div
       v-for="index in 5"
-      :class="[$style.imageItem, $style['_count-5']]"
+      :class="$style.imageItem"
       :key="index"
     >
       <div :class="$style.imageItemInner"></div>

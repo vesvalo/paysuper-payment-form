@@ -45,7 +45,7 @@ export default {
       return this.paymentStatus === 'INITIAL';
     },
 
-    componentName() {
+    getComponentName() {
       return name => (this.isVerticalModal ? `Vertical${name}` : name);
     },
   },
@@ -81,20 +81,20 @@ export default {
 <template>
 <div :class="[$style.layout, { [$style._vertical]: isVerticalModal }]">
   <component
-    :is="componentName('Modal')"
+    :is="getComponentName('Modal')"
     :opened="opened"
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
       <component
-        :is="componentName('ModalCart')"
+        :is="getComponentName('ModalCart')"
         projectName="PaySuper"
         :isLoading="isLoading"
       >
-        <component :is="componentName('CartSection')" />
+        <component :is="getComponentName('CartSection')" />
       </component>
       <component
-        :is="componentName('ModalForm')"
+        :is="getComponentName('ModalForm')"
         :isLoading="isLoading"
       >
         <FormSection

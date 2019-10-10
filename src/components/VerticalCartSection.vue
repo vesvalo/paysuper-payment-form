@@ -131,7 +131,7 @@ export default {
       <div v-if="images" :class="$style.images">
         <div
           v-for="(img, index) in images"
-          :class="[$style.imageItem, $style[`_count-${images.length}`]]"
+          :class="[$style.imageItem, $style[`_count${images.length}`]]"
           :key="index"
           @click="clickProduct(index)"
         >
@@ -179,7 +179,7 @@ export default {
   box-sizing: border-box;
   margin-bottom: 6px;
 
-  &._count-1 {
+  &._count1 {
     flex-basis: 100%;
     height: 86px;
   }

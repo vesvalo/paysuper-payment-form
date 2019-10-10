@@ -26,7 +26,7 @@ export default {
   <UiTransitionFade>
     <template>
       <StubPreloaderCartVerticalModal
-        v-if="true"
+        v-if="isLoading"
         :class="$style.stub"
       />
       <div
