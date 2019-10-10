@@ -292,6 +292,7 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="paymentData"
+          :isCardCredOneLine="isVerticalModal"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
@@ -412,6 +413,10 @@ export default {
 
   .formSection._layout-modal & {
     padding: 0 40px 20px;
+  }
+
+  .formSection._is-vertical & {
+    padding: 20px 40px 20px;
   }
 
   .formSection._layout-page & {

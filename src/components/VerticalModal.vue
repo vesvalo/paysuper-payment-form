@@ -22,15 +22,7 @@ export default {
 </script>
 
 <template>
-<transition
-  appear
-  :enter-class="$style.enter"
-  :enter-active-class="$style.enterActive"
-  :enter-to-class="$style.enterTo"
-  :leave-class="$style.leave"
-  :leave-active-class="$style.leaveActive"
-  :leave-to-class="$style.leaveTo"
->
+<UiTransitionFade>
   <div
     v-show="opened"
     :class="$style.layout"
@@ -51,7 +43,7 @@ export default {
       />
     </div>
   </div>
-</transition>
+</UiTransitionFade>
 </template>
 
 <style module lang="scss">
@@ -71,7 +63,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
-  max-height: calc(100% - 50px);
+  height: calc(100% - 50px);
   position: relative;
   width: 100%;
   align-items: center;
@@ -81,18 +73,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 35vh;
-}
-.enter,
-.leaveTo {
-  opacity: 0;
-}
-.enterTo,
-.leave {
-  opacity: 1;
-}
-.enterActive,
-.leaveActive {
-  transition: opacity 0.3s ease-in-out;
+  height: 40%;
 }
 </style>

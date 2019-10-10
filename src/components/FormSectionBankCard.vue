@@ -14,11 +14,11 @@
     v-else
     v-model="innerValue.cardNumber"
     name="pan"
-    :class="$style.formItem"
+    :class="[$style.formItem, $style._oneLine]"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
   />
-  <div :class="$style.formItem">
+  <div :class="[$style.formItem, $style._oneLine]">
     <UiTextField
       v-model="innerValue.expiryDate"
       name="cc-exp"
@@ -194,6 +194,10 @@ export default {
       type: Boolean,
       required: true,
     },
+    isCardCredOneLine: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   model: {
@@ -313,11 +317,16 @@ export default {
   flex-wrap: wrap;
   position: relative;
   align-content: flex-start;
+  justify-content: space-between;
 }
 .formItem {
   display: flex;
   justify-content: space-between;
   width: 100%;
+
+  &._oneLine {
+    width: calc(50% - 10px);
+  }
 }
 .expiry {
   @include if-ltr {

@@ -66,7 +66,7 @@ export default {
       @click="fireAnalyticsEvent('PaySuper')"
     >
       <div :class="$style.linkEllipsis">
-        Pay Super
+        PaySuper
       </div>
     </a>
     <a
