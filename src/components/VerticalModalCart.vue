@@ -1,9 +1,9 @@
 <script>
-import StubPreloaderCartModal from '@/components/StubPreloaderCartModal.vue';
+import StubPreloaderCartVerticalModal from '@/components/StubPreloaderCartVerticalModal.vue';
 
 export default {
   components: {
-    StubPreloaderCartModal,
+    StubPreloaderCartVerticalModal,
   },
   props: {
     isLoading: {
@@ -24,16 +24,18 @@ export default {
 <template>
 <div :class="$style.layout">
   <UiTransitionFade>
-    <StubPreloaderCartModal
-      v-if="isLoading"
-      :class="$style.stub"
-    />
-    <div
-      v-else
-      :class="$style.content"
-    >
-      <slot />
-    </div>
+    <template>
+      <StubPreloaderCartVerticalModal
+        v-if="true"
+        :class="$style.stub"
+      />
+      <div
+        v-else
+        :class="$style.content"
+      >
+        <slot />
+      </div>
+    </template>
   </UiTransitionFade>
 </div>
 </template>
@@ -41,7 +43,7 @@ export default {
 <style module lang="scss">
 .layout {
   width: 100%;
-  max-height: 35vh;
+  min-height: 40%;
   display: flex;
   flex-direction: column;
   position: relative;

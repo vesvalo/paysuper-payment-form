@@ -8,6 +8,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
+import VerticalCartSection from '@/components/VerticalCartSection.vue';
 import VerticalModal from '@/components/VerticalModal.vue';
 import VerticalModalCart from '@/components/VerticalModalCart.vue';
 import VerticalModalForm from '@/components/VerticalModalForm.vue';
@@ -22,6 +23,7 @@ export default {
     ModalCart,
     ModalForm,
     OrderCreationError,
+    VerticalCartSection,
     VerticalModal,
     VerticalModalCart,
     VerticalModalForm,
@@ -43,16 +45,8 @@ export default {
       return this.paymentStatus === 'INITIAL';
     },
 
-    modalComponentName() {
-      return this.isVerticalModal ? 'VerticalModal' : 'Modal';
-    },
-
-    modalCartComponentName() {
-      return this.isVerticalModal ? 'VerticalModalCart' : 'ModalCart';
-    },
-
-    modalFormComponentName() {
-      return this.isVerticalModal ? 'VerticalModalForm' : 'ModalForm';
+    componentName() {
+      return name => (this.isVerticalModal ? `Vertical${name}` : name);
     },
   },
 
@@ -87,19 +81,20 @@ export default {
 <template>
 <div :class="[$style.layout, { [$style._vertical]: isVerticalModal }]">
   <component
-    :is="modalComponentName"
+    :is="componentName('Modal')"
     :opened="opened"
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
       <component
-        :is="modalCartComponentName"
+        :is="componentName('ModalCart')"
+        projectName="PaySuper"
         :isLoading="isLoading"
       >
-        <CartSection />
+        <component :is="componentName('CartSection')" />
       </component>
       <component
-        :is="modalFormComponentName"
+        :is="componentName('ModalForm')"
         :isLoading="isLoading"
       >
         <FormSection
@@ -127,8 +122,8 @@ export default {
 @import '@/assets/styles/reset.scss';
 
 .layout {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   justify-content: center;
   align-items: center;
   display: flex;

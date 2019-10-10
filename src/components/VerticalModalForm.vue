@@ -28,7 +28,10 @@ export default {
       v-if="isLoading"
       :class="$style.stub"
     />
-    <div :class="$style.content">
+    <div
+      v-if="!isLoading"
+      :class="$style.content"
+    >
       <slot />
     </div>
   </UiTransitionFade>
@@ -44,10 +47,17 @@ export default {
   flex-grow: 1;
   height: 100%;
 }
+.stub {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+}
 .content {
   display: flex;
   flex-grow: 1;
-  padding-top: 20px;
   position: relative;
   height: 100%;
 }
