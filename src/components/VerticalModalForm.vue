@@ -25,7 +25,7 @@ export default {
 <div :class="$style.layout">
   <UiTransitionFade>
     <StubPreloaderFormModal
-      v-if="true"
+      v-if="isLoading"
       :isVerticalModal="true"
       :class="$style.stub"
     />

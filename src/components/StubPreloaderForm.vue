@@ -116,7 +116,8 @@ export default {
 
   .stubPreloaderForm._isVertical & {
     height: calc(100% - 60px);
-    align-content: space-evenly;
+    align-content: space-between;
+    padding-bottom: 24px;
   }
 }
 .item {
@@ -178,7 +179,7 @@ export default {
   }
 
   .stubPreloaderForm._isVertical & {
-    margin-top: 0;
+    margin-top: 24px;
 
     &:nth-child(2) {
       flex-basis: calc(50% - 10px);
