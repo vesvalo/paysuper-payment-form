@@ -68,6 +68,9 @@ export default {
       [`.${this.before}`]: {
         color: this.$gui.buttonBeforeColor,
       },
+      [`.${this.before} > svg`]: {
+        fill: this.$gui.buttonBeforeColor,
+      },
       [`.${this.after}`]: {
         color: this.$gui.buttonAfterColor,
       },

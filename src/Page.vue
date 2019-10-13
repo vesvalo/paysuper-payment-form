@@ -85,6 +85,7 @@ export default {
       <CartSection
         slot="cart"
         layout="page"
+        :orderData="orderData"
         :isCartOpened="isCartOpened"
       />
       <FormSection

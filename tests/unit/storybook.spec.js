@@ -134,6 +134,38 @@ const scheme = {
       },
     },
   ],
+  CartSection: [
+    {
+      story: 'modal',
+      viewport: {
+        width: 500,
+        height: 4200,
+      },
+    },
+    {
+      story: 'page',
+      viewport: {
+        width: 700,
+        height: 6400,
+      },
+    },
+    {
+      story: 'page',
+      viewport: {
+        width: 550,
+        height: 4400,
+      },
+    },
+  ],
+  VerticalCartSection: [
+    {
+      story: 'default',
+      viewport: {
+        width: 500,
+        height: 2500,
+      },
+    },
+  ],
 };
 
 forEach(scheme, (list, key) => {
