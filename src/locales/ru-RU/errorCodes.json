@@ -67,6 +67,7 @@
     "fm000049": "Ошибка валидации",
     "fm000050": "Zip_code not found",
     "fm000051": "Can't get product price",
+    "fm000055": "Неизвестный тип заказа",
     "ph000001": "handler for specified payment system not found",
     "ph000002": "Authentication failed",
     "ph000003": "Unknown payment method",

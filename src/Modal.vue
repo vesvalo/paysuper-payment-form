@@ -91,7 +91,10 @@ export default {
         projectName="PaySuper"
         :isLoading="isLoading"
       >
-        <component :is="getComponentName('CartSection')" />
+        <component
+          :is="getComponentName('CartSection')"
+          :orderData="orderData"
+        />
       </component>
       <component
         :is="getComponentName('ModalForm')"

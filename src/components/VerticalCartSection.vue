@@ -1,16 +1,21 @@
 <script>
-import { mapState } from 'vuex';
+import { get } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 
 export default {
   name: 'VerticalCartSection',
+  props: {
+    orderData: {
+      required: true,
+      type: Object,
+    },
+  },
   data() {
     return {
       tax: 0,
     };
   },
   computed: {
-    ...mapState('PaymentForm', ['orderData']),
     items() {
       return this.orderData.items;
     },
@@ -19,7 +24,7 @@ export default {
         return null;
       }
       return this.items.map(
-        item => (item.images ? item.images[0] : 'https://ci-print.ru/assets/images/blog-1.jpg'),
+        item => (get(item, 'images[0]') || ''),
       );
     },
   },
@@ -28,6 +33,12 @@ export default {
     this.$addCssRules({
       [`.${this.$style.item}`]: {
         color: this.$gui.cartTextColor,
+      },
+      [`.${this.$style.imageItemInner}.${this.$style._noImage}`]: {
+        'border-color': this.$gui.cartTextColor,
+      },
+      [`.${this.$style.imageItemInner}.${this.$style._noImage} > svg`]: {
+        fill: this.$gui.cartTextColor,
       },
       [`.${this.$style.item}.${this.$style._total}`]: {
         color: this.$gui.cartTotalTextColor,
@@ -136,9 +147,11 @@ export default {
           @click="clickProduct(index)"
         >
           <div
-            :class="$style.imageItemInner"
-            :style="{ backgroundImage: `url(${img})` }"
-          ></div>
+            :class="[$style.imageItemInner, { [$style._noImage]: !img }]"
+            :style="{ backgroundImage: img ? `url(${img})` : undefined }"
+          >
+            <IconNoImage v-if="!img" />
+          </div>
         </div>
       </div>
     </div>
@@ -189,7 +202,28 @@ export default {
   padding-top: 100%;
   background-size: cover;
   background-position: center;
-  border-radius: 6px;
+  border-radius: 5px;
+  position: relative;
+  box-sizing: border-box;
+
+  .imageItem._count-1 & {
+    padding-top: 67%;
+  }
+
+  &._noImage {
+    border: 1px solid;
+  }
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+  }
 }
 .listing {
   position: relative;

@@ -1,11 +1,8 @@
 <script>
-import CartSection from '@/components/CartSection.vue';
-import cartTestData from './cartTestData';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
   components: {
-    CartSection,
     ActionProcessing,
   },
   data() {
@@ -18,15 +15,7 @@ export default {
       actionProcessing: {
         icon: 'card',
       },
-      cartItems: cartTestData,
-      cartItemsCount: 1,
-      cartView: 'default',
     };
-  },
-  watch: {
-    cartItemsCount() {
-      this.cartView = 'default';
-    },
   },
   methods: {
     clickHandler() {
@@ -93,20 +82,6 @@ export default {
         <select v-model="actionProcessing.icon">
         <option value="card">card</option>
         <option value="other">other</option>
-      </select>
-    </div>
-    <br>
-    <div>
-      <UiScrollbarBox style="width: 320px; height: 440px; background: #333B50;">
-        <CartSection
-          :items="cartItems.slice(0, cartItemsCount)"
-          :view="cartView"
-        />
-      </UiScrollbarBox>
-      <input type="number" min="1" max="7" v-model="cartItemsCount">
-      <select v-if="cartItemsCount == 1" v-model="cartView">
-        <option value="default">default</option>
-        <option value="promo">promo</option>
       </select>
     </div>
   </div>
