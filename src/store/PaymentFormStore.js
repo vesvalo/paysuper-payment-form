@@ -8,6 +8,8 @@ import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import i18n from '@/i18n';
 import { gtagEvent, gtagSet } from '@/analytics';
+import cartTestData from '@/cartTestData';
+
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED',
@@ -128,7 +130,11 @@ export default {
       state.orderParams = value;
     },
     orderData(state, value) {
-      state.orderData = value;
+      // state.orderData = value;
+      state.orderData = {
+        ...value,
+        items: cartTestData,
+      };
     },
     activePaymentMethodId(state, value) {
       state.activePaymentMethodId = value;

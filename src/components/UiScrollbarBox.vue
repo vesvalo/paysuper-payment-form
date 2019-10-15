@@ -35,25 +35,30 @@ export default {
 
 <style lang="scss">
 .ui-scrollbar-box {
+  & > .ps__scrollbar-y-rail > .ps__scrollbar-y {
+    background-color: transparent !important;
+    right: 1px !important;
+    width: 100%;
+
+    &::before {
+      content: '';
+      background-color: rgba(0, 0, 0, 0.7);
+      width: 3px;
+      position: absolute;
+      right: 4px;
+      top: 0;
+      bottom: 0;
+      border-radius: 4px;
+    }
+  }
   &.ps:hover > .ps__scrollbar-y-rail:hover,
   &.ps:hover.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
   &.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {
     background-color: transparent;
-
-    & > .ps__scrollbar-y {
-      width: 3px;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-  }
-
-  &.ps > .ps__scrollbar-y-rail > .ps__scrollbar-y {
-    background-color: rgba(0, 0, 0, 0.7);
-    width: 3px;
-    right: 5px;
-    border-radius: 4px;
   }
 
   &.ps > .ps__scrollbar-y-rail {
+    cursor: pointer;
     opacity: 0.6;
   }
 }

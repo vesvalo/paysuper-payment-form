@@ -9,8 +9,11 @@ export default {
     cartHoverTextColor: '#06eaa7',
     cartOldPriceColor: 'rgba(255, 255, 255, 0.3)',
     cartTextColor: 'rgba(255, 255, 255, 0.7)',
-    cartTotalStrokeColor: 'rgba(255, 255, 255, 0.2)',
-    cartTotalTextColor: '#06eaa7',
+    cartStrokeColor: 'rgba(255, 255, 255, 0.2)',
+    cartAccentColor: '#06eaa7',
+    cartIconsColor: 'rgba(255, 255, 255, 0.3)',
+    cartSelectedBackgroundColor: '#424C66',
+    cartSelectedIconsColor: '#fff',
 
     formBackgroundColor: '#424c66',
 
@@ -99,8 +102,11 @@ export default {
     cartHoverTextColor: '#06eaa7',
     cartOldPriceColor: 'rgba(194, 194, 196, 0.3)',
     cartTextColor: '#202226',
-    cartTotalStrokeColor: 'rgba(194, 194, 196, 0.5)',
-    cartTotalTextColor: '#202226',
+    cartStrokeColor: 'rgba(194, 194, 196, 0.5)',
+    cartAccentColor: '#202226',
+    cartIconsColor: 'rgba(0, 0, 0, 0.3)',
+    cartSelectedBackgroundColor: '#e2e2e2',
+    cartSelectedIconsColor: '#202226',
 
     formBackgroundColor: '#fff',
 

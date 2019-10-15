@@ -8,7 +8,6 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
-import VerticalCartSection from '@/components/VerticalCartSection.vue';
 import VerticalModal from '@/components/VerticalModal.vue';
 import VerticalModalCart from '@/components/VerticalModalCart.vue';
 import VerticalModalForm from '@/components/VerticalModalForm.vue';
@@ -23,7 +22,6 @@ export default {
     ModalCart,
     ModalForm,
     OrderCreationError,
-    VerticalCartSection,
     VerticalModal,
     VerticalModalCart,
     VerticalModalForm,
@@ -91,9 +89,9 @@ export default {
         projectName="PaySuper"
         :isLoading="isLoading"
       >
-        <component
-          :is="getComponentName('CartSection')"
+        <CartSection
           :orderData="orderData"
+          :isVerticalModal="isVerticalModal"
         />
       </component>
       <component
