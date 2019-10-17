@@ -26,7 +26,8 @@ export default {
   },
   computed: {
     ...mapState('PaymentForm', [
-      'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'paymentStatus', 'actionResult', 'orderParams', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'currentPlatformId',
     ]),
 
     isLoading() {
@@ -49,7 +50,7 @@ export default {
 
   methods: {
     ...mapActions(['reportResize']),
-    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading', 'changePlatform']),
 
     getAppSizeAndReport() {
       const size = {
@@ -87,6 +88,9 @@ export default {
         layout="page"
         :orderData="orderData"
         :isCartOpened="isCartOpened"
+        :hasPlatformSelect="orderParams.type === 'key'"
+        :currentPlatformId="currentPlatformId"
+        @changePlatform="changePlatform"
       />
       <FormSection
         slot="form"

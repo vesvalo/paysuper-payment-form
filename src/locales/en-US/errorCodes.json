@@ -188,6 +188,12 @@
     "bc000006": "Invalid month of card expiration",
     "bc000007": "Bank card is expired",
     "bc000008": "Bank card CVV is invalid",
-    "bc000009": "Bank card number is invalid"
+    "bc000009": "Bank card number is invalid",
+    "ks000001": "Failed to process file",
+    "ks000002": "Key not found",
+    "ks000003": "Failed to insert key",
+    "ks000004": "Unable to cancel key",
+    "ks000005": "Unable to finish key",
+    "ks000006": "Unable to reserve key"
   }
 }

@@ -8,8 +8,6 @@ import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import i18n from '@/i18n';
 import { gtagEvent, gtagSet } from '@/analytics';
-import cartTestData from '@/cartTestData';
-
 
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED',
@@ -99,6 +97,7 @@ export default {
     orderParams: null,
     orderData: null,
     activePaymentMethodId: '',
+    currentPlatformId: '',
     isPaymentLoading: false,
     isFormLoading: false,
     actionResult: null,
@@ -130,11 +129,10 @@ export default {
       state.orderParams = value;
     },
     orderData(state, value) {
-      // state.orderData = value;
-      state.orderData = {
-        ...value,
-        items: cartTestData,
-      };
+      state.orderData = value;
+    },
+    currentPlatformId(state, value) {
+      state.currentPlatformId = value;
     },
     activePaymentMethodId(state, value) {
       state.activePaymentMethodId = value;
@@ -183,22 +181,12 @@ export default {
       commit('options', options);
       commit('orderParams', orderParams);
       await dispatch('createOrder');
-
-      // if (localStorage) {
-      //   const cards = localStorage.getItem('cards');
-
-      //   try {
-      //     commit('cards', JSON.parse(cards) || []);
-      //   } catch (e) {
-      //     commit('cards', []);
-      //   }
-      // }
     },
 
     async createOrder({ state, commit, rootState }) {
       const {
         // eslint-disable-next-line camelcase
-        project, token, products, amount, currency, type, platform_id,
+        project, token, products, amount, currency, type,
       } = state.orderParams;
       if (amount) {
         assert(currency, 'PaySuper: currency is not set');
@@ -212,16 +200,28 @@ export default {
             ...(products ? { products } : {}),
             ...(amount ? { amount, currency } : {}),
             ...(type ? { type } : {}),
-            // eslint-disable-next-line camelcase
-            ...(platform_id ? { platform_id } : {}),
           },
         );
         const orderData = data.payment_form_data;
 
-        commit('orderData', orderData);
-
         const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
+        // orderData.payment_methods[bankCardIndex].saved_cards = [
+        //   {
+        //     id: 23123,
+        //     pan: '3000000000434342',
+        //     expire: {
+        //       month: '01',
+        //       year: '22',
+        //     },
+        //     card_holder: 'Vafa',
+        //   },
+        // ];
+        // commit('cards', orderData.payment_methods[bankCardIndex].saved_cards);
+        if (orderData.platforms) {
+          commit('currentPlatformId', orderData.platforms[0].id);
+        }
         commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
+        commit('orderData', orderData);
 
         setGeoParams(commit, orderData);
         setPaymentStatus(commit, 'NEW');
@@ -273,12 +273,6 @@ export default {
       country, city, zip,
     }) {
       setPaymentStatus(commit, 'BEFORE_CREATED');
-
-      // if (hasRemembered) {
-      //   const cards = [...state.cards, { cardNumber, expiryDate, cardHolder }];
-      //   commit('cards', cards);
-      //   localStorage.setItem('cards', JSON.stringify(cards));
-      // }
 
       const paymentConnection = new PaymentConnection(
         {
@@ -476,6 +470,20 @@ export default {
         } else {
           console.error(error);
         }
+      }
+    },
+
+    async changePlatform({ state, commit, rootState }, platform) {
+      try {
+        await axios.post(
+          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/platform`,
+          {
+            platform,
+          },
+        );
+        commit('currentPlatformId', platform);
+      } catch (error) {
+        console.error(error);
       }
     },
   },

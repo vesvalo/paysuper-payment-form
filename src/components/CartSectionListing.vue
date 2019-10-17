@@ -52,7 +52,7 @@ export default {
       >
         <span
           :class="[$style.itemCell, $style._title]"
-          @click="clickProduct(index)"
+          @click="$emit('clickProduct', index)"
         >
           {{ item.name }}
         </span>

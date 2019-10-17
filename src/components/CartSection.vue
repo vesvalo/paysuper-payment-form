@@ -25,6 +25,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasPlatformSelect: {
+      type: Boolean,
+      default: false,
+    },
+    currentPlatformId: {
+      default: '',
+      type: String,
+    },
     layout: {
       type: String,
       default: 'modal',
@@ -39,12 +47,6 @@ export default {
         return includes(['default', 'promo'], value);
       },
     },
-  },
-
-  data() {
-    return {
-      platformId: 'origin',
-    };
   },
 
   computed: {
@@ -139,9 +141,13 @@ export default {
         :class="$style.cartSectionListing"
         :orderData="orderData"
         :isCartOpened="isCartOpened"
+        @clickProduct="clickProduct"
       >
         <PlatformSelect
-          v-model="platformId"
+          v-if="hasPlatformSelect"
+          :currentPlatformId="currentPlatformId"
+          :platforms="orderData.platforms"
+          @change="$emit('changePlatform', $event)"
         />
       </CartSectionListing>
     </div>

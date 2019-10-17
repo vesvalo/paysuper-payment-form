@@ -91,6 +91,9 @@ export default {
     stubSpinContentColorSecondary: 'rgba(255, 255, 255, 0.1)',
     stubTotalColor: 'rgba(6, 234, 167, 0.3)',
     stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
+
+    orderCreationErrorTitleColor: '#ffffff',
+    orderCreationErrorTextColor: '#f3da58',
   },
   light: {
     headerTextColor: '#71757a',
@@ -184,5 +187,8 @@ export default {
     stubSpinContentColorSecondary: 'rgba(0, 0, 0, 0.1)',
     stubTotalColor: 'rgba(6, 234, 167, 0.2)',
     stubSpinTotalColor: 'rgba(6, 234, 167, 0.2)',
+
+    orderCreationErrorTitleColor: '#202226',
+    orderCreationErrorTextColor: '#71757a',
   },
 };

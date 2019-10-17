@@ -118,4 +118,59 @@ storiesOf('CartSection', module)
         <CartSection :style="style" :orderData="orderData" :isVerticalModal="true" />
       </div>
     `,
+  }))
+  .add('platform select', () => ({
+    components: { CartSection },
+    data() {
+      return {
+        orderData: {
+          id: '6e09ae25-00e5-4d57-9aa2-47f488a0ea78',
+          has_vat: true,
+          vat: 226,
+          amount: 1129.99,
+          total_amount: 1355.99,
+          currency: 'RUB',
+          project: { name: '1113', url_success: 'https://success', url_fail: 'https://fail' },
+          items: cartTestData,
+          platforms: [
+            {
+              id: 'steam',
+              name: 'Steam',
+            },
+            {
+              id: 'gog',
+              name: 'GOG',
+            },
+          ],
+        },
+        currentPlatformId: 'steam',
+        hasPlatformSelect: true,
+        style: { border: '1px solid green' },
+      };
+    },
+    methods: {
+      getOrderItems(from, to) {
+        return {
+          ...this.orderData,
+          items: this.orderData.items.slice(from, to),
+        };
+      },
+    },
+    template: `
+      <div style="width: 500px">
+        <CartSection 
+          v-bind="{ style, currentPlatformId, hasPlatformSelect }" 
+          :orderData="getOrderItems(0, 1)"
+        />
+        <CartSection 
+          v-bind="{ style, currentPlatformId, hasPlatformSelect }" 
+          layout="page" :orderData="getOrderItems(0, 1)"
+        />
+        <CartSection 
+          v-bind="{ style, currentPlatformId, hasPlatformSelect }" 
+          :orderData="getOrderItems(0, 1)" 
+          :isVerticalModal="true"
+        />
+      </div>
+    `,
   }));

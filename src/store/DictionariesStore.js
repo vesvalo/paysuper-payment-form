@@ -29,10 +29,7 @@ export default {
 
   actions: {
     initState({ dispatch }) {
-      return Promise.all([
-        dispatch('fetchCountries'),
-        dispatch('fetchPlatforms'),
-      ]);
+      return dispatch('fetchCountries');
     },
 
     getCountries({ rootState }) {
@@ -48,18 +45,6 @@ export default {
     async fetchCountries({ commit, dispatch }) {
       const response = await dispatch('getCountries');
       commit('countries', response.countries);
-    },
-
-    async fetchPlatforms({ rootState }) {
-      const url = `${rootState.apiUrl}/admin/api/v1/platforms`;
-
-      const { data } = await axios.get(url)
-        .then(response => response.data)
-        .catch(() => ({
-          // items: null,
-        }));
-
-      console.log(11111, 'data', data);
     },
   },
 };

@@ -36,7 +36,8 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
-      'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'paymentStatus', 'actionResult', 'orderParams', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'currentPlatformId',
     ]),
 
     isLoading() {
@@ -55,7 +56,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading', 'changePlatform']),
 
     updateIsVerticalModal() {
       this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
@@ -92,6 +93,9 @@ export default {
         <CartSection
           :orderData="orderData"
           :isVerticalModal="isVerticalModal"
+          :hasPlatformSelect="orderParams.type === 'key'"
+          :currentPlatformId="currentPlatformId"
+          @changePlatform="changePlatform"
         />
       </component>
       <component

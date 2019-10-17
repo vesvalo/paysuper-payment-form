@@ -164,6 +164,9 @@ const scheme = {
       },
     },
   ],
+  PlatformSelect: [
+    'default',
+  ],
 };
 
 forEach(scheme, (list, key) => {

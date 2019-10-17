@@ -6,8 +6,12 @@ export default {
 
   props: {
     currentPlatformId: {
-      default: 'origin',
+      required: true,
       type: String,
+    },
+    platforms: {
+      required: true,
+      type: Array,
     },
   },
 
@@ -19,44 +23,6 @@ export default {
   data() {
     return {
       currentPlatformUnitIndex: 0,
-      platforms: [
-        {
-          id: 'steam',
-          name: 'Steam',
-        },
-        {
-          id: 'gog',
-          name: 'GOG',
-        },
-        {
-          id: 'uplay',
-          name: 'Uplay',
-        },
-        {
-          id: 'origin',
-          name: 'Origin',
-        },
-        {
-          id: 'psn',
-          name: 'PSN',
-        },
-        {
-          id: 'xbox',
-          name: 'XBOX Store',
-        },
-        {
-          id: 'nintendo',
-          name: 'Nintendo Store',
-        },
-        {
-          id: 'itch',
-          name: 'Itch.io',
-        },
-        {
-          id: 'egs',
-          name: 'Epic Games Store',
-        },
-      ],
     };
   },
 
@@ -87,8 +53,11 @@ export default {
       [`.${this.$style.item}, .${this.$style.platformSelect}`]: {
         'border-color': this.$gui.cartStrokeColor,
       },
-      [`.${this.$style.item} > svg, .${this.$style.single} > svg`]: {
+      [`.${this.$style.item} > svg`]: {
         fill: this.$gui.cartIconsColor,
+      },
+      [`.${this.$style.single} > svg`]: {
+        fill: this.$gui.cartSelectedIconsColor,
       },
       [`.${this.$style.sliderNavDot}`]: {
         fill: this.$gui.cartIconsColor,
