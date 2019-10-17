@@ -156,15 +156,16 @@ const scheme = {
         height: 4400,
       },
     },
-  ],
-  VerticalCartSection: [
     {
-      story: 'default',
+      story: 'vertical',
       viewport: {
         width: 500,
         height: 2500,
       },
     },
+  ],
+  PlatformSelect: [
+    'default',
   ],
 };
 

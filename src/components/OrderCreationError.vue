@@ -28,6 +28,12 @@ export default {
       [`.${this.$style.orderCreationError}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
+      [`.${this.$style.titleMain}`]: {
+        color: this.$gui.orderCreationErrorTitleColor,
+      },
+      [`.${this.$style.description}`]: {
+        color: this.$gui.orderCreationErrorTextColor,
+      },
     });
   },
 };
@@ -94,7 +100,6 @@ export default {
 }
 
 .titleMain {
-  color: #fff;
   font-weight: bold;
   font-size: 25px;
   line-height: 31px;
@@ -102,7 +107,6 @@ export default {
 }
 
 .description {
-  color: #f3da58;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;

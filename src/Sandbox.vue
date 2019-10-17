@@ -1,4 +1,5 @@
 <script>
+import { keysIn } from 'lodash-es';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
 export default {
@@ -16,6 +17,14 @@ export default {
         icon: 'card',
       },
     };
+  },
+  computed: {
+    iconComponentsList() {
+      const iconComponentNames = keysIn(this.$options.components)
+        .filter(name => /^Icon[A-Z]/.test(name));
+
+      return iconComponentNames;
+    },
   },
   methods: {
     clickHandler() {
@@ -85,6 +94,19 @@ export default {
       </select>
     </div>
   </div>
+  <table class="table">
+    <tr
+      v-for="item in iconComponentsList"
+      :key="item"
+    >
+      <td class="cell">
+        {{ item }}
+      </td>
+      <td class="cell">
+        <component class="icon" :is="item"></component>
+      </td>
+    </tr>
+  </table>
 </div>
 </template>
 
@@ -122,5 +144,20 @@ export default {
   max-width: 100px;
   margin-right: 20px;
   cursor: pointer;
+}
+
+.icon {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.table {
+  border-collapse: collapse;
+}
+
+.cell {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  background: rgba(0, 0, 0, 0.05);
 }
 </style>

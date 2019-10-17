@@ -8,7 +8,6 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
-import VerticalCartSection from '@/components/VerticalCartSection.vue';
 import VerticalModal from '@/components/VerticalModal.vue';
 import VerticalModalCart from '@/components/VerticalModalCart.vue';
 import VerticalModalForm from '@/components/VerticalModalForm.vue';
@@ -23,7 +22,6 @@ export default {
     ModalCart,
     ModalForm,
     OrderCreationError,
-    VerticalCartSection,
     VerticalModal,
     VerticalModalCart,
     VerticalModalForm,
@@ -38,7 +36,8 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
-      'paymentStatus', 'actionResult', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'paymentStatus', 'actionResult', 'orderParams', 'orderData', 'isPaymentLoading', 'isFormLoading',
+      'currentPlatformId',
     ]),
 
     isLoading() {
@@ -57,7 +56,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading']),
+    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading', 'changePlatform']),
 
     updateIsVerticalModal() {
       this.isVerticalModal = window.innerWidth < 640 || window.innerHeight < 510;
@@ -91,9 +90,12 @@ export default {
         projectName="PaySuper"
         :isLoading="isLoading"
       >
-        <component
-          :is="getComponentName('CartSection')"
+        <CartSection
           :orderData="orderData"
+          :isVerticalModal="isVerticalModal"
+          :hasPlatformSelect="orderParams.type === 'key'"
+          :currentPlatformId="currentPlatformId"
+          @changePlatform="changePlatform"
         />
       </component>
       <component
