@@ -1,5 +1,6 @@
 <script>
 import { upperFirst, groupBy, map } from 'lodash-es';
+import localesScheme from '@/locales/scheme';
 
 export default {
   name: 'PlatformSelect',
@@ -43,8 +44,10 @@ export default {
       }
       return 'slider';
     },
+
     offsetLeft() {
-      return `-${100 * this.currentPlatformUnitIndex}%`;
+      const sign = localesScheme[this.$i18n.locale].rtl ? '' : '-';
+      return `${sign}${100 * this.currentPlatformUnitIndex}%`;
     },
   },
 
@@ -233,6 +236,16 @@ export default {
       margin-left: -3px;
       transform: rotate(90deg);
     }
+
+    @include if-rtl {
+      right: 0;
+      left: auto;
+
+      & > svg {
+        margin-right: -3px;
+        transform: rotate(-90deg);
+      }
+    }
   }
   &._next {
     right: 0;
@@ -241,6 +254,16 @@ export default {
     & > svg {
       margin-right: -3px;
       transform: rotate(-90deg);
+    }
+
+    @include if-rtl {
+      left: 0;
+      right: auto;
+
+      & > svg {
+        margin-left: -3px;
+        transform: rotate(90deg);
+      }
     }
   }
 }
