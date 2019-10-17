@@ -3,8 +3,6 @@
 export default {
   name: 'CartSectionListing',
 
-  components: {
-  },
   props: {
     orderData: {
       required: true,

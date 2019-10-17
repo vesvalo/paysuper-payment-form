@@ -100,7 +100,7 @@ export default {
       :key="item"
     >
       <td class="cell">
-        {{item}}
+        {{ item }}
       </td>
       <td class="cell">
         <component class="icon" :is="item"></component>
