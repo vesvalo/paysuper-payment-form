@@ -156,7 +156,6 @@ export default {
   }
 }
 .oldPrice {
-  color: rgba(255, 255, 255, 0.3);
   text-decoration: line-through;
   padding-right: 6px;
   font-weight: 100;

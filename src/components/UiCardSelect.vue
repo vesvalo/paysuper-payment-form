@@ -64,10 +64,10 @@ export default {
         fill: this.$gui.cardSelectAddCardColor,
       },
       [`.${this.$style.anotherCard}:hover`]: {
-        color: this.$gui.cardSelectAddCardHoverColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.anotherCard}:hover > .${this.$style.iconPlus}`]: {
-        fill: this.$gui.cardSelectAddCardHoverColor,
+        fill: this.$gui.baseHoverColor,
       },
     });
   },
@@ -118,7 +118,6 @@ export default {
 .anotherCard {
   display: flex;
   align-items: center;
-  color: #fff;
   margin-top: 18px;
   transition: color 0.2s ease-out;
 

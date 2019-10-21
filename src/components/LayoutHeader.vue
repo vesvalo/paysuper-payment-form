@@ -177,37 +177,37 @@ export default {
         color: this.$gui.headerProjectTitleColor,
       },
       [`.${this.$style.project}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.wrap} > svg`]: {
         fill: this.$gui.headerProjectTitleColor,
       },
       [`.${this.$style.wrap}:hover > svg`]: {
-        fill: this.$gui.cartHoverTextColor,
+        fill: this.$gui.baseHoverColor,
       },
       [`.${this.$style.support}`]: {
-        fill: this.$gui.headerTextColor,
+        fill: this.$gui.layoutTextColor,
       },
       [`.${this.$style.support}:hover`]: {
-        fill: this.$gui.cartHoverTextColor,
+        fill: this.$gui.baseHoverColor,
       },
       [`.${this.$style.title}`]: {
         color: this.$gui.headerServiceTitleColor,
       },
       [`.${this.$style.additional}`]: {
-        color: this.$gui.headerTextColor,
+        color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.locale}`]: {
-        color: this.$gui.headerTextColor,
+        color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.locale}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipLink}`]: {
-        color: this.$gui.tipHeaderColor,
+        color: this.$gui.tipLinkColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
-        color: this.$gui.tipLinkHoverColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipContent}`]: {
         color: this.$gui.tipContentColor,

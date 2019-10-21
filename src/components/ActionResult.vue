@@ -81,6 +81,28 @@ export default {
       };
     },
   },
+  created() {
+    this.$addCssRules({
+      [`.${this.$style.titleMain}`]: {
+        color: this.$gui.resultTitleColor,
+      },
+      [`.${this.$style.titleSub}`]: {
+        color: this.$gui.resultSubtitleColor,
+      },
+      [`.${this.$style.description}`]: {
+        color: this.$gui.resultTextColor,
+      },
+      [`.${this.$style.titleSubSlave}, .${this.$style.descriptionSlave}`]: {
+        color: this.$gui.resultSubtextColor,
+      },
+      [`.${this.$style.code}`]: {
+        color: this.$gui.resultCodeColor,
+      },
+      [`.${this.$style.email}`]: {
+        color: this.$gui.resultEmailColor,
+      },
+    });
+  },
 };
 </script>
 
@@ -142,7 +164,6 @@ export default {
 }
 
 .titleMain {
-  color: #fff;
   font-weight: bold;
   font-size: 25px;
   line-height: 31px;
@@ -150,14 +171,12 @@ export default {
 }
 
 .titleSub {
-  color: #fff;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;
 }
 
 .titleSubSlave {
-  color: darken(#fff, 30%);
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
@@ -185,19 +204,16 @@ export default {
   font-weight: bold;
   font-size: 12px;
   line-height: 22px;
-  color: #06eaa7;
   margin: 0 -20px;
 }
 
 .description {
-  color: #fff;
   font-weight: 500;
   font-size: 15px;
   line-height: 23px;
 }
 
 .descriptionSlave {
-  color: darken(#fff, 30%);
   font-weight: 500;
   font-size: 12px;
   line-height: 18px;
@@ -207,7 +223,6 @@ export default {
   font-weight: bold;
   font-size: 15px;
   line-height: 19px;
-  color: #ffffff;
   margin-top: 8px;
 }
 

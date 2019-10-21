@@ -63,6 +63,16 @@ export default {
       };
     },
   },
+  created() {
+    this.$addCssRules({
+      [`.${this.$style.iconClose}`]: {
+        fill: this.$gui.modalCloseIconColor,
+      },
+      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+        fill: this.$gui.baseHoverColor,
+      },
+    });
+  },
 };
 </script>
 
@@ -86,7 +96,6 @@ export default {
   min-width: 480px;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #424c66;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -101,12 +110,10 @@ export default {
   z-index: 10000;
 
   &:hover > .iconClose {
-    fill: #00d697;
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
 .iconClose {
-  fill: rgba(#fff, 0.5);
   transition: transform 0.3s ease-out 0.3s;
 }
 .enter,

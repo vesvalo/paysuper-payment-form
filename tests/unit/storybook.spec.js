@@ -167,6 +167,9 @@ const scheme = {
   PlatformSelect: [
     'default',
   ],
+  PaymentAreaWarning: [
+    'default',
+  ],
 };
 
 forEach(scheme, (list, key) => {
