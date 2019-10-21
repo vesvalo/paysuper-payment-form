@@ -18,31 +18,31 @@ export default {
       isTermsShown: false,
     };
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.header}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
       [`.${this.$style.link}`]: {
-        color: this.$gui.headerTextColor,
+        color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.link}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipLink}`]: {
-        color: this.$gui.tipHeaderColor,
+        color: this.$gui.tipLinkColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
-        color: this.$gui.tipLinkHoverColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipContent}`]: {
         color: this.$gui.tipContentColor,
       },
       [`.${this.$style.iconSupport}`]: {
-        fill: this.$gui.headerTextColor,
+        fill: this.$gui.layoutTextColor,
       },
       [`.${this.$style.link}:hover > .${this.$style.iconSupport}`]: {
-        fill: this.$gui.cartHoverTextColor,
+        fill: this.$gui.baseHoverColor,
       },
       [`.${this.$style.locale}.${this.$style._opened}::after`]: {
         'border-bottom-color': this.$gui.localeChangerModalBoxColor,
@@ -234,7 +234,7 @@ export default {
 
   &:hover > .iconClose {
     fill: #00d697;
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
 }
 .iconClose {

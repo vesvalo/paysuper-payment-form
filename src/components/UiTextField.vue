@@ -173,14 +173,14 @@ export default {
         color: this.$gui.inputFocusLabelColor,
       },
       [`.${this.input}.${this.stateError}`]: {
-        'border-color': this.$gui.inputErrorBorderColor,
+        'border-color': this.$gui.errorBorderColor,
       },
       [`.${this.labelClass}`]: {
         color: this.$gui.inputLabelColor,
       },
       [`.${this.errorClass}`]: {
-        'background-color': this.$gui.inputErrorBoxColor,
-        color: this.$gui.inputErrorColor,
+        'background-color': this.$gui.errorBoxColor,
+        color: this.$gui.errorColor,
       },
     });
   },
@@ -193,23 +193,16 @@ export default {
 </script>
 
 <style module lang="scss">
-$error-box-color: #fc7e57;
-$error-font-color: #fff;
 $error-font-size: 10px;
 $error-font-weight: 600;
 $error-height: 17px;
 
 $disabled-opacity: 0.5;
 
-$focus-border-color: #06eaa7;
-
-$input-border-color: rgba(#fff, 0.2);
 $input-box-color: transparent;
-$input-font-color: #fff;
 $input-font-weight: 300;
 $input-transition: border-color 0.2s ease-out;
 
-$label-color: rgba(#fff, 0.5);
 $label-transition: transform 0.2s ease-out, color 0.2s ease-out;
 
 $main-font-size: 15px;
@@ -233,12 +226,9 @@ $main-additional-height: 18px;
 }
 
 .input {
-  background-color: $input-box-color;
   border-width: 0;
   border-bottom-width: 1px;
-  border-color: $input-border-color;
   box-sizing: border-box;
-  color: $input-font-color;
   display: block;
   font-family: inherit;
   font-weight: $input-font-weight;
@@ -250,19 +240,6 @@ $main-additional-height: 18px;
   transition: $input-transition;
   width: 100%;
 
-  &:-webkit-autofill,
-  &:-internal-autofill-selected {
-    -webkit-box-shadow: inset 0 0 0 50px red;
-  }
-
-  &:hover {
-    border-color: scale-color($input-border-color, $alpha: 37.5%);
-  }
-
-  &:focus {
-    border-color: $focus-border-color;
-  }
-
   &:focus ~ .label,
   &:not(:focus):not(._empty) ~ .label {
     transform: translateY(-$main-additional-height) scale(0.75, 0.75);
@@ -271,20 +248,14 @@ $main-additional-height: 18px;
 
   &:focus ~ .label {
     pointer-events: auto;
-    color: scale-color($label-color, $alpha: -40%);
-  }
-
-  &:not(:focus):not(._empty) ~ .label {
-    color: scale-color($label-color, $alpha: -40%);
   }
 
   &._error {
-    border-color: $error-box-color;
+    opacity: 1;
   }
 }
 
 .label {
-  color: $label-color;
   line-height: $main-height;
   margin: 0;
   overflow: hidden;
@@ -311,9 +282,7 @@ $main-additional-height: 18px;
 }
 
 .error {
-  background-color: $error-box-color;
   top: $main-height + $main-additional-height + 2px;
-  color: $error-font-color;
   display: block;
   font-size: $error-font-size;
   font-weight: $error-font-weight;

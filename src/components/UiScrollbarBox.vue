@@ -15,6 +15,13 @@ export default {
       innerSettings: { ...this.settings },
     };
   },
+  created() {
+    this.$addCssRules({
+      '.ui-scrollbar-box > .ps__scrollbar-y-rail > .ps__scrollbar-y::before': {
+        'background-color': this.$gui.scrollbarColor,
+      },
+    });
+  },
   mounted() {
     this.innerSettings = {
       ...this.innerSettings,
@@ -42,7 +49,6 @@ export default {
 
     &::before {
       content: '';
-      background-color: rgba(0, 0, 0, 0.7);
       width: 3px;
       position: absolute;
       right: 4px;

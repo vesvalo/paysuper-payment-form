@@ -22,22 +22,22 @@ export default {
       isTermsShown: false,
     };
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.layout}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
       [`.${this.$style.link}`]: {
-        color: this.$gui.headerTextColor,
+        color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.link}:hover`]: {
-        color: this.$gui.cartHoverTextColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipLink}`]: {
-        color: this.$gui.tipHeaderColor,
+        color: this.$gui.tipLinkColor,
       },
       [`.${this.$style.tipLink}:hover`]: {
-        color: this.$gui.tipLinkHoverColor,
+        color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.tipContent}`]: {
         color: this.$gui.tipContentColor,

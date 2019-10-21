@@ -23,16 +23,16 @@ export default {
     IconTotemFail,
   },
 
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.orderCreationError}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
       [`.${this.$style.titleMain}`]: {
-        color: this.$gui.orderCreationErrorTitleColor,
+        color: this.$gui.warningTitleColor,
       },
       [`.${this.$style.description}`]: {
-        color: this.$gui.orderCreationErrorTextColor,
+        color: this.$gui.warningTextColor,
       },
     });
   },

@@ -55,7 +55,6 @@ export default {
   height: 100%;
   align-items: center;
   overflow: hidden;
-  background-color: #424c66;
   z-index: 10000;
   flex-grow: 1;
 }
