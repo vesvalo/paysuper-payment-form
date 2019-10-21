@@ -36,9 +36,13 @@
       "subtitle": "Произошла ошибка"
     },
     "success": {
-      "title": "Поехали!",
-      "titleSubSlave": "ID вашего платежа:",
-      "descriptionSlaveInitial": "Введите ваш email, чтобы получить счёт",
+      "title": "Погнали!",
+      "titleSubSlave": {
+        "key": "Активируйте ключ. <a href='{link}'>Инструкция</a>",
+        "product": "Новые предметы ожидают Вас в игре.",
+        "simple": "Пачка валюты ожидает Вас в игре."
+      },
+      "descriptionSlaveInitial": "Введите email, чтобы получить счёт",
       "descriptionSlaveFinal": "Мы выслали чек на",
       "email": "Email"
     }

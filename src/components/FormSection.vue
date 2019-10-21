@@ -141,6 +141,10 @@ export default {
       }
       return false;
     },
+
+    orderType() {
+      return this.orderData.type;
+    },
   },
 
   validations() {
@@ -342,10 +346,11 @@ export default {
       >
         <ActionResult
           v-if="actionResult"
-          :type="actionResult.type"
+          :email="paymentData.email"
           :message="actionResult.message"
           :orderId="orderData.id"
-          :email="paymentData.email"
+          :orderType="orderType"
+          :type="actionResult.type"
         />
         <PaymentAreaWarning
           v-if="isUserCountryConfirmRequested || isUserCountryRestricted"

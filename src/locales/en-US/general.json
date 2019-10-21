@@ -37,9 +37,13 @@
     },
     "success": {
       "title": "Let's play!",
-      "titleSubSlave": "Your transaction ID is",
-      "descriptionSlaveInitial": "Leave your email to recieve the bill",
-      "descriptionSlaveFinal": "We sent payment bill to",
+      "titleSubSlave": {
+        "key": "Activate this key on license provider website. <a href='{link}'>Instruction</a>",
+        "product": "A new item awaits you in the game.",
+        "simple": "A pack of currency awaits you in the game."
+      },
+      "descriptionSlaveInitial": "Leave your email to recieve <a href='{link}'>the bill</a>",
+      "descriptionSlaveFinal": "We sent payment confirmation and access link to",
       "email": "Email"
     }
   },
@@ -92,11 +96,11 @@
     "remember": "Remember me",
     "rememberInfo": "Security of billing data storage is provided in accordance with the requirements of the PCI DSS standard, using 3D Secure and SSL protocols",
     "city": "City",
-    "cityInvalid": "Неверный город",
+    "cityInvalid": "Invalid city",
     "country": "Country",
     "countryInvalid": "Choose the country",
     "zip": "ZIP code",
-    "zipInvalid": "Неверный почтовый индекс"
+    "zipInvalid": "Invalid ZIP code"
   },
   "LayoutFooter": {
     "userAgreement": "User Agreement",
