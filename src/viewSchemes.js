@@ -4,6 +4,12 @@ export default {
 
     modalCloseIconColor: 'rgba(255, 255, 255, 0.5)',
 
+    iconBaseColor: '#333B50',
+    iconOutlineColor: '#ffffff',
+    iconSublineColor: '#5B88DE',
+    iconPositiveColor: '#00d697',
+    iconNegativeColor: '#FF4CF8',
+
     layoutTextColor: 'rgba(255, 255, 255, 0.7)',
 
     headerProjectTitleColor: '#fff',
@@ -113,6 +119,12 @@ export default {
     baseHoverColor: '#06eaa7',
 
     modalCloseIconColor: 'rgba(255, 255, 255, 0.5)',
+
+    iconBaseColor: '#5B88DE',
+    iconOutlineColor: '#202226',
+    iconSublineColor: '#00d697',
+    iconPositiveColor: '#00d697',
+    iconNegativeColor: '#FF4CF8',
 
     layoutTextColor: '#71757a',
 
