@@ -19,16 +19,9 @@ import viewSchemes from '@/viewSchemes';
 import '@/globalComponents';
 import '@/vueExtentions';
 import { gtagConfig, gtagSet } from '@/analytics';
-
-if (!global.Intl) {
-  require.ensure([
-    'intl',
-    'intl/locale-data/jsonp/en.js',
-  ], (require) => {
-    require('intl');
-    require('intl/locale-data/jsonp/en.js');
-  });
-}
+import { apiUrl, sentryDsn } from '@/constants';
+import 'intl';
+import 'intl/locale-data/jsonp/en';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -36,7 +29,7 @@ Vue.config.productionTip = false;
 
 if (isProd) {
   Sentry.init({
-    dsn: 'https://3e4a24900f064243a9de45162660a66d@sentry.tst.protocol.one/3',
+    dsn: sentryDsn,
     integrations: [new Sentry.Integrations.Vue({ Vue })],
   });
 }
@@ -65,7 +58,7 @@ async function mountApp(orderParams, optionsCustom = {}) {
 
   const language = getLanguage(localesScheme, navigator);
   const options = {
-    apiUrl: window.PAYSUPER_API_URL || 'https://p1payapi.tst.protocol.one',
+    apiUrl,
     email: '',
     viewScheme: 'dark',
     viewSchemeConfig: null,
