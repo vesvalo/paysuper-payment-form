@@ -1,4 +1,5 @@
 import Centrifuge from 'centrifuge';
+import SockJS from 'sockjs-client';
 import Events from 'events';
 import { receiveMessages, payoneFormSourceName } from '@/postMessage';
 
@@ -22,7 +23,21 @@ export default class PaymentConnection extends Events.EventEmitter {
   }
 
   init() {
-    this.centrifuge = new Centrifuge(websocketServerUrl);
+    this.centrifuge = new Centrifuge(websocketServerUrl, {
+      sockjs: SockJS,
+      sockjsTransports: [
+        'websocket',
+        'xdr-streaming',
+        'xhr-streaming',
+        'eventsource',
+        'iframe-eventsource',
+        'iframe-htmlfile',
+        'xdr-polling',
+        'xhr-polling',
+        'iframe-xhr-polling',
+        'jsonp-polling',
+      ],
+    });
     this.centrifuge.setToken(this.token);
     this.centrifuge.subscribe(`paysuper:order#${this.orderId}`, ({ data }) => {
       this.emit('newPaymentStatus', data);

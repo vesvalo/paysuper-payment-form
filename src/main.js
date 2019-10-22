@@ -20,6 +20,16 @@ import '@/globalComponents';
 import '@/vueExtentions';
 import { gtagConfig, gtagSet } from '@/analytics';
 
+if (!global.Intl) {
+  require.ensure([
+    'intl',
+    'intl/locale-data/jsonp/en.js',
+  ], (require) => {
+    require('intl');
+    require('intl/locale-data/jsonp/en.js');
+  });
+}
+
 const isProd = process.env.NODE_ENV === 'production';
 
 Vue.config.productionTip = false;
@@ -45,11 +55,11 @@ async function mountApp(orderParams, optionsCustom = {}) {
     'Define "#p1payone-form" element in the document to mount the app',
   );
 
-  if (!window.opener) {
-    if (isPageInsideIframe) {
+  if (isPageInsideIframe) {
+    if (!window.PAYSUPER_ORDER_PARAMS) {
+      assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" is not defined or empty');
+    } else if (!orderParams) {
       assert(orderParams, 'The order params are not recieved');
-    } else {
-      assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" in not defined or empty');
     }
   }
 
@@ -109,7 +119,7 @@ async function mountApp(orderParams, optionsCustom = {}) {
   }).$mount('#p1payone-form');
 }
 
-if (window.opener || isPageInsideIframe) {
+if (isPageInsideIframe || !window.PAYSUPER_ORDER_PARAMS) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { orderParams, options } = data;

@@ -60,11 +60,13 @@ export default {
       </div>
     </div>
     <div :class="$style.footer">
-       <UiButton
+      <UiButton
         :class="$style.button"
         :hasBorderRadius="false"
         @click="$emit('tryAgain')"
-       >{{$t('OrderCreationError.tryAgain')}}</UiButton>
+      >
+        {{$t('OrderCreationError.tryAgain')}}
+      </UiButton>
     </div>
   </div>
 </UiTransitionFade>
@@ -87,8 +89,9 @@ export default {
 }
 
 .content {
-  padding: 10px 40px 40px;
-  width: 650px;
+  padding: 10px 40px 10px;
+  width: 100%;
+  max-width: 650px;
   height: 100%;
   display: flex;
   flex-direction: column;

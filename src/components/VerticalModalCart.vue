@@ -43,7 +43,7 @@ export default {
 <style module lang="scss">
 .layout {
   width: 100%;
-  min-height: 40%;
+  min-height: 35%;
   display: flex;
   flex-direction: column;
   position: relative;
