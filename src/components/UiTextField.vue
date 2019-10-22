@@ -1,5 +1,5 @@
 <template>
-<div :class="[container, { [stateDisabled]: disabled }]">
+<div :class="[container, { [stateDisabled]: disabled, [$style._hasInfoIcon]: hasInfoIcon }]">
   <TheMask
     v-if="mask"
     v-bind="{ disabled, required, type, ...$attrs }"
@@ -70,6 +70,10 @@ export default {
       type: String,
     },
     required: {
+      default: false,
+      type: Boolean,
+    },
+    hasInfoIcon: {
       default: false,
       type: Boolean,
     },
@@ -267,11 +271,12 @@ $main-additional-height: 18px;
   top: $main-additional-height;
   transition: $label-transition;
   width: 100%;
+  transform-origin: left;
+  left: 0;
+  text-align: left;
 
-  @include if-ltr {
-    transform-origin: left;
-    left: 0;
-    text-align: left;
+  .container._hasInfoIcon & {
+    width: calc(100% - 12px);
   }
 
   @include if-rtl {

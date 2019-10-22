@@ -14,11 +14,11 @@
     v-else
     v-model="innerValue.cardNumber"
     name="pan"
-    :class="[$style.formItem, { [$style._oneLine]: isCardCredOneLine }]"
+    :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
   />
-  <div :class="[$style.formItem, { [$style._oneLine]: isCardCredOneLine }]">
+  <div :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]">
     <UiTextField
       v-model="innerValue.expiryDate"
       name="cc-exp"
@@ -34,6 +34,7 @@
         name="cvv"
         mask="###"
         type="password"
+        :hasInfoIcon="true"
         :hasError="$isFieldInvalid('innerValue.cvv')"
         :errorText="$t('FormSectionBankCard.cvvError')"
         :label="$t('FormSectionBankCard.cvv')"
@@ -77,8 +78,8 @@
   />
   <template v-if="isGeoFieldsExposed">
     <UiSelect
-      maxHeight="240px"
       v-model="innerValue.country"
+      :maxHeight="isVerticalModal ? '120px' : '240px'"
       :options="countries"
       :placeholderLabel="$t('FormSectionBankCard.country')"
       :hasReversible="true"
@@ -194,7 +195,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    isCardCredOneLine: {
+    isVerticalModal: {
       type: Boolean,
       default: false,
     },
@@ -340,6 +341,9 @@ export default {
   @include if-rtl {
     margin-right: 20px;
   }
+}
+.cvvInput {
+  width: calc(100% - 12px);
 }
 .cvvInfo {
   position: absolute;

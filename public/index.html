@@ -23,16 +23,16 @@
     
     <script>
       window.PAYSUPER_ORDER_PARAMS = {
+        project: '5d89cb3819ea1b0001712f96',
+        amount: 25,
+        currency: 'USD',
+        type: 'simple',
         // project: '5cd5620f06ae110001509185',
-        // amount: 30,
-        // currency: 'USD',
-        // type: 'simple',
-        project: '5cd5620f06ae110001509185',
-        products: ['5d848f484dd6a50001970479', '5d8c7a219e362100013de214'],
-        type: 'product',
+        // products: ['5d848f484dd6a50001970479', '5d8c7a219e362100013de214'],
+        // type: 'product',
       };
 
-      let layout = 'modal';
+      var layout = 'modal';
      
       if (window.location.pathname.indexOf('sandbox') !== -1) {
         layout = 'sandbox';

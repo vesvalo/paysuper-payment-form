@@ -292,7 +292,7 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="paymentData"
-          :isCardCredOneLine="isVerticalModal"
+          :isVerticalModal="isVerticalModal"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"

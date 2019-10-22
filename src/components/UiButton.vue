@@ -119,6 +119,7 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   transition: $transition;
   vertical-align: top;
   white-space: nowrap;
+  text-align: center;
 
   &._hasRadius {
     border-radius: $border-radius;

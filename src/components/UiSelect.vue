@@ -31,7 +31,7 @@
   <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
     <UiScrollbarBox
       :class="$style.scrollbar"
-      :settings="{suppressScrollX: true}"
+      :settings="{ suppressScrollX: true, minScrollbarLength: 20 }"
       :style="{ maxHeight: maxHeight || undefined }"
     >
       <div :class="$style.options">

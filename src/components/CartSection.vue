@@ -138,7 +138,7 @@ export default {
         </div>
       </div>
       <CartSectionListing
-        :class="$style.cartSectionListing"
+        :class="[$style.cartSectionListing, { [$style._withoutImages]: !images }]"
         :orderData="orderData"
         :isCartOpened="isCartOpened"
         @clickProduct="clickProduct"
@@ -268,6 +268,10 @@ export default {
   .cartSection._vertical & {
     order: 0;
     width: calc(100% - 106px);
+
+    &._withoutImages {
+      width: 100%;
+    }
   }
 }
 
