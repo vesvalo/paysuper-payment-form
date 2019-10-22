@@ -32,7 +32,7 @@ export default class PaymentConnection extends Events.EventEmitter {
     this.redirectWindow = this.window.open(
       process.env.NODE_ENV === 'development'
         ? 'http://localhost:4040/loading'
-        : 'https://paysupermgmt.tst.protocol.one/payform-loading',
+        : 'https://paysupermgmt.tst.protocol.one/order?loading=true',
       '_blank',
     );
     this.redirectWindowClosedInterval = setInterval(() => {
