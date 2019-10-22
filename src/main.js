@@ -25,6 +25,10 @@ import 'intl/locale-data/jsonp/en';
 
 const isProd = process.env.NODE_ENV === 'production';
 
+if (process.env.VUE_APP_BUILD_PURPOSE === 'release') {
+  Vue.config.lalaley = false;
+}
+
 Vue.config.productionTip = false;
 
 if (isProd) {
