@@ -80,7 +80,9 @@ export default {
         success: {
           title: this.$t('ActionResult.success.title'),
           titleSubSlave: this.$t(`ActionResult.success.titleSubSlave.${this.orderType}`),
-          descriptionSlaveFinal: this.$t('ActionResult.success.descriptionSlaveFinal'),
+          descriptionSlaveFinal: this.$t(
+            `ActionResult.success.descriptionSlaveFinal.${this.orderType}`,
+          ),
           descriptionSlaveInitial: this.$t('ActionResult.success.descriptionSlaveInitial'),
           email: this.$t('ActionResult.success.email'),
           iconComponent: 'IconTotemSuccess',

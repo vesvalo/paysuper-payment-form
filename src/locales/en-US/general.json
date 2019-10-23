@@ -39,11 +39,19 @@
       "title": "Let's play!",
       "titleSubSlave": {
         "key": "Activate this key on license provider website. <a href='{link}'>Instruction</a>",
-        "product": "A new item awaits you in the game.",
-        "simple": "A pack of currency awaits you in the game."
+        "product": "You’ve bought a new game. Enjoy your new experience!",
+        "simple": "Your payment is successfully accepted!",
+        "virtual_items": "A new item awaits you in the game. Enjoy your new experience!",
+        "virtual_currency": "A pack of currency awaits you in the game!"
       },
       "descriptionSlaveInitial": "Leave your email to recieve <a href='{link}'>the bill</a>",
-      "descriptionSlaveFinal": "We sent payment confirmation and access link to",
+      "descriptionSlaveFinal": {
+        "key": "We sent payment confirmation and activation key to",
+        "product": "We sent payment confirmation and access link to",
+        "simple": "We sent payment confirmation to",
+        "virtual_items": "We sent payment confirmation to",
+        "virtual_currency": "We sent payment confirmation to"
+      },
       "email": "Email"
     }
   },
