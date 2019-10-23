@@ -382,6 +382,7 @@ export default {
   position: relative;
   height: 100%;
   min-height: 448px;
+  max-height: 100%;
   width: 100%;
 
   &._is-vertical {
