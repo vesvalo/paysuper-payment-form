@@ -6,6 +6,7 @@ import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
 import PaymentAreaWarning from '@/components/PaymentAreaWarning.vue';
+import geInstructionLinkByPlatform from '@/helpers/geInstructionLinkByPlatform';
 
 function getRegexp(value) {
   return new RegExp(value);
@@ -101,6 +102,7 @@ export default {
       'userIpGeoData',
       'isGeoFieldsExposed',
       'isZipInvalid',
+      'currentPlatformId',
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
     ...mapGetters('Dictionaries', ['countries']),
@@ -144,6 +146,10 @@ export default {
 
     orderType() {
       return this.orderData.type;
+    },
+
+    platformInstructionLink() {
+      return geInstructionLinkByPlatform(this.currentPlatformId);
     },
   },
 
@@ -351,6 +357,7 @@ export default {
           :orderId="orderData.id"
           :orderType="orderType"
           :type="actionResult.type"
+          :platformInstructionLink="platformInstructionLink"
         />
         <PaymentAreaWarning
           v-if="isUserCountryConfirmRequested || isUserCountryRestricted"

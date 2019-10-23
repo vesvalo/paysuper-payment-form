@@ -44,7 +44,7 @@
         "virtual_items": "A new item awaits you in the game. Enjoy your new experience!",
         "virtual_currency": "A pack of currency awaits you in the game!"
       },
-      "descriptionSlaveInitial": "Leave your email to recieve <a href='{link}'>the bill</a>",
+      "descriptionSlaveInitial": "Leave your email to recieve the bill",
       "descriptionSlaveFinal": {
         "key": "We sent payment confirmation and activation key to",
         "product": "We sent payment confirmation and access link to",

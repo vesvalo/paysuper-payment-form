@@ -47,6 +47,11 @@ export default {
       },
     },
 
+    platformInstructionLink: {
+      default: '',
+      type: String,
+    },
+
     email: {
       required: true,
       type: String,
@@ -79,7 +84,9 @@ export default {
         },
         success: {
           title: this.$t('ActionResult.success.title'),
-          titleSubSlave: this.$t(`ActionResult.success.titleSubSlave.${this.orderType}`),
+          titleSubSlave: this.$t(`ActionResult.success.titleSubSlave.${this.orderType}`, {
+            link: platformInstructionLink,
+          }),
           descriptionSlaveFinal: this.$t(
             `ActionResult.success.descriptionSlaveFinal.${this.orderType}`,
           ),
