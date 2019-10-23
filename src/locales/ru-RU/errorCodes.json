@@ -7,7 +7,7 @@
     "fm000017": "Sorry, but your order amount is greater than max allowed payment. Put some stuff away from the basket.",
     "fm000018": "Order amount is lower than min allowed payment for your chosen payment method. Try to choose another one.",
     "fm000019": "Order amount is greater than max allowed payment for your chosen payment method. Try to choose another one.",
-    "fm000027": "Sorry, but payments from your country are not allowed. Try to choose another country.",
+    "fm000027": "Sorry, but payments from your country are not allowed.",
     "fm000039": "You can use only your own bank card for payment.",
     "fm000040": "Your country is not restricted for orders.",
     "fm000041": "It is required to enter your email.",

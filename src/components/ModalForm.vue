@@ -30,10 +30,10 @@ export default {
       [`.${this.$style.link}:hover`]: {
         color: this.$gui.baseHoverColor,
       },
-      [`.${this.$style.iconSupport}`]: {
+      [`.${this.$style.link} > svg`]: {
         fill: this.$gui.layoutTextColor,
       },
-      [`.${this.$style.iconSupport}:hover`]: {
+      [`.${this.$style.link}:hover > svg`]: {
         fill: this.$gui.baseHoverColor,
       },
       [`.${this.$style.locale}.${this.$style._opened}::after`]: {
@@ -63,13 +63,15 @@ export default {
       <div :class="$style.header">
         <div :class="$style.links">
           <a
-            href="#"
+            href="https://pay.super.com/"
             :class="$style.link"
             @click="fireAnalyticsEvent('PaySuper')"
+            target="_blank"
           >PaySuper</a>
           <a
-            href="#"
             :class="$style.link"
+            href="http://help.pay.super.com"
+            target="_blank"
             @click="fireAnalyticsEvent('IconSupport')"
           >
             <IconSupport :class="$style.iconSupport" />
@@ -143,6 +145,10 @@ export default {
   white-space: nowrap;
   text-decoration: none;
 
+  & > svg {
+    vertical-align: middle;
+  }
+
   &:hover {
     text-decoration: none;
   }
@@ -169,9 +175,6 @@ export default {
     box-sizing: border-box;
     width: 16px;
   }
-}
-.iconSupport {
-  opacity: 1;
 }
 .content {
   display: flex;

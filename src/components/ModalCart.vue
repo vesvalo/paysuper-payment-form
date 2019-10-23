@@ -26,7 +26,7 @@ export default {
       [`.${this.$style.layout}`]: {
         'background-color': this.$gui.cartBackgroundColor,
       },
-      [`.${this.$style.link}`]: {
+      [`.${this.$style.link}, .${this.$style.projectName}`]: {
         color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.link}:hover`]: {
@@ -78,12 +78,11 @@ export default {
       :class="$style.wrapper"
     >
       <div :class="$style.header">
-        <a
-          href="#"
-          :class="$style.link"
-          @click="fireAnalyticsEvent('Project')"
-        >{{ projectName }}</a>
         <span
+          :class="$style.projectName"
+          @click="fireAnalyticsEvent('Project')"
+        >{{ projectName }}</span>
+        <!-- <span
           :class="$style.link"
           @mouseenter="isProfileShown = true"
           @mouseleave="isProfileShown = false"
@@ -106,7 +105,7 @@ export default {
               @click="fireAnalyticsEvent('PaymentManagement')"
             >{{ $t('ModalCart.paymentManagement') }}</a>
           </UiTip>
-        </span>
+        </span> -->
       </div>
 
       <div :class="$style.content">
@@ -114,14 +113,57 @@ export default {
       </div>
 
       <div :class="$style.footer">
-        <span :class="$style.link">
-          {{ $t('ModalCart.termsOfUse') }}
-        </span>
-        <a
-          href="#"
+        <span
           :class="$style.link"
+          @mouseenter="isProfileShown = true"
+          @mouseleave="isProfileShown = false"
+        >
+          {{ $t('ModalCart.legalInfo') }}
+          <UiTip
+            innerPosition="left"
+            position="top"
+            width="280px"
+            :visible="isProfileShown"
+          >
+            <a
+              :class="$style.tipLink"
+              href="https://pay.super.com/policy/eula"
+              target="_blank"
+            >
+              {{ $t('ModalCart.userAgreement') }}
+            </a>
+            <a
+              :class="$style.tipLink"
+              href="https://pay.super.com/policy/tou"
+              target="_blank"
+            >
+              {{ $t('ModalCart.termsOfUse') }}
+            </a>
+            <a
+              :class="$style.tipLink"
+              href="http://help.pay.super.com"
+              target="_blank"
+              @click="fireAnalyticsEvent('Support')"
+            >
+              {{ $t('ModalCart.support') }}
+            </a>
+          </UiTip>
+        </span>
+        <!-- <a
+          :class="$style.link"
+          href="https://pay.super.com/policy/tou"
+          target="_blank"
+        >
+          {{ $t('ModalCart.termsOfUse') }}
+        </a>
+        <a
+          :class="$style.link"
+          href="http://help.pay.super.com"
+          target="_blank"
           @click="fireAnalyticsEvent('Support')"
-        >{{ $t('ModalCart.support') }}</a>
+        >
+          {{ $t('ModalCart.support') }}
+        </a> -->
       </div>
     </div>
   </UiTransitionFade>
@@ -153,14 +195,19 @@ export default {
   top: 0;
   z-index: 2;
 }
+.projectName {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+}
 .link {
   position: relative;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
   line-height: 18px;
-  cursor: pointer;
   transition: color 0.2s ease-out;
+  cursor: pointer;
 
   &:hover {
     text-decoration: none;

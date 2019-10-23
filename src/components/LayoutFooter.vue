@@ -10,9 +10,21 @@
         <span></span>
       </div>
       <template v-else>
-        <a href="#" :class="$style.link">{{$t('LayoutFooter.userAgreement')}}</a>
-        <a href="#" :class="$style.link">{{$t('LayoutFooter.refundPolicy')}}</a>
-        <a href="#" :class="$style.link">{{$t('LayoutFooter.support')}}</a>
+        <a
+          :class="$style.link"
+          href="https://pay.super.com/policy/eula"
+          target="_blank"
+        >
+          {{$t('LayoutFooter.userAgreement')}}
+        </a>
+        <a
+          :class="$style.link"
+          href="http://help.pay.super.com"
+          target="_blank"
+          @click="fireAnalyticsEvent('Support')"
+        >
+          {{$t('LayoutFooter.support')}}
+        </a>
       </template>
     </div>
   </div>

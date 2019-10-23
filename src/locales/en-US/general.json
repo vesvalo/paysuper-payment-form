@@ -112,25 +112,17 @@
   },
   "LayoutFooter": {
     "userAgreement": "User Agreement",
-    "refundPolicy": "Refund Policy",
     "support": "Support"
   },
   "LayoutHeader": {
     "termsOfUse": "Terms of Use",
-    "profile": "My profile",
-    "purchaseInformation": "Purchase information",
-    "paymentManagement": "Payment management",
-    "userAgreement": "User Agreement",
-    "refundPolicy": "Refund Policy"
+    "userAgreement": "User Agreement"
   },
   "ModalCart": {
+    "legalInfo": "Legal information",
     "termsOfUse": "Terms of Use",
-    "profile": "My profile",
     "support": "Support",
-    "purchaseInformation": "Purchase information",
-    "paymentManagement": "Payment management",
-    "userAgreement": "User Agreement",
-    "refundPolicy": "Refund Policy"
+    "userAgreement": "User Agreement"
   },
   "PaymentAreaWarning": {
     "oops": "Oooops",
