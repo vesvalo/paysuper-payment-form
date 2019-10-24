@@ -213,7 +213,6 @@ export default {
         //       month: '01',
         //       year: '22',
         //     },
-        //     card_holder: 'Vafa',
         //   },
         // ];
         // commit('cards', orderData.payment_methods[bankCardIndex].saved_cards);
@@ -269,7 +268,7 @@ export default {
     async createPayment({
       state, rootState, commit,
     }, {
-      cardNumber, expiryDate, cvv, cardHolder, ewallet, crypto, email, hasRemembered,
+      cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
       country, city, zip,
     }) {
       setPaymentStatus(commit, 'BEFORE_CREATED');
@@ -330,7 +329,8 @@ export default {
         cvv,
         month: expiryDate.slice(0, 2),
         year: expiryDate.slice(2, 4),
-        card_holder: cardHolder,
+        // https://protocolone.tpondemand.com/restui/board.aspx?#page=userstory/192384
+        card_holder: 'Cardholder',
         order_id: state.orderData.id,
         pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
