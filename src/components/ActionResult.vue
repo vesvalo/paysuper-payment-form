@@ -43,7 +43,7 @@ export default {
       required: true,
       type: String,
       validator(value) {
-        return includes(['key', 'product', 'simple'], value);
+        return includes(['key', 'product', 'simple', 'virtual_currency', 'virtual_items'], value);
       },
     },
 
@@ -85,7 +85,7 @@ export default {
         success: {
           title: this.$t('ActionResult.success.title'),
           titleSubSlave: this.$t(`ActionResult.success.titleSubSlave.${this.orderType}`, {
-            link: platformInstructionLink,
+            link: this.platformInstructionLink,
           }),
           descriptionSlaveFinal: this.$t(
             `ActionResult.success.descriptionSlaveFinal.${this.orderType}`,

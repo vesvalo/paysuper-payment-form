@@ -94,6 +94,7 @@ export default {
   computed: {
     ...mapState('PaymentForm', [
       'orderData',
+      'orderParams',
       'activePaymentMethodId',
       'cards',
       'actionResult',
@@ -145,7 +146,7 @@ export default {
     },
 
     orderType() {
-      return this.orderData.type;
+      return this.orderParams.type;
     },
 
     platformInstructionLink() {
