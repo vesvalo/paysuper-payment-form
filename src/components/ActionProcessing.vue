@@ -100,7 +100,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 1000;
 
   &:before {
     content: '';

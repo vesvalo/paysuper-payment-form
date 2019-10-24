@@ -82,7 +82,7 @@ export default {
   height: 100%;
   width: 100%;
   position: relative;
-  z-index: 1000;
+  z-index: 100;
 
   &._layout-page {
   }
