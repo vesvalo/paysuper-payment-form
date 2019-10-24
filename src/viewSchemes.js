@@ -118,7 +118,7 @@ export default {
   light: {
     baseHoverColor: '#06eaa7',
 
-    modalCloseIconColor: 'rgba(255, 255, 255, 0.5)',
+    modalCloseIconColor: '#202226',
 
     iconBaseColor: '#5B88DE',
     iconOutlineColor: '#202226',

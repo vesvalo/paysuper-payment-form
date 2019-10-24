@@ -109,7 +109,7 @@ export default {
     :content="isFormLoading ? 'no-content' : '3d-security'"
   />
   <OrderCreationError
-    v-if="!isFormLoading && paymentStatus === 'FAILED_TO_BEGIN'"
+    v-if="paymentStatus === 'FAILED_TO_BEGIN'"
     :class="$style.orderCreationError"
     :message="actionResult.message"
     :type="actionResult.type"
@@ -142,7 +142,6 @@ export default {
   right: 0;
   bottom: 0;
   top: 0;
-  z-index: 1000;
 }
 
 .enter,
