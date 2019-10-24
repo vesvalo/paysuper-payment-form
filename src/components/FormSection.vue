@@ -132,6 +132,16 @@ export default {
 
       return true;
     },
+
+    isSubmitButtonDisabled() {
+      if (
+        this.isUserCountryConfirmRequested
+        && this.userIpGeoData.country === this.paymentData.country
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
 
   validations() {
@@ -348,6 +358,7 @@ export default {
     <UiButton
       :class="$style.payBtn"
       :hasBorderRadius="layout === 'page' ? true : false"
+      :disabled="isSubmitButtonDisabled"
       @click="handleMainButtonClick"
     >
       <template v-if="isPaymentFormVisible">

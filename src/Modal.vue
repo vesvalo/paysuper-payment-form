@@ -87,7 +87,7 @@ export default {
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
       <component
         :is="getComponentName('ModalCart')"
-        projectName="PaySuper"
+        :projectName="orderData ? orderData.project.name : ''"
         :isLoading="isLoading"
       >
         <CartSection
