@@ -150,6 +150,11 @@ export default {
       ];
     },
   },
+  watch: {
+    value(value) {
+      this.innerValue = value;
+    },
+  },
   mounted() {
     this.$addCssRules({
       [`.${this.container}.${this.stateDisabled}`]: {
@@ -188,9 +193,9 @@ export default {
       },
     });
   },
-  watch: {
-    value(value) {
-      this.innerValue = value;
+  methods: {
+    focus() {
+      this.$el.querySelector('input').focus();
     },
   },
 };

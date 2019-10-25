@@ -13,24 +13,30 @@
   <UiCardField
     v-else
     v-model="innerValue.cardNumber"
+    ref="cardNumberField"
     name="pan"
     :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
+    @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
   />
   <div :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]">
     <UiTextField
       v-model="innerValue.expiryDate"
+      ref="expiryDateField"
       name="cc-exp"
       mask="##/##"
       :class="$style.expiry"
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
       :label="$t('FormSectionBankCard.expiryDate')"
+      @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
+      @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
     />
     <div :class="$style.cvvBox">
       <UiTextField
         v-model="innerValue.cvv"
+        ref="cvvField"
         name="cvv"
         mask="###"
         type="password"
@@ -38,6 +44,7 @@
         :hasError="$isFieldInvalid('innerValue.cvv')"
         :errorText="$t('FormSectionBankCard.cvvError')"
         :label="$t('FormSectionBankCard.cvv')"
+        @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
       />
       <div
         :class="$style.cvvInfo"
@@ -275,7 +282,26 @@ export default {
     this.emitOnInnerValueChanges();
   },
 
+  mounted() {
+    this.focusCardNumberField();
+  },
+
   methods: {
+    focusCardNumberField() {
+      this.$nextTick(() => {
+        this.$refs.cardNumberField.focus();
+      });
+    },
+    moveFocusToFieldOnComplete(fieldValueName, length, nextField) {
+      if (this.innerValue[fieldValueName].length === length) {
+        this.$refs[nextField].focus();
+      }
+    },
+    moveFocusBackOnEmpty(fieldValueName, prevField) {
+      if (this.innerValue[fieldValueName].length === 0) {
+        this.$refs[prevField].focus();
+      }
+    },
     emitOnInnerValueChanges() {
       forEach(this.innerValue, (a, key) => {
         this.$watch(`innerValue.${key}`, (value) => {
