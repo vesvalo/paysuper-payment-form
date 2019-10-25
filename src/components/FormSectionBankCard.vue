@@ -60,14 +60,6 @@
     </div>
   </div>
   <UiTextField
-    v-model="innerValue.cardHolder"
-    name="card_holder"
-    :hasError="$isFieldInvalid('innerValue.cardHolder')"
-    :errorText="$t('FormSectionBankCard.cardHolderError')"
-    :class="$style.formItem"
-    :label="$t('FormSectionBankCard.cardholder')"
-  />
-  <UiTextField
     v-model="innerValue.email"
     name="email"
     type="email"
@@ -173,7 +165,7 @@ export default {
       type: RegExp,
     },
     /**
-     * @typedef {{ cardNumber: string, expiryDate: string, cardHolder: string }} Card
+     * @typedef {{ cardNumber: string, expiryDate: string }} Card
      * @type {Card[]}
      */
     cards: {
@@ -245,9 +237,6 @@ export default {
       cvv: {
         required,
         minLength: minLength(3),
-      },
-      cardHolder: {
-        required,
       },
       email: {
         required,

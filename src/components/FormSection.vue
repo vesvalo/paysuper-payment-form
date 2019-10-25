@@ -44,7 +44,6 @@ export default {
         cardNumber: '',
         expiryDate: '',
         cvv: '',
-        cardHolder: '',
         hasRemembered: false,
         country: '',
         city: '',

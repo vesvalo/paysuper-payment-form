@@ -87,8 +87,6 @@
     "cvv": "CVC/CVV",
     "cvvInfo": "Три цифры<br>на обратной стороне карты",
     "cvvError": "Неверное значение",
-    "cardholder": "Владелец карты",
-    "cardHolderError": "Введите владельца карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",

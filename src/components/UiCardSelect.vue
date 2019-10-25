@@ -11,7 +11,7 @@ export default {
   },
   props: {
     /**
-     * @typedef {{ pan: string, expire: Object, card_holder: string }} Card
+     * @typedef {{ pan: string, expire: Object }} Card
      * @type {Card[]}
      */
     cards: {
