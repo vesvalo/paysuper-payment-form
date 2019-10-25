@@ -46,6 +46,9 @@ export default {
     cardChange(value) {
       this.$emit('input', value);
     },
+    focus() {
+      this.$refs.textField.focus();
+    },
   },
   watch: {
     value(value) {
@@ -60,6 +63,7 @@ export default {
   <UiTextField
     v-model="innerValue"
     v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
+    ref="textField"
     mask="#### #### #### ####"
     :label="$t('UiCardField.cardNumber')"
     @blur="$emit('blur')"

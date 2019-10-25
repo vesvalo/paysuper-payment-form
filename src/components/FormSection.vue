@@ -193,6 +193,9 @@ export default {
       if (this.isUserCountryConfirmRequested) {
         gtagEvent('confirmUserCountry', { event_category: 'userAction' });
         this.submitUserCountry();
+        if (this.$refs.bankCardForm) {
+          this.$refs.bankCardForm.focusCardNumberField();
+        }
       } else if (this.isUserCountryRestricted) {
         gtagEvent('isUserCountryRestricted');
         this.$emit('close');
