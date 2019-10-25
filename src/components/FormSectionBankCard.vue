@@ -44,6 +44,7 @@
         :hasError="$isFieldInvalid('innerValue.cvv')"
         :errorText="$t('FormSectionBankCard.cvvError')"
         :label="$t('FormSectionBankCard.cvv')"
+        @keyup.native="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
         @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
       />
       <div
@@ -68,12 +69,14 @@
   </div>
   <UiTextField
     v-model="innerValue.email"
+    ref="emailField"
     name="email"
     type="email"
     :class="$style.formItem"
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
+    @keyup.native.delete="moveFocusBackOnEmpty('email', 'cvvField')"
   />
   <template v-if="isGeoFieldsExposed">
     <UiSelect
