@@ -28,7 +28,7 @@ const isProd = process.env.NODE_ENV === 'production';
 if (isProd) {
   Sentry.init({
     dsn: sentryDsn,
-    integrations: [new Sentry.Integrations.Vue({ Vue })],
+    integrations: [new Sentry.Integrations.Vue({ Vue, attachProps: true })],
     environment: process.env.VUE_APP_BUILD_PURPOSE,
   });
 }
