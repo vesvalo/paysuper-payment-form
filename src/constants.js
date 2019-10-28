@@ -22,4 +22,4 @@ const websocketServerUrlMap = {
   release: 'wss://ws.pay.super.com/connection/websocket',
 };
 export const websocketServerUrl = websocketServerUrlMap[buildPurpose] || websocketServerUrlMap.dev;
-export const sentryDsn = 'https://3e4a24900f064243a9de45162660a66d@sentry.tst.protocol.one/3';
+export const sentryDsn = 'https://7a140487808947bf906ba5f2bfe4c4d0@sentry.io/1796339';

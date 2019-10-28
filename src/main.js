@@ -23,18 +23,13 @@ import { apiUrl, sentryDsn } from '@/constants';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
-const isProd = process.env.NODE_ENV === 'production';
-
-if (process.env.VUE_APP_BUILD_PURPOSE === 'release') {
-  Vue.config.lalaley = false;
-}
-
 Vue.config.productionTip = false;
-
+const isProd = process.env.NODE_ENV === 'production';
 if (isProd) {
   Sentry.init({
     dsn: sentryDsn,
     integrations: [new Sentry.Integrations.Vue({ Vue })],
+    environment: process.env.VUE_APP_BUILD_PURPOSE,
   });
 }
 
