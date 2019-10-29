@@ -21,7 +21,7 @@ export default {
       default: true,
       type: Boolean,
     },
-    isVerticalModal: {
+    isMobileView: {
       type: Boolean,
       default: false,
     },
@@ -61,7 +61,7 @@ export default {
         item => (get(item, 'images[0]') || ''),
       );
 
-      if (!this.isVerticalModal) {
+      if (!this.isMobileView) {
         return items.slice(0, 7);
       }
 
@@ -112,12 +112,12 @@ export default {
     {
       [$style._promo]: promoImage,
       [$style._closed]: !isCartOpened,
-      [$style._vertical]: isVerticalModal,
+      [$style._isMobile]: isMobileView,
     }
   ]"
-  :style="{backgroundImage: promoImage}"
+  :style="{ backgroundImage: promoImage }"
 >
-  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{suppressScrollX: true}">
+  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{ suppressScrollX: true }">
     <div :class="$style.innerContainer">
       <div
         v-if="images && !promoImage"
@@ -164,20 +164,16 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &._vertical {
+  &._isMobile {
     padding: 0 0 12px;
+
+    @media screen and (min-width: 640px) {
+      padding: 80px 0;
+    }
   }
 
-  &:not(._vertical) {
-    &._layout-modal {
-      padding: 40px 0;
-    }
-
-    &._layout-page {
-      @media screen and (min-width: 640px) {
-        padding: 80px 0;
-      }
-    }
+  &:not(._isMobile) {
+    padding: 40px 0;
 
     &._promo {
       background-size: cover;
@@ -229,7 +225,7 @@ export default {
   min-height: 100%;
   width: 100%;
 
-  .cartSection._layout-modal:not(._vertical) & {
+  .cartSection:not(._isMobile) & {
     padding: 20px 0 30px;
   }
 }
@@ -240,22 +236,12 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .cartSection:not(._vertical)._promo & {
+  .cartSection:not(._isMobile)._promo & {
     justify-content: flex-end;
   }
 
-  .cartSection:not(._vertical)._layout-page & {
+  .cartSection._isMobile & {
     padding: 0;
-  }
-
-  @media screen and (max-width: 639px) {
-    .cartSection:not(._vertical)._closed & {
-      padding: 0;
-    }
-  }
-
-  .cartSection._vertical & {
-    padding: 0 40px;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -265,7 +251,7 @@ export default {
 .cartSectionListing {
   order: 2;
 
-  .cartSection._vertical & {
+  .cartSection._isMobile & {
     order: 0;
     width: calc(100% - 106px);
 
@@ -280,11 +266,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
 
-  .cartSection:not(._vertical) & {
+  .cartSection:not(._isMobile) & {
     padding-top: 5px;
     margin: -5px -5px 9px -5px;
   }
-  .cartSection._vertical & {
+  .cartSection._isMobile & {
     width: 86px;
     justify-content: space-between;
     align-content: flex-start;
@@ -294,7 +280,7 @@ export default {
 .imageItem {
   box-sizing: border-box;
 
-  .cartSection:not(._vertical) & {
+  .cartSection:not(._isMobile) & {
     flex-grow: 1;
     flex-basis: 20%;
     margin: 5px;
@@ -316,7 +302,7 @@ export default {
     }
   }
 
-  .cartSection._vertical & {
+  .cartSection._isMobile & {
     flex-basis: calc(50% - 3px);
     height: 40px;
     margin-bottom: 6px;

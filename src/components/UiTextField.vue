@@ -81,7 +81,7 @@ export default {
       default: 'text',
       type: String,
       validator(val) {
-        return includes(['text', 'password', 'email'], val);
+        return includes(['text', 'password', 'email', 'tel', 'number'], val);
       },
     },
     value: {
@@ -248,6 +248,8 @@ $main-additional-height: 18px;
   padding: 0;
   transition: $input-transition;
   width: 100%;
+  border-radius: 0;
+  appearance: none;
 
   &:focus ~ .label,
   &:not(:focus):not(._empty) ~ .label {

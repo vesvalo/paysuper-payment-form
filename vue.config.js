@@ -58,6 +58,8 @@ module.exports = {
         : [],
   },
 
+  transpileDependencies: ['vue-sticky-directive'],
+
   pluginOptions: {
     lintStyleOnBuild: false,
     stylelint: {},

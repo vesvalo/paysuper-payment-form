@@ -67,9 +67,8 @@
           href="#"
           :class="$style.title"
           @click="fireAnalyticsEvent('PaySuper')"
-        >Pay Super</a>
+        >PaySuper</a>
         <div :class="$style.icons">
-          <IconSupport :class="$style.support" />
           <div :class="$style.localeBox">
             <span
               :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
@@ -267,9 +266,10 @@ export default {
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
-  height: 130px;
+  height: 60px;
   justify-content: flex-end;
   position: relative;
+  align-items: center;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -284,7 +284,11 @@ export default {
   }
 
   & > .inner {
-    padding: 40px 30px 25px;
+    padding: 0px 20px;
+
+    @media screen and (min-width: 640px) {
+      padding: 40px 30px 25px;
+    }
   }
 
   @media screen and (min-width: 640px) {
@@ -409,7 +413,6 @@ export default {
   @media screen and (min-width: 640px) {
     line-height: 40px;
     height: 40px;
-    font-size: 20px;
   }
 }
 .additional {
@@ -491,7 +494,7 @@ export default {
   }
 }
 .title {
-  font-size: 30px;
+  font-size: 16px;
   line-height: 40px;
   height: 40px;
   font-weight: bold;

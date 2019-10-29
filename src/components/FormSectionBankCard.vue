@@ -15,17 +15,19 @@
     v-model="innerValue.cardNumber"
     ref="cardNumberField"
     name="pan"
-    :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]"
+    type="tel"
+    :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
     @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
   />
-  <div :class="[$style.formItem, { [$style._oneLine]: isVerticalModal }]">
+  <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
     <UiTextField
       v-model="innerValue.expiryDate"
       ref="expiryDateField"
       name="cc-exp"
       mask="##/##"
+      type="tel"
       :class="$style.expiry"
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
@@ -33,39 +35,13 @@
       @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
       @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
     />
-    <div :class="$style.cvvBox">
-      <UiTextField
-        v-model="innerValue.cvv"
-        ref="cvvField"
-        name="cvv"
-        mask="###"
-        type="password"
-        :hasInfoIcon="true"
-        :hasError="$isFieldInvalid('innerValue.cvv')"
-        :errorText="$t('FormSectionBankCard.cvvError')"
-        :label="$t('FormSectionBankCard.cvv')"
-        @keyup.native="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
-        @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
-      />
-      <div
-        :class="$style.cvvInfo"
-        @mouseenter="isCvvInfoShown = true"
-        @mouseleave="isCvvInfoShown = false"
-      >
-        <IconInfo />
-        <UiTip
-          innerPosition="right"
-          section="form"
-          :class="$style.cvvTip"
-          :visible="isCvvInfoShown"
-        >
-          <div :class="$style.cvvContainer">
-            <IconCvvCard :class="$style.cvvIconCard" />
-            <div v-html="$t('FormSectionBankCard.cvvInfo')" />
-          </div>
-        </UiTip>
-      </div>
-    </div>
+    <UiCvvField
+      v-model="innerValue.cvv"
+      ref="cvvField"
+      :hasError="$isFieldInvalid('innerValue.cvv')"
+      @keyup.native="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
+      @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
+    />
   </div>
   <UiTextField
     v-model="innerValue.email"
@@ -81,7 +57,7 @@
   <template v-if="isGeoFieldsExposed">
     <UiSelect
       v-model="innerValue.country"
-      :maxHeight="isVerticalModal ? '120px' : '240px'"
+      :maxHeight="isMobileView ? '120px' : '240px'"
       :options="countries"
       :placeholderLabel="$t('FormSectionBankCard.country')"
       :hasReversible="true"
@@ -135,7 +111,12 @@
 </template>
 
 <script>
-import { email, required, minLength } from 'vuelidate/lib/validators';
+import {
+  email,
+  required,
+  maxLength,
+  minLength,
+} from 'vuelidate/lib/validators';
 import { toInteger, extend, forEach } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 
@@ -197,7 +178,11 @@ export default {
       type: Boolean,
       required: true,
     },
-    isVerticalModal: {
+    isMobileView: {
+      type: Boolean,
+      default: false,
+    },
+    isOneLine: {
       type: Boolean,
       default: false,
     },
@@ -247,6 +232,7 @@ export default {
       cvv: {
         required,
         minLength: minLength(3),
+        maxLength: maxLength(4),
       },
       email: {
         required,
@@ -350,56 +336,6 @@ export default {
 .expiry {
   @include if-ltr {
     margin-right: 20px;
-  }
-}
-.cvvBox {
-  position: relative;
-  width: 100%;
-
-  @include if-rtl {
-    margin-right: 20px;
-  }
-}
-.cvvInput {
-  width: calc(100% - 12px);
-}
-.cvvInfo {
-  position: absolute;
-  display: flex;
-  top: 20px;
-  cursor: pointer;
-
-  @include if-ltr {
-    right: 0;
-  }
-
-  @include if-rtl {
-    left: 0;
-  }
-}
-.cvvTip {
-  @include if-ltr {
-    margin-right: -20px;
-  }
-
-  @include if-rtl {
-    margin-left: -20px;
-  }
-}
-.cvvContainer {
-  display: flex;
-  padding: 8px 5px;
-  width: 250px;
-  justify-content: flex-start;
-  align-items: center;
-}
-.cvvIconCard {
-  @include if-ltr {
-    margin-right: 10px;
-  }
-
-  @include if-rtl {
-    margin-left: 10px;
   }
 }
 .remember {

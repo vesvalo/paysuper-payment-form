@@ -41,7 +41,7 @@ export default {
     { [$style._closed]: !isCartOpened }
   ]"
 >
-  <div :class="$style.items">
+  <div :class="[$style.items, $style.hidden]">
     <template v-if="orderData.items">
       <div
         v-for="(item, index) in orderData.items"
@@ -77,7 +77,7 @@ export default {
   <div :class="$style.totals">
     <div :class="$style.items">
       <template v-if="orderData.vat">
-        <div :class="[$style.item, $style.subtotal]">
+        <div :class="[$style.item, $style.subtotal, $style.hidden]">
           <span :class="[$style.itemCell, $style._title]">
             {{ $t('CartSection.subtotal') }}
           </span>
@@ -85,7 +85,7 @@ export default {
             {{ $getPrice(orderData.amount, orderData.currency) }}
           </span>
         </div>
-        <div :class="[$style.item, $style.taxes]">
+        <div :class="[$style.item, $style.taxes, $style.hidden]">
           <span :class="[$style.itemCell, $style._title]">
             {{ $t('CartSection.taxes') }}
           </span>
@@ -112,6 +112,10 @@ export default {
 .cartSectionListing {
   position: relative;
   z-index: 1;
+
+  &._closed .hidden {
+    display: none;
+  }
 }
 .items {
   display: table;

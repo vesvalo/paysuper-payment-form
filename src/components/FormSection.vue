@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
+import Sticky from 'vue-sticky-directive';
 import { includes, get } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
@@ -15,6 +16,8 @@ function getRegexp(value) {
 export default {
   name: 'FormSection',
 
+  directives: { Sticky },
+
   components: {
     ActionResult,
     FormSectionBankCard,
@@ -22,14 +25,7 @@ export default {
   },
 
   props: {
-    layout: {
-      type: String,
-      default: 'modal',
-      validator(value) {
-        return includes(['modal', 'page'], value);
-      },
-    },
-    isVerticalModal: {
+    isMobileView: {
       type: Boolean,
       default: false,
     },
@@ -41,6 +37,8 @@ export default {
 
   data() {
     return {
+      footerSticked: false,
+
       paymentData: {
         cardNumber: '',
         expiryDate: '',
@@ -283,21 +281,21 @@ export default {
         this.isBankCardNumberChecking = false;
       }
     },
+
+    onStick(event) {
+      this.footerSticked = event.sticked;
+    },
   },
 };
 </script>
 
 <template>
-<div :class="[
-  $style.formSection,
-  $style[`_layout-${layout}`],
-  { [$style[`_is-vertical`]]: isVerticalModal },
-]">
+<div :class="[$style.formSection, { [$style[`_isMobile`]]: isMobileView }]">
   <div :class="$style.content">
     <component
-      :is="layout === 'modal' ? 'UiScrollbarBox' : 'div'"
+      :is="isMobileView ? 'div' : 'UiScrollbarBox'"
       :class="$style.scrollbox"
-      :settings="layout === 'modal' ? {suppressScrollX: true} : undefined"
+      :settings="isMobileView ? undefined : { suppressScrollX: true }"
     >
       <div
         v-show="isPaymentFormVisible"
@@ -315,7 +313,7 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="paymentData"
-          :isVerticalModal="isVerticalModal"
+          :isMobileView="isMobileView"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
@@ -369,10 +367,15 @@ export default {
       </div>
     </component>
   </div>
-  <div :class="$style.footer">
+  <div
+    v-sticky="true"
+    sticky-side="bottom"
+    on-stick="onStick"
+    :class="[$style.footer, { [$style._sticky]: footerSticked }]"
+  >
     <UiButton
       :class="$style.payBtn"
-      :hasBorderRadius="layout === 'page' ? true : false"
+      :hasBorderRadius="isMobileView ? true : false"
       :disabled="isSubmitButtonDisabled"
       @click="handleMainButtonClick"
     >
@@ -410,10 +413,6 @@ export default {
   min-height: 448px;
   max-height: 100%;
   width: 100%;
-
-  &._is-vertical {
-    min-height: 0;
-  }
 }
 
 .content {
@@ -437,16 +436,11 @@ export default {
   width: 100%;
   height: 100%;
   flex-grow: 1;
+  padding: 0 40px 20px;
 
-  .formSection._layout-modal & {
-    padding: 0 40px 20px;
-  }
+  .formSection._isMobile & {
+    padding: 20px 0px 20px;
 
-  .formSection._is-vertical & {
-    padding: 20px 40px 20px;
-  }
-
-  .formSection._layout-page & {
     @media screen and (min-width: 640px) {
       padding: 60px 0;
     }
@@ -463,9 +457,20 @@ export default {
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+
+  .formSection._isMobile &._sticky {
+    left: 0 !important;
+    width: 100vw !important;
+  }
 }
 
 .payBtn {
   width: 100%;
+  transition: border-radius 0.2s ease-out;
+
+  .formSection._isMobile .footer._sticky & {
+    transition: border-radius 0.2s ease-out;
+    border-radius: 0;
+  }
 }
 </style>
