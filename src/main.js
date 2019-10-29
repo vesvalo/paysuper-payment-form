@@ -33,27 +33,28 @@ if (isProd) {
   });
 }
 
+const mountPoint = '#paysuper-payment-form';
 const isPageInsideIframe = window.location !== window.parent.location;
 
 /**
  * Mounts the app into element
  *
- * @param {Object} orderParams
- * @param {Object} optionsCustom
+ * @param {Object} customOptions
  */
-async function mountApp(orderParams, optionsCustom = {}) {
+async function mountApp(customOptions = {}) {
+  const { orderData, orderParams, baseOptions } = window.PAYSUPER_PAYMENT_FORM;
   assert(
-    document.querySelector('#p1payone-form'),
-    'Define "#p1payone-form" element in the document to mount the app',
+    document.querySelector(mountPoint),
+    `Define "${mountPoint}" element in the document to mount the app`,
   );
 
-  if (isPageInsideIframe) {
-    if (!window.PAYSUPER_ORDER_PARAMS) {
-      assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" is not defined or empty');
-    } else if (!orderParams) {
-      assert(orderParams, 'The order params are not recieved');
-    }
-  }
+  // if (isPageInsideIframe) {
+  //   if (!window.PAYSUPER_ORDER_PARAMS) {
+  //     assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" is not defined or empty');
+  //   } else if (!orderParams) {
+  //     assert(orderParams, 'The order params are not recieved');
+  //   }
+  // }
 
   const language = getLanguage(localesScheme, navigator);
   const options = {
@@ -64,12 +65,14 @@ async function mountApp(orderParams, optionsCustom = {}) {
     layout: 'page',
     isPageInsideIframe,
     language,
-    ...optionsCustom,
+    ...baseOptions,
+    ...customOptions,
   };
 
   if (options.layout !== 'loading') {
     store.dispatch('initState', {
       orderParams,
+      orderData,
       options,
     });
   }
@@ -108,19 +111,19 @@ async function mountApp(orderParams, optionsCustom = {}) {
 
       gtagConfig('UA-142750977-1', { page_path: `/${options.layout}` });
     },
-  }).$mount('#p1payone-form');
+  }).$mount(mountPoint);
 }
 
-if (isPageInsideIframe || !window.PAYSUPER_ORDER_PARAMS) {
+if (isPageInsideIframe) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
-      const { orderParams, options } = data;
-      mountApp(orderParams, options);
+      const { options } = data;
+      mountApp(options);
     },
   });
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp(window.PAYSUPER_ORDER_PARAMS, window.PAYSUPER_FORM_OPTIONS);
+  mountApp();
 }
 
 postMessage('INITED');
