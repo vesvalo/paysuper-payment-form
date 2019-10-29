@@ -177,80 +177,57 @@ export default {
   },
 
   actions: {
-    async initState({ commit, dispatch }, { orderParams, options }) {
+    async initState({ commit }, { orderParams, orderData, options }) {
       commit('options', options);
       commit('orderParams', orderParams);
-      await dispatch('createOrder');
-    },
-
-    async createOrder({ state, commit, rootState }) {
-      const {
-        // eslint-disable-next-line camelcase
-        project, token, products, amount, currency, type,
-      } = state.orderParams;
-      if (amount) {
-        assert(currency, 'PaySuper: currency is not set');
-      }
-      try {
-        const { data } = await axios.post(
-          `${rootState.apiUrl}/api/v1/order`,
-          {
-            project,
-            ...(token ? { token } : {}),
-            ...(products ? { products } : {}),
-            ...(amount ? { amount, currency } : {}),
-            ...(type ? { type } : {}),
-          },
-        );
-        const order = await axios.get(`${rootState.apiUrl}/api/v1/order/${data.id}`);
-        const orderData = order.data;
-
-        const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
-        // orderData.payment_methods[bankCardIndex].saved_cards = [
-        //   {
-        //     id: 23123,
-        //     pan: '3000000000434342',
-        //     expire: {
-        //       month: '01',
-        //       year: '22',
-        //     },
-        //   },
-        // ];
-        // commit('cards', orderData.payment_methods[bankCardIndex].saved_cards);
-        if (orderData.platforms) {
-          commit('currentPlatformId', orderData.platforms[0].id);
-        }
-        commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
-        commit('orderData', orderData);
-
-        setGeoParams(commit, orderData);
-        setPaymentStatus(commit, 'NEW');
-
-        const items = (get(orderData, 'items') || []).map((item, index) => ({
-          id: item.id,
-          name: item.name,
-          list_name: 'Cart items',
-          list_position: index + 1,
-          price: `${item.amount}`,
-          quantity: 1,
-        }));
-
-        gtagEvent('begin_checkout', {
-          items: items.length
-            ? items
-            : [{
-              id: project,
-              name: 'Virtual Currency',
-              price: `${orderData.amount}`,
-              quantity: 1,
-            }],
-        });
-      } catch (error) {
+      // orderData.payment_methods[bankCardIndex].saved_cards = [
+      //   {
+      //     id: 23123,
+      //     pan: '3000000000434342',
+      //     expire: {
+      //       month: '01',
+      //       year: '22',
+      //     },
+      //   },
+      // ];
+      // commit('cards', orderData.payment_methods[bankCardIndex].saved_cards);
+      commit('orderData', orderData);
+      if (orderData.error) {
         setPaymentStatus(
           commit, 'FAILED_TO_BEGIN',
-          (error.response ? error.response.data : undefined),
+          orderData.error,
         );
+        return;
       }
+
+      const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
+      if (orderData.platforms) {
+        commit('currentPlatformId', orderData.platforms[0].id);
+      }
+      commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
+
+      setGeoParams(commit, orderData);
+      setPaymentStatus(commit, 'NEW');
+
+      const items = (get(orderData, 'items') || []).map((item, index) => ({
+        id: item.id,
+        name: item.name,
+        list_name: 'Cart items',
+        list_position: index + 1,
+        price: `${item.amount}`,
+        quantity: 1,
+      }));
+
+      gtagEvent('begin_checkout', {
+        items: items.length
+          ? items
+          : [{
+            id: orderParams.project,
+            name: 'Virtual Currency',
+            price: `${orderData.amount}`,
+            quantity: 1,
+          }],
+      });
     },
 
     setActivePaymentMethodById({ commit }, value) {

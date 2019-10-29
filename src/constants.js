@@ -10,7 +10,7 @@ const apiUrlMap = {
 export const apiUrl = apiUrlMap[buildPurpose] || apiUrlMap.dev;
 
 const formLoadingPageUrlMap = {
-  dev: 'http://localhost:4040/loading',
+  dev: 'http://localhost:8080/order?loading=true',
   test: 'https://paysupermgmt.tst.protocol.one/order?loading=true',
   release: 'https://dashboard.pay.super.com/order?loading=true',
 };
