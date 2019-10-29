@@ -202,7 +202,8 @@ export default {
             ...(type ? { type } : {}),
           },
         );
-        const orderData = data.payment_form_data;
+        const order = await axios.get(`${rootState.apiUrl}/api/v1/order/${data.id}`);
+        const orderData = order.data;
 
         const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
         // orderData.payment_methods[bankCardIndex].saved_cards = [
