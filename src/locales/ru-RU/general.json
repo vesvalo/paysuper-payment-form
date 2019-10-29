@@ -121,8 +121,7 @@
     "purchaseInformation": "Информация о покупке",
     "paymentManagement": "Управление платежами",
     "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата",
-    "refundAdditionalInfo": "Вы можете вернуть эту игру в течении 10 дней"
+    "refundPolicy": "Политика возврата"
   },
   "PaymentAreaWarning": {
     "oops": "Опаньки",
@@ -137,8 +136,7 @@
     "purchaseInformation": "Информация о покупке",
     "paymentManagement": "Управление платежами",
     "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата",
-    "refundAdditionalInfo": "Вы можете вернуть эту игру в течении 10 дней"
+    "refundPolicy": "Политика возврата"
   },
   "UiCardField": {
     "cardNumber": "Номер карты"

@@ -121,8 +121,7 @@
     "purchaseInformation": "Purchase information",
     "paymentManagement": "Payment management",
     "userAgreement": "User Agreement",
-    "refundPolicy": "Refund Policy",
-    "refundAdditionalInfo": "You can return this game in 10 days"
+    "refundPolicy": "Refund Policy"
   },
   "ModalCart": {
     "termsOfUse": "Terms of Use",
@@ -131,8 +130,7 @@
     "purchaseInformation": "Purchase information",
     "paymentManagement": "Payment management",
     "userAgreement": "User Agreement",
-    "refundPolicy": "Refund Policy",
-    "refundAdditionalInfo": "You can return this game in 10 days"
+    "refundPolicy": "Refund Policy"
   },
   "PaymentAreaWarning": {
     "oops": "Oooops",
