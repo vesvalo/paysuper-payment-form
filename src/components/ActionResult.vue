@@ -39,6 +39,19 @@ export default {
       type: String,
     },
 
+    orderType: {
+      required: true,
+      type: String,
+      validator(value) {
+        return includes(['key', 'product', 'simple', 'virtual_currency', 'virtual_items'], value);
+      },
+    },
+
+    platformInstructionLink: {
+      default: '',
+      type: String,
+    },
+
     email: {
       required: true,
       type: String,
@@ -71,8 +84,12 @@ export default {
         },
         success: {
           title: this.$t('ActionResult.success.title'),
-          titleSubSlave: this.$t('ActionResult.success.titleSubSlave'),
-          descriptionSlaveFinal: this.$t('ActionResult.success.descriptionSlaveFinal'),
+          titleSubSlave: this.$t(`ActionResult.success.titleSubSlave.${this.orderType}`, {
+            link: this.platformInstructionLink,
+          }),
+          descriptionSlaveFinal: this.$t(
+            `ActionResult.success.descriptionSlaveFinal.${this.orderType}`,
+          ),
           descriptionSlaveInitial: this.$t('ActionResult.success.descriptionSlaveInitial'),
           email: this.$t('ActionResult.success.email'),
           iconComponent: 'IconTotemSuccess',
@@ -111,10 +128,11 @@ export default {
     <div>
       <h2 :class="$style.titleMain">{{types[type].title}}</h2>
       <div v-if="type === 'success'">
-        <p :class="$style.titleSubSlave">
-          {{types[type].titleSubSlave}}
+        <p
+          :class="$style.titleSubSlave"
+          v-html="types[type].titleSubSlave"
+        >
         </p>
-        <p :class="$style.code">{{orderId}}</p>
       </div>
       <p
         :class="$style.titleSub"

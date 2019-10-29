@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       isProfileShown: false,
-      isTermsShown: false,
     };
   },
   created() {
@@ -38,9 +37,6 @@ export default {
       },
       [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.baseHoverColor,
-      },
-      [`.${this.$style.tipContent}`]: {
-        color: this.$gui.tipContentColor,
       },
       [`.${this.$style.header}`]: {
         'background-image': `
@@ -118,28 +114,8 @@ export default {
       </div>
 
       <div :class="$style.footer">
-        <span
-          :class="$style.link"
-          @mouseenter="isTermsShown = true"
-          @mouseleave="isTermsShown = false"
-        >
+        <span :class="$style.link">
           {{ $t('ModalCart.termsOfUse') }}
-          <UiTip
-            width="240px"
-            :visible="isTermsShown"
-          >
-            <a
-              href="#"
-              :class="$style.tipLink"
-              @click="fireAnalyticsEvent('UserAgreement')"
-            >{{ $t('ModalCart.userAgreement') }}</a>
-            <a
-              href="#"
-              :class="$style.tipLink"
-              @click="fireAnalyticsEvent('RefundPolicy')"
-            >{{ $t('ModalCart.refundPolicy') }}</a>
-            <span :class="$style.tipContent">{{ $t('ModalCart.refundAdditionalInfo') }}</span>
-          </UiTip>
         </span>
         <a
           href="#"
@@ -201,13 +177,6 @@ export default {
   &:hover {
     text-decoration: none;
   }
-}
-.tipContent {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 18px;
-  margin-top: 12px;
 }
 .content {
   display: flex;

@@ -36,10 +36,22 @@
       "subtitle": "Произошла ошибка"
     },
     "success": {
-      "title": "Поехали!",
-      "titleSubSlave": "ID вашего платежа:",
-      "descriptionSlaveInitial": "Введите ваш email, чтобы получить счёт",
-      "descriptionSlaveFinal": "Мы выслали чек на",
+      "title": "Погнали!",
+      "titleSubSlave": {
+        "key": "Активируйте ключ. <a href='{link}'>Инструкция</a>",
+        "product": "Новые предметы ожидают Вас в игре.",
+        "simple": "Ваш платеж успешно завершен!",
+        "virtual_items": "Новые предметы ожидают Вас в игре. Наслаждайтесь новым опытом!",
+        "virtual_currency": "Пачка валюты ожидает Вас в игре!"
+      },
+      "descriptionSlaveInitial": "Введите email, чтобы получить счёт",
+      "descriptionSlaveFinal": {
+        "key": "Мы выслали чек и ключ активации на",
+        "product": "Мы выслали чек и доступ на",
+        "simple": "Мы выслали чек на",
+        "virtual_items": "Мы выслали чек на",
+        "virtual_currency": "Мы выслали чек на"
+      },
       "email": "Email"
     }
   },
@@ -109,8 +121,7 @@
     "purchaseInformation": "Информация о покупке",
     "paymentManagement": "Управление платежами",
     "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата",
-    "refundAdditionalInfo": "Вы можете вернуть эту игру в течении 10 дней"
+    "refundPolicy": "Политика возврата"
   },
   "PaymentAreaWarning": {
     "oops": "Опаньки",
@@ -125,8 +136,7 @@
     "purchaseInformation": "Информация о покупке",
     "paymentManagement": "Управление платежами",
     "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата",
-    "refundAdditionalInfo": "Вы можете вернуть эту игру в течении 10 дней"
+    "refundPolicy": "Политика возврата"
   },
   "UiCardField": {
     "cardNumber": "Номер карты"

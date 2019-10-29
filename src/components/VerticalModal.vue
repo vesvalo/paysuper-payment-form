@@ -52,6 +52,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  width: 100vw;
   height: 100%;
   align-items: center;
   overflow: hidden;

@@ -46,30 +46,8 @@
             </UiTip>
           </span>
 
-          <div
-            :class="$style.terms"
-            @mouseenter="isTermsShown = true"
-            @mouseleave="isTermsShown = false"
-          >
+          <div :class="$style.terms">
             {{$t('LayoutHeader.termsOfUse')}}
-            <UiTip
-              width="180px"
-              innerPosition="right"
-              position="bottom"
-              :visible="isTermsShown"
-            >
-              <a
-                href="#"
-                :class="$style.tipLink"
-                @click="fireAnalyticsEvent('UserAgreement')"
-              >{{ $t('LayoutHeader.userAgreement') }}</a>
-              <a
-                href="#"
-                :class="$style.tipLink"
-                @click="fireAnalyticsEvent('RefundPolicy')"
-              >{{ $t('LayoutHeader.refundPolicy') }}</a>
-              <span :class="$style.tipContent">{{ $t('LayoutHeader.refundAdditionalInfo') }}</span>
-            </UiTip>
           </div>
         </div>
       </template>
@@ -146,7 +124,6 @@ export default {
     return {
       hasLocaleChangerOpened: false,
       isProfileShown: false,
-      isTermsShown: false,
     };
   },
   created() {
@@ -208,9 +185,6 @@ export default {
       },
       [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.baseHoverColor,
-      },
-      [`.${this.$style.tipContent}`]: {
-        color: this.$gui.tipContentColor,
       },
     });
   },
@@ -477,8 +451,7 @@ export default {
   cursor: pointer;
   transition: color 0.2s ease-out;
 }
-.tipLink,
-.tipContent {
+.tipLink {
   display: block;
   font-size: 12px;
   font-weight: 500;
@@ -489,9 +462,6 @@ export default {
   &:hover {
     text-decoration: none;
   }
-}
-.tipContent {
-  margin-top: 12px;
 }
 .wrap {
   cursor: pointer;
