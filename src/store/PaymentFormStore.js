@@ -9,6 +9,16 @@ import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import i18n from '@/i18n';
 import { gtagEvent, gtagSet } from '@/analytics';
 
+function getErrorCodeTranslation(code) {
+  const noTranslationMessage = 'Unknown error';
+  if (!code) {
+    return noTranslationMessage;
+  }
+  return get(i18n.messages[i18n.locale], `errorCodes.${code}`)
+    || get(i18n.messages[i18n.locale], `errorCodes.${code.slice(0, 2)}*`)
+    || noTranslationMessage;
+}
+
 const availableChannelStatuses = [
   'COMPLETED', 'DECLINED',
 ];
@@ -25,7 +35,7 @@ const actionResultsByStatus = {
     if (data) {
       return {
         type: 'customError',
-        message: i18n.t(`errorCodes.${data.code}`),
+        message: getErrorCodeTranslation(data.code),
       };
     }
     return { type: 'unknownError' };
@@ -34,7 +44,7 @@ const actionResultsByStatus = {
   DECLINED(data) {
     return {
       type: 'customError',
-      message: i18n.t(`errorCodes.${data.decline.code}`),
+      message: getErrorCodeTranslation(data.decline.code),
     };
   },
   INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
@@ -45,7 +55,7 @@ const actionResultsByStatus = {
       }
       return {
         type: 'customError',
-        message: i18n.t(`errorCodes.${data.code}`),
+        message: getErrorCodeTranslation(data.code),
       };
     }
     return { type: 'unknownError' };
