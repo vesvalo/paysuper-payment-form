@@ -6,8 +6,7 @@ import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
 import Sandbox from '@/Sandbox.vue';
-import Page from '@/Page.vue';
-import Modal from '@/Modal.vue';
+import App from '@/App.vue';
 import Loading from '@/Loading.vue';
 import '@/plugins/vuelidate';
 import store from '@/store/RootStore';
@@ -77,11 +76,10 @@ async function mountApp(customOptions = {}) {
     });
   }
 
-  let appComponent = Modal;
+  let appComponent = App;
   if (options.layout === 'page') {
-    appComponent = Page;
     if (isPageInsideIframe) {
-      // Prevents scrollbar dangling before formResize
+      // Prevents scrollbar dangling before formResize ?
       document.body.style.overflow = 'hidden';
       document.body.parentNode.style.overflow = 'hidden';
     }
@@ -96,6 +94,7 @@ async function mountApp(customOptions = {}) {
     ...viewSchemes[options.viewScheme],
     ...(options.viewSchemeConfig || {}),
   };
+  Vue.prototype.$layout = options.layout;
 
   new VueApp({
     store,

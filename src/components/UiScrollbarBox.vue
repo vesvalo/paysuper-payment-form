@@ -9,6 +9,10 @@ export default {
     settings: {
       type: Object,
     },
+    isUpdateOnClick: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -27,6 +31,20 @@ export default {
       ...this.innerSettings,
       swicher: false,
     };
+
+    if (this.isUpdateOnClick) {
+      window.addEventListener('click', this.update);
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('click', this.update);
+  },
+  methods: {
+    update() {
+      this.$nextTick(() => {
+        this.$refs.scrollbar.update();
+      });
+    },
   },
 };
 </script>
@@ -34,6 +52,7 @@ export default {
 <template>
 <VuePerfectScrollbar
   class="ui-scrollbar-box"
+  ref="scrollbar"
   :settings="innerSettings"
 >
   <slot></slot>
@@ -57,14 +76,16 @@ export default {
       border-radius: 4px;
     }
   }
-  &.ps:hover > .ps__scrollbar-y-rail:hover,
-  &.ps:hover.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
-  &.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {
-    background-color: transparent;
-  }
 
   &.ps > .ps__scrollbar-y-rail {
     cursor: pointer;
+    opacity: 0;
+  }
+
+  &.ps:hover > .ps__scrollbar-y-rail,
+  &.ps:hover.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
+  &.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {
+    background-color: transparent;
     opacity: 0.6;
   }
 }

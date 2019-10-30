@@ -21,7 +21,7 @@ export default {
       default: true,
       type: Boolean,
     },
-    isVerticalModal: {
+    isPageView: {
       type: Boolean,
       default: false,
     },
@@ -32,13 +32,6 @@ export default {
     currentPlatformId: {
       default: '',
       type: String,
-    },
-    layout: {
-      type: String,
-      default: 'modal',
-      validator(value) {
-        return includes(['modal', 'page'], value);
-      },
     },
     view: {
       type: String,
@@ -61,11 +54,7 @@ export default {
         item => (get(item, 'images[0]') || ''),
       );
 
-      if (!this.isVerticalModal) {
-        return items.slice(0, 7);
-      }
-
-      return items;
+      return items.slice(0, 7);
     },
     promoImage() {
       if (!this.items || this.items.length !== 1 || this.view !== 'promo') {
@@ -108,16 +97,15 @@ export default {
 <div
   :class="[
     $style.cartSection,
-    $style[`_layout-${layout}`],
     {
       [$style._promo]: promoImage,
       [$style._closed]: !isCartOpened,
-      [$style._vertical]: isVerticalModal,
+      [$style._isPage]: isPageView,
     }
   ]"
-  :style="{backgroundImage: promoImage}"
+  :style="{ backgroundImage: promoImage }"
 >
-  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{suppressScrollX: true}">
+  <UiScrollbarBox :class="$style.scrollbarBox" :settings="{ suppressScrollX: true }">
     <div :class="$style.innerContainer">
       <div
         v-if="images && !promoImage"
@@ -164,20 +152,8 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &._vertical {
-    padding: 0 0 12px;
-  }
-
-  &:not(._vertical) {
-    &._layout-modal {
-      padding: 40px 0;
-    }
-
-    &._layout-page {
-      @media screen and (min-width: 640px) {
-        padding: 80px 0;
-      }
-    }
+  &:not(._isPage) {
+    padding: 40px 0;
 
     &._promo {
       background-size: cover;
@@ -209,17 +185,23 @@ export default {
         );
       }
     }
+  }
 
-    @media screen and (max-width: 639px) {
-      &._closed {
-        padding: 0 0 10px;
+  &._isPage {
+    @media screen and (min-width: 640px) {
+      padding: 80px 0;
+    }
+  }
 
-        .listing,
-        .images,
-        .subtotal,
-        .taxes {
-          display: none;
-        }
+  @media screen and (max-width: 639px) {
+    &._closed {
+      padding: 0 0 10px;
+
+      .listing,
+      .images,
+      .subtotal,
+      .taxes {
+        display: none;
       }
     }
   }
@@ -229,7 +211,7 @@ export default {
   min-height: 100%;
   width: 100%;
 
-  .cartSection._layout-modal:not(._vertical) & {
+  .cartSection:not(._isPage) & {
     padding: 20px 0 30px;
   }
 }
@@ -240,90 +222,53 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .cartSection:not(._vertical)._promo & {
+  .cartSection._promo & {
     justify-content: flex-end;
   }
 
-  .cartSection:not(._vertical)._layout-page & {
+  .cartSection._isPage & {
     padding: 0;
   }
 
   @media screen and (max-width: 639px) {
-    .cartSection:not(._vertical)._closed & {
+    .cartSection._closed & {
       padding: 0;
     }
-  }
-
-  .cartSection._vertical & {
-    padding: 0 40px;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
   }
 }
 
 .cartSectionListing {
   order: 2;
-
-  .cartSection._vertical & {
-    order: 0;
-    width: calc(100% - 106px);
-
-    &._withoutImages {
-      width: 100%;
-    }
-  }
+  width: 100%;
 }
 
 .images {
   order: 1;
   display: flex;
   flex-wrap: wrap;
-
-  .cartSection:not(._vertical) & {
-    padding-top: 5px;
-    margin: -5px -5px 9px -5px;
-  }
-  .cartSection._vertical & {
-    width: 86px;
-    justify-content: space-between;
-    align-content: flex-start;
-  }
+  padding-top: 5px;
+  margin: -5px -5px 9px -5px;
 }
 
 .imageItem {
   box-sizing: border-box;
+  flex-grow: 1;
+  flex-basis: 20%;
+  margin: 5px;
 
-  .cartSection:not(._vertical) & {
-    flex-grow: 1;
-    flex-basis: 20%;
-    margin: 5px;
-
-    &._count-5 {
-      &:nth-child(1),
-      &:nth-child(2) {
-        flex-basis: 40%;
-      }
-    }
-
-    &._count-6,
-    &._count-7 {
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3) {
-        flex-basis: 29%;
-      }
+  &._count-5 {
+    &:nth-child(1),
+    &:nth-child(2) {
+      flex-basis: 40%;
     }
   }
 
-  .cartSection._vertical & {
-    flex-basis: calc(50% - 3px);
-    height: 40px;
-    margin-bottom: 6px;
-
-    &._count1 {
-      flex-basis: 100%;
-      height: 86px;
+  &._count-6,
+  &._count-7 {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      flex-basis: 29%;
     }
   }
 }

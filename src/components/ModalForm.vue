@@ -66,7 +66,7 @@ export default {
             href="#"
             :class="$style.link"
             @click="fireAnalyticsEvent('PaySuper')"
-          >Pay Super</a>
+          >PaySuper</a>
           <a
             href="#"
             :class="$style.link"

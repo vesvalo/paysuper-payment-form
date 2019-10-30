@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div :class="$style.right">
+  <div :class="[$style.right, { [$style._isModal]: isModal }]">
     <div :class="$style.inner">
       <div
         v-if="isLoading"
@@ -67,9 +67,8 @@
           href="#"
           :class="$style.title"
           @click="fireAnalyticsEvent('PaySuper')"
-        >Pay Super</a>
+        >PaySuper</a>
         <div :class="$style.icons">
-          <IconSupport :class="$style.support" />
           <div :class="$style.localeBox">
             <span
               :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
@@ -96,6 +95,14 @@
         </div>
       </template>
     </div>
+
+    <div
+      v-if="isModal"
+      :class="$style.close"
+      @click="$emit('close')"
+    >
+      <IconClose :class="$style.iconClose" />
+    </div>
   </div>
 </div>
 </template>
@@ -110,6 +117,14 @@ export default {
     isCartOpened: {
       default: false,
       type: Boolean,
+    },
+    isPageView: {
+      type: Boolean,
+      default: false,
+    },
+    isModal: {
+      type: Boolean,
+      default: false,
     },
     projectName: {
       required: true,
@@ -186,6 +201,12 @@ export default {
       [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.baseHoverColor,
       },
+      [`.${this.$style.iconClose}`]: {
+        fill: this.$gui.modalCloseIconColor,
+      },
+      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+        fill: this.$gui.baseHoverColor,
+      },
     });
   },
 
@@ -206,7 +227,6 @@ export default {
   display: flex;
   flex-grow: 0;
   flex-wrap: wrap-reverse;
-  z-index: 2;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -267,9 +287,14 @@ export default {
   display: flex;
   flex-basis: 320px;
   flex-grow: 1;
-  height: 130px;
+  height: 60px;
   justify-content: flex-end;
   position: relative;
+  align-items: center;
+
+  &._isModal {
+    padding-right: 60px;
+  }
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -284,7 +309,11 @@ export default {
   }
 
   & > .inner {
-    padding: 40px 30px 25px;
+    padding: 0px 20px;
+
+    @media screen and (min-width: 640px) {
+      padding: 40px 30px 25px;
+    }
   }
 
   @media screen and (min-width: 640px) {
@@ -409,7 +438,6 @@ export default {
   @media screen and (min-width: 640px) {
     line-height: 40px;
     height: 40px;
-    font-size: 20px;
   }
 }
 .additional {
@@ -491,7 +519,7 @@ export default {
   }
 }
 .title {
-  font-size: 30px;
+  font-size: 16px;
   line-height: 40px;
   height: 40px;
   font-weight: bold;
@@ -517,7 +545,8 @@ export default {
     display: flex;
     flex-direction: column;
     margin-right: -20px;
-    width: calc(100vw - 40px);
+    width: 100%;
+    width: 100vw;
 
     @include if-rtl {
       margin-right: 0;
@@ -544,5 +573,24 @@ export default {
   &:hover {
     text-decoration: none;
   }
+}
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  z-index: 10000;
+  height: 60px;
+  width: 60px;
+  padding: 24px;
+
+  &:hover > .iconClose {
+    transform: rotate(360deg);
+  }
+}
+.iconClose {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease-out 0.3s;
 }
 </style>
