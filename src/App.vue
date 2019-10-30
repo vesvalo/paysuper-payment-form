@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       isCartOpened: true,
-      isPageView: this.$isAlwaysPageView,
+      isMobile: false,
+      layout: this.$layout,
       opened: true,
     };
   },
@@ -47,14 +48,15 @@ export default {
     isLoading() {
       return this.paymentStatus === 'INITIAL';
     },
+    isPageView() {
+      return this.layout === 'page';
+    },
   },
   beforeMount() {
     postMessage('LOADED');
 
-    if (!this.$isAlwaysPageView) {
-      this.updateIsMobileView();
-      window.addEventListener('resize', this.updateIsMobileView);
-    }
+    this.updateLayout();
+    window.addEventListener('resize', this.updateLayout);
   },
   mounted() {
     this.getAppSizeAndReport();
@@ -71,19 +73,25 @@ export default {
       };
       this.reportResize(size);
     },
-    updateIsMobileView() {
-      this.isPageView = window.innerWidth < 640 || window.innerHeight < 510;
+    updateLayout() {
+      this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
 
-      if (this.isPageView) {
+      if (this.isMobile) {
+        this.layout = 'page';
+
         this.$nextTick(() => {
           this.$refs.wrapper.update();
         });
+      } else {
+        this.layout = this.$layout;
       }
     },
     closeModal() {
-      this.opened = false;
-      postMessage('MODAL_CLOSED');
-      gtagEvent('formClosed');
+      if (this.$layout === 'modal') {
+        this.opened = false;
+        postMessage('MODAL_CLOSED');
+        gtagEvent('formClosed');
+      }
     },
     async tryToCreateOrder() {
       this.setFormLoading(true);
@@ -97,6 +105,7 @@ export default {
 <template>
 <div :class="[$style.layout, { [$style._isPage]: isPageView }]">
   <component
+    v-if="opened"
     :class="$style.wrapper"
     :is="isPageView ? 'UiScrollbarBox' : 'Modal'"
     ref="wrapper"
@@ -128,7 +137,9 @@ export default {
           />
           <FormSection
             slot="form"
+            :isMobile="isMobile"
             :isPageView="isPageView"
+            @close="closeModal"
           />
         </LayoutContent>
 
@@ -187,11 +198,11 @@ export default {
       height: 100vh;
     }
 
-    & .preloader {
+    .preloader {
       position: fixed;
     }
 
-    & .orderCreationError {
+    .orderCreationError {
       position: fixed;
       left: 0;
       right: 0;
@@ -199,7 +210,7 @@ export default {
       top: 0;
     }
 
-    & .wrapper {
+    .wrapper {
       min-height: 100%;
       min-height: 100vh;
       width: 100%;

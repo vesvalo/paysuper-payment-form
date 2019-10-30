@@ -61,7 +61,7 @@ async function mountApp(customOptions = {}) {
     email: '',
     viewScheme: 'dark',
     viewSchemeConfig: null,
-    layout: 'app',
+    layout: 'modal',
     isAlwaysPageView: false,
     isPageInsideIframe,
     language,
@@ -78,7 +78,7 @@ async function mountApp(customOptions = {}) {
   }
 
   let appComponent = App;
-  if (options.layout === 'app') {
+  if (options.layout === 'page') {
     if (isPageInsideIframe) {
       // Prevents scrollbar dangling before formResize ?
       document.body.style.overflow = 'hidden';
@@ -95,7 +95,7 @@ async function mountApp(customOptions = {}) {
     ...viewSchemes[options.viewScheme],
     ...(options.viewSchemeConfig || {}),
   };
-  Vue.prototype.$isAlwaysPageView = options.isAlwaysPageView;
+  Vue.prototype.$layout = options.layout;
 
   new VueApp({
     store,

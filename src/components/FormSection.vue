@@ -25,6 +25,10 @@ export default {
   },
 
   props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
     isPageView: {
       type: Boolean,
       default: false,
@@ -368,14 +372,14 @@ export default {
     </component>
   </div>
   <div
-    v-sticky="true"
+    v-sticky="isMobile"
     sticky-side="bottom"
     on-stick="onStick"
-    :class="[$style.footer, { [$style._sticky]: footerSticked }]"
+    :class="[$style.footer, { [$style._sticky]: isMobile && footerSticked }]"
   >
     <UiButton
       :class="$style.payBtn"
-      :hasBorderRadius="isPageView ? true : false"
+      :hasBorderRadius="isPageView"
       :disabled="isSubmitButtonDisabled"
       @click="handleMainButtonClick"
     >
