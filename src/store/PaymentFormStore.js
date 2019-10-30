@@ -82,6 +82,9 @@ function setPaymentStatus(commit, name, extraData) {
 }
 
 function setGeoParams(commit, data) {
+  // Drop to defaults
+  commit('isUserCountryConfirmRequested', false);
+
   if (data.user_ip_data) {
     commit('userIpGeoData', data.user_ip_data);
   }
