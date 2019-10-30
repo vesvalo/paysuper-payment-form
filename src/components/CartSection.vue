@@ -33,13 +33,6 @@ export default {
       default: '',
       type: String,
     },
-    layout: {
-      type: String,
-      default: 'modal',
-      validator(value) {
-        return includes(['modal', 'page'], value);
-      },
-    },
     view: {
       type: String,
       default: 'default',
@@ -61,11 +54,7 @@ export default {
         item => (get(item, 'images[0]') || ''),
       );
 
-      if (!this.isMobileView) {
-        return items.slice(0, 7);
-      }
-
-      return items;
+      return items.slice(0, 7);
     },
     promoImage() {
       if (!this.items || this.items.length !== 1 || this.view !== 'promo') {
@@ -108,7 +97,6 @@ export default {
 <div
   :class="[
     $style.cartSection,
-    $style[`_layout-${layout}`],
     {
       [$style._promo]: promoImage,
       [$style._closed]: !isCartOpened,
@@ -164,14 +152,6 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &._isMobile {
-    padding: 0 0 12px;
-
-    @media screen and (min-width: 640px) {
-      padding: 80px 0;
-    }
-  }
-
   &:not(._isMobile) {
     padding: 40px 0;
 
@@ -205,17 +185,23 @@ export default {
         );
       }
     }
+  }
 
-    @media screen and (max-width: 639px) {
-      &._closed {
-        padding: 0 0 10px;
+  &._isMobile {
+    @media screen and (min-width: 640px) {
+      padding: 80px 0;
+    }
+  }
 
-        .listing,
-        .images,
-        .subtotal,
-        .taxes {
-          display: none;
-        }
+  @media screen and (max-width: 639px) {
+    &._closed {
+      padding: 0 0 10px;
+
+      .listing,
+      .images,
+      .subtotal,
+      .taxes {
+        display: none;
       }
     }
   }
@@ -236,80 +222,53 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .cartSection:not(._isMobile)._promo & {
+  .cartSection._promo & {
     justify-content: flex-end;
   }
 
   .cartSection._isMobile & {
     padding: 0;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  }
+
+  @media screen and (max-width: 639px) {
+    .cartSection._closed & {
+      padding: 0;
+    }
   }
 }
 
 .cartSectionListing {
   order: 2;
-
-  .cartSection._isMobile & {
-    order: 0;
-    width: calc(100% - 106px);
-
-    &._withoutImages {
-      width: 100%;
-    }
-  }
+  width: 100%;
 }
 
 .images {
   order: 1;
   display: flex;
   flex-wrap: wrap;
-
-  .cartSection:not(._isMobile) & {
-    padding-top: 5px;
-    margin: -5px -5px 9px -5px;
-  }
-  .cartSection._isMobile & {
-    width: 86px;
-    justify-content: space-between;
-    align-content: flex-start;
-  }
+  padding-top: 5px;
+  margin: -5px -5px 9px -5px;
 }
 
 .imageItem {
   box-sizing: border-box;
+  flex-grow: 1;
+  flex-basis: 20%;
+  margin: 5px;
 
-  .cartSection:not(._isMobile) & {
-    flex-grow: 1;
-    flex-basis: 20%;
-    margin: 5px;
-
-    &._count-5 {
-      &:nth-child(1),
-      &:nth-child(2) {
-        flex-basis: 40%;
-      }
-    }
-
-    &._count-6,
-    &._count-7 {
-      &:nth-child(1),
-      &:nth-child(2),
-      &:nth-child(3) {
-        flex-basis: 29%;
-      }
+  &._count-5 {
+    &:nth-child(1),
+    &:nth-child(2) {
+      flex-basis: 40%;
     }
   }
 
-  .cartSection._isMobile & {
-    flex-basis: calc(50% - 3px);
-    height: 40px;
-    margin-bottom: 6px;
-
-    &._count1 {
-      flex-basis: 100%;
-      height: 86px;
+  &._count-6,
+  &._count-7 {
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      flex-basis: 29%;
     }
   }
 }

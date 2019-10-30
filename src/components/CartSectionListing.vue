@@ -113,8 +113,10 @@ export default {
   position: relative;
   z-index: 1;
 
-  &._closed .hidden {
-    display: none;
+  @media screen and (max-width: 639px) {
+    &._closed .hidden {
+      display: none;
+    }
   }
 }
 .items {
