@@ -58,28 +58,18 @@ export default {
     this.updateLayout();
     window.addEventListener('resize', this.updateLayout);
   },
-  mounted() {
-    this.getAppSizeAndReport();
-    setInterval(this.getAppSizeAndReport, 100);
-  },
   methods: {
-    ...mapActions(['reportResize']),
     ...mapActions('PaymentForm', ['createOrder', 'setFormLoading', 'changePlatform']),
 
-    getAppSizeAndReport() {
-      const size = {
-        height: this.$el.offsetHeight,
-        width: this.$el.offsetWidth,
-      };
-      this.reportResize(size);
-    },
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
 
       if (this.isMobile) {
         this.layout = 'page';
 
-        this.$refs.wrapper.update();
+        this.$nextTick(() => {
+          this.$refs.wrapper.update();
+        })
       } else {
         this.layout = this.$layout;
       }
