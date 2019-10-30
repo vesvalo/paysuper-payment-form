@@ -9,6 +9,10 @@ export default {
     settings: {
       type: Object,
     },
+    isUpdateOnClick: {
+      default: false,
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -27,10 +31,19 @@ export default {
       ...this.innerSettings,
       swicher: false,
     };
+
+    if (this.isUpdateOnClick) {
+      window.addEventListener('click', this.update);
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener('click', this.update);
   },
   methods: {
     update() {
-      this.$refs.scrollbar.update();
+      this.$nextTick(() => {
+        this.$refs.scrollbar.update();
+      });
     },
   },
 };

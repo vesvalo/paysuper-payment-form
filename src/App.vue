@@ -79,9 +79,7 @@ export default {
       if (this.isMobile) {
         this.layout = 'page';
 
-        this.$nextTick(() => {
-          this.$refs.wrapper.update();
-        });
+        this.$refs.wrapper.update();
       } else {
         this.layout = this.$layout;
       }
@@ -106,10 +104,12 @@ export default {
 <div :class="[$style.layout, { [$style._isPage]: isPageView }]">
   <component
     v-if="opened"
-    :class="$style.wrapper"
     :is="isPageView ? 'UiScrollbarBox' : 'Modal'"
     ref="wrapper"
+    :class="$style.wrapper"
     :opened="opened"
+    :isUpdateOnClick="true"
+    :settings="{ suppressScrollX: true }"
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
