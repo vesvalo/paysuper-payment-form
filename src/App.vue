@@ -116,10 +116,12 @@ export default {
       <template v-if="isPageView">
         <LayoutHeader
           :isCartOpened="isCartOpened"
+          :isModal="$layout === 'modal'"
           :isPageView="isPageView"
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
           @toggleCart="isCartOpened = !isCartOpened"
+          @close="closeModal"
         />
 
         <LayoutContent
@@ -172,7 +174,9 @@ export default {
       :class="$style.orderCreationError"
       :message="actionResult.message"
       :type="actionResult.type"
+      :isModal="$layout === 'modal'"
       @tryAgain="tryToCreateOrder"
+      @close="closeModal"
     />
   </component>
 </div>

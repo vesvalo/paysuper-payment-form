@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div :class="$style.right">
+  <div :class="[$style.right, { [$style._isModal]: isModal }]">
     <div :class="$style.inner">
       <div
         v-if="isLoading"
@@ -95,6 +95,14 @@
         </div>
       </template>
     </div>
+
+    <div
+      v-if="isModal"
+      :class="$style.close"
+      @click="$emit('close')"
+    >
+      <IconClose :class="$style.iconClose" />
+    </div>
   </div>
 </div>
 </template>
@@ -111,6 +119,10 @@ export default {
       type: Boolean,
     },
     isPageView: {
+      type: Boolean,
+      default: false,
+    },
+    isModal: {
       type: Boolean,
       default: false,
     },
@@ -188,6 +200,12 @@ export default {
       },
       [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.baseHoverColor,
+      },
+      [`.${this.$style.iconClose}`]: {
+        fill: this.$gui.modalCloseIconColor,
+      },
+      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+        fill: this.$gui.baseHoverColor,
       },
     });
   },
@@ -273,6 +291,10 @@ export default {
   justify-content: flex-end;
   position: relative;
   align-items: center;
+
+  &._isModal {
+    padding-right: 60px;
+  }
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -551,5 +573,24 @@ export default {
   &:hover {
     text-decoration: none;
   }
+}
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  z-index: 10000;
+  height: 60px;
+  width: 60px;
+  padding: 24px;
+
+  &:hover > .iconClose {
+    transform: rotate(360deg);
+  }
+}
+.iconClose {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease-out 0.3s;
 }
 </style>
