@@ -110,6 +110,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    isPageView: {
+      type: Boolean,
+      default: false,
+    },
     projectName: {
       required: true,
       type: String,
@@ -205,7 +209,6 @@ export default {
   display: flex;
   flex-grow: 0;
   flex-wrap: wrap-reverse;
-  z-index: 2;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -520,7 +523,8 @@ export default {
     display: flex;
     flex-direction: column;
     margin-right: -20px;
-    width: calc(100vw - 40px);
+    width: 100%;
+    width: 100vw;
 
     @include if-rtl {
       margin-right: 0;

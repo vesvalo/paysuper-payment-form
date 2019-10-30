@@ -57,7 +57,7 @@
   <template v-if="isGeoFieldsExposed">
     <UiSelect
       v-model="innerValue.country"
-      :maxHeight="isMobileView ? '120px' : '240px'"
+      :maxHeight="isPageView ? '120px' : '240px'"
       :options="countries"
       :placeholderLabel="$t('FormSectionBankCard.country')"
       :hasReversible="true"
@@ -178,7 +178,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    isMobileView: {
+    isPageView: {
       type: Boolean,
       default: false,
     },

@@ -69,17 +69,17 @@ storiesOf('CartSection', module)
     },
     template: `
       <div style="width: 500px">
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 1)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(7, 8)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 2)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 3)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 4)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 5)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="getOrderItems(0, 6)" />
-        <CartSection :style="style" :isMobileView="true" :orderData="orderData"  />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 1)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(7, 8)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 2)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 3)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 4)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 5)" />
+        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 6)" />
+        <CartSection :style="style" :isPageView="true" :orderData="orderData"  />
         <CartSection
           :style="style"
-          :isMobileView="true"
+          :isPageView="true"
           :orderData="orderData"
           :isCartOpened="false"
         />
@@ -132,7 +132,7 @@ storiesOf('CartSection', module)
         <CartSection 
           v-bind="{ style, currentPlatformId, hasPlatformSelect }" 
           :orderData="getOrderItems(0, 1)"
-          :isMobileView="true"
+          :isPageView="true"
         />
       </div>
     `,

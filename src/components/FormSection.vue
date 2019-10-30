@@ -25,7 +25,7 @@ export default {
   },
 
   props: {
-    isMobileView: {
+    isPageView: {
       type: Boolean,
       default: false,
     },
@@ -290,12 +290,12 @@ export default {
 </script>
 
 <template>
-<div :class="[$style.formSection, { [$style[`_isMobile`]]: isMobileView }]">
+<div :class="[$style.formSection, { [$style[`_isPage`]]: isPageView }]">
   <div :class="$style.content">
     <component
-      :is="isMobileView ? 'div' : 'UiScrollbarBox'"
+      :is="isPageView ? 'div' : 'UiScrollbarBox'"
       :class="$style.scrollbox"
-      :settings="isMobileView ? undefined : { suppressScrollX: true }"
+      :settings="isPageView ? undefined : { suppressScrollX: true }"
     >
       <div
         v-show="isPaymentFormVisible"
@@ -313,7 +313,7 @@ export default {
           v-if="isBankCardPayment"
           ref="bankCardForm"
           v-model="paymentData"
-          :isMobileView="isMobileView"
+          :isPageView="isPageView"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
@@ -375,7 +375,7 @@ export default {
   >
     <UiButton
       :class="$style.payBtn"
-      :hasBorderRadius="isMobileView ? true : false"
+      :hasBorderRadius="isPageView ? true : false"
       :disabled="isSubmitButtonDisabled"
       @click="handleMainButtonClick"
     >
@@ -438,7 +438,7 @@ export default {
   flex-grow: 1;
   padding: 0 40px 20px;
 
-  .formSection._isMobile & {
+  .formSection._isPage & {
     padding: 20px 0px 20px;
 
     @media screen and (min-width: 640px) {
@@ -458,7 +458,7 @@ export default {
   align-items: center;
   width: 100%;
 
-  .formSection._isMobile &._sticky {
+  .formSection._isPage &._sticky {
     left: 0 !important;
     width: 100vw !important;
   }
@@ -468,7 +468,7 @@ export default {
   width: 100%;
   transition: border-radius 0.2s ease-out;
 
-  .formSection._isMobile .footer._sticky & {
+  .formSection._isPage .footer._sticky & {
     transition: border-radius 0.2s ease-out;
     border-radius: 0;
   }

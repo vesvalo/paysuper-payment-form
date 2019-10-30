@@ -62,7 +62,7 @@ async function mountApp(customOptions = {}) {
     viewScheme: 'dark',
     viewSchemeConfig: null,
     layout: 'app',
-    isAlwaysMobileView: false,
+    isAlwaysPageView: false,
     isPageInsideIframe,
     language,
     ...baseOptions,
@@ -95,7 +95,7 @@ async function mountApp(customOptions = {}) {
     ...viewSchemes[options.viewScheme],
     ...(options.viewSchemeConfig || {}),
   };
-  Vue.prototype.$isAlwaysMobileView = options.isAlwaysMobileView;
+  Vue.prototype.$isAlwaysPageView = options.isAlwaysPageView;
 
   new VueApp({
     store,

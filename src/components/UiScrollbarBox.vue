@@ -63,14 +63,16 @@ export default {
       border-radius: 4px;
     }
   }
-  &.ps:hover > .ps__scrollbar-y-rail:hover,
-  &.ps:hover.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
-  &.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {
-    background-color: transparent;
-  }
 
   &.ps > .ps__scrollbar-y-rail {
     cursor: pointer;
+    opacity: 0;
+  }
+
+  &.ps:hover > .ps__scrollbar-y-rail,
+  &.ps:hover.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail,
+  &.ps.ps--in-scrolling.ps--y > .ps__scrollbar-y-rail {
+    background-color: transparent;
     opacity: 0.6;
   }
 }

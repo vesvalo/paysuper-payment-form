@@ -21,7 +21,7 @@ export default {
       default: true,
       type: Boolean,
     },
-    isMobileView: {
+    isPageView: {
       type: Boolean,
       default: false,
     },
@@ -100,7 +100,7 @@ export default {
     {
       [$style._promo]: promoImage,
       [$style._closed]: !isCartOpened,
-      [$style._isMobile]: isMobileView,
+      [$style._isPage]: isPageView,
     }
   ]"
   :style="{ backgroundImage: promoImage }"
@@ -152,7 +152,7 @@ export default {
   display: flex;
   flex-direction: column;
 
-  &:not(._isMobile) {
+  &:not(._isPage) {
     padding: 40px 0;
 
     &._promo {
@@ -187,7 +187,7 @@ export default {
     }
   }
 
-  &._isMobile {
+  &._isPage {
     @media screen and (min-width: 640px) {
       padding: 80px 0;
     }
@@ -211,7 +211,7 @@ export default {
   min-height: 100%;
   width: 100%;
 
-  .cartSection:not(._isMobile) & {
+  .cartSection:not(._isPage) & {
     padding: 20px 0 30px;
   }
 }
@@ -226,7 +226,7 @@ export default {
     justify-content: flex-end;
   }
 
-  .cartSection._isMobile & {
+  .cartSection._isPage & {
     padding: 0;
   }
 

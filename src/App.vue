@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       isCartOpened: true,
-      isMobileView: this.$isAlwaysMobileView,
+      isPageView: this.$isAlwaysPageView,
       opened: true,
     };
   },
@@ -51,7 +51,7 @@ export default {
   beforeMount() {
     postMessage('LOADED');
 
-    if (!this.$isAlwaysMobileView) {
+    if (!this.$isAlwaysPageView) {
       this.updateIsMobileView();
       window.addEventListener('resize', this.updateIsMobileView);
     }
@@ -72,9 +72,9 @@ export default {
       this.reportResize(size);
     },
     updateIsMobileView() {
-      this.isMobileView = window.innerWidth < 640 || window.innerHeight < 510;
+      this.isPageView = window.innerWidth < 640 || window.innerHeight < 510;
 
-      if (this.isMobileView) {
+      if (this.isPageView) {
         this.$nextTick(() => {
           this.$refs.wrapper.update();
         });
@@ -95,17 +95,19 @@ export default {
 </script>
 
 <template>
-<div :class="[$style.layout, { [$style._isMobile]: isMobileView }]">
+<div :class="[$style.layout, { [$style._isPage]: isPageView }]">
   <component
-    :is="isMobileView ? 'UiScrollbarBox' : 'Modal'"
+    :class="$style.wrapper"
+    :is="isPageView ? 'UiScrollbarBox' : 'Modal'"
     ref="wrapper"
     :opened="opened"
     @close="closeModal"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
-      <template v-if="isMobileView">
+      <template v-if="isPageView">
         <LayoutHeader
           :isCartOpened="isCartOpened"
+          :isPageView="isPageView"
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
           @toggleCart="isCartOpened = !isCartOpened"
@@ -119,14 +121,14 @@ export default {
             slot="cart"
             :orderData="orderData"
             :isCartOpened="isCartOpened"
-            :isMobileView="isMobileView"
+            :isPageView="isPageView"
             :hasPlatformSelect="orderParams.type === 'key'"
             :currentPlatformId="currentPlatformId"
             @changePlatform="changePlatform"
           />
           <FormSection
             slot="form"
-            :isMobileView="isMobileView"
+            :isPageView="isPageView"
           />
         </LayoutContent>
 
@@ -175,7 +177,7 @@ export default {
   align-items: center;
   display: flex;
 
-  &._isMobile {
+  &._isPage {
     display: flex;
     min-height: 100vh;
     width: 100%;
@@ -195,6 +197,15 @@ export default {
       right: 0;
       bottom: 0;
       top: 0;
+    }
+
+    & .wrapper {
+      min-height: 100%;
+      min-height: 100vh;
+      width: 100%;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
     }
   }
 }
