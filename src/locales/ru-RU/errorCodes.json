@@ -34,7 +34,7 @@
     "bc000003": "Your bank card expire month is required to fill-in.",
     "bc000004": "Your bank card expire year is required to fill-in.",
     "bc000005": "Your bank card holder name is required to fill-in.",
-    "bc000006": "Your bank card expiration month is invalid",
+    "bc000006": "Your bank card expiration year or month is invalid",
     "bc000007": "Your bank card is expired. Try to use another one.",
     "bc000008": "Your bank card CVV is invalid. Try to reenter it.",
     "bc000009": "Your bank card number is invalid. Try to reenter it.",
