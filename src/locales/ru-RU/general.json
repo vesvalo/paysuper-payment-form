@@ -112,31 +112,23 @@
   },
   "LayoutFooter": {
     "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возвратов",
     "support": "Поддержка"
   },
   "LayoutHeader": {
     "termsOfUse": "Условия использования",
-    "profile": "Мой профиль",
-    "purchaseInformation": "Информация о покупке",
-    "paymentManagement": "Управление платежами",
-    "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата"
+    "userAgreement": "Пользовательское соглашение"
+  },
+  "ModalCart": {
+    "legalInfo": "Юридическая инфомрация",
+    "termsOfUse": "Условия использования",
+    "support": "Поддержка",
+    "userAgreement": "Пользовательское соглашение"
   },
   "PaymentAreaWarning": {
     "oops": "Опаньки",
-    "cantAcceptPayments": "Мы не можем принимать платежи в вашей стране.",
+    "cantAcceptPayments": "Мы не можем принимать платежи в вашей стране. ",
     "chooseAnotherArea": "Мы ошиблись?",
     "country": "Выберите страну"
-  },
-  "ModalCart": {
-    "termsOfUse": "Условия использования",
-    "profile": "Мой профиль",
-    "support": "Поддержка",
-    "purchaseInformation": "Информация о покупке",
-    "paymentManagement": "Управление платежами",
-    "userAgreement": "Пользовательское соглашение",
-    "refundPolicy": "Политика возврата"
   },
   "UiCardField": {
     "cardNumber": "Номер карты"

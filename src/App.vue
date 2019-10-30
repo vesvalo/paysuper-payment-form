@@ -69,7 +69,7 @@ export default {
 
         this.$nextTick(() => {
           this.$refs.wrapper.update();
-        })
+        });
       } else {
         this.layout = this.$layout;
       }

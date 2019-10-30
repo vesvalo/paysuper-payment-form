@@ -9,11 +9,10 @@
         <span></span>
       </div>
       <template v-else>
-        <a
-          href="#"
+        <span
           :class="$style.project"
           @click="fireAnalyticsEvent('Project')"
-        >{{ projectName }}</a>
+        >{{ projectName }}</span>
         <div
           :class="[$style.wrap, { [$style._opened]: isCartOpened }]"
           @click="toggleCart"
@@ -21,7 +20,7 @@
           <IconArrow />
         </div>
         <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
-          <span
+          <!-- <span
             :class="$style.profile"
             @mouseenter="isProfileShown = true"
             @mouseleave="isProfileShown = false"
@@ -44,11 +43,15 @@
                 @click="fireAnalyticsEvent('PaymentManagement')"
               >{{ $t('LayoutHeader.paymentManagement') }}</a>
             </UiTip>
-          </span>
+          </span> -->
 
-          <div :class="$style.terms">
+          <a
+            :class="$style.link"
+            href="https://pay.super.com/policy/tou"
+            target="_blank"
+          >
             {{$t('LayoutHeader.termsOfUse')}}
-          </div>
+          </a>
         </div>
       </template>
     </div>
@@ -64,11 +67,20 @@
       </div>
       <template v-else>
         <a
-          href="#"
+          href="https://pay.super.com/"
           :class="$style.title"
           @click="fireAnalyticsEvent('PaySuper')"
+          target="_blank"
         >PaySuper</a>
         <div :class="$style.icons">
+          <a
+            :class="$style.link"
+            href="http://help.pay.super.com"
+            target="_blank"
+            @click="fireAnalyticsEvent('IconSupport')"
+          >
+            <IconSupport :class="$style.support" />
+          </a>
           <div :class="$style.localeBox">
             <span
               :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
@@ -168,19 +180,13 @@ export default {
       [`.${this.$style.project}`]: {
         color: this.$gui.headerProjectTitleColor,
       },
-      [`.${this.$style.project}:hover`]: {
-        color: this.$gui.baseHoverColor,
-      },
+      // [`.${this.$style.profile}:hover`]: {
+      //   color: this.$gui.baseHoverColor,
+      // },
       [`.${this.$style.wrap} > svg`]: {
         fill: this.$gui.headerProjectTitleColor,
       },
       [`.${this.$style.wrap}:hover > svg`]: {
-        fill: this.$gui.baseHoverColor,
-      },
-      [`.${this.$style.support}`]: {
-        fill: this.$gui.layoutTextColor,
-      },
-      [`.${this.$style.support}:hover`]: {
         fill: this.$gui.baseHoverColor,
       },
       [`.${this.$style.title}`]: {
@@ -195,16 +201,28 @@ export default {
       [`.${this.$style.locale}:hover`]: {
         color: this.$gui.baseHoverColor,
       },
-      [`.${this.$style.tipLink}`]: {
-        color: this.$gui.tipLinkColor,
+      // [`.${this.$style.tipLink}`]: {
+      //   color: this.$gui.tipLinkColor,
+      // },
+      // [`.${this.$style.tipLink}:hover`]: {
+      //   color: this.$gui.baseHoverColor,
+      // },
+      [`.${this.$style.link}`]: {
+        color: this.$gui.layoutTextColor,
       },
-      [`.${this.$style.tipLink}:hover`]: {
+      [`.${this.$style.link}:hover`]: {
         color: this.$gui.baseHoverColor,
       },
       [`.${this.$style.iconClose}`]: {
         fill: this.$gui.modalCloseIconColor,
       },
       [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+        fill: this.$gui.baseHoverColor,
+      },
+      [`.${this.$style.link} > svg`]: {
+        fill: this.$gui.layoutTextColor,
+      },
+      [`.${this.$style.link}:hover > svg`]: {
         fill: this.$gui.baseHoverColor,
       },
     });
@@ -428,7 +446,6 @@ export default {
   font-size: 16px;
   font-weight: bold;
   text-decoration: none;
-  cursor: pointer;
   transition: color 0.2s ease-out;
 
   &:hover {
@@ -460,37 +477,32 @@ export default {
 
     &._opened {
       width: auto;
-      padding-top: 4px;
+      padding-top: 0px;
     }
   }
 }
-.profile {
-  position: relative;
-  cursor: pointer;
-  margin-right: 20px;
-  transition: color 0.2s ease-out;
+// .profile {
+//   position: relative;
+//   cursor: pointer;
+//   margin-right: 20px;
+//   transition: color 0.2s ease-out;
 
-  &:hover {
-    text-decoration: none;
-  }
-}
-.terms {
-  position: relative;
-  cursor: pointer;
-  transition: color 0.2s ease-out;
-}
-.tipLink {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  text-decoration: none;
-  line-height: 18px;
-  transition: color 0.2s ease-out;
+//   &:hover {
+//     text-decoration: none;
+//   }
+// }
+// .tipLink {
+//   display: block;
+//   font-size: 12px;
+//   font-weight: 500;
+//   text-decoration: none;
+//   line-height: 18px;
+//   transition: color 0.2s ease-out;
 
-  &:hover {
-    text-decoration: none;
-  }
-}
+//   &:hover {
+//     text-decoration: none;
+//   }
+// }
 .wrap {
   cursor: pointer;
   height: 24px;
@@ -508,14 +520,6 @@ export default {
 
   @media screen and (min-width: 640px) {
     display: none;
-  }
-}
-.support {
-  cursor: pointer;
-  transition: fill 0.2s ease-out;
-
-  &:hover {
-    text-decoration: none;
   }
 }
 .title {
@@ -592,5 +596,14 @@ export default {
   width: 12px;
   height: 12px;
   transition: transform 0.3s ease-out 0.3s;
+}
+.link {
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+
+  & > svg {
+    vertical-align: middle;
+  }
 }
 </style>
