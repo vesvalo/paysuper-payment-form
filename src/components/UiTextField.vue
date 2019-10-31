@@ -77,6 +77,10 @@ export default {
       default: false,
       type: Boolean,
     },
+    isSecureField: {
+      default: false,
+      type: Boolean,
+    },
     type: {
       default: 'text',
       type: String,
@@ -144,6 +148,7 @@ export default {
       return [
         this.input,
         this.$style[`_${this.type}`] || '',
+        this.isSecureField ? this.$style._secure : '',
         this.isEmpty ? this.stateEmpty : '',
         this.isVisibleError ? this.stateError : '',
         this.disabled ? this.stateDisabled : '',
@@ -263,6 +268,11 @@ $main-additional-height: 18px;
 
   &._error {
     opacity: 1;
+  }
+
+  &._secure {
+    font-family: 'text-security-disc';
+    -webkit-text-security: disc;
   }
 }
 

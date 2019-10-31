@@ -1,7 +1,6 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
-import Sticky from 'vue-sticky-directive';
 import { includes, get } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
@@ -16,8 +15,6 @@ function getRegexp(value) {
 export default {
   name: 'FormSection',
 
-  directives: { Sticky },
-
   components: {
     ActionResult,
     FormSectionBankCard,
@@ -25,10 +22,6 @@ export default {
   },
 
   props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
     isPageView: {
       type: Boolean,
       default: false,
@@ -41,8 +34,6 @@ export default {
 
   data() {
     return {
-      footerSticked: false,
-
       paymentData: {
         cardNumber: '',
         expiryDate: '',
@@ -285,10 +276,6 @@ export default {
         this.isBankCardNumberChecking = false;
       }
     },
-
-    onStick(event) {
-      this.footerSticked = event.sticked;
-    },
   },
 };
 </script>
@@ -371,12 +358,7 @@ export default {
       </div>
     </component>
   </div>
-  <div
-    v-sticky="isMobile"
-    sticky-side="bottom"
-    on-stick="onStick"
-    :class="[$style.footer, { [$style._sticky]: isMobile && footerSticked }]"
-  >
+  <div :class="$style.footer">
     <UiButton
       :class="$style.payBtn"
       :hasBorderRadius="isPageView"
@@ -471,10 +453,5 @@ export default {
 .payBtn {
   width: 100%;
   transition: border-radius 0.2s ease-out;
-
-  .formSection._isPage .footer._sticky & {
-    transition: border-radius 0.2s ease-out;
-    border-radius: 0;
-  }
 }
 </style>
