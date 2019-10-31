@@ -57,6 +57,7 @@ export default {
     name="cvv"
     mask="###"
     type="tel"
+    :isSecureField="true"
     :hasInfoIcon="true"
     :errorText="$t('FormSectionBankCard.cvvError')"
     :label="$t('FormSectionBankCard.cvv')"

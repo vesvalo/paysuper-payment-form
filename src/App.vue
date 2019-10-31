@@ -129,7 +129,6 @@ export default {
           />
           <FormSection
             slot="form"
-            :isMobile="isMobile"
             :isPageView="isPageView"
             @close="closeModal"
           />
@@ -174,6 +173,7 @@ export default {
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/fonts.scss';
 
 .layout {
   height: 100%;
