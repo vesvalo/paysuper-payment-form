@@ -129,10 +129,9 @@ export default {
     },
 
     isSubmitButtonDisabled() {
-      if (
-        this.isUserCountryConfirmRequested
-        && this.userIpGeoData.country === this.paymentData.country
-      ) {
+      // In some buggy cases countryConfirm might be requested while userIpGeoData is null
+      const ipDataCountry = get(this.userIpGeoData, 'country', '');
+      if (this.isUserCountryConfirmRequested && ipDataCountry === this.paymentData.country) {
         return true;
       }
       return false;
