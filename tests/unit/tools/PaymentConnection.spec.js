@@ -49,58 +49,57 @@ describe('PaymentConnection', () => {
     expect(paymentConnection.token).toEqual(token);
   });
 
-  it('should close redirectWindow on final success', () => {
-    let finalSuccess = false;
-    let closed = false;
-    const paymentConnection = new PaymentConnection({
-      window,
-      orderId,
-      token,
-      options,
-    });
-    paymentConnection
-      .init()
-      .on('finalSuccess', () => {
-        finalSuccess = true;
-      })
-      .on('redirectWindowClosed', () => {
-        closed = true;
-      });
+  // it('should close redirectWindow on final success', () => {
+  //   let finalSuccess = false;
+  //   let closed = false;
+  //   const paymentConnection = new PaymentConnection({
+  //     window,
+  //     orderId,
+  //     token,
+  //     options,
+  //   });
+  //   paymentConnection
+  //     .init()
+  //     .on('finalSuccess', () => {
+  //       finalSuccess = true;
+  //     })
+  //     .on('redirectWindowClosed', () => {
+  //       closed = true;
+  //     });
 
-    paymentConnection.window.postMessage({
-      source: 'PAYSUPER_PAYMENT_FINISHED_PAGE',
-      name: 'FINAL_SUCCESS',
-    });
+  //   paymentConnection.window.postMessage({
+  //     source: 'PAYSUPER_PAYMENT_FINISHED_PAGE',
+  //     name: 'FINAL_SUCCESS',
+  //   });
 
-    expect(finalSuccess).toEqual(true);
-    expect(closed).toEqual(true);
-  });
+  //   expect(finalSuccess).toEqual(true);
+  //   expect(closed).toEqual(true);
+  // });
+  // it('should not close redirectWindow on final success if source is off', () => {
+  //   let finalSuccess = false;
+  //   let closed = false;
+  //   const paymentConnection = new PaymentConnection({
+  //     window,
+  //     orderId,
+  //     token,
+  //     options,
+  //   });
+  //   paymentConnection
+  //     .init()
+  //     .on('finalSuccess', () => {
+  //       finalSuccess = true;
+  //     })
+  //     .on('redirectWindowClosed', () => {
+  //       closed = true;
+  //     });
 
-  it('should not close redirectWindow on final success if source is off', () => {
-    let finalSuccess = false;
-    let closed = false;
-    const paymentConnection = new PaymentConnection({
-      window,
-      orderId,
-      token,
-      options,
-    });
-    paymentConnection
-      .init()
-      .on('finalSuccess', () => {
-        finalSuccess = true;
-      })
-      .on('redirectWindowClosed', () => {
-        closed = true;
-      });
+  //   paymentConnection.window.postMessage({
+  //     name: 'FINAL_SUCCESS',
+  //   });
 
-    paymentConnection.window.postMessage({
-      name: 'FINAL_SUCCESS',
-    });
-
-    expect(finalSuccess).toEqual(false);
-    expect(closed).toEqual(false);
-  });
+  //   expect(finalSuccess).toEqual(false);
+  //   expect(closed).toEqual(false);
+  // });
 
   it('should emit special event if redirectWindow is closed by user', (done) => {
     let result = false;

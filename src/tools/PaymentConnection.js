@@ -1,6 +1,6 @@
 import Centrifuge from 'centrifuge';
 import Events from 'events';
-import { receiveMessages, payoneFormSourceName } from '@/postMessage';
+import { receiveMessages } from '@/postMessage';
 import { formLoadingPageUrl, websocketServerUrl } from '@/constants';
 
 export default class PaymentConnection extends Events.EventEmitter {
@@ -35,39 +35,23 @@ export default class PaymentConnection extends Events.EventEmitter {
       }
     }, 200);
 
-    receiveMessages(window, {
-      INITED: () => {
-        this.redirectWindow.postMessage({
-          source: payoneFormSourceName,
-          name: 'requestInitForm',
-          data: {
-            formData: {},
-            options: {
-              ...this.options,
-              layout: 'loading',
-            },
-          },
-        }, '*');
-      },
-    });
-
-    this.window.addEventListener('message', (event) => {
-      if (
-        event.data.source === 'PAYSUPER_PAYMENT_FINISHED_PAGE'
-        && event.data.name === 'FINAL_SUCCESS'
-      ) {
-        this.emit('finalSuccess');
-        clearInterval(this.redirectWindowClosedInterval);
+    receiveMessages(this.window, {
+      PAYMENT_RESULT_PAGE_REPORT: ({ result }) => {
+        if (result === 'success') {
+          this.emit('reportSuccess');
+        } else {
+          this.emit('reportFail');
+        }
         this.closeRedirectWindow();
-      }
+      },
     });
     return this;
   }
 
   closeRedirectWindow() {
+    clearInterval(this.redirectWindowClosedInterval);
     this.redirectWindow.close();
     this.centrifuge.disconnect();
-    clearInterval(this.redirectWindowClosedInterval);
     this.emit('redirectWindowClosed');
     return this;
   }

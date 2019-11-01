@@ -188,8 +188,6 @@ export default {
       'checkPaymentAccount',
       'submitUserCountry',
       'updateBillingData',
-      'setPaymentLoading',
-      'setFormLoading',
     ]),
 
     handleMainButtonClick() {
