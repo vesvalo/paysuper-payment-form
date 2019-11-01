@@ -17,13 +17,6 @@
       :style="modalStyles"
     >
       <slot />
-
-      <div
-        :class="$style.close"
-        @click="$emit('close')"
-      >
-        <IconClose :class="$style.iconClose" />
-      </div>
     </div>
   </div>
 </transition>
@@ -63,16 +56,6 @@ export default {
       };
     },
   },
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.iconClose}`]: {
-        fill: this.$gui.modalCloseIconColor,
-      },
-      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
-        fill: this.$gui.baseHoverColor,
-      },
-    });
-  },
 };
 </script>
 
@@ -100,21 +83,6 @@ export default {
   @include if-rtl {
     flex-direction: row-reverse;
   }
-}
-.close {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 20px;
-  cursor: pointer;
-  z-index: 10000;
-
-  &:hover > .iconClose {
-    transform: rotate(360deg);
-  }
-}
-.iconClose {
-  transition: transform 0.3s ease-out 0.3s;
 }
 .enter,
 .leaveTo {

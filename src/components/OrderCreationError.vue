@@ -73,14 +73,6 @@ export default {
         {{$t('OrderCreationError.tryAgain')}}
       </UiButton>
     </div>
-
-    <div
-      v-if="isModal"
-      :class="$style.close"
-      @click="$emit('close')"
-    >
-      <IconClose :class="$style.iconClose" />
-    </div>
   </div>
 </UiTransitionFade>
 </template>
@@ -134,24 +126,5 @@ export default {
 
 .button {
   width: 100%;
-}
-.close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: pointer;
-  z-index: 10000;
-  height: 60px;
-  width: 60px;
-  padding: 24px;
-
-  &:hover > .iconClose {
-    transform: rotate(360deg);
-  }
-}
-.iconClose {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.3s ease-out 0.3s;
 }
 </style>
