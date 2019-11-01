@@ -51,6 +51,19 @@ export default {
     isPageView() {
       return this.layout === 'page';
     },
+    isModalEssence() {
+      return this.$layout === 'modal';
+    },
+  },
+  created() {
+    this.$addCssRules({
+      [`.${this.$style.iconClose}`]: {
+        fill: this.$gui.modalCloseIconColor,
+      },
+      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+        fill: this.$gui.baseHoverColor,
+      },
+    });
   },
   beforeMount() {
     postMessage('LOADED');
@@ -75,7 +88,7 @@ export default {
       }
     },
     closeModal() {
-      if (this.$layout === 'modal') {
+      if (this.isModalEssence) {
         this.opened = false;
         postMessage('MODAL_CLOSED');
         gtagEvent('formClosed');
@@ -106,12 +119,11 @@ export default {
       <template v-if="isPageView">
         <LayoutHeader
           :isCartOpened="isCartOpened"
-          :isModal="$layout === 'modal'"
+          :isModal="isModalEssence"
           :isPageView="isPageView"
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
           @toggleCart="isCartOpened = !isCartOpened"
-          @close="closeModal"
         />
 
         <LayoutContent
@@ -163,10 +175,17 @@ export default {
       :class="$style.orderCreationError"
       :message="actionResult.message"
       :type="actionResult.type"
-      :isModal="$layout === 'modal'"
+      :isModal="isModalEssence"
       @tryAgain="tryToCreateOrder"
-      @close="closeModal"
     />
+
+    <div
+      v-if="isModalEssence"
+      :class="$style.close"
+      @click="closeModal"
+    >
+      <IconClose :class="$style.iconClose" />
+    </div>
   </component>
 </div>
 </template>
@@ -213,5 +232,32 @@ export default {
       flex-direction: column;
     }
   }
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  z-index: 10000;
+  height: 54px;
+  width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .layout._isPage & {
+    height: 60px;
+    width: 60px;
+  }
+
+  &:hover > .iconClose {
+    transform: rotate(360deg);
+  }
+}
+.iconClose {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s ease-out 0.3s;
 }
 </style>
