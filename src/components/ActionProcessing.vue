@@ -12,7 +12,7 @@ export default {
   },
 
   props: {
-    content: {
+    type: {
       type: String,
       default: '3d-security',
       validator(value) {
@@ -56,7 +56,7 @@ export default {
 >
   <div :class="$style.actionProcessing">
     <div :class="$style.content">
-      <template v-if="content === '3d-security'">
+      <template v-if="type === '3d-security'">
         <div :class="$style.icon">
           <IconCardSecurity v-if="icon === 'card'" />
           <IconProcessSecurity v-if="icon === 'other'" />

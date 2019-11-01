@@ -1,12 +1,3 @@
-<template>
-<div :class="$style.layout">
-  <ActionProcessing
-    :class="$style.preloader"
-    content="3d-security"
-  />
-</div>
-</template>
-
 <script>
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
@@ -17,6 +8,14 @@ export default {
 };
 </script>
 
+<template>
+<div :class="$style.layout">
+  <ActionProcessing
+    :class="$style.preloader"
+    type="3d-security"
+  />
+</div>
+</template>
 
 <style module lang="scss">
 @import '@/assets/styles/reset.scss';

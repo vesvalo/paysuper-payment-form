@@ -40,8 +40,7 @@ export default {
       'actionResult',
       'orderParams',
       'orderData',
-      'isPaymentLoading',
-      'isFormLoading',
+      'actionProcessing',
       'currentPlatformId',
     ]),
 
@@ -72,7 +71,7 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions('PaymentForm', ['createOrder', 'setFormLoading', 'changePlatform']),
+    ...mapActions('PaymentForm', ['changePlatform', 'tryToBeginAgain']),
 
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
@@ -93,11 +92,6 @@ export default {
         postMessage('MODAL_CLOSED');
         gtagEvent('formClosed');
       }
-    },
-    async tryToCreateOrder() {
-      this.setFormLoading(true);
-      await this.createOrder();
-      this.setFormLoading(false);
     },
   },
 };
@@ -167,16 +161,15 @@ export default {
     </template>
 
     <ActionProcessing
-      v-if="isPaymentLoading || isFormLoading"
-      :content="isFormLoading ? 'no-content' : '3d-security'"
+      v-if="actionProcessing"
+      v-bind="actionProcessing"
     />
     <OrderCreationError
       v-if="paymentStatus === 'FAILED_TO_BEGIN'"
+      v-bind="actionResult"
       :class="$style.orderCreationError"
-      :message="actionResult.message"
-      :type="actionResult.type"
       :isModal="isModalEssence"
-      @tryAgain="tryToCreateOrder"
+      @tryAgain="tryToBeginAgain"
     />
 
     <div

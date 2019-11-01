@@ -25,11 +25,15 @@ const availableChannelStatuses = [
 
 const allowedPaymentStatuses = [
   // These ones are custom
-  'INITIAL', 'FAILED_TO_BEGIN', 'NEW', 'BEFORE_CREATED', 'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
+  'INITIAL', 'FAILED_TO_BEGIN', 'NEW', 'BEFORE_CREATED',
+  'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
+  'PROBABLY_COMPLETED',
   // Those are from BE
   ...availableChannelStatuses,
 ];
 
+// See ActionResult.vue to understand how it looks
+// "type" and "message" are its props
 const actionResultsByStatus = {
   FAILED_TO_BEGIN(data) {
     if (data) {
@@ -62,6 +66,15 @@ const actionResultsByStatus = {
   },
 };
 
+const actionProcessingByStatus = {
+  BEFORE_CREATED: () => ({ type: '3d-security' }),
+  PROBABLY_COMPLETED: () => ({ type: 'no-content' }),
+  FAILED_TO_CREATE: () => null,
+  INTERRUPTED: () => null,
+  COMPLETED: () => null,
+  DECLINED: () => null,
+};
+
 function setPaymentStatus(commit, name, extraData) {
   gtagEvent('changePaymentStatus', { event_label: name });
   commit('paymentStatus', name);
@@ -72,12 +85,9 @@ function setPaymentStatus(commit, name, extraData) {
     commit('actionResult', actionResult(extraData));
   }
 
-  if (name === 'BEFORE_CREATED') {
-    commit('isPaymentLoading', true);
-  }
-
-  if (includes(['FAILED_TO_CREATE', 'INTERRUPTED', 'COMPLETED', 'DECLINED'], name)) {
-    commit('isPaymentLoading', false);
+  const actionProcessing = actionProcessingByStatus[name];
+  if (actionProcessing) {
+    commit('actionProcessing', actionProcessing(extraData));
   }
 }
 
@@ -111,12 +121,10 @@ export default {
     orderData: null,
     activePaymentMethodId: '',
     currentPlatformId: '',
-    isPaymentLoading: false,
-    isFormLoading: false,
+    actionProcessing: null,
     actionResult: null,
     paymentStatus: 'INITIAL',
     options: false,
-    testFinalSuccess: false,
     cards: [],
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
@@ -150,11 +158,8 @@ export default {
     activePaymentMethodId(state, value) {
       state.activePaymentMethodId = value;
     },
-    isPaymentLoading(state, value) {
-      state.isPaymentLoading = value;
-    },
-    isFormLoading(state, value) {
-      state.isFormLoading = value;
+    actionProcessing(state, value) {
+      state.actionProcessing = value;
     },
     actionResult(state, value) {
       state.actionResult = value;
@@ -168,9 +173,6 @@ export default {
     },
     options(state, value) {
       state.options = value;
-    },
-    testFinalSuccess(state, value) {
-      state.testFinalSuccess = value;
     },
     isUserCountryConfirmRequested(state, value) {
       state.isUserCountryConfirmRequested = value;
@@ -311,8 +313,11 @@ export default {
         .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
         })
-        .on('finalSuccess', () => {
-          commit('testFinalSuccess', true);
+        .on('reportSuccess', () => {
+          setPaymentStatus(commit, 'PROBABLY_COMPLETED');
+        })
+        .on('reportFail', () => {
+          setPaymentStatus(commit, 'FAILED_TO_CREATE');
         });
 
       const request = {
@@ -347,11 +352,8 @@ export default {
             request,
           ),
           ({ data }) => {
-            const redirectUrl = data.redirect_url;
-            paymentConnection.setRedirectWindowLocation(redirectUrl);
-            setPaymentStatus(commit, 'CREATED', {
-              redirectUrl,
-            });
+            paymentConnection.setRedirectWindowLocation(data.redirect_url);
+            setPaymentStatus(commit, 'CREATED');
           },
           2000,
         );
@@ -417,14 +419,6 @@ export default {
       commit('isUserCountryConfirmRequested', false);
     },
 
-    setPaymentLoading({ commit }, value) {
-      commit('isPaymentLoading', value);
-    },
-
-    setFormLoading({ commit }, value) {
-      commit('isFormLoading', value);
-    },
-
     /**
      * Used when geo data changes (country/city/zip)
      */
@@ -476,6 +470,11 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+
+    tryToBeginAgain() {
+      postMessage('TRY_TO_BEGIN_AGAIN');
+      window.location.reload();
     },
   },
 };

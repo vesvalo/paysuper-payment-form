@@ -1,37 +1,38 @@
 import assert from 'assert';
-import { invert, includes, get } from 'lodash-es';
+import { includes, get } from 'lodash-es';
 
-export const payoneSdkSourceName = 'PAYSUPER_JS_SDK';
-export const payoneFormSourceName = 'PAYSUPER_PAYMENT_FORM';
+export const paysuperSdkSourceName = 'PAYSUPER_JS_SDK';
+export const paysuperFormSourceName = 'PAYSUPER_PAYMENT_FORM';
+export const paysuperPaymentPageName = 'PAYSUPER_PAYMENT_PAGE';
 
-export const sendingMessagesNames = {
-  INITED: 'inited',
-  LOADED: 'loaded',
-  FORM_RESIZE: 'formResize',
-  PAYMENT_FAILED_TO_BEGIN: 'paymentFailedToBegin',
-  PAYMENT_NEW: 'paymentNew',
-  PAYMENT_BEFORE_CREATED: 'paymentBeforeCreated',
-  PAYMENT_CREATED: 'paymentCreated',
-  PAYMENT_FAILED_TO_CREATE: 'paymentFailedToCreate',
-  PAYMENT_COMPLETED: 'paymentCompleted',
-  PAYMENT_CANCELLED: 'paymentCancelled',
-  PAYMENT_DECLINED: 'paymentDeclined',
-  PAYMENT_INTERRUPTED: 'paymentInterrupted',
-  ORDER_RECREATE_STARTED: 'orderRecreateStarted',
-  MODAL_CLOSED: 'modalClosed',
-};
+export const sendingMessagesNames = [
+  'INITED',
+  'LOADED',
+  'FORM_RESIZE',
+  'PAYMENT_FAILED_TO_BEGIN',
+  'PAYMENT_NEW',
+  'PAYMENT_BEFORE_CREATED',
+  'PAYMENT_CREATED',
+  'PAYMENT_FAILED_TO_CREATE',
+  'PAYMENT_COMPLETED',
+  'PAYMENT_CANCELLED',
+  'PAYMENT_DECLINED',
+  'PAYMENT_INTERRUPTED',
+  'PAYMENT_PROBABLY_COMPLETED',
+  'TRY_TO_BEGIN_AGAIN',
+  'MODAL_CLOSED',
+];
 
-export const receivingMessagesNames = invert({
-  REQUEST_INIT_FORM: 'requestInitForm',
-  INITED: 'inited',
-});
+export const receivingMessagesNames = [
+  'REQUEST_INIT_FORM',
+  'PAYMENT_RESULT_PAGE_REPORT',
+];
 
-export function postMessage(nameID, data = {}) {
-  const name = sendingMessagesNames[nameID];
-  assert(name, `Undefiend postMessage nameID: ${nameID}`);
+export function postMessage(name, data = {}) {
+  assert(includes(sendingMessagesNames, name), `Undefiend postMessage name: ${name}`);
   const target = window.opener ? window.opener : window.parent;
   target.postMessage({
-    source: payoneFormSourceName,
+    source: paysuperFormSourceName,
     name,
     data,
   }, '*');
@@ -41,12 +42,15 @@ export function receiveMessages(from, objectWithCallbacks) {
   from.addEventListener('message', (event) => {
     const source = get(event, 'data.source');
     if (
-      !includes([payoneSdkSourceName, payoneFormSourceName], source)
+      !includes([paysuperSdkSourceName, paysuperFormSourceName, paysuperPaymentPageName], source)
     ) {
       return;
     }
     const { name } = event.data;
-    const callback = objectWithCallbacks[receivingMessagesNames[name]];
+    if (!includes(receivingMessagesNames, name)) {
+      return;
+    }
+    const callback = objectWithCallbacks[name];
     if (!callback) {
       return;
     }
