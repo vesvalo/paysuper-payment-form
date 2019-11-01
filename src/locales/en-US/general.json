@@ -1,17 +1,4 @@
 {
-  "errorMessages": {
-    "required": "Enter a value",
-    "between": "Enter value from %min% to %max%",
-    "email": "Enter correct email",
-    "minLength": "The value is too short",
-    "wrongFormatType": "Wrong value format type"
-  },
-  "orderId": "Order #",
-  "account": "Account",
-  "product": "Product",
-  "commission": "Commission",
-  "vat": "VAT",
-  "summ": "Sum",
   "ActionProcessing": {
     "title": "You will now be redirected<br>to the bank site for passing 3d security",
     "description": [
@@ -76,10 +63,7 @@
     "qiwi": "QIWI",
     "webmoney": "Webmoney",
     "btc": "BTC",
-    "expiryDate": "Expiry date",
-    "expiryDateInvalid": "Expiry date is invalid",
     "cvv": "CVC/CVV",
-    "cardholder": "Cardholder name",
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
     "remember": "Remember me",

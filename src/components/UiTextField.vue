@@ -277,6 +277,18 @@ $main-additional-height: 18px;
     font-family: 'text-security-disc';
     -webkit-text-security: disc;
   }
+
+  &::-webkit-credentials-auto-fill-button,
+  &::-webkit-textfield-decoration-container,
+  &::-webkit-contacts-auto-fill-button,
+  &::-ms-clear,
+  &::-ms-reveal {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
 }
 
 .label {
