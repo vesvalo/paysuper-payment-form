@@ -55,6 +55,7 @@ export default {
     v-bind="{ disabled, errorText, hasError, required, ...$attrs }"
     ref="textField"
     name="cvv"
+    autocomplete="cc-csc"
     mask="###"
     type="tel"
     :isSecureField="true"
