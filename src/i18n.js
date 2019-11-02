@@ -29,5 +29,3 @@ export default new VueI18n({
   messages: loadLocaleMessages(),
   silentTranslationWarn: true,
 });
-
-export const ok = 'fdfd';
