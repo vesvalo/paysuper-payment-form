@@ -5,6 +5,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationError from '@/components/OrderCreationError.vue';
+import AnimationsOff from '@/components/AnimationsOff.vue';
 
 storiesOf('Modal', module)
   .add('default', () => ({
@@ -22,17 +23,21 @@ storiesOf('Modal', module)
     `,
   }))
   .add('loading', () => ({
-    components: { Modal, ModalCart, ModalForm },
+    components: {
+      AnimationsOff, Modal, ModalCart, ModalForm,
+    },
     template: `
-      <Modal :opened="true">
-        <ModalCart :isLoading="true" projectName="Test">
-          111<br />111<br />111<br />111<br />111<br />111
-        </ModalCart>
-    
-        <ModalForm :isLoading="true">
-          222
-        </ModalForm>
-      </Modal>
+      <AnimationsOff>
+        <Modal :opened="true">
+          <ModalCart :isLoading="true" projectName="Test">
+            111<br />111<br />111<br />111<br />111<br />111
+          </ModalCart>
+      
+          <ModalForm :isLoading="true">
+            222
+          </ModalForm>
+        </Modal>
+      </AnimationsOff>
     `,
   }))
   .add('order error', () => ({
