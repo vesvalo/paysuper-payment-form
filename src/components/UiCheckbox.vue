@@ -1,22 +1,3 @@
-<template>
-<label :class="[container, { [stateDisabled]: disabled, [stateChecked]: checked }]">
-  <input
-    v-bind="{ checked, disabled }"
-    type="checkbox"
-    :class="input"
-    @change="emitChange"
-  >
-
-  <div :class="check">
-    <IconCheck v-if="checked" />
-  </div>
-
-  <span :class="label">
-    <slot/>
-  </span>
-</label>
-</template>
-
 <script>
 export default {
   model: {
@@ -31,6 +12,10 @@ export default {
     disabled: {
       default: false,
       type: Boolean,
+    },
+    tabindex: {
+      default: undefined,
+      type: [Number, String],
     },
   },
   computed: {
@@ -70,8 +55,11 @@ export default {
       [`.${this.check} > svg`]: {
         fill: this.$gui.checkboxIconColor,
       },
-      [`.${this.container}:hover > .${this.check} > svg`]: {
-        fill: this.$gui.checkboxHoverIconColor,
+      [`.${this.input}:focus ~ .${this.check}`]: {
+        'border-color': this.$gui.checkboxHoverColor,
+      },
+      [`.${this.input}:focus ~ .${this.label}`]: {
+        color: this.$gui.checkboxHoverColor,
       },
       [`.${this.container}.${this.stateChecked} > .${this.check} > svg`]: {
         fill: this.$gui.checkboxCheckedIconColor,
@@ -97,6 +85,25 @@ export default {
 };
 </script>
 
+<template>
+<label :class="[container, { [stateDisabled]: disabled, [stateChecked]: checked }]">
+  <input
+    v-bind="{ tabindex, checked, disabled }"
+    type="checkbox"
+    :class="input"
+    @change="emitChange"
+  >
+
+  <div :class="check">
+    <IconCheck v-if="checked" />
+  </div>
+
+  <span :class="label">
+    <slot/>
+  </span>
+</label>
+</template>
+
 <style module lang="scss">
 $label-margin: 10px;
 
@@ -121,8 +128,8 @@ $label-margin: 10px;
 .input {
   height: 0;
   position: absolute;
-  visibility: hidden;
   width: 0;
+  opacity: 0;
 
   &:checked + .check {
     border-width: 0;

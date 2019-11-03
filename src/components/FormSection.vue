@@ -278,7 +278,11 @@ export default {
 </script>
 
 <template>
-<div :class="[$style.formSection, { [$style[`_isPage`]]: isPageView }]">
+<form
+  :class="[$style.formSection, { [$style[`_isPage`]]: isPageView }]"
+  action=""
+  @submit.prevent="handleMainButtonClick"
+>
   <div :class="$style.content">
     <component
       :is="isPageView ? 'div' : 'UiScrollbarBox'"
@@ -295,6 +299,7 @@ export default {
           :class="$style.formItem"
           :options="paymentMethodsSelectList"
           :prependLabel="$t('FormSection.prependLabel')"
+          tabindex="1"
           @input="setActivePaymentMethodById"
         />
         <FormSectionBankCard
@@ -360,7 +365,7 @@ export default {
       :class="$style.payBtn"
       :hasBorderRadius="isPageView"
       :disabled="isSubmitButtonDisabled"
-      @click="handleMainButtonClick"
+      tabindex="10"
     >
       <template v-if="isPaymentFormVisible">
         <IconLock slot="before" />
@@ -382,7 +387,7 @@ export default {
       </template>
     </UiButton>
   </div>
-</div>
+</form>
 </template>
 
 <style module lang="scss">

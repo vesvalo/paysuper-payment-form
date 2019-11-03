@@ -4,50 +4,67 @@
   :class="selectClasses"
 >
   <div
-    :class="[$style.selected, { [$style._focused]: focused }]"
+    :class="$style.wrapper"
     @click="focused ? blur() : focus()"
   >
     <div
-      v-if="selectedItem && selectedItem.iconComponent"
-      :class="[$style.icon, $style[`_${iconPosition}`]]"
+      :class="[
+        $style.selected,
+        { [$style._focused]: focused },
+        { [$style._nativeFocus]: hasNativeFocus }
+      ]"
     >
-      <component :is="selectedItem.iconComponent" />
-    </div>
-    <input
-      :class="[$style.input, { [$style._focused]: focused }, { [$style._empty]: !selectValue }]"
-      :value="label"
-      :readonly="true"
-    />
-    <div :class="[$style.arrow, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
-      <IconArrow />
-    </div>
-  </div>
-  <span
-    :class="[$style.error, { [$style._showed]: isVisibleError }]"
-    :title="errorText"
-  >
-    {{ errorText }}
-  </span>
-  <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
-    <UiScrollbarBox
-      :class="$style.scrollbar"
-      :settings="{ suppressScrollX: true, minScrollbarLength: 20 }"
-      :style="{ maxHeight: maxHeight || undefined }"
-    >
-      <div :class="$style.options">
-        <UiSelectOption
-          v-for="option in actualOtions"
-          :key="option.value"
-          :isRemovable="isRemovable"
-          :iconPosition="iconPosition"
-          :option="option"
-          :selectId="selectId"
-          @input="emitChange"
-          @remove="remove(option.value)"
-        />
+      <div
+        v-if="selectedItem && selectedItem.iconComponent"
+        :class="[$style.icon, $style[`_${iconPosition}`]]"
+      >
+        <component :is="selectedItem.iconComponent" />
       </div>
-      <slot name="additional"/>
-    </UiScrollbarBox>
+      <input
+        ref="input"
+        :class="[$style.input, { [$style._focused]: focused }, { [$style._empty]: !selectValue }]"
+        :value="label"
+        :readonly="true"
+        :tabindex="tabindex"
+        @focus="hasNativeFocus = true"
+        @blur="hasNativeFocus = false"
+        @keydown.up="selectPrevItem"
+        @keydown.down="selectNextItem"
+      />
+      <div :class="[$style.arrow, {
+        [$style._focused]: focused,
+        [$style._reverse]: hasReversible
+      }]">
+        <IconArrow />
+      </div>
+    </div>
+    <span
+      :class="[$style.error, { [$style._showed]: isVisibleError }]"
+      :title="errorText"
+    >
+      {{ errorText }}
+    </span>
+    <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
+      <UiScrollbarBox
+        :class="$style.scrollbar"
+        :settings="{ suppressScrollX: true, minScrollbarLength: 20 }"
+        :style="{ maxHeight: maxHeight || undefined }"
+      >
+        <div :class="$style.options">
+          <UiSelectOption
+            v-for="option in actualOtions"
+            :key="option.value"
+            :isRemovable="isRemovable"
+            :iconPosition="iconPosition"
+            :option="option"
+            :selectId="selectId"
+            @input="selectOption"
+            @remove="remove(option.value)"
+          />
+        </div>
+        <slot name="additional"/>
+      </UiScrollbarBox>
+    </div>
   </div>
 </div>
 </template>
@@ -57,6 +74,7 @@ import { directive as clickaway } from 'vue-clickaway';
 import {
   filter,
   find,
+  findIndex,
   includes,
   uniqueId,
 } from 'lodash-es';
@@ -143,11 +161,17 @@ export default {
       default: false,
       type: Boolean,
     },
+    tabindex: {
+      default: undefined,
+      type: [Number, String],
+    },
   },
   data() {
     return {
       focused: this.isFocused,
+      hasNativeFocus: false,
       selectValue: this.value || '',
+      selectedValueIndex: findIndex(this.options, { value: this.value }),
       innerOptions: [...this.options],
     };
   },
@@ -196,7 +220,10 @@ export default {
         'background-color': this.$gui.selectBoxColor,
         'border-color': this.$gui.selectBorderColor,
       },
-      [`.${this.$style.selected}.${this.$style._focused}`]: {
+      [`
+        .${this.$style.selected}.${this.$style._focused},
+        .${this.$style.selected}.${this.$style._nativeFocus}
+      `]: {
         'border-color': this.$gui.selectFocusBorderColor,
       },
       [`.${this.$style.selected}:not(.${this.$style._focused}):hover`]: {
@@ -233,20 +260,43 @@ export default {
       this.$emit('focus');
       this.focused = true;
     },
-    emitChange(value) {
-      this.selectValue = value;
+    selectOption(value) {
+      this.setSelectValue(value);
       this.focused = false;
       this.$emit('blur');
       this.$emit('input', value);
+      this.$refs.input.focus();
+    },
+    setSelectValue(value) {
+      this.selectValue = value;
+      this.selectedValueIndex = findIndex(this.options, { value: this.selectValue });
     },
     remove(value) {
       this.innerOptions = filter(this.innerOptions, option => option.value !== value);
       this.$emit('remove', value);
     },
+    selectPrevItem() {
+      let index = this.selectedValueIndex - 1;
+      if (index < 0) {
+        index = this.options.length - 1;
+      }
+      this.selectedValueIndex = index;
+      this.selectValue = this.options[index].value;
+      this.$emit('input', this.selectValue);
+    },
+    selectNextItem() {
+      let index = this.selectedValueIndex + 1;
+      if (index === this.options.length) {
+        index = 0;
+      }
+      this.selectedValueIndex = index;
+      this.selectValue = this.options[index].value;
+      this.$emit('input', this.selectValue);
+    },
   },
   watch: {
-    value(val) {
-      this.selectValue = val;
+    value(value) {
+      this.setSelectValue(value);
     },
     options(val) {
       this.innerOptions = val;
@@ -267,14 +317,10 @@ $main-height: 24px;
 $main-additional-height: 18px;
 
 .container {
-  box-sizing: border-box;
-  cursor: pointer;
   display: inline-block;
   vertical-align: top;
-  position: relative;
   width: 100%;
   font-size: $primary-input-size;
-  padding: 18px 0;
 
   &._disabled {
     pointer-events: none;
@@ -288,6 +334,13 @@ $main-additional-height: 18px;
     opacity: 1;
   }
 }
+.wrapper {
+  position: relative;
+  box-sizing: border-box;
+  padding: 18px 0;
+  cursor: pointer;
+}
+
 .selected {
   display: flex;
   height: $main-height;
@@ -358,6 +411,7 @@ $main-additional-height: 18px;
   font-family: inherit;
   font-size: $primary-input-size;
   pointer-events: none;
+  user-select: none;
 }
 .arrow {
   height: 24px;
