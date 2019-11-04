@@ -31,6 +31,10 @@ export default {
       default: '',
       type: [String, Number],
     },
+    tabindex: {
+      default: undefined,
+      type: [Number, String],
+    },
   },
   data() {
     return {
@@ -62,7 +66,7 @@ export default {
 <div :class="$style.container">
   <UiTextField
     v-model="innerValue"
-    v-bind="{ required, disabled, errorText, hasError, ...$attrs }"
+    v-bind="{ tabindex, required, disabled, errorText, hasError, ...$attrs }"
     ref="textField"
     mask="#### #### #### ####"
     :label="$t('UiCardField.cardNumber')"

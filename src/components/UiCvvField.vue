@@ -25,6 +25,10 @@ export default {
       default: '',
       type: [String, Number],
     },
+    tabindex: {
+      default: undefined,
+      type: [Number, String],
+    },
   },
   data() {
     return {
@@ -52,7 +56,7 @@ export default {
 <div :class="$style.container">
   <UiTextField
     v-model="innerValue"
-    v-bind="{ disabled, errorText, hasError, required, ...$attrs }"
+    v-bind="{ tabindex, disabled, errorText, hasError, required, ...$attrs }"
     ref="textField"
     name="cvv"
     autocomplete="cc-csc"

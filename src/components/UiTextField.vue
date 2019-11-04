@@ -2,10 +2,9 @@
 <div :class="[container, { [stateDisabled]: disabled, [$style._hasInfoIcon]: hasInfoIcon }]">
   <TheMask
     v-if="mask"
-    v-bind="{ disabled, required, type, ...$attrs }"
+    v-bind="{ tabindex, disabled, required, type, mask, ...$attrs }"
     v-model="innerValue"
     :class="inputClasses"
-    :mask="mask"
     :tokens="maskTokens"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
@@ -13,7 +12,7 @@
   />
   <input
     v-else
-    v-bind="{ disabled, required, type, ...$attrs }"
+    v-bind="{ tabindex, disabled, required, type, ...$attrs }"
     v-model="innerValue"
     :class="inputClasses"
     @blur="$emit('blur')"
@@ -80,6 +79,10 @@ export default {
     isSecureField: {
       default: false,
       type: Boolean,
+    },
+    tabindex: {
+      default: undefined,
+      type: [Number, String],
     },
     type: {
       default: 'text',

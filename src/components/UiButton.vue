@@ -62,6 +62,9 @@ export default {
       [`.${this.container}:active`]: {
         'background-color': this.$gui.buttonActiveBoxColor,
       },
+      [`.${this.container}:focus`]: {
+        'background-color': this.$gui.buttonHoverBoxColor,
+      },
       [`.${this.container}.${this.stateDisabled}`]: {
         opacity: this.$gui.buttonDisabledOpacity,
       },

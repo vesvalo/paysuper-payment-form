@@ -17,10 +17,11 @@
     name="pan"
     autocomplete="cc-number"
     type="tel"
+    tabindex="2"
     :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
     :hasError="$isFieldInvalid('innerValue.cardNumber')"
     :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-    @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
+    @input="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
   />
   <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
     <UiTextField
@@ -30,18 +31,20 @@
       mask="##/##"
       type="tel"
       autocomplete="cc-exp"
+      tabindex="3"
       :class="$style.expiry"
       :hasError="$isFieldInvalid('innerValue.expiryDate')"
       :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
       :label="$t('FormSectionBankCard.expiryDate')"
-      @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
+      @input="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
       @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
     />
     <UiCvvField
       v-model="innerValue.cvv"
       ref="cvvField"
+      tabindex="4"
       :hasError="$isFieldInvalid('innerValue.cvv')"
-      @keyup.native="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
+      @input="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
       @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
     />
   </div>
@@ -50,6 +53,7 @@
     ref="emailField"
     name="email"
     type="email"
+    tabindex="5"
     :class="$style.formItem"
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('FormSectionBankCard.emailInvalid')"
@@ -65,6 +69,7 @@
       :hasReversible="true"
       :hasError="$isFieldInvalid('innerValue.country')"
       :errorText="$t('FormSectionBankCard.countryInvalid')"
+      tabindex="6"
     />
     <template v-if="isCityAndZipRequired">
       <UiTextField
@@ -74,6 +79,7 @@
         :label="$t('FormSectionBankCard.city')"
         :hasError="$isFieldInvalid('innerValue.city')"
         :errorText="$t('FormSectionBankCard.cityInvalid')"
+        tabindex="7"
       />
       <UiTextField
         v-model="innerValue.zip"
@@ -82,6 +88,7 @@
         :label="$t('FormSectionBankCard.zip')"
         :hasError="$isFieldInvalid('innerValue.zip')"
         :errorText="$t('FormSectionBankCard.zipInvalid')"
+        tabindex="8"
       />
     </template>
   </template>
@@ -90,7 +97,10 @@
     v-if="!hasCardsInStorage || anotherCard"
     :class="[$style.formItem, $style.remember]"
   >
-    <UiCheckbox v-model="innerValue.hasRemembered">
+    <UiCheckbox
+      v-model="innerValue.hasRemembered"
+      tabindex="9"
+    >
       {{ $t('FormSectionBankCard.remember') }}
       <div
         :class="$style.rememberInfo"
