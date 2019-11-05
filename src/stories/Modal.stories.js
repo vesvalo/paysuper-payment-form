@@ -41,10 +41,12 @@ storiesOf('Modal', module)
     `,
   }))
   .add('order error', () => ({
-    components: { Modal, OrderCreationError },
+    components: { AnimationsOff, Modal, OrderCreationError },
     template: `
-      <Modal :opened="true">
-        <OrderCreationError type="unknownError" />
-      </Modal>
+      <AnimationsOff>
+        <Modal :opened="true">
+          <OrderCreationError type="unknownError" />
+        </Modal>
+      </AnimationsOff>
     `,
   }));
