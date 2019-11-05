@@ -397,8 +397,7 @@ export default {
   flex-direction: column;
   align-content: space-between;
   position: relative;
-  height: 100%;
-  min-height: 448px;
+  min-height: 454px;
   max-height: 100%;
   width: 100%;
 }
@@ -443,7 +442,7 @@ export default {
 .footer {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   width: 100%;
 
   .formSection._isPage &._sticky {

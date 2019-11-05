@@ -153,7 +153,7 @@ export default {
   flex-direction: column;
 
   &:not(._isPage) {
-    padding: 40px 0;
+    padding: 55px 0;
 
     &._promo {
       background-size: cover;
@@ -212,7 +212,7 @@ export default {
   width: 100%;
 
   .cartSection:not(._isPage) & {
-    padding: 20px 0 30px;
+    padding: 0 0 30px;
   }
 }
 

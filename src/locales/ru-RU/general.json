@@ -1,17 +1,4 @@
 {
-  "errorMessages": {
-    "required": "Это поле необходимо заполнить",
-    "between": "Укажите значение от %min% до %max%",
-    "email": "Укажите корректный email",
-    "minLength": "Слишком короткое значение",
-    "wrongFormatType": "Неверный формат значения"
-  },
-  "orderId": "Номер платежа",
-  "account": "Учётная запись",
-  "product": "Продукт",
-  "commission": "Комиссия",
-  "vat": "НДС",
-  "summ": "Сумма",
   "ActionProcessing": {
     "title": "Вы будете перенаправлены на сайт <br>банка для прохождения 3d security",
     "description": [
@@ -76,10 +63,7 @@
     "qiwi": "QIWI",
     "webmoney": "Webmoney",
     "btc": "BTC",
-    "expiryDate": "Срок действия",
-    "expiryDateInvalid": "Неверный срок действия",
     "cvv": "CVC/CVV",
-    "cardholder": "Владелец карты",
     "email": "Email",
     "emailInvalid": "Неверный email",
     "remember": "Запомнить",
