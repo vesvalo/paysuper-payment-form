@@ -255,7 +255,7 @@ export default {
 
     async checkBankCardNumber(value) {
       if (
-        value.length >= 6
+        value.length === 16 // complete card number
         && !this.isBankCardNumberChecking
         && (
           !this.checkedBankCardNumberPart
