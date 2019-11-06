@@ -46,6 +46,7 @@ module.exports = {
       'core-js/modules/es.promise',
       'core-js/modules/es.string.includes',
       'core-js/modules/es.array.iterator',
+      'core-js/modules/es.object.assign.js',
       path.resolve(__dirname, 'src/main.js'),
     ],
     output: {
