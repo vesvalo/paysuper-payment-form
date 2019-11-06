@@ -19,7 +19,6 @@ export default class PaymentConnection extends Events.EventEmitter {
     this.redirectWindowClosedInterval = null;
     this.isSystemSuccess = false;
     this.systemSuccessTimeout = null;
-    this.isDeclinedByTimeout = false;
     this.init();
   }
 
@@ -91,14 +90,11 @@ export default class PaymentConnection extends Events.EventEmitter {
       this.emit('paymentDeclined', {
         code: 'ps*',
       });
-      this.isDeclinedByTimeout = true;
+      this.disconnect();
     }, oneMinute * 2);
   }
 
   reportCompleted() {
-    if (this.isDeclinedByTimeout) {
-      return;
-    }
     this.emit('paymentCompleted');
     clearTimeout(this.systemSuccessTimeout);
   }
