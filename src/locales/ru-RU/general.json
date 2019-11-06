@@ -1,11 +1,17 @@
 {
   "ActionProcessing": {
-    "title": "Вы будете перенаправлены на сайт <br>банка для прохождения 3d security",
-    "description": [
-      "После прохождения 3d security. Информация <br>",
-      "о поступлении денег может прийти с задержкой. <br>",
-      "Это зависит от банка, через который проходит оплата."
-    ]
+    "simpleLoading": {
+      "title": "Платёж обрабатывается",
+      "description": "Сейчас всё будет. Мы стараемся."
+    },
+    "3ds": {
+      "title": "Вы будете перенаправлены на сайт <br>банка для прохождения 3d security",
+      "description": "После прохождения 3d security. Информация <br> о поступлении денег может прийти с задержкой. <br> Это зависит от банка, через который проходит оплата."
+    },
+    "systemSuccess": {
+      "title": "Payment is almost complete",
+      "description": "We've got initial success response from your payment provider.<br /> Wait a little before a final decision comes."
+    }
   },
   "ActionResult": {
     "noMoneyError": {

@@ -26,18 +26,19 @@ export default class PaymentConnection extends Events.EventEmitter {
     this.centrifuge = new Centrifuge(websocketServerUrl);
     this.centrifuge.setToken(this.token);
     this.centrifuge.subscribe(`paysuper:order#${this.orderId}`, ({ data }) => {
+      this.closeRedirectWindow();
+      if (data.status === 'PAYMENT_SYSTEM_PROCESSING_SUCCESS') {
+        this.reportSystemSuccess();
+        return;
+      }
       if (data.status === 'COMPLETED') {
-        this.reportCompleted();
-        this.disconnect();
+        this.emit('paymentCompleted');
       }
       if (data.status === 'DECLINED') {
         this.emit('paymentDeclined', data.decline);
-        this.disconnect();
       }
-      if (data.status === 'PAYMENT_SYSTEM_PROCESSING_SUCCESS') {
-        this.reportSystemSuccess();
-      }
-      this.closeRedirectWindow();
+      clearTimeout(this.systemSuccessTimeout);
+      this.disconnect();
     });
     this.centrifuge.connect();
 
@@ -92,10 +93,5 @@ export default class PaymentConnection extends Events.EventEmitter {
       });
       this.disconnect();
     }, oneMinute * 2);
-  }
-
-  reportCompleted() {
-    this.emit('paymentCompleted');
-    clearTimeout(this.systemSuccessTimeout);
   }
 }

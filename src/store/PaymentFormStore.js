@@ -3,21 +3,13 @@ import assert from 'assert';
 import {
   filter, find, findIndex, get, includes,
 } from 'lodash-es';
+import i18n from '@/i18n';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
-import i18n from '@/i18n';
+import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
 import { gtagEvent, gtagSet } from '@/analytics';
 
-function getErrorCodeTranslation(code) {
-  const noTranslationMessage = 'Unknown error';
-  if (!code) {
-    return noTranslationMessage;
-  }
-  return get(i18n.messages[i18n.locale], `errorCodes.${code}`)
-    || get(i18n.messages[i18n.locale], `errorCodes.${code.slice(0, 2)}*`)
-    || noTranslationMessage;
-}
 
 const allowedPaymentStatuses = [
   // These ones are custom
