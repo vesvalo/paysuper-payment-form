@@ -1,16 +1,16 @@
 {
   "ActionProcessing": {
     "simpleLoading": {
-      "title": "Payment is processing",
-      "description": "We're doing our best to complete the payment."
+      "title": "Don't go away, <br/>we are processing your payment",
+      "description": "Please wait until the payment is successfully completed. <br/>In most cases it doesn't take more than several seconds."
     },
     "3ds": {
       "title": "You will now be redirected<br>to the bank site for passing 3d security",
       "description": "After passing the 3d security, the status of receiving money may <br>come with delay,  it depends directly on the bank you use for payment."
     },
     "systemSuccess": {
-      "title": "Payment is almost complete",
-      "description": "We've got initial success response from your payment provider.<br /> Wait a little before a final decision comes."
+      "title": "We've got initial success response <br>from your payment provider",
+      "description": "Wait a little before a final decision comes. Sometimes payment systems <br>may stuck for a while due to technical reasons."
     }
   },
   "ActionResult": {

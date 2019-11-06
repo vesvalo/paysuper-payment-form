@@ -26,7 +26,7 @@ export default {
       return {
         simpleLoading: {
           title: this.$t('ActionProcessing.simpleLoading.title'),
-          iconComponent: 'IconProcessSecurity',
+          iconComponent: 'IconCardSecurity',
           description: this.$t('ActionProcessing.simpleLoading.description'),
         },
         '3ds': {
