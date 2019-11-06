@@ -1,11 +1,17 @@
 {
   "ActionProcessing": {
-    "title": "You will now be redirected<br>to the bank site for passing 3d security",
-    "description": [
-      "After passing the 3d security, ",
-      "the status of receiving money may <br>come with delay, ",
-      "it depends directly on the bank you use for payment."
-    ]
+    "simpleLoading": {
+      "title": "Payment is processing",
+      "description": "We're doing our best to complete the payment."
+    },
+    "3ds": {
+      "title": "You will now be redirected<br>to the bank site for passing 3d security",
+      "description": "After passing the 3d security, the status of receiving money may <br>come with delay,  it depends directly on the bank you use for payment."
+    },
+    "systemSuccess": {
+      "title": "Payment is almost complete",
+      "description": "We've got initial success response from your payment provider.<br /> Wait a little before a final decision comes."
+    }
   },
   "ActionResult": {
     "noMoneyError": {

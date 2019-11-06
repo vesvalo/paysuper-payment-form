@@ -71,7 +71,7 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions('PaymentForm', ['changePlatform', 'tryToBeginAgain']),
+    ...mapActions('PaymentForm', ['changePlatform']),
 
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
@@ -86,12 +86,27 @@ export default {
         this.layout = this.$layout;
       }
     },
-    closeModal() {
+    closeForm() {
       if (this.isModalEssence) {
         this.opened = false;
         postMessage('MODAL_CLOSED');
         gtagEvent('formClosed');
+      } else {
+        let redirectUrl;
+        if (this.paymentStatus === 'COMPLETED') {
+          redirectUrl = this.orderData.project.url_success;
+        } else {
+          redirectUrl = this.orderData.project.url_fail;
+        }
+        if (redirectUrl) {
+          window.location.replace(redirectUrl);
+        }
       }
+    },
+
+    tryToBeginAgain() {
+      postMessage('TRY_TO_BEGIN_AGAIN');
+      window.location.reload();
     },
   },
 };
@@ -107,7 +122,7 @@ export default {
     :opened="opened"
     :isUpdateOnClick="true"
     :settings="{ suppressScrollX: true }"
-    @close="closeModal"
+    @close="closeForm"
   >
     <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
       <template v-if="isPageView">
@@ -136,7 +151,7 @@ export default {
           <FormSection
             slot="form"
             :isPageView="isPageView"
-            @close="closeModal"
+            @close="closeForm"
           />
         </LayoutContent>
 
@@ -155,7 +170,7 @@ export default {
           />
         </ModalCart>
         <ModalForm :isLoading="isLoading">
-          <FormSection @close="closeModal"/>
+          <FormSection @close="closeForm"/>
         </ModalForm>
       </template>
     </template>
@@ -175,7 +190,7 @@ export default {
     <div
       v-if="isModalEssence"
       :class="$style.close"
-      @click="closeModal"
+      @click="closeForm"
     >
       <IconClose :class="$style.iconClose" />
     </div>

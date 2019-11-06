@@ -4,27 +4,27 @@ import { storiesOf } from '@storybook/vue';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
 storiesOf('ActionProcessing', module)
-  .add('3d-security card', () => ({
+  .add('simpleLoading', () => ({
     components: { ActionProcessing },
     template: `
       <div style="width: 500px">
-        <ActionProcessing content="3d-security" icon="card" />
+        <ActionProcessing />
       </div>
     `,
   }))
-  .add('3d-security other', () => ({
+  .add('systemSuccess', () => ({
     components: { ActionProcessing },
     template: `
       <div style="width: 500px">
-        <ActionProcessing content="3d-security" icon="other" />
+        <ActionProcessing type="systemSuccess" />
       </div>
     `,
   }))
-  .add('no-content', () => ({
+  .add('3ds', () => ({
     components: { ActionProcessing },
     template: `
       <div style="width: 500px">
-        <ActionProcessing content="no-content" />
+        <ActionProcessing type="3ds" />
       </div>
     `,
   }));

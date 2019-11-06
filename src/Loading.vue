@@ -10,10 +10,7 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <ActionProcessing
-    :class="$style.preloader"
-    type="3d-security"
-  />
+  <ActionProcessing :class="$style.preloader" />
 </div>
 </template>
 

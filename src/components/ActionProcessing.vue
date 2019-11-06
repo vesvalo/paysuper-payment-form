@@ -14,17 +14,35 @@ export default {
   props: {
     type: {
       type: String,
-      default: '3d-security',
+      default: 'simpleLoading',
       validator(value) {
-        return includes(['3d-security', 'no-content'], value);
+        return includes(['simpleLoading', 'systemSuccess', '3ds'], value);
       },
     },
-    icon: {
-      type: String,
-      default: 'card',
-      validator(value) {
-        return includes(['card', 'other'], value);
-      },
+  },
+
+  computed: {
+    types() {
+      return {
+        simpleLoading: {
+          title: this.$t('ActionProcessing.simpleLoading.title'),
+          iconComponent: 'IconProcessSecurity',
+          description: this.$t('ActionProcessing.simpleLoading.description'),
+        },
+        '3ds': {
+          title: this.$t('ActionProcessing.3ds.title'),
+          iconComponent: 'IconCardSecurity',
+          description: this.$t('ActionProcessing.3ds.description'),
+        },
+        systemSuccess: {
+          title: this.$t('ActionProcessing.systemSuccess.title'),
+          iconComponent: 'IconProcessSecurity',
+          description: this.$t('ActionProcessing.systemSuccess.description'),
+        },
+      };
+    },
+    content() {
+      return this.types[this.type];
     },
   },
 
@@ -56,32 +74,24 @@ export default {
 >
   <div :class="$style.actionProcessing">
     <div :class="$style.content">
-      <template v-if="type === '3d-security'">
-        <div :class="$style.icon">
-          <IconCardSecurity v-if="icon === 'card'" />
-          <IconProcessSecurity v-if="icon === 'other'" />
-        </div>
-        <div>
-          <h2
-            :class="$style.titleMain"
-            v-html="$t('ActionProcessing.title')"
-          >
-          </h2>
-        </div>
-        <div
-          :class="$style.description"
+      <div :class="$style.icon">
+        <component :is="content.iconComponent" />
+      </div>
+      <div>
+        <h2
+          :class="$style.titleMain"
+          v-html="content.title"
         >
-          <span
-            v-for="(chunk, index) in $t('ActionProcessing.description')"
-            v-html="chunk"
-            :key="index"
-          ></span>
-        </div>
-        <div :class="$style.preloader">
-          <UiSimplePreloader />
-        </div>
-      </template>
-      <UiSimplePreloader v-else />
+        </h2>
+      </div>
+      <div
+        :class="$style.description"
+        v-html="content.description"
+      >
+      </div>
+      <div :class="$style.preloader">
+        <UiSimplePreloader />
+      </div>
     </div>
   </div>
 </transition>

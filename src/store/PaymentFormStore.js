@@ -19,17 +19,11 @@ function getErrorCodeTranslation(code) {
     || noTranslationMessage;
 }
 
-const availableChannelStatuses = [
-  'COMPLETED', 'DECLINED',
-];
-
 const allowedPaymentStatuses = [
   // These ones are custom
   'INITIAL', 'FAILED_TO_BEGIN', 'NEW', 'BEFORE_CREATED',
   'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
-  'PROBABLY_COMPLETED',
-  // Those are from BE
-  ...availableChannelStatuses,
+  'SYSTEM_SUCCESS', 'COMPLETED', 'DECLINED',
 ];
 
 // See ActionResult.vue to understand how it looks
@@ -48,7 +42,7 @@ const actionResultsByStatus = {
   DECLINED(data) {
     return {
       type: 'customError',
-      message: getErrorCodeTranslation(data.decline.code),
+      message: getErrorCodeTranslation(data.code),
     };
   },
   INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
@@ -67,8 +61,8 @@ const actionResultsByStatus = {
 };
 
 const actionProcessingByStatus = {
-  BEFORE_CREATED: () => ({ type: '3d-security' }),
-  PROBABLY_COMPLETED: () => ({ type: 'no-content' }),
+  BEFORE_CREATED: () => ({ type: 'simpleLoading' }),
+  SYSTEM_SUCCESS: () => ({ type: 'systemSuccess' }),
   FAILED_TO_CREATE: () => null,
   INTERRUPTED: () => null,
   COMPLETED: () => null,
@@ -274,50 +268,39 @@ export default {
           options: state.options,
         },
       )
-        .init()
-        .on('newPaymentStatus', (data) => {
-          if (
-            // Just in case. Its probably unnecessary
-            data.order_id !== state.orderData.id
-            || !includes(availableChannelStatuses, data.status)
-          ) {
-            return;
-          }
-          paymentConnection.closeRedirectWindow();
-          setPaymentStatus(commit, data.status, data);
-
-          if (data.status === 'COMPLETED') {
-            const items = (get(state.orderData, 'items') || []).map((item, index) => ({
-              id: item.id,
-              name: item.name,
-              price: item.amount,
-              list_position: `${index + 1}`,
-              quantity: 1,
-            }));
-
-            gtagEvent('purchase', {
-              transaction_id: state.orderData.id,
-              currency: state.orderData.currency,
-              tax: state.orderData.vat,
-              items: items.length
-                ? items
-                : [{
-                  id: state.orderParams.project,
-                  name: 'Virtual Currency',
-                  price: `${state.orderData.amount}`,
-                  quantity: 1,
-                }],
-            });
-          }
-        })
         .on('redirectWindowClosedByUser', () => {
           setPaymentStatus(commit, 'INTERRUPTED');
         })
-        .on('reportSuccess', () => {
-          setPaymentStatus(commit, 'PROBABLY_COMPLETED');
+        .on('paymentDeclined', (data) => {
+          setPaymentStatus(commit, 'DECLINED', data);
         })
-        .on('reportFail', () => {
-          setPaymentStatus(commit, 'FAILED_TO_CREATE');
+        .on('paymentSystemSuccess', () => {
+          setPaymentStatus(commit, 'SYSTEM_SUCCESS');
+        })
+        .on('paymentCompleted', () => {
+          setPaymentStatus(commit, 'COMPLETED');
+
+          const items = (get(state.orderData, 'items') || []).map((item, index) => ({
+            id: item.id,
+            name: item.name,
+            price: item.amount,
+            list_position: `${index + 1}`,
+            quantity: 1,
+          }));
+
+          gtagEvent('purchase', {
+            transaction_id: state.orderData.id,
+            currency: state.orderData.currency,
+            tax: state.orderData.vat,
+            items: items.length
+              ? items
+              : [{
+                id: state.orderParams.project,
+                name: 'Virtual Currency',
+                price: `${state.orderData.amount}`,
+                quantity: 1,
+              }],
+          });
         });
 
       const request = {
@@ -358,7 +341,7 @@ export default {
           2000,
         );
       } catch (error) {
-        paymentConnection.closeRedirectWindow();
+        paymentConnection.closeRedirectWindow().disconnect();
 
         const errorData = get(error, 'response.data') || {};
 
@@ -470,11 +453,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-
-    tryToBeginAgain() {
-      postMessage('TRY_TO_BEGIN_AGAIN');
-      window.location.reload();
     },
   },
 };
