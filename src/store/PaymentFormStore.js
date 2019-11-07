@@ -1,7 +1,7 @@
 import axios from 'axios';
 import assert from 'assert';
 import {
-  filter, find, findIndex, get, includes,
+  reject, find, findIndex, get, includes,
 } from 'lodash-es';
 import i18n from '@/i18n';
 import { postMessage } from '../postMessage';
@@ -130,7 +130,17 @@ export default {
 
   mutations: {
     cards(state, value) {
-      state.cards = value;
+      // Example
+      // {
+      //   id: '5dbf183234a8da000131affc',
+      //   pan: '400000...0002',
+      //   card_holder: 'CARDHOLDER'
+      //   expire: {
+      //     month: '01',
+      //     year: '22',
+      //   },
+      // },
+      state.cards = value || [];
     },
     orderParams(state, value) {
       state.orderParams = value;
@@ -181,17 +191,6 @@ export default {
     async initState({ commit }, { orderParams, orderData, options }) {
       commit('options', options);
       commit('orderParams', orderParams);
-      // orderData.payment_methods[bankCardIndex].saved_cards = [
-      //   {
-      //     id: 23123,
-      //     pan: '3000000000434342',
-      //     expire: {
-      //       month: '01',
-      //       year: '22',
-      //     },
-      //   },
-      // ];
-      // commit('cards', orderData.payment_methods[bankCardIndex].saved_cards);
       commit('orderData', orderData);
       if (orderData.error) {
         setPaymentStatus(
@@ -202,10 +201,13 @@ export default {
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
+      const bankCardMethod = orderData.payment_methods[bankCardIndex];
+      commit('activePaymentMethodId', bankCardMethod.id);
+      commit('cards', bankCardMethod.saved_cards);
+
       if (orderData.platforms) {
         commit('currentPlatformId', orderData.platforms[0].id);
       }
-      commit('activePaymentMethodId', orderData.payment_methods[bankCardIndex].id);
 
       setGeoParams(commit, orderData);
       setPaymentStatus(commit, 'NEW');
@@ -248,7 +250,7 @@ export default {
       state, rootState, commit,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
-      country, city, zip,
+      country, city, zip, cardDataType, savedCardId,
     }) {
       setPaymentStatus(commit, 'BEFORE_CREATED');
 
@@ -295,15 +297,19 @@ export default {
           });
         });
 
+      const month = expiryDate.slice(0, 2);
+      const year = expiryDate.slice(2, 4);
       const request = {
         email,
-        cvv,
-        month: expiryDate.slice(0, 2),
-        year: expiryDate.slice(2, 4),
-        // https://protocolone.tpondemand.com/restui/board.aspx?#page=userstory/192384
-        card_holder: 'Cardholder',
+        ...(
+          cardDataType === 'saved'
+            ? { stored_card_id: savedCardId }
+            : {
+              // https://protocolone.tpondemand.com/restui/board.aspx?#page=userstory/192384
+              cvv, month, year, pan: cardNumber, card_holder: 'Cardholder',
+            }
+        ),
         order_id: state.orderData.id,
-        pan: cardNumber,
         payment_method_id: state.activePaymentMethodId,
         store_data: hasRemembered,
         ewallet,
@@ -348,11 +354,17 @@ export default {
         );
       }
     },
-    removeCard({ commit, state }, cardNumber) {
-      const cards = filter(state.cards, card => card.cardNumber !== cardNumber);
-      commit('cards', cards);
-      localStorage.setItem('cards', JSON.stringify(cards));
-
+    async removeCard({ commit, state }, id) {
+      try {
+        await axios.post(
+          '/order/remove_saved_card',
+          { id },
+        );
+        const cards = reject(state.cards, { id });
+        commit('cards', cards);
+      } catch (error) {
+        console.error(error);
+      }
       gtagEvent('removeRememberedCard', { event_category: 'userAction' });
     },
 

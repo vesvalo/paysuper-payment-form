@@ -5,10 +5,12 @@
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
+import webfontloader from 'webfontloader';
 import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
 import '@/plugins/vuelidate';
+import '@/plugins/computedStyles';
 import store from '@/store/RootStore';
 import i18n from '@/i18n';
 import { postMessage, receiveMessages } from '@/postMessage';
@@ -100,6 +102,11 @@ async function mountApp(customOptions = {}) {
     store,
     i18n,
     created() {
+      webfontloader.load({
+        google: {
+          families: ['PT Mono'],
+        },
+      });
       this.$changeLocale(options.language);
 
       gtagSet({

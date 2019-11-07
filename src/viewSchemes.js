@@ -26,6 +26,17 @@ export default {
     cartSelectedIconsColor: '#fff',
 
     formBackgroundColor: '#424c66',
+    formLabelColor: 'rgba(255, 255, 255, 0.5)',
+
+    savedCardsBackgroundColor: '#525f80',
+    savedCardsTextColor: '#fff',
+    savedCardsSelectedBackgroundColor: '#fff',
+    savedCardsSelectedTextColor: '#32394D',
+    savedCardsSwitchColor: '#05D699',
+    savedCardsCheckIconColor: '#05D699',
+    savedCardsDeleteBackgroundColor: '#7A5B62',
+    savedCardsDeleteTextColor: '#fc7e57',
+    savedCardsDeleteIconColor: '#b3b7c2',
 
     localeChangerModalBorderColor: 'rgba(255, 255, 255, 0.2)',
     localeChangerModalBoxColor: '#333b50',
@@ -67,7 +78,6 @@ export default {
     inputFocusBorderColor: '#06eaa7',
     inputFocusLabelColor: 'rgba(255, 255, 255, 0.3)',
     inputHoverBorderColor: 'rgba(255, 255, 255, 0.5)',
-    inputLabelColor: 'rgba(255, 255, 255, 0.5)',
 
     selectBorderColor: 'rgba(255, 255, 255, 0.2)',
     selectBoxColor: 'transparent',
@@ -82,8 +92,6 @@ export default {
     errorBorderColor: '#fc7e57',
     errorBoxColor: '#fc7e57',
     errorColor: '#fff',
-
-    cardSelectAddCardColor: '#fff',
 
     tipCartBoxColor: '#424c66',
     tipContentColor: 'rgba(255, 255, 255, 0.5)',
@@ -142,6 +150,17 @@ export default {
     cartSelectedIconsColor: '#202226',
 
     formBackgroundColor: '#fff',
+    formLabelColor: 'rgba(32, 34, 38, 0.4)',
+
+    savedCardsBackgroundColor: '#f3f3f3',
+    savedCardsTextColor: '#202226',
+    savedCardsSelectedBackgroundColor: '#5b88de',
+    savedCardsSelectedTextColor: '#fff',
+    savedCardsSwitchColor: '#05D699',
+    savedCardsCheckIconColor: '#fff',
+    savedCardsDeleteBackgroundColor: '#f1dee2',
+    savedCardsDeleteTextColor: '#ca5833',
+    savedCardsDeleteIconColor: '#c3c3c3',
 
     localeChangerModalBorderColor: 'rgba(194, 194, 196, 0.5)',
     localeChangerModalBoxColor: '#f3f3f3',
@@ -183,7 +202,6 @@ export default {
     inputFocusBorderColor: '#06eaa7',
     inputFocusLabelColor: 'rgba(0, 0, 0, 0.3)',
     inputHoverBorderColor: 'rgba(194, 194, 196, 0.8)',
-    inputLabelColor: 'rgba(32, 34, 38, 0.4)',
 
     selectBorderColor: 'rgba(194, 194, 196, 0.5)',
     selectBoxColor: 'transparent',
@@ -198,8 +216,6 @@ export default {
     errorBorderColor: '#fc7e57',
     errorBoxColor: '#fc7e57',
     errorColor: '#fff',
-
-    cardSelectAddCardColor: '#202226',
 
     tipCartBoxColor: '#5b88de',
     tipContentColor: 'rgba(255, 255, 255, 0.5)',

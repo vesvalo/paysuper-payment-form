@@ -56,19 +56,6 @@
   },
   "FormSection": {
     "prependLabel": "Тип оплаты:",
-    "card": "Карта",
-    "neteller": "Neteller",
-    "alipay": "Alipay",
-    "bitcoin": "Bitcoin",
-    "paypal": "PayPal",
-    "yandex": "Yandex.Money",
-    "amazon": "Amazon Pay",
-    "union": "Union Pay",
-    "jcb": "JCB",
-    "wechat": "Wechat Pay",
-    "qiwi": "QIWI",
-    "webmoney": "Webmoney",
-    "btc": "BTC",
     "cvv": "CVC/CVV",
     "email": "Email",
     "emailInvalid": "Неверный email",
@@ -123,10 +110,6 @@
   "UiCardField": {
     "cardNumber": "Номер карты"
   },
-  "UiCardSelect": {
-    "anotherCard": "Другая карта",
-    "cardNumber": "Номер карты"
-  },
   "UiSelectOption": {
     "remove": "Удалить"
   },
@@ -134,5 +117,14 @@
     "title": "Нам очень жаль, но мы не смогли создать заказ для оплаты",
     "tryAgain": "ПОПРОБОВАТЬ СНОВА",
     "unknownError": "Эта ошибка случается 1 раз из 10 000!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Сохранённые карты",
+    "deletingCard": "Удаляем карту",
+    "undo": "Отмена"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Сохранённые карты",
+    "anotherWayToPay": "Другой способ оплаты"
   }
 }
