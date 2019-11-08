@@ -438,7 +438,7 @@ export default {
   width: 100%;
   height: 100%;
   flex-grow: 1;
-  padding: 0 40px 20px;
+  padding: 0 20px 20px;
 
   .formSection._isPage & {
     padding: 20px 0px 20px;
