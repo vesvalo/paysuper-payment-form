@@ -354,10 +354,10 @@ export default {
         );
       }
     },
-    async removeCard({ commit, state }, id) {
+    async removeCard({ commit, state, rootState }, id) {
       try {
         await axios.post(
-          '/order/remove_saved_card',
+          `/order/remove_saved_card?apiUrl=${rootState.apiUrl}`,
           { id },
         );
         const cards = reject(state.cards, { id });
