@@ -41,9 +41,10 @@ export default {
   },
   methods: {
     update() {
-      this.$nextTick(() => {
+      // Next tick is not enough in FF
+      setTimeout(() => {
         this.$refs.scrollbar.update();
-      });
+      }, 0);
     },
   },
 };
