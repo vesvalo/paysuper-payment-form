@@ -75,26 +75,25 @@
       :errorText="$t('FormSectionBankCard.countryInvalid')"
       tabindex="6"
     />
-    <template v-if="isCityAndZipRequired">
-      <UiTextField
-        v-model="innerValue.city"
-        name="city"
-        :class="$style.formItem"
-        :label="$t('FormSectionBankCard.city')"
-        :hasError="$isFieldInvalid('innerValue.city')"
-        :errorText="$t('FormSectionBankCard.cityInvalid')"
-        tabindex="7"
-      />
-      <UiTextField
-        v-model="innerValue.zip"
-        name="zip"
-        :class="$style.formItem"
-        :label="$t('FormSectionBankCard.zip')"
-        :hasError="$isFieldInvalid('innerValue.zip')"
-        :errorText="$t('FormSectionBankCard.zipInvalid')"
-        tabindex="8"
-      />
-    </template>
+    <!-- <UiTextField
+      v-model="innerValue.city"
+      name="city"
+      :class="$style.formItem"
+      :label="$t('FormSectionBankCard.city')"
+      :hasError="$isFieldInvalid('innerValue.city')"
+      :errorText="$t('FormSectionBankCard.cityInvalid')"
+      tabindex="7"
+    /> -->
+    <UiTextField
+      v-if="isZipRequired"
+      v-model="innerValue.zip"
+      name="zip"
+      :class="$style.formItem"
+      :label="$t('FormSectionBankCard.zip')"
+      :hasError="$isFieldInvalid('innerValue.zip')"
+      :errorText="$t('FormSectionBankCard.zipInvalid')"
+      tabindex="8"
+    />
   </template>
 
   <div
@@ -225,7 +224,7 @@ export default {
   },
 
   computed: {
-    isCityAndZipRequired() {
+    isZipRequired() {
       return this.innerValue.country === 'US';
     },
   },
@@ -280,7 +279,7 @@ export default {
           required,
         },
       };
-      if (this.isCityAndZipRequired) {
+      if (this.isZipRequired) {
         innerValue = {
           ...innerValue,
           city: {

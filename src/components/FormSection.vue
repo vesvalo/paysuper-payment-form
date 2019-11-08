@@ -153,6 +153,15 @@ export default {
       },
       immediate: true,
     },
+    userIpGeoData: {
+      handler(value) {
+        if (value) {
+          this.paymentData.country = value.country;
+        }
+      },
+      immediate: true,
+    },
+
   },
 
   validations() {
@@ -182,9 +191,6 @@ export default {
 
   created() {
     this.paymentData.email = this.orderData.email;
-    if (this.userIpGeoData) {
-      this.paymentData.country = this.userIpGeoData.country;
-    }
   },
 
   methods: {
