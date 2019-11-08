@@ -282,9 +282,9 @@ export default {
       if (this.isZipRequired) {
         innerValue = {
           ...innerValue,
-          city: {
-            required,
-          },
+          // city: {
+          //   required,
+          // },
           zip: {
             required,
             wrongValue() {
