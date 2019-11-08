@@ -45,37 +45,33 @@ export default {
         email: '',
         ewallet: '',
         crypto: '',
+        cardDataType: 'saved',
+        savedCardId: '',
       },
 
-      paymentMethodOptions: {
+      paymentMethodGroups: {
         BANKCARD: {
-          label: 'FormSection.card',
           iconComponent: 'IconCard',
         },
         NETELLER: {
-          label: 'FormSection.neteller',
           iconComponent: 'IconCard',
         },
         ALIPAY: {
-          label: 'FormSection.alipay',
           iconComponent: 'IconCard',
-          types: {
-            ewallet: {
-              iconComponent: 'IconCard',
-            },
-          },
         },
         BITCOIN: {
-          label: 'FormSection.bitcoin',
           iconComponent: 'IconCard',
         },
         QIWI: {
-          label: 'FormSection.qiwi',
           iconComponent: 'IconQiwi',
         },
         WEBMONEY: {
-          label: 'FormSection.webmoney',
           iconComponent: 'IconWebmoney',
+        },
+      },
+      paymentMethodTypes: {
+        ewallet: {
+          iconComponent: 'IconCard',
         },
       },
 
@@ -103,15 +99,17 @@ export default {
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
-        const group = this.paymentMethodOptions[item.group_alias];
-        if (!group) {
-          return null;
-        }
-        const type = group.types ? group.types[item.type] : null;
+        const group = this.paymentMethodGroups[item.group_alias];
+        const type = this.paymentMethodTypes[item.type];
+        const config = {
+          label: item.name,
+          ...(type || {}),
+          ...(group || {}),
+        };
         return {
           value: item.id,
-          label: this.$i18n.t(get(type, 'label') || get(group, 'label')),
-          iconComponent: get(type, 'iconComponent') || get(group, 'iconComponent'),
+          label: this.$i18n.t(get(config, 'label')),
+          iconComponent: get(config, 'iconComponent'),
         };
       });
     },
@@ -143,6 +141,17 @@ export default {
 
     platformInstructionLink() {
       return geInstructionLinkByPlatform(this.currentPlatformId);
+    },
+  },
+
+  watch: {
+    cards: {
+      handler(value) {
+        if (!value.length) {
+          this.paymentData.cardDataType = 'manual';
+        }
+      },
+      immediate: true,
     },
   },
 

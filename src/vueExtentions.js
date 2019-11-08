@@ -15,15 +15,17 @@ function objectToCss(obj) {
   return reduce(obj, (result, value, key) => `${result}${key}:${value};`, '');
 }
 
-function $addCssRules(rules) {
+// eslint-disable-next-line import/prefer-default-export
+export function $addCssRules(rules) {
   let styles = '';
   const styleElement = document.createElement('style');
   styleElement.type = 'text/css';
 
   forEach(rules, (rule, selector) => {
+    const computedSelector = selector.replace(/{([A-Za-z0-9-_]+)}/g, (a, name) => this.$style[name]);
     if (!isEmpty(rule)) {
       const css = objectToCss(rule);
-      styles += `${selector}{${css}}`;
+      styles += `${computedSelector}{${css}}`;
     }
   });
 

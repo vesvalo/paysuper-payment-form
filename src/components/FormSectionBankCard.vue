@@ -1,53 +1,57 @@
 <template>
 <div :class="[$style.formSectionBankCard]">
-  <UiCardSelect
-    v-if="hasCardsInStorage && !anotherCard"
-    v-model="innerValue.cardNumber"
-    :class="$style.formItem"
+  <FormSectionSavedCards
+    v-if="innerValue.cardDataType === 'saved'"
     :cards="cards"
-    :hasError="$isFieldInvalid('innerValue.cardNumber')"
-    :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-    @anotherCard="anotherCard = true"
-    @removeCard="$emit('removeCard', $event)"
+    v-model="innerValue.savedCardId"
+    @remove="$emit('removeCard', $event)"
   />
-  <UiCardField
-    v-else
-    v-model="innerValue.cardNumber"
-    ref="cardNumberField"
-    name="pan"
-    autocomplete="cc-number"
-    type="tel"
-    tabindex="2"
-    :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
-    :hasError="$isFieldInvalid('innerValue.cardNumber')"
-    :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-    @input="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
-  />
-  <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
-    <UiTextField
-      v-model="innerValue.expiryDate"
-      ref="expiryDateField"
-      name="cc-exp"
-      mask="##/##"
+  <template v-if="innerValue.cardDataType === 'manual'">
+    <UiCardField
+      v-model="innerValue.cardNumber"
+      ref="cardNumberField"
+      name="pan"
+      autocomplete="cc-number"
       type="tel"
-      autocomplete="cc-exp"
-      tabindex="3"
-      :class="$style.expiry"
-      :hasError="$isFieldInvalid('innerValue.expiryDate')"
-      :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
-      :label="$t('FormSectionBankCard.expiryDate')"
-      @input="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
-      @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
+      tabindex="2"
+      :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
+      :hasError="$isFieldInvalid('innerValue.cardNumber')"
+      :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
+      @input="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
     />
-    <UiCvvField
-      v-model="innerValue.cvv"
-      ref="cvvField"
-      tabindex="4"
-      :hasError="$isFieldInvalid('innerValue.cvv')"
-      @input="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
-      @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
-    />
-  </div>
+    <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
+      <UiTextField
+        v-model="innerValue.expiryDate"
+        ref="expiryDateField"
+        name="cc-exp"
+        mask="##/##"
+        type="tel"
+        autocomplete="cc-exp"
+        tabindex="3"
+        :class="$style.expiry"
+        :hasError="$isFieldInvalid('innerValue.expiryDate')"
+        :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
+        :label="$t('FormSectionBankCard.expiryDate')"
+        @input="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
+        @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
+      />
+      <UiCvvField
+        v-model="innerValue.cvv"
+        ref="cvvField"
+        tabindex="4"
+        :hasError="$isFieldInvalid('innerValue.cvv')"
+        @input="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
+        @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
+      />
+    </div>
+  </template>
+
+  <SavedCardToPlainFieldsSwitch
+    v-if="cards.length"
+    v-model="innerValue.cardDataType"
+    @change="focusCardNumberField"
+  />
+
   <UiTextField
     v-model="innerValue.email"
     ref="emailField"
@@ -94,7 +98,7 @@
   </template>
 
   <div
-    v-if="!hasCardsInStorage || anotherCard"
+    v-if="innerValue.cardDataType === 'manual'"
     :class="[$style.formItem, $style.remember]"
   >
     <UiCheckbox
@@ -131,6 +135,8 @@ import {
 } from 'vuelidate/lib/validators';
 import { toInteger, extend, forEach } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
+import FormSectionSavedCards from '@/components/FormSectionSavedCards.vue';
+import SavedCardToPlainFieldsSwitch from '@/components/SavedCardToPlainFieldsSwitch.vue';
 
 function isValidExpiryDate(date) {
   if (date.length < 2) {
@@ -161,6 +167,11 @@ function isValidExpiryDate(date) {
 
 export default {
   name: 'FormSectionBankCard',
+
+  components: {
+    FormSectionSavedCards,
+    SavedCardToPlainFieldsSwitch,
+  },
 
   props: {
     cardNumberValidator: {
@@ -208,16 +219,12 @@ export default {
   data() {
     return {
       innerValue: extend({}, this.value),
-      anotherCard: false,
       isCvvInfoShown: false,
       isRememberInfoShown: false,
     };
   },
 
   computed: {
-    hasCardsInStorage() {
-      return this.cards.length;
-    },
     isCityAndZipRequired() {
       return this.innerValue.country === 'US';
     },
@@ -234,23 +241,37 @@ export default {
 
   validations() {
     let innerValue = {
-      cardNumber: {
-        required,
-        wrongFormatType(value) {
-          return this.cardNumberValidator.test(value);
-        },
-      },
-      expiryDate: { required, isValidExpiryDate },
-      cvv: {
-        required,
-        minLength: minLength(3),
-        maxLength: maxLength(4),
-      },
       email: {
         required,
         email,
       },
     };
+    if (this.innerValue.cardDataType === 'saved') {
+      innerValue = {
+        ...innerValue,
+        savedCardId: {
+          required,
+        },
+      };
+    }
+    if (this.innerValue.cardDataType === 'manual') {
+      innerValue = {
+        ...innerValue,
+        cardNumber: {
+          required,
+          wrongFormatType(value) {
+            return this.cardNumberValidator.test(value);
+          },
+        },
+        expiryDate: { required, isValidExpiryDate },
+        cvv: {
+          required,
+          minLength: minLength(3),
+          maxLength: maxLength(4),
+        },
+      };
+    }
+
 
     if (this.isGeoFieldsExposed) {
       innerValue = {
@@ -290,7 +311,9 @@ export default {
   methods: {
     focusCardNumberField() {
       this.$nextTick(() => {
-        this.$refs.cardNumberField.focus();
+        if (this.$refs.cardNumberField) {
+          this.$refs.cardNumberField.focus();
+        }
       });
     },
     moveFocusToFieldOnComplete(fieldValueName, length, nextField) {

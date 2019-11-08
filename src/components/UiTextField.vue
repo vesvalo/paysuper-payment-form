@@ -193,7 +193,7 @@ export default {
         'border-color': this.$gui.errorBorderColor,
       },
       [`.${this.labelClass}`]: {
-        color: this.$gui.inputLabelColor,
+        color: this.$gui.formLabelColor,
       },
       [`.${this.errorClass}`]: {
         'background-color': this.$gui.errorBoxColor,

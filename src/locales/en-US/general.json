@@ -56,19 +56,6 @@
   },
   "FormSection": {
     "prependLabel": "Pay with",
-    "card": "Card",
-    "neteller": "Neteller",
-    "alipay": "Alipay",
-    "bitcoin": "Bitcoin",
-    "paypal": "PayPal",
-    "yandex": "Yandex.Money",
-    "amazon": "Amazon Pay",
-    "union": "Union Pay",
-    "jcb": "JCB",
-    "wechat": "Wechat Pay",
-    "qiwi": "QIWI",
-    "webmoney": "Webmoney",
-    "btc": "BTC",
     "cvv": "CVC/CVV",
     "email": "Email to receive the purchase",
     "emailInvalid": "Email is invalid",
@@ -123,10 +110,6 @@
   "UiCardField": {
     "cardNumber": "Card number"
   },
-  "UiCardSelect": {
-    "anotherCard": "Another card",
-    "cardNumber": "Card number"
-  },
   "UiSelectOption": {
     "remove": "Delete"
   },
@@ -134,5 +117,14 @@
     "title": "We're sorry, but we could not create the order to make payment",
     "tryAgain": "TRY AGAIN",
     "unknownError": "This error occurs in 1 case out of 10 000!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Pay with Saved cards",
+    "deletingCard": "Deleting the card",
+    "undo": "Undo"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Pay with saved cards",
+    "anotherWayToPay": "Another way to pay"
   }
 }
