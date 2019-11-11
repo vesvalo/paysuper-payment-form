@@ -1,37 +1,6 @@
-<template>
-<div :class="$style.footer">
-  <div :class="$style.left"></div>
-  <div :class="$style.right">
-    <div :class="$style.links">
-      <div
-        v-if="isLoading"
-        :class="$style.stub"
-      >
-        <span></span>
-      </div>
-      <template v-else>
-        <a
-          :class="$style.link"
-          href="https://pay.super.com/policy/eula"
-          target="_blank"
-        >
-          {{$t('LayoutFooter.userAgreement')}}
-        </a>
-        <a
-          :class="$style.link"
-          href="http://help.pay.super.com"
-          target="_blank"
-          @click="fireAnalyticsEvent('Support')"
-        >
-          {{$t('LayoutFooter.support')}}
-        </a>
-      </template>
-    </div>
-  </div>
-</div>
-</template>
-
 <script>
+import { gtagEvent } from '@/analytics';
+
 export default {
   name: 'LayoutFooter',
 
@@ -68,8 +37,47 @@ export default {
       },
     });
   },
+
+  methods: {
+    fireAnalyticsEvent(elementName) {
+      gtagEvent(`click${elementName}Link`, { event_category: 'userAction' });
+    },
+  },
 };
 </script>
+
+<template>
+<div :class="$style.footer">
+  <div :class="$style.left"></div>
+  <div :class="$style.right">
+    <div :class="$style.links">
+      <div
+        v-if="isLoading"
+        :class="$style.stub"
+      >
+        <span></span>
+      </div>
+      <template v-else>
+        <a
+          :class="$style.link"
+          href="https://pay.super.com/policy/eula"
+          target="_blank"
+        >
+          {{$t('LayoutFooter.userAgreement')}}
+        </a>
+        <a
+          :class="$style.link"
+          href="http://help.pay.super.com"
+          target="_blank"
+          @click="fireAnalyticsEvent('Support')"
+        >
+          {{$t('LayoutFooter.support')}}
+        </a>
+      </template>
+    </div>
+  </div>
+</div>
+</template>
 
 <style module lang="scss">
 .footer {

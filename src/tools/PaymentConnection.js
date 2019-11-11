@@ -42,7 +42,9 @@ export default class PaymentConnection extends Events.EventEmitter {
     });
     this.centrifuge.connect();
 
-    this.redirectWindow = this.window.open(formLoadingPageUrl, '_blank');
+    // Its important to open the window with empty url first. Sup IE11
+    this.redirectWindow = this.window.open('', '_blank');
+    this.setRedirectWindowLocation(formLoadingPageUrl);
     this.redirectWindowClosedInterval = setInterval(() => {
       if (this.redirectWindow.closed) {
         this.emit('redirectWindowClosedByUser');
@@ -72,6 +74,11 @@ export default class PaymentConnection extends Events.EventEmitter {
     clearInterval(this.redirectWindowClosedInterval);
     this.redirectWindow.close();
     return this;
+  }
+
+  completePayment() {
+    this.emit('paymentCompleted');
+    this.closeRedirectWindow().disconnect();
   }
 
   setRedirectWindowLocation(location) {

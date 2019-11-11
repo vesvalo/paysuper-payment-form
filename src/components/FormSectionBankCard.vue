@@ -17,7 +17,7 @@
       :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
       :hasError="$isFieldInvalid('innerValue.cardNumber')"
       :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-      @input="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
+      @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <UiTextField
@@ -32,7 +32,7 @@
         :hasError="$isFieldInvalid('innerValue.expiryDate')"
         :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
         :label="$t('FormSectionBankCard.expiryDate')"
-        @input="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
+        @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
         @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
       />
       <UiCvvField
@@ -40,7 +40,7 @@
         ref="cvvField"
         tabindex="4"
         :hasError="$isFieldInvalid('innerValue.cvv')"
-        @input="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
+        @keyup.native="moveFocusToFieldOnComplete('cvv', 3, 'emailField')"
         @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
       />
     </div>
