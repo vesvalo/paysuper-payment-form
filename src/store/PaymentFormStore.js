@@ -338,7 +338,7 @@ export default {
             if (data.need_redirect) {
               paymentConnection.setRedirectWindowLocation(data.redirect_url);
             } else {
-              paymentConnection.completePayment();
+              paymentConnection.closeRedirectWindow();
             }
           },
           2000,

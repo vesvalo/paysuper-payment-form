@@ -76,11 +76,6 @@ export default class PaymentConnection extends Events.EventEmitter {
     return this;
   }
 
-  completePayment() {
-    this.emit('paymentCompleted');
-    this.closeRedirectWindow().disconnect();
-  }
-
   setRedirectWindowLocation(location) {
     this.redirectWindow.location = location;
     return this;
