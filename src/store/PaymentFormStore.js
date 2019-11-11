@@ -333,10 +333,13 @@ export default {
             request,
           ),
           ({ data }) => {
+            setPaymentStatus(commit, 'CREATED');
+
             if (data.need_redirect) {
               paymentConnection.setRedirectWindowLocation(data.redirect_url);
+            } else {
+              paymentConnection.completePayment();
             }
-            setPaymentStatus(commit, 'CREATED');
           },
           2000,
         );
