@@ -9,6 +9,13 @@ const apiUrlMap = {
 };
 export const apiUrl = apiUrlMap[buildPurpose] || apiUrlMap.dev;
 
+const postMessageOriginMap = {
+  dev: 'http://localhost:8080',
+  test: 'https://paysupermgmt.tst.protocol.one',
+  release: 'https://dashboard.pay.super.com',
+};
+export const postMessageOrigin = postMessageOriginMap[buildPurpose] || postMessageOriginMap.dev;
+
 const formLoadingPageUrlMap = {
   dev: 'http://localhost:8080/order?loading=true',
   test: 'https://paysupermgmt.tst.protocol.one/order?loading=true',

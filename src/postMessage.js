@@ -1,5 +1,6 @@
 import assert from 'assert';
 import { includes, get } from 'lodash-es';
+import { postMessageOrigin } from '@/constants';
 
 export const paysuperSdkSourceName = 'PAYSUPER_JS_SDK';
 export const paysuperFormSourceName = 'PAYSUPER_PAYMENT_FORM';
@@ -35,7 +36,7 @@ export function postMessage(name, data = {}) {
     source: paysuperFormSourceName,
     name,
     data,
-  }, '*');
+  }, postMessageOrigin);
 }
 
 export function receiveMessages(from, objectWithCallbacks) {
