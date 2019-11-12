@@ -18,6 +18,7 @@ export default class PaymentConnection extends Events.EventEmitter {
     this.redirectWindow = null;
     this.redirectWindowClosedInterval = null;
     this.isSystemSuccess = false;
+    this.isNormallyDisconnected = false;
     this.systemSuccessTimeout = null;
     this.init();
   }
@@ -39,6 +40,13 @@ export default class PaymentConnection extends Events.EventEmitter {
       }
       clearTimeout(this.systemSuccessTimeout);
       this.disconnect();
+    });
+    this.centrifuge.on('disconnect', () => {
+      if (this.isNormallyDisconnected) {
+        return;
+      }
+      this.emit('paymentFailed');
+      this.closeRedirectWindow().disconnect();
     });
     this.centrifuge.connect();
 
@@ -66,6 +74,7 @@ export default class PaymentConnection extends Events.EventEmitter {
   }
 
   disconnect() {
+    this.isNormallyDisconnected = true;
     this.centrifuge.disconnect();
     return this;
   }

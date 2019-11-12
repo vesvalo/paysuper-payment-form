@@ -268,6 +268,9 @@ export default {
         .on('paymentDeclined', (data) => {
           setPaymentStatus(commit, 'DECLINED', data);
         })
+        .on('paymentFailed', (data) => {
+          setPaymentStatus(commit, 'FAILED_TO_CREATE', data);
+        })
         .on('paymentSystemSuccess', () => {
           setPaymentStatus(commit, 'SYSTEM_SUCCESS');
         })

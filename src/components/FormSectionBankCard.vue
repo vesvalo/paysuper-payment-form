@@ -317,7 +317,7 @@ export default {
       }
     },
     moveFocusBackOnEmpty(fieldValueName, prevField) {
-      if (this.innerValue[fieldValueName].length === 0) {
+      if (this.$refs[prevField] && this.innerValue[fieldValueName].length === 0) {
         this.$refs[prevField].focus();
       }
     },
