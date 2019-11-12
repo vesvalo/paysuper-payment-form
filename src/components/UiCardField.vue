@@ -45,6 +45,16 @@ export default {
     cardType() {
       return getCardSystemType(this.innerValue);
     },
+    inputBindProps() {
+      return {
+        tabindex: this.tabindex,
+        disabled: this.disabled,
+        required: this.required,
+        errorText: this.errorText,
+        hasError: this.hasError,
+        ...this.$attrs,
+      };
+    },
   },
   methods: {
     cardChange(value) {
@@ -66,7 +76,7 @@ export default {
 <div :class="$style.container">
   <UiTextField
     v-model="innerValue"
-    v-bind="{ tabindex, required, disabled, errorText, hasError, ...$attrs }"
+    v-bind="inputBindProps"
     ref="textField"
     mask="#### #### #### ####"
     :label="$t('UiCardField.cardNumber')"

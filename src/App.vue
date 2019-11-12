@@ -224,7 +224,7 @@ export default {
     }
 
     .orderCreationError {
-      position: fixed;
+      position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
@@ -238,6 +238,10 @@ export default {
       width: 100vw;
       display: flex;
       flex-direction: column;
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        height: 100vh;
+      }
     }
   }
 }

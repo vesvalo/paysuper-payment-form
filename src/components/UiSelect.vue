@@ -3,11 +3,9 @@
   v-clickaway="blur"
   :class="selectClasses"
 >
-  <div
-    :class="$style.wrapper"
-    @click="focused ? blur() : focus()"
-  >
+  <div :class="$style.wrapper">
     <div
+      @click="focused ? blur() : focus()"
       :class="[
         $style.selected,
         { [$style._focused]: focused },
@@ -262,8 +260,7 @@ export default {
     },
     selectOption(value) {
       this.setSelectValue(value);
-      this.focused = false;
-      this.$emit('blur');
+      this.blur();
       this.$emit('input', value);
       this.$refs.input.focus();
     },
