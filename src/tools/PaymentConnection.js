@@ -17,7 +17,7 @@ export default class PaymentConnection extends Events.EventEmitter {
 
     this.redirectWindow = null;
     this.redirectWindowClosedInterval = null;
-    this.isSystemSuccess = false;
+    this.isPaymentFinished = false;
     this.isNormallyDisconnected = false;
     this.systemSuccessTimeout = null;
     this.init();
@@ -64,10 +64,11 @@ export default class PaymentConnection extends Events.EventEmitter {
       PAYMENT_RESULT_PAGE_REPORT: ({ result }) => {
         if (result === 'success') {
           this.reportSystemSuccess();
-          this.closeRedirectWindow();
         }
-        // result "fail" is always equal with DECLINED status from centrifuge
-        // no need to handle it explicitly
+        if (result === 'fail') {
+          this.reportDecline();
+        }
+        this.closeRedirectWindow();
       },
     });
     return this;
@@ -91,11 +92,11 @@ export default class PaymentConnection extends Events.EventEmitter {
   }
 
   reportSystemSuccess() {
-    if (this.isSystemSuccess) {
-      return;
+    if (this.isPaymentFinished) {
+      return this;
     }
     this.emit('paymentSystemSuccess');
-    this.isSystemSuccess = true;
+    this.isPaymentFinished = true;
 
     const oneMinute = 60 * 1000;
     this.systemSuccessTimeout = setTimeout(() => {
@@ -104,5 +105,21 @@ export default class PaymentConnection extends Events.EventEmitter {
       });
       this.disconnect();
     }, oneMinute * 2);
+
+    return this;
+  }
+
+  reportDecline() {
+    if (this.isPaymentFinished) {
+      return this;
+    }
+
+    this.emit('paymentDeclined', {
+      code: 'ps*',
+    });
+    this.disconnect();
+    this.isPaymentFinished = true;
+
+    return this;
   }
 }

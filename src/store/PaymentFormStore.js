@@ -337,11 +337,10 @@ export default {
           ),
           ({ data }) => {
             setPaymentStatus(commit, 'CREATED');
-
             if (data.need_redirect) {
               paymentConnection.setRedirectWindowLocation(data.redirect_url);
             } else {
-              paymentConnection.closeRedirectWindow();
+              paymentConnection.reportSystemSuccess().closeRedirectWindow();
             }
           },
           2000,
@@ -362,10 +361,10 @@ export default {
         );
       }
     },
-    async removeCard({ commit, state, rootState }, id) {
+    async removeCard({ commit, state }, id) {
       try {
         await axios.post(
-          `/order/remove_saved_card?apiUrl=${rootState.apiUrl}`,
+          '/order/remove_saved_card',
           { id },
         );
         const cards = reject(state.cards, { id });
