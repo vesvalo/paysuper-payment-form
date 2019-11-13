@@ -98,13 +98,12 @@ export default class PaymentConnection extends Events.EventEmitter {
     this.emit('paymentSystemSuccess');
     this.isPaymentFinished = true;
 
-    const oneMinute = 60 * 1000;
     this.systemSuccessTimeout = setTimeout(() => {
       this.emit('paymentDeclined', {
         code: 'ps*',
       });
       this.disconnect();
-    }, oneMinute * 2);
+    }, 1000 * 45);
 
     return this;
   }
