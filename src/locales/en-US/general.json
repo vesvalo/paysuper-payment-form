@@ -1,89 +1,89 @@
 {
   "ActionProcessing": {
     "simpleLoading": {
-      "title": "Don't go away, <br/>we are processing your payment",
-      "description": "Please wait until the payment is successfully completed. <br/>In most cases it doesn't take more than several seconds."
+      "title": "Please wait.<br/>We are processing your payment.",
+      "description": "Please wait until the payment has been completed successfully.<br/>This usually only takes a few seconds."
     },
     "3ds": {
-      "title": "You will now be redirected<br>to the bank site for passing 3d security",
-      "description": "After passing the 3d security, the status of receiving money may <br>come with delay,  it depends directly on the bank you use for payment."
+      "title": "You will now be redirected<br>to your bank's website to confirm 3-D&nbspSecure protection.",
+      "description": "There may be a delay between passing the 3-D&nbspSecure check<br>and receiving the payment. It depends on the bank you used for payment."
     },
     "systemSuccess": {
-      "title": "We've got initial success response <br>from your payment provider",
-      "description": "Wait a little before a final decision comes. Sometimes payment systems <br>may stuck for a while due to technical reasons."
+      "title": "Your payment provider<br>has provided a successful initial response.",
+      "description": "The final decision will be made soon. Please be patient. <br>Payment systems sometimes experience delays for technical reasons."
     }
   },
   "ActionResult": {
     "noMoneyError": {
       "title": "Declined",
-      "subtitle": "You haven’t enough money",
-      "description": "Please go back<br>and try another payment method"
+      "subtitle": "Insufficient funds.",
+      "description": "Please go back<br>and try another method of payment."
     },
     "unknownError": {
-      "title": "Bad luck",
-      "subtitle": "An error has occured",
-      "description": "This error occurs<br> in 1 case out of 10 000!"
+      "title": "Too bad!",
+      "subtitle": "An error occurred.",
+      "description": "This error occurs<br> once every 10,000 times!"
     },
     "customError": {
-      "title": "Bad luck",
-      "subtitle": "An error has occured"
+      "title": "Too bad!",
+      "subtitle": "An error occurred."
     },
     "success": {
-      "title": "Let's play!",
+      "title": "Let's do it!",
       "titleSubSlave": {
-        "key": "Activate this key on license provider website. <a href='{link}'>Instruction</a>",
-        "product": "You’ve bought a new game. Enjoy your new experience!",
-        "simple": "Your payment is successfully accepted!",
-        "virtual_items": "A new item awaits you in the game. Enjoy your new experience!",
-        "virtual_currency": "A pack of currency awaits you in the game!"
+        "key": "Activate the key on the license provider's website. <a href='{link}'>Instructions</a>",
+        "product": "You’ve bought a new game. Congratulations! Have fun!",
+        "simple": "Your payment was completed successfully!",
+        "virtual_items": "New items have been added to your account. Have fun!",
+        "virtual_currency": "New funds have been added to your game account!"
       },
-      "descriptionSlaveInitial": "Leave your email to get payment receipt",
+      "descriptionSlaveInitial": "Enter your email address to get a receipt.",
       "descriptionSlaveFinal": {
-        "key": "We sent payment confirmation and activation key to",
-        "product": "We sent payment confirmation and access link to",
-        "simple": "We sent payment confirmation to",
-        "virtual_items": "We sent payment confirmation to",
-        "virtual_currency": "We sent payment confirmation to"
+        "key": "Payment confirmation and an activation key have been sent to",
+        "product": "Payment confirmation and an access link have been sent to",
+        "simple": "Payment confirmation has been sent to",
+        "virtual_items": "Payment confirmation has been sent to",
+        "virtual_currency": "Payment confirmation has been sent to"
       },
-      "email": "Email"
+      "email": "Email address"
     }
   },
   "CartSection": {
     "subtotal": "Subtotal",
-    "taxes": "Taxes",
+    "taxes": "Tax",
     "total": "Total",
-    "voluntaryAmount": "Arbitrary amount"
+    "voluntaryAmount": "Selected amount"
   },
   "FormSection": {
     "prependLabel": "Pay with",
     "cvv": "CVC/CVV",
-    "email": "Email to receive the purchase",
-    "emailInvalid": "Email is invalid",
+    "email": "Email address for delivery",
+    "emailInvalid": "Invalid email address",
     "remember": "Remember me",
-    "abstractNumberError": "The number is invalid",
+    "abstractNumberError": "Invalid number",
     "abstractNumberPlaceholder": "{name} wallet number",
-    "placeholderEmail": "Enter your email",
+    "placeholderEmail": "Enter your email address",
     "payButtonPrefix": "PAY",
-    "tryAgain": "TRY AGAIN",
+    "tryAgain": "RETRY",
     "save": "SAVE",
     "close": "CLOSE",
     "ok": "OK"
   },
   "FormSectionBankCard": {
-    "cardNumberInvalid": "Card number is invalid",
-    "expiryDate": "Expiry date",
-    "expiryDateInvalid": "Expiry date is invalid",
+    "cardNumberInvalid": "Invalid card number",
+    "expiryDate": "Expiration date",
+    "expiryDateInvalid": "Invalid expiration date",
     "cvv": "CVC/CVV",
-    "cvvInfo": "Three digits located<br>on the back of the card",
+    "cvvInfo": "The three numbers<br>on the back of the card",
     "cvvError": "Invalid value",
-    "email": "Email to receive the purchase",
-    "emailInvalid": "Email is invalid",
+    "email": "Email address for delivery",
+    "emailInvalid": "Invalid email address",
     "remember": "Remember me",
-    "rememberInfo": "Security of billing data storage is provided in accordance with the requirements of the PCI DSS standard, using 3D Secure and SSL protocols",
+    "rememberInfo": "Payment information is stored in accordance with the requirements of the PCI and DSS standards using the 3-D&nbspSecure and SSL protocols.",
     "city": "City",
     "cityInvalid": "Invalid city",
     "country": "Country",
-    "countryInvalid": "Choose the country",
+    "countryInvalid": "Choose your country",
     "zip": "ZIP code",
     "zipInvalid": "Invalid ZIP code"
   },
@@ -92,20 +92,20 @@
     "support": "Support"
   },
   "LayoutHeader": {
-    "termsOfUse": "Terms of Use",
+    "termsOfUse": "Terms and Conditions",
     "userAgreement": "User Agreement"
   },
   "ModalCart": {
     "legalInfo": "Legal information",
-    "termsOfUse": "Terms of Use",
+    "termsOfUse": "Terms and Conditions",
     "support": "Support",
     "userAgreement": "User Agreement"
   },
   "PaymentAreaWarning": {
-    "oops": "Oooops",
-    "cantAcceptPayments": "We cannot accept payments in your area.<br>",
-    "chooseAnotherArea": "Wrong area? Choose the right one",
-    "country": "Select the country"
+    "oops": "Whoops!",
+    "cantAcceptPayments": "We can't accept payments from your country.<br>",
+    "chooseAnotherArea": "Did we detect your country incorrectly? Please choose the right one.",
+    "country": "Select your country."
   },
   "UiCardField": {
     "cardNumber": "Card number"
@@ -114,17 +114,17 @@
     "remove": "Delete"
   },
   "OrderCreationError": {
-    "title": "We're sorry, but we could not create the order to make payment",
+    "title": "Unfortunately, we were unable to create the order for payment.",
     "tryAgain": "TRY AGAIN",
-    "unknownError": "This error occurs in 1 case out of 10 000!"
+    "unknownError": "This error occurs once every 10,000 times!"
   },
   "FormSectionSavedCards": {
-    "title": "Pay with Saved cards",
+    "title": "Pay with a saved card",
     "deletingCard": "Deleting the card",
-    "undo": "Undo"
+    "undo": "Cancel"
   },
   "SavedCardToPlainFieldsSwitch": {
-    "payWithSavedCards": "Pay with saved cards",
-    "anotherWayToPay": "Another way to pay"
+    "payWithSavedCards": "Pay with a saved card",
+    "anotherWayToPay": "Use a different card"
   }
 }

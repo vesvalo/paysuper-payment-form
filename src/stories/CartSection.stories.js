@@ -3,10 +3,11 @@ import { storiesOf } from '@storybook/vue';
 import cartTestData from '@/cartTestData';
 
 import CartSection from '@/components/CartSection.vue';
+import AnimationsOff from '@/components/AnimationsOff.vue';
 
 storiesOf('CartSection', module)
   .add('modal', () => ({
-    components: { CartSection },
+    components: { AnimationsOff, CartSection },
     data() {
       return {
         orderData: {
@@ -31,19 +32,21 @@ storiesOf('CartSection', module)
       },
     },
     template: `
-      <div style="width: 400px">
-        <CartSection :style="style" :orderData="getOrderItems(0, 1)" />
-        <CartSection :style="style" :orderData="getOrderItems(0, 2)" />
-        <CartSection :style="style" :orderData="getOrderItems(0, 3)" />
-        <CartSection :style="style" :orderData="getOrderItems(0, 4)" />
-        <CartSection :style="style" :orderData="getOrderItems(0, 5)" />
-        <CartSection :style="style" :orderData="getOrderItems(0, 6)" />
-        <CartSection :style="style" :orderData="orderData"  />
-      </div>
+      <AnimationsOff>
+        <div style="width: 400px">
+          <CartSection :style="style" :orderData="getOrderItems(0, 1)" />
+          <CartSection :style="style" :orderData="getOrderItems(0, 2)" />
+          <CartSection :style="style" :orderData="getOrderItems(0, 3)" />
+          <CartSection :style="style" :orderData="getOrderItems(0, 4)" />
+          <CartSection :style="style" :orderData="getOrderItems(0, 5)" />
+          <CartSection :style="style" :orderData="getOrderItems(0, 6)" />
+          <CartSection :style="style" :orderData="orderData"  />
+        </div>
+      </AnimationsOff>
     `,
   }))
   .add('page', () => ({
-    components: { CartSection },
+    components: { AnimationsOff, CartSection },
     data() {
       return {
         orderData: {
@@ -68,26 +71,28 @@ storiesOf('CartSection', module)
       },
     },
     template: `
-      <div style="width: 500px">
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 1)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(7, 8)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 2)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 3)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 4)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 5)" />
-        <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 6)" />
-        <CartSection :style="style" :isPageView="true" :orderData="orderData"  />
-        <CartSection
-          :style="style"
-          :isPageView="true"
-          :orderData="orderData"
-          :isCartOpened="false"
-        />
-      </div>
+      <AnimationsOff>
+        <div style="width: 500px">
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 1)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(7, 8)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 2)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 3)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 4)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 5)" />
+          <CartSection :style="style" :isPageView="true" :orderData="getOrderItems(0, 6)" />
+          <CartSection :style="style" :isPageView="true" :orderData="orderData"  />
+          <CartSection
+            :style="style"
+            :isPageView="true"
+            :orderData="orderData"
+            :isCartOpened="false"
+          />
+        </div>
+      </AnimationsOff>
     `,
   }))
   .add('platform select', () => ({
-    components: { CartSection },
+    components: { AnimationsOff, CartSection },
     data() {
       return {
         orderData: {
