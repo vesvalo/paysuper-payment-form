@@ -36,6 +36,7 @@ if (isProd) {
 
 const mountPoint = '#paysuper-payment-form';
 const isPageInsideIframe = window.location !== window.parent.location;
+const { orderData, orderParams, baseOptions } = window.PAYSUPER_PAYMENT_FORM;
 
 /**
  * Mounts the app into element
@@ -43,7 +44,6 @@ const isPageInsideIframe = window.location !== window.parent.location;
  * @param {Object} customOptions
  */
 async function mountApp(customOptions = {}) {
-  const { orderData, orderParams, baseOptions } = window.PAYSUPER_PAYMENT_FORM;
   assert(
     document.querySelector(mountPoint),
     `Define "${mountPoint}" element in the document to mount the app`,
@@ -120,19 +120,13 @@ async function mountApp(customOptions = {}) {
   }).$mount(mountPoint);
 }
 
-let selfInitTimeout;
-if (isPageInsideIframe) {
+if (orderParams.sdk) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { options } = data;
       mountApp(options);
-      clearTimeout(selfInitTimeout);
     },
   });
-
-  selfInitTimeout = setTimeout(() => {
-    mountApp();
-  }, 100);
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
   mountApp();
