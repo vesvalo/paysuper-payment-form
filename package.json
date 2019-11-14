@@ -1,6 +1,6 @@
 {
   "name": "paysuper-payment-form",
-  "version": "0.16.5",
+  "version": "0.17.0",
   "scripts": {
     "serve": "VUE_APP_BUILD_PURPOSE=dev vue-cli-service serve",
     "build": "VUE_APP_BUILD_PURPOSE=test vue-cli-service build",
