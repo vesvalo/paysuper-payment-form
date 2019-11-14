@@ -95,6 +95,7 @@
               section="form"
               maxHeight="390px"
               :class="$style.localeTip"
+              :hasCaret="!isModal"
               :visible="hasLocaleChangerOpened"
             >
               <LocaleCnanger
@@ -107,8 +108,6 @@
         </div>
       </template>
     </div>
-
-
   </div>
 </div>
 </template>
@@ -123,10 +122,6 @@ export default {
     isCartOpened: {
       default: false,
       type: Boolean,
-    },
-    isPageView: {
-      type: Boolean,
-      default: false,
     },
     isModal: {
       type: Boolean,
@@ -315,7 +310,7 @@ export default {
   }
 
   & > .inner {
-    padding: 0px 20px;
+    padding: 0 20px;
 
     @media screen and (min-width: 640px) {
       padding: 40px 30px 25px;
@@ -356,6 +351,10 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: flex-end;
+
+  .right._isModal & {
+    padding: 0 0 0 20px;
+  }
 
   @media screen and (min-width: 640px) {
     max-width: 480px;
@@ -543,6 +542,15 @@ export default {
     @include if-rtl {
       margin-right: 0;
       margin-left: -20px;
+    }
+
+    .right._isModal & {
+      margin-right: -60px;
+
+      @include if-rtl {
+        margin-right: 0;
+        margin-left: -20px;
+      }
     }
 
     @media screen and (min-width: 640px) {

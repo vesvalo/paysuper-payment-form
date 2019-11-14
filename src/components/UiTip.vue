@@ -36,6 +36,10 @@ export default {
         return includes(['cart', 'form'], value);
       },
     },
+    hasCaret: {
+      default: true,
+      type: Boolean,
+    },
     visible: {
       default: false,
       type: Boolean,
@@ -109,7 +113,7 @@ export default {
     $style[`_${position}`],
     $style[`_inner-${innerPosition}`],
     $style[`_${section}`],
-    { [$style._shown]: visible || innerVisible }
+    { [$style._shown]: visible || innerVisible, [$style._hasCaret]: hasCaret }
   ]"
   :style="{
     height: height || undefined,
@@ -229,13 +233,15 @@ export default {
     }
   }
 
-  &::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    position: absolute;
-    border: 6px solid transparent;
+  &._hasCaret {
+    &::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      position: absolute;
+      border: 6px solid transparent;
+    }
   }
 }
 </style>

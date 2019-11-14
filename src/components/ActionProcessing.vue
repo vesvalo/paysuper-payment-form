@@ -111,6 +111,7 @@ export default {
   top: 0;
   bottom: 0;
   z-index: 1000;
+  pointer-events: none;
 
   &:before {
     content: '';

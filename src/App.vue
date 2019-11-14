@@ -176,7 +176,7 @@ export default {
     </template>
 
     <ActionProcessing
-      v-if="actionProcessing"
+      v-if="actionProcessing && !isPageView"
       v-bind="actionProcessing"
     />
     <OrderCreationError
@@ -195,6 +195,11 @@ export default {
       <IconClose :class="$style.iconClose" />
     </div>
   </component>
+
+  <ActionProcessing
+    v-if="actionProcessing && isPageView"
+    v-bind="actionProcessing"
+  />
 </div>
 </template>
 
