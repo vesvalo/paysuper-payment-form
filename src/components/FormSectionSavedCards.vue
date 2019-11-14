@@ -153,13 +153,13 @@ export default {
             :class="$style.removedIcon"
           />
         </span>
-        <span :class="$style.text">
-          <template v-if="checkIsCardRemoved(card)">
-            {{ $t('FormSectionSavedCards.deletingCard') }}
-          </template>
-          <template v-else>
+        <span :class="$style.text" v-if="checkIsCardRemoved(card)">
+          {{ $t('FormSectionSavedCards.deletingCard') }}
+        </span>
+        <span :class="$style.pan" v-else>
+          <span>
             {{ getFormattedPan(card) }}
-          </template>
+          </span>
         </span>
       </div>
       <span
@@ -238,6 +238,10 @@ export default {
 }
 
 .text {
+}
+
+.pan {
+  direction: ltr;
 }
 
 .trash {
