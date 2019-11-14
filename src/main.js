@@ -120,13 +120,19 @@ async function mountApp(customOptions = {}) {
   }).$mount(mountPoint);
 }
 
+let selfInitTimeout;
 if (isPageInsideIframe) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { options } = data;
       mountApp(options);
+      clearTimeout(selfInitTimeout);
     },
   });
+
+  selfInitTimeout = setTimeout(() => {
+    mountApp();
+  }, 100);
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
   mountApp();
