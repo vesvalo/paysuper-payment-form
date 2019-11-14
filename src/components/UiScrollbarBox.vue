@@ -81,6 +81,8 @@ export default {
   &.ps > .ps__scrollbar-y-rail {
     cursor: pointer;
     opacity: 0;
+    left: auto;
+    right: 0 !important;
   }
 
   &.ps:hover > .ps__scrollbar-y-rail,

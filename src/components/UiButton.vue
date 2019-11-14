@@ -54,7 +54,7 @@ export default {
       [`.${this.container}`]: {
         color: this.$gui.buttonColor,
         'background-color': this.$gui.buttonBoxColor,
-        'justify-content': this.$gui.buttonAlign,
+        'text-align': this.$gui.buttonAlign,
       },
       [`.${this.container}:hover`]: {
         'background-color': this.$gui.buttonHoverBoxColor,
@@ -110,14 +110,12 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
   cursor: pointer;
   outline-width: 0;
   position: relative;
-  display: inline-flex;
+  display: inline-block;
   font-family: inherit;
   font-size: $font-size;
   font-weight: $font-weight;
   height: $height;
   padding: $padding;
-  align-items: center;
-  justify-content: $align;
   border-width: $border-width;
   transition: $transition;
   vertical-align: top;
@@ -136,6 +134,8 @@ $transition: background-color 0.2s ease-out, color 0.2s ease-out;
 .main,
 .before,
 .after {
+  display: inline-block;
+
   &:empty {
     display: none;
   }

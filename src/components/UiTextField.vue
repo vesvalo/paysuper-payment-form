@@ -2,7 +2,7 @@
 <div :class="[container, { [stateDisabled]: disabled, [$style._hasInfoIcon]: hasInfoIcon }]">
   <TheMask
     v-if="mask"
-    v-bind="{ tabindex, disabled, required, type, mask, ...$attrs }"
+    v-bind="maskBindProps"
     v-model="innerValue"
     :class="inputClasses"
     :tokens="maskTokens"
@@ -12,7 +12,7 @@
   />
   <input
     v-else
-    v-bind="{ tabindex, disabled, required, type, ...$attrs }"
+    v-bind="inputBindProps"
     v-model="innerValue"
     :class="inputClasses"
     @blur="$emit('blur')"
@@ -156,6 +156,21 @@ export default {
         this.isVisibleError ? this.stateError : '',
         this.disabled ? this.stateDisabled : '',
       ];
+    },
+    inputBindProps() {
+      return {
+        tabindex: this.tabindex,
+        disabled: this.disabled,
+        required: this.required,
+        type: this.type,
+        ...this.$attrs,
+      };
+    },
+    maskBindProps() {
+      return {
+        ...this.inputBindProps,
+        mask: this.mask,
+      };
     },
   },
   watch: {

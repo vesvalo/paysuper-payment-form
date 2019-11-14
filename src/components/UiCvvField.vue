@@ -36,6 +36,18 @@ export default {
       innerValue: this.value,
     };
   },
+  computed: {
+    inputBindProps() {
+      return {
+        tabindex: this.tabindex,
+        disabled: this.disabled,
+        required: this.required,
+        errorText: this.errorText,
+        hasError: this.hasError,
+        ...this.$attrs,
+      };
+    },
+  },
   methods: {
     cvvChange(value) {
       this.$emit('input', value);
@@ -56,7 +68,7 @@ export default {
 <div :class="$style.container">
   <UiTextField
     v-model="innerValue"
-    v-bind="{ tabindex, disabled, errorText, hasError, required, ...$attrs }"
+    v-bind="inputBindProps"
     ref="textField"
     name="cvv"
     autocomplete="cc-csc"

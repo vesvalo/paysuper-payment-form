@@ -88,9 +88,6 @@ export default {
   width: 100%;
   position: relative;
   z-index: 100;
-
-  &._layout-page {
-  }
 }
 
 .content {

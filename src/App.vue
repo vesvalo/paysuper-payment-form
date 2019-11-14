@@ -176,7 +176,7 @@ export default {
     </template>
 
     <ActionProcessing
-      v-if="actionProcessing"
+      v-if="actionProcessing && !isPageView"
       v-bind="actionProcessing"
     />
     <OrderCreationError
@@ -195,6 +195,11 @@ export default {
       <IconClose :class="$style.iconClose" />
     </div>
   </component>
+
+  <ActionProcessing
+    v-if="actionProcessing && isPageView"
+    v-bind="actionProcessing"
+  />
 </div>
 </template>
 
@@ -224,7 +229,7 @@ export default {
     }
 
     .orderCreationError {
-      position: fixed;
+      position: absolute;
       left: 0;
       right: 0;
       bottom: 0;
@@ -238,6 +243,10 @@ export default {
       width: 100vw;
       display: flex;
       flex-direction: column;
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        height: 100vh;
+      }
     }
   }
 }
