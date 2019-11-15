@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "请稍候。<br/>我们正在处理您的付款。",
+      "description": "请等待，直到付款成功完成。<br/>这通常只需几秒钟。"
+    },
+    "3ds": {
+      "title": "现在，您将被转至银行网站，<br>以确认 3-D&nbspSecure 保护。",
+      "description": "在传送 3-D&nbspSecure 支票和收到付款之间可能会有延迟。<br>这取决于付款银行。"
+    },
+    "systemSuccess": {
+      "title": "您的付款提供商<br>已提供成功的初步响应。",
+      "description": "最终决定将很快做出。请耐心等待。<br>付款系统有时会由于技术原因而延迟。"
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "已拒绝",
+      "subtitle": "资金不足。",
+      "description": "请返回<br>并尝试其他付款方式。"
+    },
+    "unknownError": {
+      "title": "糟糕！",
+      "subtitle": "发生错误。",
+      "description": "此错误发生概率<br>只有万分之一！"
+    },
+    "customError": {
+      "title": "糟糕！",
+      "subtitle": "发生错误。"
+    },
+    "success": {
+      "title": "开始游戏！",
+      "titleSubSlave": {
+        "key": "在许可证提供商网站上激活密钥。<a href='{link}'>说明</a>",
+        "product": "您已购新游戏。恭喜您！祝您愉快！",
+        "simple": "您的付款已成功完成！",
+        "virtual_items": "新商品已添加到您的帐户。祝您愉快！",
+        "virtual_currency": "新资金已添加到您的游戏帐户！"
+      },
+      "descriptionSlaveInitial": "输入您的电子邮件地址以获取收据。",
+      "descriptionSlaveFinal": {
+        "key": "付款确认和激活密钥已发送至",
+        "product": "付款确认和访问链接已发送至",
+        "simple": "付款确认已发送至",
+        "virtual_items": "付款确认已发送至",
+        "virtual_currency": "付款确认已发送至"
+      },
+      "email": "电子邮件地址"
+    }
+  },
+  "CartSection": {
+    "subtotal": "小计",
+    "taxes": "税费",
+    "total": "总共",
+    "voluntaryAmount": "选择金额"
+  },
+  "FormSection": {
+    "prependLabel": "付款方式 ",
+    "card": "银行卡",
+    "neteller": "Neteller",
+    "alipay": "支付宝",
+    "bitcoin": "比特币",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "银联",
+    "jcb": "JCB",
+    "wechat": "微信支付",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "送货电子邮件地址",
+    "emailInvalid": "电子邮件地址无效",
+    "remember": "记住我",
+    "abstractNumberError": "号码无效",
+    "abstractNumberPlaceholder": "{name} 钱包号码",
+    "placeholderEmail": "输入您的电子邮件地址",
+    "payButtonPrefix": "付款",
+    "tryAgain": "重试",
+    "save": "保存",
+    "close": "关闭",
+    "ok": "确定"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "卡号无效",
+    "expiryDate": "到期日期",
+    "expiryDateInvalid": "到期日期无效",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "卡背面的三个数字",
+    "cvvError": "值无效",
+    "email": "送货电子邮件地址",
+    "emailInvalid": "电子邮件地址无效",
+    "remember": "记住我",
+    "rememberInfo": "付款信息使用 3-D&nbspSecure 和 SSL 协议，根据 PCI 和 DSS 标准要求储存。",
+    "city": "城市",
+    "cityInvalid": "城市无效",
+    "country": "国家",
+    "countryInvalid": "选择国家",
+    "zip": "邮政编码",
+    "zipInvalid": "邮政编码无效"
+  },
+  "LayoutFooter": {
+    "userAgreement": "用户协议",
+    "support": "救生"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "条款和条件",
+    "userAgreement": "用户协议"
+  },
+  "ModalCart": {
+    "legalInfo": "法律信息",
+    "termsOfUse": "条款和条件",
+    "support": "救生",
+    "userAgreement": "用户协议"
+  },
+  "PaymentAreaWarning": {
+    "oops": "哎呀！",
+    "cantAcceptPayments": "我们无法接受从您所在国家付款。",
+    "chooseAnotherArea": "我们检测到的国家是否错误？请选择正确国家。",
+    "country": "选择国家。"
+  },
+  "UiCardField": {
+    "cardNumber": "卡号"
+  },
+  "UiCardSelect": {
+    "anotherCard": "其他卡",
+    "cardNumber": "卡号"
+  },
+  "UiSelectOption": {
+    "remove": "删除"
+  },
+  "OrderCreationError": {
+    "title": "很遗憾，我们无法创建付款订单。",
+    "tryAgain": "再试一次",
+    "unknownError": "此错误发生概率只有万分之一！"
+  },
+  "FormSectionSavedCards": {
+    "title": "使用保存的银行卡付款",
+    "deletingCard": "删除银行卡",
+    "undo": "取消"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "使用保存的银行卡付款",
+    "anotherWayToPay": "使用其他卡"
+  }
+}
