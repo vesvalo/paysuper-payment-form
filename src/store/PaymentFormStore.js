@@ -3,11 +3,9 @@ import assert from 'assert';
 import {
   reject, find, findIndex, get, includes,
 } from 'lodash-es';
-import i18n from '@/i18n';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
-import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
 import { gtagEvent, gtagSet } from '@/analytics';
 
 
@@ -25,7 +23,7 @@ const actionResultsByStatus = {
     if (data) {
       return {
         type: 'customError',
-        message: getErrorCodeTranslation(data.code),
+        code: data.code,
       };
     }
     return { type: 'unknownError' };
@@ -34,10 +32,10 @@ const actionResultsByStatus = {
   DECLINED(data) {
     return {
       type: 'customError',
-      message: getErrorCodeTranslation(data.code),
+      code: data.code,
     };
   },
-  INTERRUPTED: () => ({ type: 'customError', message: i18n.t('errorCodes.redirectWindowClosed') }),
+  INTERRUPTED: () => ({ type: 'customError', code: 'redirectWindowClosed' }),
   FAILED_TO_CREATE(data) {
     if (data) {
       if (data.code === 'fm000025') {
@@ -45,7 +43,7 @@ const actionResultsByStatus = {
       }
       return {
         type: 'customError',
-        message: getErrorCodeTranslation(data.code),
+        code: data.code,
       };
     }
     return { type: 'unknownError' };

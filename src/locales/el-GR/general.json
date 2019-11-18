@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Περιμένετε.<br/>Επεξεργαζόμαστε την πληρωμή σας.",
+      "description": "Περιμένετε μέχρι να ολοκληρωθεί με επιτυχία η πληρωμή.<br/>Αυτό συνήθως διαρκεί μόνο μερικά δευτερόλεπτα."
+    },
+    "3ds": {
+      "title": "Τώρα θα ανακατευθυνθείτε<br>στον ιστότοπο της τράπεζάς σας για να επιβεβαιώσετε την προστασία 3-D&nbsp;Secure.",
+      "description": "Ενδέχεται να υπάρξει καθυστέρηση μεταξύ της μεταβίβασης του ελέγχου 3-D&nbsp;Secure<br>και της λήψης της πληρωμής. Εξαρτάται από την τράπεζα που χρησιμοποιήσατε για την πληρωμή."
+    },
+    "systemSuccess": {
+      "title": "Ο οργανισμός του τρόπου πληρωμής σας<br>παρείχε επιτυχή αρχική απόκριση.",
+      "description": "Σε λίγο θα ληφθεί η τελική απόφαση. Κάντε υπομονή. <br>Τα συστήματα πληρωμών καθυστερούν μερικές φορές για τεχνικούς λόγους."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Απορρίφθηκε",
+      "subtitle": "Ανεπαρκές υπόλοιπο.",
+      "description": "Επιστρέψτε<br>και επιλέξτε διαφορετικό τρόπο πληρωμής."
+    },
+    "unknownError": {
+      "title": "Κρίμα!",
+      "subtitle": "Προέκυψε κάποιο σφάλμα.",
+      "description": "Αυτό προκύπτει<br>μια φορά στις τόσες!"
+    },
+    "customError": {
+      "title": "Κρίμα!",
+      "subtitle": "Προέκυψε κάποιο σφάλμα."
+    },
+    "success": {
+      "title": "Ας παίξουμε!",
+      "titleSubSlave": {
+        "key": "Ενεργοποιήστε το κλειδί στον ιστότοπο του πάροχου της άδειας. <a href='{link}'>Οδηγίες</a>",
+        "product": "Αγοράσατε ένα νέο παιχνίδι. Συγχαρητήρια! Καλή διασκέδαση!",
+        "simple": "Η πληρωμή σας ολοκληρώθηκε με επιτυχία!",
+        "virtual_items": "Προστέθηκαν νέα στοιχεία στον λογαριασμό σας. Καλή διασκέδαση!",
+        "virtual_currency": "Προστέθηκε νέο υπόλοιπο στον λογαριασμό σας για παιχνίδια!"
+      },
+      "descriptionSlaveInitial": "Πληκτρολογήστε το email σας για να λάβετε απόδειξη.",
+      "descriptionSlaveFinal": {
+        "key": "Η επιβεβαίωση πληρωμής και ένα κλειδί ενεργοποίησης στάλθηκαν στη",
+        "product": "Η επιβεβαίωση πληρωμής και ένας σύνδεσμος πρόσβασης στάλθηκαν στη",
+        "simple": "Η επιβεβαίωση πληρωμής στάλθηκε στη",
+        "virtual_items": "Η επιβεβαίωση πληρωμής στάλθηκε στη",
+        "virtual_currency": "Η επιβεβαίωση πληρωμής στάλθηκε στη"
+      },
+      "email": "Διεύθυνση email"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Υποσύνολο",
+    "taxes": "Φόρος",
+    "total": "Σύνολο",
+    "voluntaryAmount": "Επιλεγμένο ποσό"
+  },
+  "FormSection": {
+    "prependLabel": "Πληρωμή με ",
+    "card": "κάρτα",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Διεύθυνση email για παράδοση",
+    "emailInvalid": "Μη έγκυρη διεύθυνση email",
+    "remember": "Να αποθηκευτεί",
+    "abstractNumberError": "Μη έγκυρος αριθμός",
+    "abstractNumberPlaceholder": "Αριθμός πορτοφολιού {name}",
+    "placeholderEmail": "Πληκτρολογήστε τη διεύθυνση email σας",
+    "payButtonPrefix": "ΠΛΗΡΩΜΗ",
+    "tryAgain": "ΕΠΑΝΑΛΗΨΗ",
+    "save": "ΑΠΟΘΗΚΕΥΣΗ",
+    "close": "ΚΛΕΙΣΙΜΟ",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Μη έγκυρος αριθμός κάρτας",
+    "expiryDate": "Ημερομηνία λήξης",
+    "expiryDateInvalid": "Μη έγκυρη ημερομηνία λήξης",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Οι τρεις αριθμοί<br>στο πίσω μέρος της κάρτας",
+    "cvvError": "Μη έγκυρη τιμή",
+    "email": "Διεύθυνση email για παράδοση",
+    "emailInvalid": "Μη έγκυρη διεύθυνση email",
+    "remember": "Να αποθηκευτεί",
+    "rememberInfo": "Οι πληροφορίες πληρωμής αποθηκεύονται σύμφωνα με τις απαιτήσεις των προτύπων PCI and DSS και χρησιμοποιώντας πρωτόκολλα 3-D&nbsp;Secure και SSL.",
+    "city": "Πόλη",
+    "cityInvalid": "Μη έγκυρη πόλη",
+    "country": "Χώρα",
+    "countryInvalid": "Επιλέξτε τη χώρα σας",
+    "zip": "Ταχυδρομικός κωδικός",
+    "zipInvalid": "Μη έγκυρος ταχυδρομικός κωδικός"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Άδεια χρήσης",
+    "support": "Υποστήριξη"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Όροι και Προϋποθέσεις",
+    "userAgreement": "Άδεια χρήσης"
+  },
+  "ModalCart": {
+    "legalInfo": "Νομικές πληροφορίες",
+    "termsOfUse": "Όροι και Προϋποθέσεις",
+    "support": "Υποστήριξη",
+    "userAgreement": "Άδεια χρήσης"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Λυπούμαστε!",
+    "cantAcceptPayments": "Δεν μπορούμε να δεχτούμε πληρωμές από τη χώρα σας.",
+    "chooseAnotherArea": "Δεν εντοπίσαμε τη χώρα σωστά; Επιλέξτε τη σωστή.",
+    "country": "Επιλέξτε τη χώρα σας."
+  },
+  "UiCardField": {
+    "cardNumber": "Αριθμός κάρτας"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Διαφορετική κάρτα",
+    "cardNumber": "Αριθμός κάρτας"
+  },
+  "UiSelectOption": {
+    "remove": "Διαγραφή"
+  },
+  "OrderCreationError": {
+    "title": "Δυστυχώς, δεν μπορέσαμε να δημιουργήσουμε την παραγγελία για πληρωμή.",
+    "tryAgain": "ΠΡΟΣΠΑΘΗΣΤΕ ΞΑΝΑ",
+    "unknownError": "Αυτό το σφάλμα προκύπτει μια φορά στις τόσες!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Πληρωμή με αποθηκευμένη κάρτα",
+    "deletingCard": "Διαγραφή της κάρτας",
+    "undo": "Ακύρωση"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Πληρωμή με αποθηκευμένη κάρτα",
+    "anotherWayToPay": "Χρήση διαφορετικής κάρτας"
+  }
+}

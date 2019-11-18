@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "お待ち下さい。<br/>当社はお客様のお支払いを処理しています。",
+      "description": "お支払いが正常に完了するまでお待ちください。<br/> これには 通常数秒しかかかりません。"
+    },
+    "3ds": {
+      "title": "お客様は 3-D&nbsp;Secure 保護を確認するため、<br> ご利用 の銀行のウェブサイトにリダイレクトされます。",
+      "description": "3-D&nbsp;Secure の確認および<br> お支払いの受領の間のやりとりに遅延が起こる可能性があります。それはお客様が支払いのために使用した銀行によります。"
+    },
+    "systemSuccess": {
+      "title": "お客様の支払いプロバイダー<br>は正常な初期応答を返しました。",
+      "description": "最終決定はもうすぐなされます。少々お待ちください。<br> 支払いシステムは場合により技術的な理由で遅れることがあります。"
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "拒否されました",
+      "subtitle": "残高が不十分です。",
+      "description": "お戻りになり<br>他のお支払方法をお試しください。"
+    },
+    "unknownError": {
+      "title": "残念！",
+      "subtitle": "エラーが発生しました。",
+      "description": "このエラーは<br>1万回に1度発生します。"
+    },
+    "customError": {
+      "title": "残念！",
+      "subtitle": "エラーが発生しました。"
+    },
+    "success": {
+      "title": "プレイしましょう！",
+      "titleSubSlave": {
+        "key": "ライセンスプロバイダーのウェブサイトでキーを起動します。 <a href='{link}'>Instructions</a>",
+        "product": "お客様は新しいゲームを購入しました。おめでとうございます！お楽しみください！",
+        "simple": "お客様の支払いは正常に完了しました。",
+        "virtual_items": "新規アイテムがアカウントに追加されました。お楽しみください！",
+        "virtual_currency": "お客様のゲームアカウントに新規の資金が追加されました"
+      },
+      "descriptionSlaveInitial": "メールアドレスを入力してレシートを入手してください。",
+      "descriptionSlaveFinal": {
+        "key": "支払い確認およびアクティベーションキーが送信されました",
+        "product": "支払い確認およびアクセスリンクが送信されました",
+        "simple": "支払い確認が送信されました",
+        "virtual_items": "支払い確認が送信されました",
+        "virtual_currency": "支払い確認が送信されました"
+      },
+      "email": "メールアドレス"
+    }
+  },
+  "CartSection": {
+    "subtotal": "小計",
+    "taxes": "税金",
+    "total": "合計",
+    "voluntaryAmount": "選択された合計"
+  },
+  "FormSection": {
+    "prependLabel": "お支払い方法 ",
+    "card": "カード",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "ビットコイン",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "配信用メールアドレス",
+    "emailInvalid": "無効なメールアドレス",
+    "remember": "お知らせください",
+    "abstractNumberError": "無効な番号",
+    "abstractNumberPlaceholder": "{name} ウォレット番号",
+    "placeholderEmail": "メールアドレスを入力してください。",
+    "payButtonPrefix": "支払い",
+    "tryAgain": "再試行",
+    "save": "保存",
+    "close": "閉じる",
+    "ok": "完了"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "無効なカード番号",
+    "expiryDate": "期日",
+    "expiryDateInvalid": "無効な期日",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "カード裏面の<br>3つの数字",
+    "cvvError": "無効な値",
+    "email": "配信用メールアドレス",
+    "emailInvalid": "無効なメールアドレス",
+    "remember": "お知らせください",
+    "rememberInfo": "お支払い情報は 3-D&nbsp;Secure および SSL プロトコルを使用して、PCI および DSS 基準の要件に従って保存されます。",
+    "city": "都市",
+    "cityInvalid": "無効な都市",
+    "country": "国",
+    "countryInvalid": "国を選択してください",
+    "zip": "ZIP コード",
+    "zipInvalid": "無効なジップコード"
+  },
+  "LayoutFooter": {
+    "userAgreement": "ユーザー契約",
+    "support": "サポート"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "規約",
+    "userAgreement": "ユーザー契約"
+  },
+  "ModalCart": {
+    "legalInfo": "法的情報",
+    "termsOfUse": "規約",
+    "support": "サポート",
+    "userAgreement": "ユーザー契約"
+  },
+  "PaymentAreaWarning": {
+    "oops": "ああ！",
+    "cantAcceptPayments": "当社はお客様の国からのお支払いを受け付けることができません。",
+    "chooseAnotherArea": "お客様の国を間違って検知しましたか？正しいものを選択してください。",
+    "country": "国を選択してください。"
+  },
+  "UiCardField": {
+    "cardNumber": "カード番号"
+  },
+  "UiCardSelect": {
+    "anotherCard": "他のカード",
+    "cardNumber": "カード番号"
+  },
+  "UiSelectOption": {
+    "remove": "削除"
+  },
+  "OrderCreationError": {
+    "title": "あいにく当社はお支払いのための注文を作成できません。",
+    "tryAgain": "再度お試しください",
+    "unknownError": "このエラーは1万回に1回発生します。"
+  },
+  "FormSectionSavedCards": {
+    "title": "保存済みカードで支払う",
+    "deletingCard": "カードの削除",
+    "undo": "キャンセル"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "保存済みカードで支払う",
+    "anotherWayToPay": "他のカードを使用する"
+  }
+}

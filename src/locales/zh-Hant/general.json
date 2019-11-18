@@ -5,8 +5,8 @@
       "description": "請等待，直到付款成功完成。<br/>這通常只需幾秒鐘。"
     },
     "3ds": {
-      "title": "現在，您將被轉至銀行網站，<br>以確認 3-D&nbspSecure 保護。",
-      "description": "在傳送 3-D&nbspSecure 支票和收到付款<br>之間可能會有延時。這取決於付款銀行。"
+      "title": "現在，您將被轉至銀行網站，<br>以確認 3-D&nbsp;Secure 保護。",
+      "description": "在傳送 3-D&nbsp;Secure 支票和收到付款<br>之間可能會有延時。這取決於付款銀行。"
     },
     "systemSuccess": {
       "title": "您的付款提供商<br>已提供成功的初步回應。",
@@ -92,7 +92,7 @@
     "email": "送貨電子郵件地址",
     "emailInvalid": "電子郵件地址無效",
     "remember": "記住我",
-    "rememberInfo": "付款資訊使用 3-D&nbspSecure 和 SSL 協議，根據 PCI 和 DSS 標準要求儲存。",
+    "rememberInfo": "付款資訊使用 3-D&nbsp;Secure 和 SSL 協議，根據 PCI 和 DSS 標準要求儲存。",
     "city": "城市",
     "cityInvalid": "城市無效",
     "country": "國家",

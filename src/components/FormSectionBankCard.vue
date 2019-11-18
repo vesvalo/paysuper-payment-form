@@ -117,7 +117,7 @@
           width="220px"
           :visible="isRememberInfoShown"
         >
-          {{ $t('FormSectionBankCard.rememberInfo') }}
+          <div v-html="$t('FormSectionBankCard.rememberInfo')"></div>
         </UiTip>
       </div>
     </UiCheckbox>

@@ -353,7 +353,7 @@ export default {
         <ActionResult
           v-if="actionResult"
           :email="paymentData.email"
-          :message="actionResult.message"
+          :code="actionResult.code"
           :orderId="orderData.id"
           :orderType="orderType"
           :type="actionResult.type"

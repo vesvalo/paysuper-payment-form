@@ -132,6 +132,7 @@ export default {
           :isPageView="isPageView"
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
+          :isMobile="isMobile"
           @toggleCart="isCartOpened = !isCartOpened"
         />
 

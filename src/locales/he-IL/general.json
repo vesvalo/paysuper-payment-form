@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "אנא המתן.<br/>אנו מעבדים את התשלום שביצעת.",
+      "description": "אנא המתן עד סיום ביצוע התשלום.<br/>בדרך כלל, הדבר אורך מספר שניות."
+    },
+    "3ds": {
+      "title": "כעת תועבר<br>אל אתר הבנק שלך, כדי לאמת את הגנת 3-D&nbsp;Secure.",
+      "description": "עלול להיות שיהוי בין מעבר בדיקת ה-3-D&nbsp;Secure<br>בהצלחה לבין קליטת התשלום. הדבר תלוי בבנק שבו השתמשת לביצוע התשלום."
+    },
+    "systemSuccess": {
+      "title": "ספק התשלום שלך<br>נתן תשובה ראשונית חיובית.",
+      "description": "ההחלטה הסופית תתקבל בעוד זמן קצר. אנא התאזר בסבלנות. <br>במערכות תשלומים, לעיתים נגרמים עיכובים מסיבות טכניות."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "סירוב",
+      "subtitle": "היתרה אינה מספיקה.",
+      "description": "חזור אחורה<br>ונסה אמצעי תשלום אחר."
+    },
+    "unknownError": {
+      "title": "אופס!",
+      "subtitle": "חלה שגיאה.",
+      "description": "זו שגיאה<br>שמתרחשת רק אחת ל-10,000 פעמים!"
+    },
+    "customError": {
+      "title": "אופס!",
+      "subtitle": "חלה שגיאה."
+    },
+    "success": {
+      "title": "קדימה, בואו נשחק!",
+      "titleSubSlave": {
+        "key": "הפעל את המפתח באתר של ספק הרישיון. <a href='{link}'>הוראות</a>",
+        "product": "קנית משחק חדש. מזל טוב! תיהנה!",
+        "simple": "התשלום בוצע בהצלחה!",
+        "virtual_items": "נוספו פריטים חדשים לחשבון שלך. תיהנה!",
+        "virtual_currency": "הועבר כסף לחשבון המשחק שלך!"
+      },
+      "descriptionSlaveInitial": "הזן את כתובת הדוא\"ל שלך כדי שנוכל לשלוח לך קבלה.",
+      "descriptionSlaveFinal": {
+        "key": "אישור התשלום ומפתח הפעלה נשלחו אל",
+        "product": "אישור התשלום וקישור לצורך כניסה נשלחו אל",
+        "simple": "אישור התשלום נשלח אל",
+        "virtual_items": "אישור התשלום נשלח אל",
+        "virtual_currency": "אישור התשלום נשלח אל"
+      },
+      "email": "כתובת דוא\"ל"
+    }
+  },
+  "CartSection": {
+    "subtotal": "סיכום ביניים",
+    "taxes": "מס",
+    "total": "סך הכל",
+    "voluntaryAmount": "הסכום שנבחר"
+  },
+  "FormSection": {
+    "prependLabel": "שלם באמצעות ",
+    "card": "כרטיס",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "כתובת דוא\"ל למשלוח",
+    "emailInvalid": "כתובת דוא\"ל לא חוקית",
+    "remember": "זכור אותי",
+    "abstractNumberError": "מספר לא חוקי",
+    "abstractNumberPlaceholder": "מספר הארנק של {name}",
+    "placeholderEmail": "הזן את כתובת הדוא\"ל שלך",
+    "payButtonPrefix": "בצע תשלום",
+    "tryAgain": "נסה שוב",
+    "save": "שמור",
+    "close": "סגור",
+    "ok": "אישור"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "מספר כרטיס לא חוקי",
+    "expiryDate": "תוקף",
+    "expiryDateInvalid": "תוקף לא חוקי",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "שלוש הספרות<br>בגב הכרטיס",
+    "cvvError": "ערך לא חוקי",
+    "email": "כתובת דוא\"ל למשלוח",
+    "emailInvalid": "כתובת דוא\"ל לא חוקית",
+    "remember": "זכור אותי",
+    "rememberInfo": "שמירת פרטי התשלום נעשית בהתאם לדרישות תקני PCI DSS, באמצעות הפרוטוקולים 3-D&nbsp;Secure ו-SSL.",
+    "city": "עיר",
+    "cityInvalid": "עיר לא חוקית",
+    "country": "מדינה",
+    "countryInvalid": "בחר את המדינה שלך",
+    "zip": "מיקוד",
+    "zipInvalid": "מיקוד לא חוקי"
+  },
+  "LayoutFooter": {
+    "userAgreement": "הסכם משתמש",
+    "support": "תמיכה"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "תנאים והתניות",
+    "userAgreement": "הסכם משתמש"
+  },
+  "ModalCart": {
+    "legalInfo": "מידע משפטי",
+    "termsOfUse": "תנאים והתניות",
+    "support": "תמיכה",
+    "userAgreement": "הסכם משתמש"
+  },
+  "PaymentAreaWarning": {
+    "oops": "אופס!",
+    "cantAcceptPayments": "איננו יכולים לקבל תשלומים מהמדינה שלך.",
+    "chooseAnotherArea": "האם זיהינו את המדינה שלך באופן שגוי? בחר את המדינה הנכונה.",
+    "country": "בחר את המדינה שלך."
+  },
+  "UiCardField": {
+    "cardNumber": "מספר כרטיס"
+  },
+  "UiCardSelect": {
+    "anotherCard": "כרטיס נוסף",
+    "cardNumber": "מספר כרטיס"
+  },
+  "UiSelectOption": {
+    "remove": "מחק"
+  },
+  "OrderCreationError": {
+    "title": "לצערנו, לא הצלחנו ליצור את פקודת התשלום.",
+    "tryAgain": "נסה שוב",
+    "unknownError": "שגיאה זו מתרחשת רק אחת ל-10,000 פעמים!"
+  },
+  "FormSectionSavedCards": {
+    "title": "שלם באמצעות כרטיס שמור",
+    "deletingCard": "מוחק את הכרטיס",
+    "undo": "ביטול"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "שלם באמצעות כרטיס שמור",
+    "anotherWayToPay": "השתמש בכרטיס אחר"
+  }
+}

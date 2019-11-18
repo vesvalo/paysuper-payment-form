@@ -5,8 +5,8 @@
       "description": "Veuillez patienter jusqu’à la fin du traitement du paiement.<br/>Cela ne prend généralement que quelques secondes."
     },
     "3ds": {
-      "title": "Vous allez maintenant être redirigé<br>vers le site Web de votre banque pour confirmer la protection 3-D&nbspSecure.",
-      "description": "Il peut s’écouler un certain temps entre la vérification 3-D&nbspSecure<br>et la réception du paiement. Cela dépend de la banque que vous avez utilisée pour le paiement."
+      "title": "Vous allez maintenant être redirigé<br>vers le site Web de votre banque pour confirmer la protection 3-D&nbsp;Secure.",
+      "description": "Il peut s’écouler un certain temps entre la vérification 3-D&nbsp;Secure<br>et la réception du paiement. Cela dépend de la banque que vous avez utilisée pour le paiement."
     },
     "systemSuccess": {
       "title": "Votre fournisseur de paiement<br>a fourni une réponse initiale satisfaisante.",
@@ -20,22 +20,22 @@
       "description": "Veuillez revenir en arrière<br>et essayer un autre mode de paiement."
     },
     "unknownError": {
-      "title": "Dommage&nbsp!",
+      "title": "Dommage&nbsp;!",
       "subtitle": "Une erreur s’est produite.",
-      "description": "Cette erreur se produit<br>une fois sur&nbsp10&nbsp000&nbsp!"
+      "description": "Cette erreur se produit<br>une fois sur&nbsp;10&nbsp;000&nbsp;!"
     },
     "customError": {
-      "title": "Dommage&nbsp!",
+      "title": "Dommage&nbsp;!",
       "subtitle": "Une erreur s’est produite."
     },
     "success": {
-      "title": "Et c’est parti&nbsp!",
+      "title": "Et c’est parti&nbsp;!",
       "titleSubSlave": {
         "key": "Activez la clé sur le site Web du fournisseur de licence. <a href='{link}'>Instructions</a>",
-        "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp! Amusez-vous bien&nbsp!",
-        "simple": "Votre paiement a été effectué avec succès&nbsp!",
-        "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez-vous bien&nbsp!",
-        "virtual_currency": "De nouveaux fonds ont été ajoutés à votre compte de jeu&nbsp!"
+        "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp;! Amusez-vous bien&nbsp;!",
+        "simple": "Votre paiement a été effectué avec succès&nbsp;!",
+        "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez-vous bien&nbsp;!",
+        "virtual_currency": "De nouveaux fonds ont été ajoutés à votre compte de jeu&nbsp;!"
       },
       "descriptionSlaveInitial": "Entrez votre adresse électronique pour obtenir un reçu.",
       "descriptionSlaveFinal": {
@@ -92,7 +92,7 @@
     "email": "Adresse électronique de livraison",
     "emailInvalid": "Adresse électronique non valide",
     "remember": "Se souvenir de moi",
-    "rememberInfo": "Les informations de paiement sont stockées à l’aide des protocoles et 3-D&nbspSecure et SSL, conformément aux exigences des normes PCI et DSS.",
+    "rememberInfo": "Les informations de paiement sont stockées à l’aide des protocoles et 3-D&nbsp;Secure et SSL, conformément aux exigences des normes PCI et DSS.",
     "city": "Ville",
     "cityInvalid": "Ville incorrecte",
     "country": "Pays",
@@ -115,9 +115,9 @@
     "userAgreement": "Contrat d’utilisation"
   },
   "PaymentAreaWarning": {
-    "oops": "Oups&nbsp!",
+    "oops": "Oups&nbsp;!",
     "cantAcceptPayments": "Nous ne pouvons accepter les paiements en provenance de votre pays.",
-    "chooseAnotherArea": "Avons-nous mal détecté votre pays&nbsp? Veuillez choisir le bon.",
+    "chooseAnotherArea": "Avons-nous mal détecté votre pays&nbsp;? Veuillez choisir le bon.",
     "country": "Sélectionnez votre pays."
   },
   "UiCardField": {
@@ -133,7 +133,7 @@
   "OrderCreationError": {
     "title": "Malheureusement, nous n’avons pas pu créer l’ordre de paiement.",
     "tryAgain": "RÉESSAYER",
-    "unknownError": "Cette erreur se produit une fois sur&nbsp10&nbsp000&nbsp!"
+    "unknownError": "Cette erreur se produit une fois sur&nbsp;10&nbsp;000&nbsp;!"
   },
   "FormSectionSavedCards": {
     "title": "Payer avec une carte enregistrée",

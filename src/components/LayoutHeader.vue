@@ -84,8 +84,10 @@
           <div :class="$style.localeBox">
             <span
               :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
-              @mouseenter="hasLocaleChangerOpened = true"
-              @mouseleave="hasLocaleChangerOpened = false"
+              @mouseenter="!isMobile && toggleLocaleChanger(true)"
+              @mouseleave="!isMobile && toggleLocaleChanger(false)"
+              v-touch:tap="toggleLocaleChanger"
+              v-clickaway="closeLocaleChanger"
             >
               {{ $i18n.getLocaleLabel() }}
             </span>
@@ -97,11 +99,12 @@
               :class="$style.localeTip"
               :hasCaret="!isModal"
               :visible="hasLocaleChangerOpened"
+              :visibleOnHover="!isMobile"
             >
               <LocaleCnanger
                 layout="page"
                 :class="$style.localeChanger"
-                @changeLocale="hasLocaleChangerOpened = false"
+                @changeLocale="toggleLocaleChanger(false)"
               />
             </UiTip>
           </div>
@@ -113,10 +116,13 @@
 </template>
 
 <script>
+import { isBoolean } from 'lodash-es';
+import { directive as clickaway } from 'vue-clickaway';
 import LocaleCnanger from '@/components/LocaleChanger.vue';
 import { gtagEvent } from '@/analytics';
 
 export default {
+  directives: { clickaway },
   components: { LocaleCnanger },
   props: {
     isCartOpened: {
@@ -124,6 +130,10 @@ export default {
       type: Boolean,
     },
     isModal: {
+      type: Boolean,
+      default: false,
+    },
+    isMobile: {
       type: Boolean,
       default: false,
     },
@@ -218,6 +228,12 @@ export default {
     toggleCart() {
       gtagEvent('clickToggleCart', { event_category: 'userAction' });
       this.$emit('toggleCart');
+    },
+    closeLocaleChanger() {
+      this.hasLocaleChangerOpened = false;
+    },
+    toggleLocaleChanger(value) {
+      this.hasLocaleChangerOpened = isBoolean(value) ? value : !this.hasLocaleChangerOpened;
     },
   },
 };

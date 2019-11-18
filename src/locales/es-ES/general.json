@@ -5,8 +5,8 @@
       "description": "Espere hasta que se haya completado el pago correctamente.<br/>Suele tomar unos segundos."
     },
     "3ds": {
-      "title": "Será redirigido<br>al sitio web de su banco para confirmar la protección 3-D&nbspSecure.",
-      "description": "Puede que haya una demora entre la verificación de 3-D&nbspSecure<br>y que se reciba el pago. Depende del banco que haya usado para el pago."
+      "title": "Será redirigido<br>al sitio web de su banco para confirmar la protección 3-D&nbsp;Secure.",
+      "description": "Puede que haya una demora entre la verificación de 3-D&nbsp;Secure<br>y que se reciba el pago. Depende del banco que haya usado para el pago."
     },
     "systemSuccess": {
       "title": "El proveedor de su pago<br>dio una respuesta inicial correcta.",
@@ -92,7 +92,7 @@
     "email": "Dirección de correo electrónico para la entrega",
     "emailInvalid": "Dirección de correo electrónico inválida",
     "remember": "Recordarme",
-    "rememberInfo": "La información del pago se guarda de acuerdo con lo requerido por las normas PCI y DSS con los protocolos 3-D&nbspSecure y SSL.",
+    "rememberInfo": "La información del pago se guarda de acuerdo con lo requerido por las normas PCI y DSS con los protocolos 3-D&nbsp;Secure y SSL.",
     "city": "Ciudad",
     "cityInvalid": "Ciudad inválida",
     "country": "País",

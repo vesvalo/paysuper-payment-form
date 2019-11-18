@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Моля, изчакайте. Плащането се обработва.",
+      "description": "Моля, изчакайте потвърждението за успешна трансакция. <br/>Това обикновено отнема само няколко секунди."
+    },
+    "3ds": {
+      "title": "Ще бъдете прехвърлени към страницата на<br>Вашата банка за потвърждение на 3-D&nbsp;Secure.",
+      "description": "Може да има забавяне между проверката на 3-D&nbsp;Secure<br>и получаването на плащането. Това зависи от банката, през която е направено плащането."
+    },
+    "systemSuccess": {
+      "title": "Вашата банка върна първоначален<br> отговор за успешно плащане.",
+      "description": "Окончателното решение ще бъде взето скоро. Моля, имайте търпение. <br>Понякога платежните системи търпят забавяне поради технически причини."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Плащането е отхвърлено.",
+      "subtitle": "Недостатъчно салдо.",
+      "description": "Върнете се<br> и изберете друг начин на плащане."
+    },
+    "unknownError": {
+      "title": "Жалко!",
+      "subtitle": "Възникна грешка.",
+      "description": "Тази грешка се появява<br/> веднъж на 10 000 пъти!"
+    },
+    "customError": {
+      "title": "Жалко!",
+      "subtitle": "Възникна грешка."
+    },
+    "success": {
+      "title": "Да играем!",
+      "titleSubSlave": {
+        "key": "Активирайте ключа в страницата на доставчика на лиценза. <a href='{link}'>Инструкции</a>",
+        "product": "Закупихте нова игра. Поздравления! Приятно забавление!",
+        "simple": "Плащането беше успешно!",
+        "virtual_items": "В профила Ви има добавени нови продукти. Приятно забавление!",
+        "virtual_currency": "В профила Ви има добавени нови средства!"
+      },
+      "descriptionSlaveInitial": "Въведете имейл адрес, за да получите платежна разписка.",
+      "descriptionSlaveFinal": {
+        "key": "Потвърждение на плащането и ключ за активация са изпратени на",
+        "product": "Потвърждение на плащането и линк за достъп са изпратени на",
+        "simple": "Потвърждение на плащането е изпратено на",
+        "virtual_items": "Потвърждение на плащането е изпратено на",
+        "virtual_currency": "Потвърждение на плащането е изпратено на"
+      },
+      "email": "Имейл адрес"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Данъчна основа",
+    "taxes": "Данък",
+    "total": "Общо",
+    "voluntaryAmount": "Избрана сума"
+  },
+  "FormSection": {
+    "prependLabel": "Плащане с ",
+    "card": "карта",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Имейл адрес за доставка",
+    "emailInvalid": "Невалиден имейл адрес",
+    "remember": "Запомни ме",
+    "abstractNumberError": "Невалиден номер",
+    "abstractNumberPlaceholder": "{name} номер на портфейл",
+    "placeholderEmail": "Въведете имейл адрес",
+    "payButtonPrefix": "ПЛАТИ",
+    "tryAgain": "ОПИТАЙ ОТНОВО",
+    "save": "ЗАПАЗИ",
+    "close": "ЗАТВОРИ",
+    "ok": "ОК"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Невалиден номер на карта",
+    "expiryDate": "Дата на валидност",
+    "expiryDateInvalid": "Невалидна дата на валидност",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Трите цифри<br>на гърба на картата",
+    "cvvError": "Невалидна стойност",
+    "email": "Имейл адрес за доставка",
+    "emailInvalid": "Невалиден имейл адрес",
+    "remember": "Запомни ме",
+    "rememberInfo": "Информацията за плащане се съхранява съгласно изискванията на Политиката за поверителност и защита на личните данни, използвайки 3-D&nbsp;Secure и SSL протоколи.",
+    "city": "Град",
+    "cityInvalid": "Невалиден град",
+    "country": "Държава",
+    "countryInvalid": "Изберете държава",
+    "zip": "Пощенски код",
+    "zipInvalid": "Невалиден пощенски код"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Договор",
+    "support": "Поддръжка"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Условия и политика",
+    "userAgreement": "Договор"
+  },
+  "ModalCart": {
+    "legalInfo": "Правна информация",
+    "termsOfUse": "Условия и политика",
+    "support": "Поддръжка",
+    "userAgreement": "Договор"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Опа!",
+    "cantAcceptPayments": "Не приемаме плащания от Вашата държава.",
+    "chooseAnotherArea": "Грешно ли разпознахме държавата Ви? Моля, изберете правилната.",
+    "country": "Изберете държава."
+  },
+  "UiCardField": {
+    "cardNumber": "Номер на кредитна карта"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Друга карта",
+    "cardNumber": "Номер на кредитна карта"
+  },
+  "UiSelectOption": {
+    "remove": "Изтрий"
+  },
+  "OrderCreationError": {
+    "title": "За съжаление, не успяхме да създадем платежно нареждане.",
+    "tryAgain": "ОПИТАЙ ОТНОВО",
+    "unknownError": "Тази грешка се появява веднъж на 10 000 пъти!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Плати със запазена карта",
+    "deletingCard": "Изтрий картата",
+    "undo": "Отмени"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Плати със запазена карта",
+    "anotherWayToPay": "Използвай друга карта"
+  }
+}

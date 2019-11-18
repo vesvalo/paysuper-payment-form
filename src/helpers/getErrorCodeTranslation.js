@@ -7,12 +7,12 @@ function getErrorCodeTranslationByLocale(code, locale) {
     || get(i18n.messages[locale], `errorCodes.${code.slice(0, 2)}*`);
 }
 
-export default function getErrorCodeTranslation(code) {
+export default function getErrorCodeTranslation(code, locale = i18n.locale) {
   const noTranslationMessage = 'Unknown error';
   if (!code) {
     return noTranslationMessage;
   }
-  return getErrorCodeTranslationByLocale(code, i18n.locale)
+  return getErrorCodeTranslationByLocale(code, locale)
     || getErrorCodeTranslationByLocale(code, i18n.fallbackLocale)
     || noTranslationMessage;
 }

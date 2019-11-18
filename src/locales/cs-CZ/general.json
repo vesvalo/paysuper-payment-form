@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Počkejte prosím.<br/>Zpracováváme vaši platbu.",
+      "description": "Počkejte, až bude platba úspěšně dokončena.<br/>Obvykle to trvá jen několik sekund."
+    },
+    "3ds": {
+      "title": "Nyní budete přesměrováni<br>na webové stránky své banky, abyste potvrdili ochranu 3-D&nbsp;Secure.",
+      "description": "Mezi předáním šeku 3-D&nbsp;Secure<br>a přijetím platby může být zpoždění. Závisí to na bance, kterou jste využili k provedení platby."
+    },
+    "systemSuccess": {
+      "title": "Váš poskytovatel plateb<br>poskytl úspěšnou počáteční odezvu.",
+      "description": "Konečné rozhodnutí bude učiněno brzy. Prosím, buďte trpěliví.<br>Platební systémy někdy mívají z technických důvodů zpoždění."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Odmítnuto!",
+      "subtitle": "Nedostatečné finanční prostředky.",
+      "description": "Vraťte se zpět<br>a zkuste jinou platební metodu."
+    },
+    "unknownError": {
+      "title": "Moc špatné!",
+      "subtitle": "Došlo k chybě.",
+      "description": "K této chybě dochází<br>v jednom z 10 000 případů!"
+    },
+    "customError": {
+      "title": "Moc špatné!",
+      "subtitle": "Došlo k chybě."
+    },
+    "success": {
+      "title": "Pojďme si zahrát!",
+      "titleSubSlave": {
+        "key": "Aktivujte klíč na webu poskytovatele licence. <a href='\\{link}'>Instructions</a>",
+        "product": "Koupili jste si novou hru. Blahopřejeme! Bavte se dobře!",
+        "simple": "Vaše platba byla úspěšně dokončena!",
+        "virtual_items": "Na váš účet byly přidány nové položky. Bavte se dobře!",
+        "virtual_currency": "Na váš herní účet byly přidány nové finance!"
+      },
+      "descriptionSlaveInitial": "Zadejte svou e-mailovou adresu a obdržíte potvrzení.",
+      "descriptionSlaveFinal": {
+        "key": "Potvrzení o platbě a aktivační klíč byly zaslány na adresu",
+        "product": "Potvrzení o platbě a přístupový odkaz byly zaslány na adresu",
+        "simple": "Potvrzení o platbě bylo zasláno na adresu",
+        "virtual_items": "Potvrzení o platbě bylo zasláno na adresu",
+        "virtual_currency": "Potvrzení o platbě bylo zasláno na adresu"
+      },
+      "email": "E-mailová adresa"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Mezisoučet",
+    "taxes": "Daň",
+    "total": "Celkem",
+    "voluntaryAmount": "Zvolený obnos"
+  },
+  "FormSection": {
+    "prependLabel": "Platit čím ",
+    "card": "kartou",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "E-mailová adresa pro doručení",
+    "emailInvalid": "Neplatná e-mailová adresa",
+    "remember": "Zapamatuj si mě",
+    "abstractNumberError": "Neplatné číslo",
+    "abstractNumberPlaceholder": "{name} číslo peněženky",
+    "placeholderEmail": "Zadejte svou e-mailovou adresu",
+    "payButtonPrefix": "PLATIT",
+    "tryAgain": "ZPĚT",
+    "save": "ULOŽIT",
+    "close": "ZAVŘÍT",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Neplatné číslo karty",
+    "expiryDate": "Datum vypršení platnosti",
+    "expiryDateInvalid": "Neplatné datum vypršení platnosti",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Tři číslice<br>na zadní straně karty",
+    "cvvError": "Neplatná hodnota",
+    "email": "E-mailová adresa pro doručení",
+    "emailInvalid": "Neplatná e-mailová adresa",
+    "remember": "Zapamatuj si mě",
+    "rememberInfo": "Informace o platbě jsou ukládány v souladu s požadavky standardů PCI a DSS pomocí protokolů 3-D&nbsp;Secure a SSL.",
+    "city": "Město",
+    "cityInvalid": "Neplatné město",
+    "country": "Země",
+    "countryInvalid": "Vyberte svoji zemi",
+    "zip": "PSČ",
+    "zipInvalid": "Neplatné PSČ"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Uživatelská dohoda",
+    "support": "Podpora"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Obchodní podmínky",
+    "userAgreement": "Uživatelská dohoda"
+  },
+  "ModalCart": {
+    "legalInfo": "Právní informace",
+    "termsOfUse": "Obchodní podmínky",
+    "support": "Podpora",
+    "userAgreement": "Uživatelská dohoda"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Jejda!",
+    "cantAcceptPayments": "Nemůžeme přijímat platby z vaší země.",
+    "chooseAnotherArea": "Identifikovali jsme vaši zemi nesprávně? Vyberte prosím tu správnou.",
+    "country": "Vyberte svoji zemi."
+  },
+  "UiCardField": {
+    "cardNumber": "Číslo karty"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Jiná karta",
+    "cardNumber": "Číslo karty"
+  },
+  "UiSelectOption": {
+    "remove": "Odstranit"
+  },
+  "OrderCreationError": {
+    "title": "Bohužel se nám nepodařilo vytvořit platební příkaz.",
+    "tryAgain": "ZKUSTE TO ZNOVU!",
+    "unknownError": "K této chybě dochází v jednom z 10.000 případů!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Plaťte uloženou kartou",
+    "deletingCard": "Mazání karty",
+    "undo": "Zrušit"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Plaťte uloženou kartou",
+    "anotherWayToPay": "Použijte jinou kartu"
+  }
+}

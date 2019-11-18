@@ -7,6 +7,7 @@ import IconCardFail from '@/components/IconCardFail.vue';
 import IconCardSuccess from '@/components/IconCardSuccess.vue';
 import IconLetsPlay from '@/components/IconLetsPlay.vue';
 import UiTextField from '@/components/UiTextField.vue';
+import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
 
 export default {
   name: 'ActionResult',
@@ -30,7 +31,7 @@ export default {
       },
     },
 
-    message: {
+    code: {
       type: String,
     },
 
@@ -96,6 +97,9 @@ export default {
           // iconComponent: 'IconCardSuccess',
         },
       };
+    },
+    message() {
+      return getErrorCodeTranslation(this.code, this.$i18n.locale);
     },
   },
   created() {

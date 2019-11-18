@@ -44,14 +44,20 @@ export default {
       default: false,
       type: Boolean,
     },
+    visibleOnHover: {
+      default: true,
+      type: Boolean,
+    },
   },
   data() {
     return {
       innerVisible: false,
       timeoutId: 0,
+      isMobile: false,
     };
   },
   mounted() {
+    this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
     const containerClass = this.$style.container;
     const sectionClass = this.$style[`_${this.section}`];
     const tipBoxColor = this.$gui[`tip${upperFirst(this.section)}BoxColor`];
@@ -93,6 +99,10 @@ export default {
 
       this.timeoutId = 0;
     },
+    setInnerVisible() {
+      this.innerVisible = !this.isMobile;
+      console.error(this.visible, this.innerVisible);
+    },
   },
   watch: {
     visible(value) {
@@ -113,14 +123,18 @@ export default {
     $style[`_${position}`],
     $style[`_inner-${innerPosition}`],
     $style[`_${section}`],
-    { [$style._shown]: visible || innerVisible, [$style._hasCaret]: hasCaret }
+    {
+      [$style._shown]: visible || innerVisible,
+      [$style._hasCaret]: hasCaret,
+      [$style._visibleOnHover]: visibleOnHover,
+    },
   ]"
   :style="{
     height: height || undefined,
     width: width || undefined,
     maxHeight: maxHeight ? maxHeight : undefined,
   }"
-  @mouseenter="innerVisible = true"
+  @mouseenter="setInnerVisible"
   @mouseleave="hide"
 >
   <slot />
@@ -223,7 +237,7 @@ export default {
   }
 
   &._shown,
-  &:hover {
+  &._visibleOnHover:hover {
     pointer-events: auto;
     opacity: 1;
     transform: translate3d(0, 0, 0);

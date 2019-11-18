@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "잠시 기다려주십시오.<br/>결제를 처리하는 중입니다.",
+      "description": "결제가 성공적으로 완료될 때까지 기다려주십시오.<br/>보통 몇 초가 소요될 수 있습니다."
+    },
+    "3ds": {
+      "title": "3-D&nbsp;Secure 확인을 위해<br>거래 은행 웹사이트로 이동합니다.",
+      "description": "3-D&nbsp;Secure 확인 송신과 결제 수신 사이에<br>지연이 발생할 수 있습니다. 결제에 이용하는 은행에 따라 다를 수 있습니다."
+    },
+    "systemSuccess": {
+      "title": "결제 수단 제공자가<br>성공적으로 최초 응답을 보냈습니다.",
+      "description": "최종 승인 결정이 곧 내려질 것입니다. 기다려주십시오. <br>결제 시스템에서 기술적인 이유로 간혹 지연이 발생하는 경우가 있습니다."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "승인 거부됨",
+      "subtitle": "잔액이 부족합니다.",
+      "description": "다시 돌아가<br>다른 결제 수단을 시도하시기 바랍니다."
+    },
+    "unknownError": {
+      "title": "이런!",
+      "subtitle": "오류가 발생했습니다.",
+      "description": "10,000번에 한 번<br>발생할까 하는 오류입니다!"
+    },
+    "customError": {
+      "title": "이런!",
+      "subtitle": "오류가 발생했습니다."
+    },
+    "success": {
+      "title": "놀아봅시다!",
+      "titleSubSlave": {
+        "key": "라이선스 공급자의 웹사이트에서 키를 활성화하세요. <a href='{link}'>안내</a>",
+        "product": "새 게임을 구매하셨습니다. 축하드립니다! 재미있게 즐기세요!",
+        "simple": "결제가 성공적으로 완료되었습니다.",
+        "virtual_items": "새로운 아이템이 계정에 추가되었습니다. 재미있게 즐기세요!",
+        "virtual_currency": "새 게임 머니가 계정에 추가되었습니다!"
+      },
+      "descriptionSlaveInitial": "영수증을 받을 이메일 주소를 입력하세요.",
+      "descriptionSlaveFinal": {
+        "key": "결제 확인 및 활성화 키 수령:",
+        "product": "결제 확인 및 액세스 링크 수령:",
+        "simple": "결제 확인 수령:",
+        "virtual_items": "결제 확인 수령:",
+        "virtual_currency": "결제 확인 수령:"
+      },
+      "email": "이메일 주소"
+    }
+  },
+  "CartSection": {
+    "subtotal": "소계",
+    "taxes": "세금",
+    "total": "총",
+    "voluntaryAmount": "선택 금액"
+  },
+  "FormSection": {
+    "prependLabel": "결제 수단 ",
+    "card": "카드",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "배송용 이메일 주소",
+    "emailInvalid": "유효하지 않은 이메일 주소",
+    "remember": "저장하기",
+    "abstractNumberError": "유효하지 않은 번호",
+    "abstractNumberPlaceholder": "{name} 지갑 번호",
+    "placeholderEmail": "이메일 주소 입력",
+    "payButtonPrefix": "결제",
+    "tryAgain": "재시도",
+    "save": "저장",
+    "close": "닫기",
+    "ok": "확인"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "유효하지 않은 카드 번호",
+    "expiryDate": "유효기간",
+    "expiryDateInvalid": "유효하지 않은 유효기간",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "카드 뒷면의<br>번호 세자리",
+    "cvvError": "유효하지 않은 값",
+    "email": "배송용 이메일 주소",
+    "emailInvalid": "유효하지 않은 이메일 주소",
+    "remember": "저장하기",
+    "rememberInfo": "결제 정보는 3-D&nbsp;Secure 및 SSL 프로토콜을 사용하여 PCI 및 DSS 표준에 따라 저장됩니다.",
+    "city": "도시",
+    "cityInvalid": "유효하지 않은 도시",
+    "country": "국가",
+    "countryInvalid": "국가 선택",
+    "zip": "우편번호",
+    "zipInvalid": "유효하지 않은 우편번호"
+  },
+  "LayoutFooter": {
+    "userAgreement": "사용자 계약",
+    "support": "고객지원"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "이용약관",
+    "userAgreement": "사용자 계약"
+  },
+  "ModalCart": {
+    "legalInfo": "법률 정보",
+    "termsOfUse": "이용약관",
+    "support": "고객지원",
+    "userAgreement": "사용자 계약"
+  },
+  "PaymentAreaWarning": {
+    "oops": "어이쿠!",
+    "cantAcceptPayments": "해당 국가에서 결제가 불가능합니다.",
+    "chooseAnotherArea": "혹시 국가 선택을 잘못하셨나요? 올바른 국가를 선택해주세요.",
+    "country": "국가를 선택하세요."
+  },
+  "UiCardField": {
+    "cardNumber": "카드 번호"
+  },
+  "UiCardSelect": {
+    "anotherCard": "다른 카드",
+    "cardNumber": "카드 번호"
+  },
+  "UiSelectOption": {
+    "remove": "삭제"
+  },
+  "OrderCreationError": {
+    "title": "죄송하지만, 결제를 위한 주문을 생성하지 못했습니다.",
+    "tryAgain": "재시도",
+    "unknownError": "10,000번에 한 번 발생할까 하는 오류입니다!"
+  },
+  "FormSectionSavedCards": {
+    "title": "저장된 카드로 결제",
+    "deletingCard": "카드 삭제 중",
+    "undo": "취소"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "저장된 카드로 결제",
+    "anotherWayToPay": "다른 카드 사용하기"
+  }
+}

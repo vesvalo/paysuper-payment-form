@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Vui lòng chờ.<br/>Chúng tôi đang xử lý thanh toán của quý vị.",
+      "description": "Vui lòng đợi cho đến khi thanh toán được thực ênện thành công.<br/> Việc này thường chỉ mất vài giây."
+    },
+    "3ds": {
+      "title": "Bây giờ quý vị sẽ được chuyển hướng<br>đến trang web của ngân hàng của quý vị để xác nhận bảo vệ 3-D&nbsp;Secure.",
+      "description": "Có thể có sự chậm trễ giữa việc vượt qua kiểm tra 3-D&nbsp;Secure<br>và nhận thanh toán. Điều đó phụ thuộc vào ngân hàng quý vị sử dụng để thanh toán."
+    },
+    "systemSuccess": {
+      "title": "Nhà cung cấp dịch vụ thanh toán của quý vị<br>đã cung cấp phản hồi ban đầu là thành công.",
+      "description": "Quyết định cuối cùng sẽ được đưa ra sớm. Xin hãy kiên nhẫn.<br>Hệ thống thanh toán đôi khi gặp phải sự chậm trễ vì lý do kỹ thuật."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Đã từ ciối",
+      "subtitle": "Không đủ tiền.",
+      "description": "Vui lòng quay lại<br>và chọn một phương thức thanh toán khác."
+    },
+    "unknownError": {
+      "title": "Thật tệ!",
+      "subtitle": "Có lỗi xảy ra.",
+      "description": "Lỗi này xảy ra<br>cứ sau 10.000 lần!"
+    },
+    "customError": {
+      "title": "Thật tệ!",
+      "subtitle": "Có lỗi xảy ra."
+    },
+    "success": {
+      "title": "Hãy cùng chơi nào!",
+      "titleSubSlave": {
+        "key": "Kích hoạt khóa trên trang web của nhà cung cấp giấy phép. <a href='{link}'>Hướng dẫn</a>",
+        "product": "Quý vị đã mua một trò chơi mới. Xin chúc mừng! Chúc quý vị chơi vui vẻ!",
+        "simple": "Thanh toán của quý vị đã được hoàn thành thành công!",
+        "virtual_items": "Các mục hàng mới đã được thêm vào tài khoản của quý vị. Chúc quý vị chơi vui vẻ!",
+        "virtual_currency": "Khoản tiền mới đã được thêm vào tài khoản của trò chơi quý vị."
+      },
+      "descriptionSlaveInitial": "Nhập địa chỉ email của quý vị để nhận hóa đơn.",
+      "descriptionSlaveFinal": {
+        "key": "Xác nhận thanh toán và khóa kích hoạt đã được gửi tới",
+        "product": "Xác nhận thanh toán và liên kết truy cập đã được gửi tới",
+        "simple": "Xác nhận thanh toán đã được gửi tới",
+        "virtual_items": "Xác nhận thanh toán đã được gửi tới",
+        "virtual_currency": "Xác nhận thanh toán đã được gửi tới"
+      },
+      "email": "Địa chỉ email"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Tổng phụ",
+    "taxes": "Thuế",
+    "total": "Tổng",
+    "voluntaryAmount": "Số tiền được chọn"
+  },
+  "FormSection": {
+    "prependLabel": "Thanh toán bằng ",
+    "card": "một thẻ",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Amazon Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Địa chỉ email để giao hàng",
+    "emailInvalid": "Địa chỉ email không hợp lệ",
+    "remember": "Ghi nhớ tôi",
+    "abstractNumberError": "Số không hợp lệ",
+    "abstractNumberPlaceholder": "mã số ví {tên}",
+    "placeholderEmail": "Nhập địa chỉ email của quý vị",
+    "payButtonPrefix": "THANH TOÁN",
+    "tryAgain": "THỬ LẠI",
+    "save": "LƯU",
+    "close": "ĐÓNG",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Số thẻ không hợp lệ",
+    "expiryDate": "Ngày hết hạn",
+    "expiryDateInvalid": "Ngày hết hạn không hợp lệ",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Ba số<br>ở mặt sau của thẻ",
+    "cvvError": "Giá trị không hợp lệ",
+    "email": "Địa chỉ email để giao hàng",
+    "emailInvalid": "Địa chỉ email không hợp lệ",
+    "remember": "Ghi nhớ tôi",
+    "rememberInfo": "Thông tin thanh toán được lưu trữ theo các yêu cầu của tiêu chuẩn PCI và DSS bằng giao thức 3-D&nbsp;Secure và SSL.",
+    "city": "Thành phố",
+    "cityInvalid": "Thành phố không hợp lệ",
+    "country": "Quốc gia",
+    "countryInvalid": "Chọn quốc gia của quý vị",
+    "zip": "Mã số ZIP",
+    "zipInvalid": "Mã số ZIP không hợp lệ"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Thỏa thuận Người dùng",
+    "support": "Hỗ trợ"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Điều khoản và Điều kiện",
+    "userAgreement": "Thỏa thuận Người dùng"
+  },
+  "ModalCart": {
+    "legalInfo": "Thông tin pháp lý",
+    "termsOfUse": "Điều khoản và Điều kiện",
+    "support": "Hỗ trợ",
+    "userAgreement": "Thỏa thuận Người dùng"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Rất tiếc!",
+    "cantAcceptPayments": "Chúng tôi không chấp nhận thanh toán từ quốc gia của quý vị.",
+    "chooseAnotherArea": "Chúng tôi đã phát hiện quốc gia của bạn không chính xác phải không? Vui lòng chọn quốc gia chính xác.",
+    "country": "Chọn quốc gia của quý vị."
+  },
+  "UiCardField": {
+    "cardNumber": "Số thẻ"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Thẻ khác",
+    "cardNumber": "Số thẻ"
+  },
+  "UiSelectOption": {
+    "remove": "Xóa"
+  },
+  "OrderCreationError": {
+    "title": "Thật không may, chúng tôi không thể tạo đơn hàng để thanh toán.",
+    "tryAgain": "THỬ LẠI",
+    "unknownError": "Lỗi này xảy ra cứ sau 10.000 lần!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Thanh toán bằng thẻ đã lưu",
+    "deletingCard": "Đang xóa thẻ",
+    "undo": "Hủy"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Thanh toán bằng thẻ đã lưu",
+    "anotherWayToPay": "Sử dụng một thẻ khác"
+  }
+}
