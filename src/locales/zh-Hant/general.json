@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "請稍後。<br/>我們正在處理您的付款。",
+      "description": "請等待，直到付款成功完成。<br/>這通常只需幾秒鐘。"
+    },
+    "3ds": {
+      "title": "現在，您將被轉至銀行網站，<br>以確認 3-D&nbsp;Secure 保護。",
+      "description": "在傳送 3-D&nbsp;Secure 支票和收到付款<br>之間可能會有延時。這取決於付款銀行。"
+    },
+    "systemSuccess": {
+      "title": "您的付款提供商<br>已提供成功的初步回應。",
+      "description": "最終決定將很快做出。請耐心等待。<br>付款系統有時會由於技術原因而延時。"
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "已拒絕",
+      "subtitle": "資金不足。",
+      "description": "請返回<br>並嘗試其他付款方式。"
+    },
+    "unknownError": {
+      "title": "糟糕！",
+      "subtitle": "發生錯誤。",
+      "description": "此錯誤發生概率<br>只有萬分之一！"
+    },
+    "customError": {
+      "title": "糟糕！",
+      "subtitle": "發生錯誤。"
+    },
+    "success": {
+      "title": "開始遊戲！",
+      "titleSubSlave": {
+        "key": "在授權提供商網站上啟用金鑰。<a href='{link}'>說明</a>",
+        "product": "您已購新遊戲。恭喜您！祝您愉快！",
+        "simple": "您的付款已成功完成！",
+        "virtual_items": "新商品已新增到您的帳戶。祝您愉快！",
+        "virtual_currency": "新資金已新增到您的遊戲帳戶！"
+      },
+      "descriptionSlaveInitial": "輸入您的電子郵件地址以獲取收據。",
+      "descriptionSlaveFinal": {
+        "key": "付款確認和啟用金鑰已傳送至",
+        "product": "付款確認和存取連結已傳送至",
+        "simple": "付款確認已傳送至",
+        "virtual_items": "付款確認已傳送至",
+        "virtual_currency": "付款確認已傳送至"
+      },
+      "email": "電子郵件地址"
+    }
+  },
+  "CartSection": {
+    "subtotal": "小計",
+    "taxes": "稅金",
+    "total": "總計",
+    "voluntaryAmount": "選取金額"
+  },
+  "FormSection": {
+    "prependLabel": "付款方式 ",
+    "card": "銀行卡",
+    "neteller": "Neteller",
+    "alipay": "支付寶",
+    "bitcoin": "比特幣",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "銀聯",
+    "jcb": "JCB",
+    "wechat": "微信支付",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "送貨電子郵件地址",
+    "emailInvalid": "電子郵件地址無效",
+    "remember": "記住我",
+    "abstractNumberError": "號碼無效",
+    "abstractNumberPlaceholder": "‎{name} 錢包號碼",
+    "placeholderEmail": "輸入您的電子郵件地址",
+    "payButtonPrefix": "付款",
+    "tryAgain": "重試",
+    "save": "儲存",
+    "close": "關閉",
+    "ok": "確定"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "卡號無效",
+    "expiryDate": "到期日期",
+    "expiryDateInvalid": "到期日期無效",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "卡背面的三個數字",
+    "cvvError": "值無效",
+    "email": "送貨電子郵件地址",
+    "emailInvalid": "電子郵件地址無效",
+    "remember": "記住我",
+    "rememberInfo": "付款資訊使用 3-D&nbsp;Secure 和 SSL 協議，根據 PCI 和 DSS 標準要求儲存。",
+    "city": "城市",
+    "cityInvalid": "城市無效",
+    "country": "國家",
+    "countryInvalid": "選取國家",
+    "zip": "郵遞區號",
+    "zipInvalid": "郵遞區號無效"
+  },
+  "LayoutFooter": {
+    "userAgreement": "使用者合約",
+    "support": "支援"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "條款",
+    "userAgreement": "使用者合約"
+  },
+  "ModalCart": {
+    "legalInfo": "法律資訊",
+    "termsOfUse": "條款",
+    "support": "支援",
+    "userAgreement": "使用者合約"
+  },
+  "PaymentAreaWarning": {
+    "oops": "糟糕！",
+    "cantAcceptPayments": "我們無法接受從您所在國家付款。",
+    "chooseAnotherArea": "我們偵測的國家是否錯誤？請選取正確國家。",
+    "country": "選取國家。"
+  },
+  "UiCardField": {
+    "cardNumber": "卡號"
+  },
+  "UiCardSelect": {
+    "anotherCard": "其他卡",
+    "cardNumber": "卡號"
+  },
+  "UiSelectOption": {
+    "remove": "刪除"
+  },
+  "OrderCreationError": {
+    "title": "很遺憾，我們無法建立付款訂單。",
+    "tryAgain": "再試一次",
+    "unknownError": "此錯誤發生概率只有萬分之一！"
+  },
+  "FormSectionSavedCards": {
+    "title": "使用儲存的銀行卡付款",
+    "deletingCard": "刪除銀行卡",
+    "undo": "取消"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "使用儲存的銀行卡付款",
+    "anotherWayToPay": "使用其他卡"
+  }
+}

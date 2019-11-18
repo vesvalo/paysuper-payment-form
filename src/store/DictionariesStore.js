@@ -44,7 +44,7 @@ export default {
 
     async fetchCountries({ commit, dispatch }) {
       const response = await dispatch('getCountries');
-      commit('countries', response.countries);
+      commit('countries', response.countries || []);
     },
   },
 };

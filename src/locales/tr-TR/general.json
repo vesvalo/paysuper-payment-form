@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Lütfen bekleyin.<br/>Ödemenizi işleme alıyoruz.",
+      "description": "Lütfen ödeme başarılı bir şekilde tamamlanana kadar bekleyin.<br/>Bu işlem birkaç saniye sürebilir."
+    },
+    "3ds": {
+      "title": "3-D&nbsp;Secure korumasını onaylamak için şimdi<br>bankanızın web sitesine yönlendirileceksiniz.",
+      "description": "3-D&nbsp;Secure kontrolü<br>ve ödemenin ulaşması arasında bir gecikme yaşanabilir. Ödeme için tercih etmiş olduğunuz bankaya göre değişkenlik gösterebilir."
+    },
+    "systemSuccess": {
+      "title": "Ödeme sağlayıcınız<br>başarılı bir ön yanıt verdi.",
+      "description": "Son karar birazdan verilecektir. Lütfen bekleyin.<br>Teknik sebeplerden dolayı ödeme sistemlerinde bazen gecikme meydana gelebilmektedir."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Reddedildi",
+      "subtitle": "Yetersiz bakiye.",
+      "description": "Lütfen geri dönün<br>ve başka bir ödeme yöntemi seçin."
+    },
+    "unknownError": {
+      "title": "Hay aksi!",
+      "subtitle": "Bir hata oluştu.",
+      "description": "Bu hata<br>10.000'de 1 defa gerçekleşir."
+    },
+    "customError": {
+      "title": "Hay aksi!",
+      "subtitle": "Bir hata oluştu."
+    },
+    "success": {
+      "title": "Haydi oynayalım!",
+      "titleSubSlave": {
+        "key": "Lisans sağlayıcısının web sitesinden ürün anahtarını etkinleştirin.<a href='{link}'>Talimatlar</a>",
+        "product": "Yeni bir oyun satın aldınız. Tebrikler! İyi eğlenceler!",
+        "simple": "Ödemeniz başarıyla gerçekleştirildi!",
+        "virtual_items": "Hesabınıza yeni ürünler eklendi. İyi eğlenceler!",
+        "virtual_currency": "Yeni bir tutar oyun hesabınıza eklendi."
+      },
+      "descriptionSlaveInitial": "Faturanızı edinmek için e-posta adresinizi girin.",
+      "descriptionSlaveFinal": {
+        "key": "Ödeme onayı ve ürün etkinleştirme anahtarı şuraya gönderildi",
+        "product": "Ödeme onayı ve erişim bağlantısı şuraya gönderildi",
+        "simple": "Ödeme onayı şuraya gönderildi",
+        "virtual_items": "Ödeme onayı şuraya gönderildi",
+        "virtual_currency": "Ödeme onayı şuraya gönderildi"
+      },
+      "email": "E-posta adresi"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Ara toplam",
+    "taxes": "Vergi",
+    "total": "Toplam",
+    "voluntaryAmount": "Seçilen tutar"
+  },
+  "FormSection": {
+    "prependLabel": "Ödeme şekli ",
+    "card": "kart",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Teslimat için e-posta adresi",
+    "emailInvalid": "Geçersiz e-posta adresi",
+    "remember": "Beni hatırla",
+    "abstractNumberError": "Geçersiz numara",
+    "abstractNumberPlaceholder": "{name} cüzdan numarası",
+    "placeholderEmail": "E-posta adresinizi girin",
+    "payButtonPrefix": "ÖDE",
+    "tryAgain": "TEKRAR DENE",
+    "save": "KAYDET",
+    "close": "KAPAT",
+    "ok": "TAMAM"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Geçersiz kart numarası",
+    "expiryDate": "Son kullanma tarihi",
+    "expiryDateInvalid": "Geçersiz son kullanma tarihi",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Kartın arkasında yer alan<br>üç haneli sayı",
+    "cvvError": "Geçersiz değer",
+    "email": "Teslimat için e-posta adresi",
+    "emailInvalid": "Geçersiz e-posta adresi",
+    "remember": "Beni hatırla",
+    "rememberInfo": "Ödeme bilgileri, 3-D&nbsp;Secure ve SSL protokolleri kullanılarak PCI ve DSS standartlarının gerekliliklerine uygun bir şekilde kayıt altında tutulmaktadır.",
+    "city": "Şehir",
+    "cityInvalid": "Geçersiz şehir",
+    "country": "Ülke",
+    "countryInvalid": "Ülkenizi seçin",
+    "zip": "Posta kodu",
+    "zipInvalid": "Geçersiz posta kodu"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Kullanıcı Sözleşmesi",
+    "support": "Destek"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Hükümler ve Koşullar",
+    "userAgreement": "Kullanıcı Sözleşmesi"
+  },
+  "ModalCart": {
+    "legalInfo": "Yasal bilgilendirme",
+    "termsOfUse": "Hükümler ve Koşullar",
+    "support": "Destek",
+    "userAgreement": "Kullanıcı Sözleşmesi"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Tüh!",
+    "cantAcceptPayments": "Ülkenizden ödeme kabul edemiyoruz.",
+    "chooseAnotherArea": "Ülkenizi yanlış mı tespit ettik? Lütfen doğrusunu seçin.",
+    "country": "Ülkenizi seçin."
+  },
+  "UiCardField": {
+    "cardNumber": "Kart numarası"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Diğer kart",
+    "cardNumber": "Kart numarası"
+  },
+  "UiSelectOption": {
+    "remove": "Sil"
+  },
+  "OrderCreationError": {
+    "title": "Maalesef ödeme için sipariş oluşturamadık.",
+    "tryAgain": "TEKRAR DENE",
+    "unknownError": "Bu hata 10.000'de 1 defa gerçekleşir."
+  },
+  "FormSectionSavedCards": {
+    "title": "Kayıtlı bir kart ile ödeme yap",
+    "deletingCard": "Kart siliniyor",
+    "undo": "İptal"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Kayıtlı bir kart ile ödeme yap",
+    "anotherWayToPay": "Farklı bir kart kullan"
+  }
+}

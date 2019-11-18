@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Vänta.<br/>Vi behandlar din betalning.",
+      "description": "Vänta till betalningen är slutförd.<br/>Detta tar vanligtvis bara några sekunder."
+    },
+    "3ds": {
+      "title": "Du dirigeras nu om<br>till din banks webbsida för att bekräfta 3-D&nbsp;Secure-skydd.",
+      "description": "Det kan dröja lite mellan kontrollen av 3-D&nbsp;Secure<br> och betalningsmottagandet. Det beror på den bank som du använder för betalning."
+    },
+    "systemSuccess": {
+      "title": "Din betalningsleverantör<br>har givit ett initialt framgångsrikt svar.",
+      "description": "Det slutliga beslutet sker snart. Var tålmodig.<br>Betalsystem kan ibland bli försenade av tekniska skäl."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Avvisad",
+      "subtitle": "Otillräckliga tillgångar.",
+      "description": "Gå tillbaka<br>och försök med en annan betalningsmetod."
+    },
+    "unknownError": {
+      "title": "Vad synd!",
+      "subtitle": "Ett fel inträffade.",
+      "description": "Detta fel sker<br>bara var 10 000:e gång!"
+    },
+    "customError": {
+      "title": "Vad synd!",
+      "subtitle": "Ett fel inträffade."
+    },
+    "success": {
+      "title": "Nu sätter vi igång!",
+      "titleSubSlave": {
+        "key": "Aktivera koden på licensgivarens webbsida. <a href='{link}'>Instructions</a>",
+        "product": "Du har köpt ett nytt spel. Grattis! Ha det så kul!",
+        "simple": "Din betalning slutfördes framgångsrikt!",
+        "virtual_items": "Nya objekt har lagts till på ditt konto. Ha det så kul!",
+        "virtual_currency": "Nya tillgångar har lagts till på ditt spelkonto!"
+      },
+      "descriptionSlaveInitial": "Ange din e-postadress för att få ett kvitto.",
+      "descriptionSlaveFinal": {
+        "key": "Betalningsbekräftelse och en aktiveringskod har skickats till",
+        "product": "Betalningsbekräftelse och en åtkomstlänk har skickats till",
+        "simple": "Betalningsbekräftelse har skickats till",
+        "virtual_items": "Betalningsbekräftelse har skickats till",
+        "virtual_currency": "Betalningsbekräftelse har skickats till"
+      },
+      "email": "E-postadress"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Delsumma",
+    "taxes": "Moms",
+    "total": "Totalt",
+    "voluntaryAmount": "Vald summa"
+  },
+  "FormSection": {
+    "prependLabel": "Betala med ",
+    "card": "ett kort",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "E-postadress för leverans",
+    "emailInvalid": "Ogiltig e-postadress",
+    "remember": "Kom ihåg mig",
+    "abstractNumberError": "Ogiltigt nummer",
+    "abstractNumberPlaceholder": "{namn} wallet-nummer",
+    "placeholderEmail": "Ange din e-postadress",
+    "payButtonPrefix": "BETALA",
+    "tryAgain": "FÖRSÖK IGEN",
+    "save": "SPARA",
+    "close": "STÄNG",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Ogiltigt kortnummer",
+    "expiryDate": "Utgångsdatum",
+    "expiryDateInvalid": "Ogiltigt utgångsdatum",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "De tre siffrorna<br>på kortets baksida",
+    "cvvError": "Ogiltigt värde",
+    "email": "E-postadress för leverans",
+    "emailInvalid": "Ogiltig e-postadress",
+    "remember": "Kom ihåg mig",
+    "rememberInfo": "Betalningsinformation lagras i enlighet med kraven för PCI- och DSS-standarder vid användning av 3-D&nbsp;Secure och SSL-protokoll.",
+    "city": "Ort",
+    "cityInvalid": "Ogiltig ort",
+    "country": "Land",
+    "countryInvalid": "Välj ditt land",
+    "zip": "Postnummer",
+    "zipInvalid": "Ogiltigt postnummer"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Användaravtal",
+    "support": "Support"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Villkor och regler",
+    "userAgreement": "Användaravtal"
+  },
+  "ModalCart": {
+    "legalInfo": "Juridisk information",
+    "termsOfUse": "Villkor och regler",
+    "support": "Support",
+    "userAgreement": "Användaravtal"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Hoppsan!",
+    "cantAcceptPayments": "Vi accepterar inte betalningar från ditt land.",
+    "chooseAnotherArea": "Uppfattade vi ditt land fel? Välj rätt land.",
+    "country": "Välj ditt land."
+  },
+  "UiCardField": {
+    "cardNumber": "Kortnummer"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Ett annat kort",
+    "cardNumber": "Kortnummer"
+  },
+  "UiSelectOption": {
+    "remove": "Radera"
+  },
+  "OrderCreationError": {
+    "title": "Tyvärr kunde vi inte skapa beställningen för betalning.",
+    "tryAgain": "FÖRSÖK IGEN",
+    "unknownError": "Detta fel sker bara var 10 000:e gång!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Betala med ett kort som är sparat",
+    "deletingCard": "Radera kortet",
+    "undo": "Avbryt"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Betala med ett kort som är sparat",
+    "anotherWayToPay": "Använd ett annat kort."
+  }
+}

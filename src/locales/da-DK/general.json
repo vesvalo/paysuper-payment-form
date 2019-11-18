@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Vent venligst.<br/>Vi behandler din betaling.",
+      "description": "Vent indtil betalingen er afsluttet.<br/>Dette tager normalt kun få sekunder."
+    },
+    "3ds": {
+      "title": "Du bliver nu ledt vicere<br>til din banks websted for at bekræfte 3-D&nbsp;Secure-beskyttelse.",
+      "description": "Der kan være en forsinkelse, fra 3-D&nbsp;Secure-tjekket<br>er foretaget til modtagelse af betalingen. Det afhænger af den bank, du har brugt til betaling."
+    },
+    "systemSuccess": {
+      "title": "Din betalingsudbyder<br>har givet et indledende svar.",
+      "description": "Den endelige afgørelse træffes snart. Vær tålmodig.<br>Betalingssystemer oplever sommetider forsinkelser af tekniske grunde."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Afvist",
+      "subtitle": "For lav saldo.",
+      "description": "Gå tilbage,<br>og prøv en anden betalingsmetode."
+    },
+    "unknownError": {
+      "title": "Vi beklager!",
+      "subtitle": "Der opstod en fejl.",
+      "description": "Denne fejl opstår<br>en ud af 10.000 gange!"
+    },
+    "customError": {
+      "title": "Vi beklager!",
+      "subtitle": "Der opstod en fejl."
+    },
+    "success": {
+      "title": "Så er vi klar til at spille!",
+      "titleSubSlave": {
+        "key": "Aktiver nøglen på licensudbyderens websted. <a href='{link}'>Instructions</a>",
+        "product": "Du har købt et nyt spil. Tillykke! God fornøjelse!",
+        "simple": "Din betaling er gennemført!",
+        "virtual_items": "Nye varer er føjet til din konto. God fornøjelse!",
+        "virtual_currency": "Der er føjet penge til din spilkonto!"
+      },
+      "descriptionSlaveInitial": "Indtast din e-mailadresse for at få tilsendt en kvittering.",
+      "descriptionSlaveFinal": {
+        "key": "Betalingsbekræftelse og en aktiveringsnøgle er sendt til",
+        "product": "Betalingsbekræftelse og et adgangslink er sendt til",
+        "simple": "Betalingsbekræftelse er sendt til",
+        "virtual_items": "Betalingsbekræftelse er sendt til",
+        "virtual_currency": "Betalingsbekræftelse er sendt til"
+      },
+      "email": "E-mailadresse"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Subtotal",
+    "taxes": "Moms",
+    "total": "Total",
+    "voluntaryAmount": "Valgt beløb"
+  },
+  "FormSection": {
+    "prependLabel": "Betal med ",
+    "card": "et kort",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "E-mailadresse til levering",
+    "emailInvalid": "Ugyldig e-mailadresse",
+    "remember": "Husk mig",
+    "abstractNumberError": "Ugyldigt nummer",
+    "abstractNumberPlaceholder": "{name} nummer på pengepung",
+    "placeholderEmail": "Indtast din e-mailadresse",
+    "payButtonPrefix": "BETAL",
+    "tryAgain": "PRØV IGEN",
+    "save": "GEM",
+    "close": "LUK",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Ugyldigt kortnummer",
+    "expiryDate": "Udløbsdato",
+    "expiryDateInvalid": "Ugyldig udløbsdato",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "De tre tal<br>på bagsiden af kortet",
+    "cvvError": "Ugyldig værdi",
+    "email": "E-mailadresse til levering",
+    "emailInvalid": "Ugyldig e-mailadresse",
+    "remember": "Husk mig",
+    "rememberInfo": "Betalingsoplysninger gemmes i overensstemmelse med kravene i PCI- og DSS-standarderne ved hjælp af 3-D&nbsp;Secure- og SSL-protokoller.",
+    "city": "By",
+    "cityInvalid": "Ugyldig by",
+    "country": "Land",
+    "countryInvalid": "Vælg dit land",
+    "zip": "Postnummer",
+    "zipInvalid": "Ugyldigt postnummer"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Brugeraftale",
+    "support": "Support"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Vilkår og betingelser",
+    "userAgreement": "Brugeraftale"
+  },
+  "ModalCart": {
+    "legalInfo": "Juridiske oplysninger",
+    "termsOfUse": "Vilkår og betingelser",
+    "support": "Support",
+    "userAgreement": "Brugeraftale"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Ups!",
+    "cantAcceptPayments": "Vi kan ikke acceptere betalinger fra dit land.",
+    "chooseAnotherArea": "Har vi registreret dit land forkert? Vælg det rigtige.",
+    "country": "Vælg dit land."
+  },
+  "UiCardField": {
+    "cardNumber": "Kortnummer"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Et andet kort",
+    "cardNumber": "Kortnummer"
+  },
+  "UiSelectOption": {
+    "remove": "Slet"
+  },
+  "OrderCreationError": {
+    "title": "Vi kunne desværre ikke oprette betalingsordren.",
+    "tryAgain": "PRØV IGEN",
+    "unknownError": "Denne fejl opstår en ud af 10.000 gange!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Betal med et gemt kort",
+    "deletingCard": "Sletter kortet",
+    "undo": "Annuller"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Betal med et gemt kort",
+    "anotherWayToPay": "Brug et andet kort"
+  }
+}

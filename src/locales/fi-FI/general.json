@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Odota.<br/>Käsittelemme maksuasi.",
+      "description": "Odota, kunnes maksu on suoritettu onnistuneesti.<br/>Tämä kestää tavallisesti muutamia sekunteja."
+    },
+    "3ds": {
+      "title": "Sinut ohjataan nyt uudelleen<br>pankkisi verkkosivustolle vahvistamaan 3-D&nbsp;Secure-suojaus.",
+      "description": "3-D&nbsp;Secure-tarkistuksen läpäisemisen<br>ja maksun vastaanottamisen välillä saattaa olla viive. Se riippuu pankista, jota käytit maksuun."
+    },
+    "systemSuccess": {
+      "title": "Maksupalvelujesi tarjoaja <br>on antanut onnistuneen ensimmäisen vastauksen.",
+      "description": "Lopullinen päätös tehdään pian. Ole kärsivällinen. <br>Maksujärjestelmissä on joskus viiveitä teknisistä syistä."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Kielletty",
+      "subtitle": "Riittämättömät varat.",
+      "description": "Siirry takaisin<br>ja kokeile toista maksutapaa."
+    },
+    "unknownError": {
+      "title": "Harmi!",
+      "subtitle": "Ilmeni virhe.",
+      "description": "Tämä virhe ilmenee<br>joka 10 000. kerta!"
+    },
+    "customError": {
+      "title": "Harmi!",
+      "subtitle": "Ilmeni virhe."
+    },
+    "success": {
+      "title": "Kokeillaan!",
+      "titleSubSlave": {
+        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta. <a href='{link}'>Ohjeet</a>",
+        "product": "Olet osatnut uuden pelin. Onnittelut! Pidä hauskaa!",
+        "simple": "Maksusi suorittaminen onnistui!",
+        "virtual_items": "Uusia kohteita on lisätty tiliisi. Pidä hauskaa!",
+        "virtual_currency": "Uusia varoja on lisätty pelitililesi."
+      },
+      "descriptionSlaveInitial": "Syötä sähköpostiosoite saadaksesi kuitti.",
+      "descriptionSlaveFinal": {
+        "key": "Maksun vahvistus ja aktivointiavain on lähetetty",
+        "product": "Maksun vahvistus ja käyttöoikeuslinkki on lähetetty",
+        "simple": "Maksun vahvistus on lähetetty",
+        "virtual_items": "Maksun vahvistus on lähetetty",
+        "virtual_currency": "Maksun vahvistus on lähetetty"
+      },
+      "email": "Sähköpostiosoite"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Välisumma",
+    "taxes": "Vero",
+    "total": "Yhteensä",
+    "voluntaryAmount": "Valittu määrä"
+  },
+  "FormSection": {
+    "prependLabel": "Maksutavat ",
+    "card": "kortti",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Sähköpostiosoite toimitusta varten",
+    "emailInvalid": "Virheellinen sähköpostiosoite",
+    "remember": "Muista minut",
+    "abstractNumberError": "Virheellinen numero",
+    "abstractNumberPlaceholder": "{name} lompakon numero",
+    "placeholderEmail": "Syötä sähköpostiosoitteesi.",
+    "payButtonPrefix": "MAKSA",
+    "tryAgain": "YRITÄ UUDELLEEN",
+    "save": "TALLENNA",
+    "close": "SULJE",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Virheellinen korttinumero",
+    "expiryDate": "Voimassaolon päättymispäivä",
+    "expiryDateInvalid": "Virheellinen voimassaolon päättymispäivä",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Kolme numeroa<br>kortin takana",
+    "cvvError": "Virheellinen arvo",
+    "email": "Sähköpostiosoite toimitusta varten",
+    "emailInvalid": "Virheellinen sähköpostiosoite",
+    "remember": "Muista minut",
+    "rememberInfo": "Maksutiedot säilytetään PCI- ja DSS-standardien mukaisesti 3-D&nbsp;Secure-järjestelmän ja SSL-protokollien avulla.",
+    "city": "Paikkakunta",
+    "cityInvalid": "Virheellinen paikkakunta",
+    "country": "Maa",
+    "countryInvalid": "Valitse maasi",
+    "zip": "Postinumero",
+    "zipInvalid": "Virheellinen ZIP-koodi"
+  },
+  "LayoutFooter": {
+    "userAgreement": "Käyttäjäsopimus",
+    "support": "Tuki"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Käyttöehdot",
+    "userAgreement": "Käyttäjäsopimus"
+  },
+  "ModalCart": {
+    "legalInfo": "Oikeudelliset tiedot",
+    "termsOfUse": "Käyttöehdot",
+    "support": "Tuki",
+    "userAgreement": "Käyttäjäsopimus"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Hups!",
+    "cantAcceptPayments": "Emme hetkellä hyväksy maksuja maastasi.",
+    "chooseAnotherArea": "Havaitsimmeko maasi virheellisesti? Valitse oikea maa.",
+    "country": "Valitse maasi."
+  },
+  "UiCardField": {
+    "cardNumber": "Korttinumero"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Toinen kortti",
+    "cardNumber": "Korttinumero"
+  },
+  "UiSelectOption": {
+    "remove": "Poista"
+  },
+  "OrderCreationError": {
+    "title": "Emme valitettavasti voi luoda tilausta maksullesi.",
+    "tryAgain": "YRITÄ UUDELLEEN",
+    "unknownError": "Tämä virhe ilmenee joka 10.000. kerta!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Maksa tallennetulla kortilla",
+    "deletingCard": "Korttia poistetaan",
+    "undo": "Peruuta"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Maksa tallennetulla kortilla",
+    "anotherWayToPay": "Käytä eri korttia"
+  }
+}

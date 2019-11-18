@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "Veuillez patienter.<br/>Votre paiement est en cours de traitement.",
+      "description": "Veuillez patienter jusqu’à la fin du traitement du paiement.<br/>Cela ne prend généralement que quelques secondes."
+    },
+    "3ds": {
+      "title": "Vous allez maintenant être redirigé<br>vers le site Web de votre banque pour confirmer la protection 3-D&nbsp;Secure.",
+      "description": "Il peut s’écouler un certain temps entre la vérification 3-D&nbsp;Secure<br>et la réception du paiement. Cela dépend de la banque que vous avez utilisée pour le paiement."
+    },
+    "systemSuccess": {
+      "title": "Votre fournisseur de paiement<br>a fourni une réponse initiale satisfaisante.",
+      "description": "La décision finale sera bientôt prise. Veuillez faire preuve de patience. <br>Les systèmes de paiement subissent parfois des retards pour des raisons techniques."
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "Refusé",
+      "subtitle": "Fonds insuffisants.",
+      "description": "Veuillez revenir en arrière<br>et essayer un autre mode de paiement."
+    },
+    "unknownError": {
+      "title": "Dommage&nbsp;!",
+      "subtitle": "Une erreur s’est produite.",
+      "description": "Cette erreur se produit<br>une fois sur&nbsp;10&nbsp;000&nbsp;!"
+    },
+    "customError": {
+      "title": "Dommage&nbsp;!",
+      "subtitle": "Une erreur s’est produite."
+    },
+    "success": {
+      "title": "Et c’est parti&nbsp;!",
+      "titleSubSlave": {
+        "key": "Activez la clé sur le site Web du fournisseur de licence. <a href='{link}'>Instructions</a>",
+        "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp;! Amusez-vous bien&nbsp;!",
+        "simple": "Votre paiement a été effectué avec succès&nbsp;!",
+        "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez-vous bien&nbsp;!",
+        "virtual_currency": "De nouveaux fonds ont été ajoutés à votre compte de jeu&nbsp;!"
+      },
+      "descriptionSlaveInitial": "Entrez votre adresse électronique pour obtenir un reçu.",
+      "descriptionSlaveFinal": {
+        "key": "Une confirmation de paiement et une clé d’activation ont été envoyées à",
+        "product": "Une confirmation de paiement et un lien d’accès ont été envoyés à",
+        "simple": "La confirmation de paiement a été envoyée à",
+        "virtual_items": "La confirmation de paiement a été envoyée à",
+        "virtual_currency": "La confirmation de paiement a été envoyée à"
+      },
+      "email": "Adresse électronique"
+    }
+  },
+  "CartSection": {
+    "subtotal": "Sous-total",
+    "taxes": "Taxe",
+    "total": "Total",
+    "voluntaryAmount": "Montant sélectionné"
+  },
+  "FormSection": {
+    "prependLabel": "Payer avec ",
+    "card": "une carte",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "Adresse électronique de livraison",
+    "emailInvalid": "Adresse électronique non valide",
+    "remember": "Se souvenir de moi",
+    "abstractNumberError": "Numéro incorrect",
+    "abstractNumberPlaceholder": "Numéro de portefeuille de {name}",
+    "placeholderEmail": "Entrez votre adresse électronique",
+    "payButtonPrefix": "PAYER",
+    "tryAgain": "RÉESSAYER",
+    "save": "ENREGISTRER",
+    "close": "FERMER",
+    "ok": "OK"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "Numéro de carte incorrect",
+    "expiryDate": "Date d’expiration",
+    "expiryDateInvalid": "Date d’expiration incorrecte",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "Les trois chiffres<br>au verso de la carte",
+    "cvvError": "Valeur incorrecte",
+    "email": "Adresse électronique de livraison",
+    "emailInvalid": "Adresse électronique non valide",
+    "remember": "Se souvenir de moi",
+    "rememberInfo": "Les informations de paiement sont stockées à l’aide des protocoles et 3-D&nbsp;Secure et SSL, conformément aux exigences des normes PCI et DSS.",
+    "city": "Ville",
+    "cityInvalid": "Ville incorrecte",
+    "country": "Pays",
+    "countryInvalid": "Choisissez votre pays",
+    "zip": "Code postal",
+    "zipInvalid": "Code postal invalide."
+  },
+  "LayoutFooter": {
+    "userAgreement": "Contrat d’utilisation",
+    "support": "Support"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "Conditions générales",
+    "userAgreement": "Contrat d’utilisation"
+  },
+  "ModalCart": {
+    "legalInfo": "Information juridique",
+    "termsOfUse": "Conditions générales",
+    "support": "Support",
+    "userAgreement": "Contrat d’utilisation"
+  },
+  "PaymentAreaWarning": {
+    "oops": "Oups&nbsp;!",
+    "cantAcceptPayments": "Nous ne pouvons accepter les paiements en provenance de votre pays.",
+    "chooseAnotherArea": "Avons-nous mal détecté votre pays&nbsp;? Veuillez choisir le bon.",
+    "country": "Sélectionnez votre pays."
+  },
+  "UiCardField": {
+    "cardNumber": "Numéro de carte"
+  },
+  "UiCardSelect": {
+    "anotherCard": "Autre carte",
+    "cardNumber": "Numéro de carte"
+  },
+  "UiSelectOption": {
+    "remove": "Supprimer"
+  },
+  "OrderCreationError": {
+    "title": "Malheureusement, nous n’avons pas pu créer l’ordre de paiement.",
+    "tryAgain": "RÉESSAYER",
+    "unknownError": "Cette erreur se produit une fois sur&nbsp;10&nbsp;000&nbsp;!"
+  },
+  "FormSectionSavedCards": {
+    "title": "Payer avec une carte enregistrée",
+    "deletingCard": "Effacement de la carte",
+    "undo": "Annuler"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "Payer avec une carte enregistrée",
+    "anotherWayToPay": "Utiliser une autre carte"
+  }
+}

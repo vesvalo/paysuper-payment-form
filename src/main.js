@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import assert from 'assert';
 import webfontloader from 'webfontloader';
+import Vue2TouchEvents from 'vue2-touch-events';
 import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
@@ -23,6 +24,8 @@ import { gtagConfig, gtagSet } from '@/analytics';
 import { apiUrl, sentryDsn } from '@/constants';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+
+Vue.use(Vue2TouchEvents);
 
 Vue.config.productionTip = false;
 const isProd = process.env.NODE_ENV === 'production';

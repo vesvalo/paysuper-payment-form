@@ -1,0 +1,147 @@
+﻿{
+  "ActionProcessing": {
+    "simpleLoading": {
+      "title": "โปรดรอสักครู่<br/>เรากำลังประมวลผลการชำระเงินของคุณ",
+      "description": "โปรดรอจนกว่าการชำระเงินจะเสร็จสมบูรณ์<br/>ปกติจะใช้เวลาเพียงไม่กี่วินาที"
+    },
+    "3ds": {
+      "title": "ตอนนี้คุณจะถูกเปลี่ยนเส้นทาง<br>ไปยังเว็บไซต์ธนาคารของคุณเพื่อยืนยันการป้องกัน 3-D&nbsp;Secure",
+      "description": "อาจมีความล่าช้าในการผ่านการตรวจสอบ 3-D&nbsp;Secure<br>และการรับชำระเงิน ขึ้นอยู่กับธนาคารที่คุณใช้ชำระเงิน"
+    },
+    "systemSuccess": {
+      "title": "ผู้ให้บริการชำระเงินของคุณ<br>ให้การตอบสนองเริ่มต้นที่ประสบความสำเร็จ",
+      "description": "การตัดสินใจครั้งสุดท้ายจะดำเนินการในไม่ช้า โปรดอดใจรอ<br>บางครั้งระบบการชำระเงินอาจประสบความล่าช้าด้วยเหตุผลทางเทคนิค"
+    }
+  },
+  "ActionResult": {
+    "noMoneyError": {
+      "title": "ปฏิเสธ",
+      "subtitle": "เงินไม่เพียงพอ",
+      "description": "โปรดย้อนกลับ<br>และลองวิธีชำระเงินอื่น"
+    },
+    "unknownError": {
+      "title": "แย่แล้ว!",
+      "subtitle": "เกิดข้อผิดพลาด",
+      "description": "ข้อผิดพลาดนี้เกิดขึ้น<br>ทุกๆ 10,000 ครั้ง!"
+    },
+    "customError": {
+      "title": "แย่แล้ว!",
+      "subtitle": "เกิดข้อผิดพลาด"
+    },
+    "success": {
+      "title": "มาเล่นกัน!",
+      "titleSubSlave": {
+        "key": "เปิดใช้งานคีย์บนเว็บไซต์ของผู้ให้บริการใบอนุญาต <a href='{link}'>คำแนะนำ</a>",
+        "product": "คุณซื้อเกมใหม่แล้ว ขอแสดงความยินดี ขอให้สนุก!",
+        "simple": "การชำระเงินของคุณเสร็จสมบูรณ์!",
+        "virtual_items": "มีการเพิ่มรายการใหม่ในบัญชีของคุณ ขอให้สนุก!",
+        "virtual_currency": "มีการเพิ่มเงินใหม่เข้าในบัญชีเกมของคุณ!"
+      },
+      "descriptionSlaveInitial": "ป้อนที่อยู่อีเมลของคุณเพื่อรับใบเสร็จ",
+      "descriptionSlaveFinal": {
+        "key": "ส่งการยืนยันการชำระเงินและรหัสเปิดใช้งานไปที่",
+        "product": "ยืนยันการชำระเงินและลิงก์การเข้าถึงได้ถูกส่งไปยัง",
+        "simple": "ส่งการยืนยันการชำระเงินไปที่",
+        "virtual_items": "ส่งการยืนยันการชำระเงินไปที่",
+        "virtual_currency": "ส่งการยืนยันการชำระเงินไปที่"
+      },
+      "email": "ที่อยู่อีเมล"
+    }
+  },
+  "CartSection": {
+    "subtotal": "ยอดรวม",
+    "taxes": "ภาษี",
+    "total": "รวม",
+    "voluntaryAmount": "จำนวนที่เลือก"
+  },
+  "FormSection": {
+    "prependLabel": "ชำระด้วย ",
+    "card": "บัตร",
+    "neteller": "Neteller",
+    "alipay": "Alipay",
+    "bitcoin": "Bitcoin",
+    "paypal": "PayPal",
+    "yandex": "Yandex.Money",
+    "amazon": "Amazon Pay",
+    "union": "Union Pay",
+    "jcb": "JCB",
+    "wechat": "Wechat Pay",
+    "qiwi": "QIWI",
+    "webmoney": "Webmoney",
+    "btc": "BTC",
+    "cvv": "CVC/CVV",
+    "email": "ที่อยู่อีเมลสำหรับจัดส่ง",
+    "emailInvalid": "ที่อยู่อีเมลที่ไม่ถูกต้อง",
+    "remember": "จดจำฉัน",
+    "abstractNumberError": "หมายเลขไม่ถูกต้อง",
+    "abstractNumberPlaceholder": "{name} หมายเลขกระเป๋าเงิน",
+    "placeholderEmail": "ป้อนที่อยู่อีเมลของคุณ",
+    "payButtonPrefix": "ชำระ",
+    "tryAgain": "ลองใหม่",
+    "save": "บันทึก",
+    "close": "ปิด",
+    "ok": "ตกลง"
+  },
+  "FormSectionBankCard": {
+    "cardNumberInvalid": "หมายเลขบัตรไม่ถูกต้อง",
+    "expiryDate": "วันหมดอายุ",
+    "expiryDateInvalid": "วันหมดอายุไม่ถูกต้อง",
+    "cvv": "CVC/CVV",
+    "cvvInfo": "ตัวเลขสามตัว<br>ที่ด้านหลังของบัตร",
+    "cvvError": "ค่าไม่ถูกต้อง",
+    "email": "ที่อยู่อีเมลสำหรับจัดส่ง",
+    "emailInvalid": "ที่อยู่อีเมลที่ไม่ถูกต้อง",
+    "remember": "จดจำฉัน",
+    "rememberInfo": "ข้อมูลการชำระเงินจะถูกจัดเก็บตามข้อกำหนดของมาตรฐาน PCI และ DSS โดยใช้โปรโตคอล 3-D&nbsp;Secure และ SSL",
+    "city": "เมือง",
+    "cityInvalid": "เมืองไม่ถูกต้อง",
+    "country": "ประเทศ",
+    "countryInvalid": "เลือกประเทศของคุณ",
+    "zip": "รหัสไปรษณีย์",
+    "zipInvalid": "รหัสไปรษณีย์ไม่ถูกต้อง"
+  },
+  "LayoutFooter": {
+    "userAgreement": "ข้อตกลงการใช้",
+    "support": "สนับสนุน"
+  },
+  "LayoutHeader": {
+    "termsOfUse": "ข้อกำหนดและเงื่อนไข",
+    "userAgreement": "ข้อตกลงการใช้"
+  },
+  "ModalCart": {
+    "legalInfo": "ข้อมูลทางกฎหมาย",
+    "termsOfUse": "ข้อกำหนดและเงื่อนไข",
+    "support": "สนับสนุน",
+    "userAgreement": "ข้อตกลงการใช้"
+  },
+  "PaymentAreaWarning": {
+    "oops": "อ๊ะ!",
+    "cantAcceptPayments": "เราไม่สามารถรับการชำระเงินจากประเทศของคุณ",
+    "chooseAnotherArea": "เราตรวจพบประเทศของคุณไม่ถูกต้องใช่หรือไม่? กรุณาเลือกรายการที่เหมาะสม",
+    "country": "เลือกประเทศของคุณ"
+  },
+  "UiCardField": {
+    "cardNumber": "หมายเลขบัตร"
+  },
+  "UiCardSelect": {
+    "anotherCard": "บัตรอื่น",
+    "cardNumber": "หมายเลขบัตร"
+  },
+  "UiSelectOption": {
+    "remove": "ลบ"
+  },
+  "OrderCreationError": {
+    "title": "น่าเสียดาย เราไม่สามารถสร้างคำสั่งซื้อสำหรับการชำระเงินได้",
+    "tryAgain": "ลองอีกครั้ง",
+    "unknownError": "ข้อผิดพลาดนี้เกิดขึ้นทุกๆ 10,000 ครั้ง!"
+  },
+  "FormSectionSavedCards": {
+    "title": "ชำระเงินด้วยบัตรที่บันทึกไว้",
+    "deletingCard": "กำลังลบบัตร",
+    "undo": "ยกเลิก"
+  },
+  "SavedCardToPlainFieldsSwitch": {
+    "payWithSavedCards": "ชำระเงินด้วยบัตรที่บันทึกไว้",
+    "anotherWayToPay": "ใช้บัตรอื่น"
+  }
+}
