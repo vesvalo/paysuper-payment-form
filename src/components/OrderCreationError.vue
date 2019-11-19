@@ -1,9 +1,14 @@
 <script>
 import { includes } from 'lodash-es';
 import IconTotemFail from '@/components/IconTotemFail.vue';
+import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
 
 export default {
   name: 'OrderCreationError',
+
+  components: {
+    IconTotemFail,
+  },
 
   props: {
     type: {
@@ -19,13 +24,15 @@ export default {
       default: false,
     },
 
-    message: {
+    code: {
       type: String,
     },
   },
 
-  components: {
-    IconTotemFail,
+  computed: {
+    message() {
+      return getErrorCodeTranslation(this.code, this.$i18n.locale);
+    },
   },
 
   created() {

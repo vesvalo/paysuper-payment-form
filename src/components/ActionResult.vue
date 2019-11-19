@@ -134,7 +134,10 @@ export default {
 <template>
   <div :class="$style.actionResult">
     <div>
-      <h2 :class="$style.titleMain">{{types[type].title}}</h2>
+      <h2
+        :class="$style.titleMain"
+        v-html="types[type].title"
+      ></h2>
       <div v-if="type === 'success'">
         <p
           :class="$style.titleSubSlave"
@@ -144,8 +147,9 @@ export default {
       </div>
       <p
         :class="$style.titleSub"
+        v-html="types[type].subtitle"
         v-else
-      >{{types[type].subtitle}}</p>
+      ></p>
     </div>
     <div :class="$style.icon">
       <component
@@ -155,9 +159,10 @@ export default {
     </div>
     <div v-if="type === 'success'">
       <template v-if="false">
-        <p :class="$style.descriptionSlave">
-          {{types[type].descriptionSlaveInitial}}
-        </p>
+        <p
+          :class="$style.descriptionSlave"
+          v-html="types[type].descriptionSlaveInitial"
+        ></p>
         <UiTextField
           v-model="email"
           :label="types[type].email"
@@ -169,7 +174,7 @@ export default {
         v-html="types[type].descriptionSlaveFinal"
       >
       </p>
-      <p :class="$style.email">{{email}}</p>
+      <p :class="$style.email">{{ email }}</p>
     </div>
     <div
       :class="$style.description"
