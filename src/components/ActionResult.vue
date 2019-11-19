@@ -113,7 +113,11 @@ export default {
       [`.${this.$style.description}`]: {
         color: this.$gui.resultTextColor,
       },
-      [`.${this.$style.titleSubSlave}, .${this.$style.descriptionSlave}`]: {
+      [`
+        .${this.$style.titleSubSlave},
+        .${this.$style.titleSubSlave} a,
+        .${this.$style.descriptionSlave}
+      `]: {
         color: this.$gui.resultSubtextColor,
       },
       [`.${this.$style.code}`]: {
@@ -171,7 +175,7 @@ export default {
       :class="$style.description"
       v-else
     >
-      <span v-html="message || types[type].description"></span>
+      <span v-html="this.code ? message : types[type].description"></span>
     </div>
   </div>
 </template>

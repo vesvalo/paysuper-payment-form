@@ -101,7 +101,6 @@ export default {
     },
     setInnerVisible() {
       this.innerVisible = !this.isMobile;
-      console.error(this.visible, this.innerVisible);
     },
   },
   watch: {

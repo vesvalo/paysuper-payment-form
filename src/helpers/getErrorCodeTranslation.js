@@ -8,7 +8,7 @@ function getErrorCodeTranslationByLocale(code, locale) {
 }
 
 export default function getErrorCodeTranslation(code, locale = i18n.locale) {
-  const noTranslationMessage = 'Unknown error';
+  const noTranslationMessage = get(i18n.messages[locale], 'ActionResult.unknownError.description');
   if (!code) {
     return noTranslationMessage;
   }
