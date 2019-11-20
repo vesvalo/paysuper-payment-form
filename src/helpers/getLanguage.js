@@ -12,13 +12,13 @@ export function getLocalesLayoutScheme(localesScheme) {
   });
 }
 
-export default function getLanguage(localesScheme, navigator) {
-  if (navigator && navigator.language) {
-    if (localesScheme[navigator.language]) {
-      return navigator.language;
+export default function getLanguage(localesScheme, language) {
+  if (language) {
+    if (localesScheme[language]) {
+      return language;
     }
     const localesLayoutScheme = getLocalesLayoutScheme(localesScheme);
-    const [lang] = navigator.language.split('-');
+    const [lang] = language.split('-');
     const localeLayoutSchemeItem = find(localesLayoutScheme, { lang });
 
     if (localeLayoutSchemeItem) {

@@ -7,6 +7,7 @@ import Vue from 'vue';
 import assert from 'assert';
 import webfontloader from 'webfontloader';
 import Vue2TouchEvents from 'vue2-touch-events';
+import { get } from 'lodash-es';
 import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
@@ -60,7 +61,9 @@ async function mountApp(customOptions = {}) {
   //   }
   // }
 
-  const language = getLanguage(localesScheme, navigator);
+  const language = getLanguage(
+    localesScheme, orderData.lang || get(navigator, 'language'),
+  );
   const options = {
     apiUrl,
     email: '',
