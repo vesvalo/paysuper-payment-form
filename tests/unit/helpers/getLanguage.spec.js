@@ -7,29 +7,21 @@ describe('getLanguage', () => {
   };
 
   it('should use exact match if possible', () => {
-    const language = getLanguage(localesScheme, {
-      language: 'ru-RU',
-    });
+    const language = getLanguage(localesScheme, 'ru-RU');
     expect(language).toEqual('ru-RU');
   });
 
   it('should use region if possible', () => {
-    const language = getLanguage(localesScheme, {
-      language: 'ru-US',
-    });
+    const language = getLanguage(localesScheme, 'ru-US');
     expect(language).toEqual('ru-RU');
   });
 
   it('should use region', () => {
-    const language = getLanguage(localesScheme, {
-      language: 'ru',
-    });
+    const language = getLanguage(localesScheme, 'ru');
     expect(language).toEqual('ru-RU');
   });
   it('should user fallback locale on no match', () => {
-    const language = getLanguage(localesScheme, {
-      language: 'blablabla',
-    });
+    const language = getLanguage(localesScheme, 'blablabla');
     expect(language).toEqual(fallbackLocale);
   });
 });
