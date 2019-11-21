@@ -5,8 +5,8 @@
       "description": "Attendere che il pagamento sia stato completato con successo.<br/>Di solito ci vogliono solo pochi secondi."
     },
     "3ds": {
-      "title": "Adesso sarai indirizzato<br>al sito della tua banca per confermare la protezione 3-D&nbsp;Secure.",
-      "description": "Potrebbe esserci un ritardo tra il completamento del controllo 3-D&nbsp;Secure<br>e la ricezione del pagamento. Questo dipende dalla banca scelta per il pagamento."
+      "title": "Adesso sarai indirizzato<br>al sito della tua banca per confermare la protezione 3&#8209;D&nbsp;Secure.",
+      "description": "Potrebbe esserci un ritardo tra il completamento del controllo 3&#8209;D&nbsp;Secure<br>e la ricezione del pagamento. Questo dipende dalla banca scelta per il pagamento."
     },
     "systemSuccess": {
       "title": "Il tuo istituto di pagamento<br>ha fornito una prima risposta positiva.",
@@ -92,7 +92,7 @@
     "email": "Indirizzo email per la consegna",
     "emailInvalid": "Indirizzo email non valido",
     "remember": "Ricordami",
-    "rememberInfo": "Le informazioni di pagamento sono memorizzate in conformità ai requisiti degli standard PCI e DSS utilizzando i protocolli 3-D&nbsp;Secure e SSL.",
+    "rememberInfo": "Le informazioni di pagamento sono memorizzate in conformità ai requisiti degli standard PCI e DSS utilizzando i protocolli 3&#8209;D&nbsp;Secure e SSL.",
     "city": "Città",
     "cityInvalid": "Città non valida",
     "country": "Paese",

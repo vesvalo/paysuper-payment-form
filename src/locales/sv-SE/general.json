@@ -5,8 +5,8 @@
       "description": "Vänta till betalningen är slutförd.<br/>Detta tar vanligtvis bara några sekunder."
     },
     "3ds": {
-      "title": "Du dirigeras nu om<br>till din banks webbsida för att bekräfta 3-D&nbsp;Secure-skydd.",
-      "description": "Det kan dröja lite mellan kontrollen av 3-D&nbsp;Secure<br> och betalningsmottagandet. Det beror på den bank som du använder för betalning."
+      "title": "Du dirigeras nu om<br>till din banks webbsida för att bekräfta 3&#8209;D&nbsp;Secure-skydd.",
+      "description": "Det kan dröja lite mellan kontrollen av 3&#8209;D&nbsp;Secure<br> och betalningsmottagandet. Det beror på den bank som du använder för betalning."
     },
     "systemSuccess": {
       "title": "Din betalningsleverantör<br>har givit ett initialt framgångsrikt svar.",
@@ -92,7 +92,7 @@
     "email": "E-postadress för leverans",
     "emailInvalid": "Ogiltig e-postadress",
     "remember": "Kom ihåg mig",
-    "rememberInfo": "Betalningsinformation lagras i enlighet med kraven för PCI- och DSS-standarder vid användning av 3-D&nbsp;Secure och SSL-protokoll.",
+    "rememberInfo": "Betalningsinformation lagras i enlighet med kraven för PCI- och DSS-standarder vid användning av 3&#8209;D&nbsp;Secure och SSL-protokoll.",
     "city": "Ort",
     "cityInvalid": "Ogiltig ort",
     "country": "Land",

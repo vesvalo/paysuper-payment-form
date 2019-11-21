@@ -5,8 +5,8 @@
       "description": "Lütfen ödeme başarılı bir şekilde tamamlanana kadar bekleyin.<br/>Bu işlem birkaç saniye sürebilir."
     },
     "3ds": {
-      "title": "3-D&nbsp;Secure korumasını onaylamak için şimdi<br>bankanızın web sitesine yönlendirileceksiniz.",
-      "description": "3-D&nbsp;Secure kontrolü<br>ve ödemenin ulaşması arasında bir gecikme yaşanabilir. Ödeme için tercih etmiş olduğunuz bankaya göre değişkenlik gösterebilir."
+      "title": "3&#8209;D&nbsp;Secure korumasını onaylamak için şimdi<br>bankanızın web sitesine yönlendirileceksiniz.",
+      "description": "3&#8209;D&nbsp;Secure kontrolü<br>ve ödemenin ulaşması arasında bir gecikme yaşanabilir. Ödeme için tercih etmiş olduğunuz bankaya göre değişkenlik gösterebilir."
     },
     "systemSuccess": {
       "title": "Ödeme sağlayıcınız<br>başarılı bir ön yanıt verdi.",
@@ -92,7 +92,7 @@
     "email": "Teslimat için e-posta adresi",
     "emailInvalid": "Geçersiz e-posta adresi",
     "remember": "Beni hatırla",
-    "rememberInfo": "Ödeme bilgileri, 3-D&nbsp;Secure ve SSL protokolleri kullanılarak PCI ve DSS standartlarının gerekliliklerine uygun bir şekilde kayıt altında tutulmaktadır.",
+    "rememberInfo": "Ödeme bilgileri, 3&#8209;D&nbsp;Secure ve SSL protokolleri kullanılarak PCI ve DSS standartlarının gerekliliklerine uygun bir şekilde kayıt altında tutulmaktadır.",
     "city": "Şehir",
     "cityInvalid": "Geçersiz şehir",
     "country": "Ülke",

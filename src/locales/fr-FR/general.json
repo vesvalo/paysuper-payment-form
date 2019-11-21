@@ -5,8 +5,8 @@
       "description": "Veuillez patienter jusqu’à la fin du traitement du paiement.<br/>Cela ne prend généralement que quelques secondes."
     },
     "3ds": {
-      "title": "Vous allez maintenant être redirigé<br>vers le site Web de votre banque pour confirmer la protection 3-D&nbsp;Secure.",
-      "description": "Il peut s’écouler un certain temps entre la vérification 3-D&nbsp;Secure<br>et la réception du paiement. Cela dépend de la banque que vous avez utilisée pour le paiement."
+      "title": "Vous allez maintenant être redirigé<br>vers le site Web de votre banque pour confirmer la protection 3&#8209;D&nbsp;Secure.",
+      "description": "Il peut s’écouler un certain temps entre la vérification 3&#8209;D&nbsp;Secure<br>et la réception du paiement. Cela dépend de la banque que vous avez utilisée pour le paiement."
     },
     "systemSuccess": {
       "title": "Votre fournisseur de paiement<br>a fourni une réponse initiale satisfaisante.",
@@ -92,7 +92,7 @@
     "email": "Adresse électronique de livraison",
     "emailInvalid": "Adresse électronique non valide",
     "remember": "Se souvenir de moi",
-    "rememberInfo": "Les informations de paiement sont stockées à l’aide des protocoles et 3-D&nbsp;Secure et SSL, conformément aux exigences des normes PCI et DSS.",
+    "rememberInfo": "Les informations de paiement sont stockées à l’aide des protocoles et 3&#8209;D&nbsp;Secure et SSL, conformément aux exigences des normes PCI et DSS.",
     "city": "Ville",
     "cityInvalid": "Ville incorrecte",
     "country": "Pays",

@@ -5,8 +5,8 @@
       "description": "Poczekaj do czasu udanego sfinalizowania Twojej płatności.<br/>Zwykle zajmuje to tylko kilka sekund."
     },
     "3ds": {
-      "title": "Zostaniesz teraz przekierowany/-a<br>na stronę internetową swojego banku, aby potwierdzić ochronę 3-D&nbsp;Secure.",
-      "description": "Może wystąpić opóźnienie pomiędzy wypisaniem czeku 3-D&nbsp;Secure <br>a otrzymaniem płatności. Zależy to od banku, w którym dokonałeś/-aś płatności."
+      "title": "Zostaniesz teraz przekierowany/-a<br>na stronę internetową swojego banku, aby potwierdzić ochronę 3&#8209;D&nbsp;Secure.",
+      "description": "Może wystąpić opóźnienie pomiędzy wypisaniem czeku 3&#8209;D&nbsp;Secure <br>a otrzymaniem płatności. Zależy to od banku, w którym dokonałeś/-aś płatności."
     },
     "systemSuccess": {
       "title": "Twój dostawca płatności<br>przekazał pomyślną odpowiedź wstępną.",
@@ -92,7 +92,7 @@
     "email": "Adres e-mail do dostawy",
     "emailInvalid": "Nieprawidłowy adres e-mail",
     "remember": "Zapamiętaj mnie",
-    "rememberInfo": "Dane dotyczące płatności są przechowywane zgodnie z wymogami PCI i normami DSS przy użyciu protokołów 3-D&nbsp;Secure i SSL.",
+    "rememberInfo": "Dane dotyczące płatności są przechowywane zgodnie z wymogami PCI i normami DSS przy użyciu protokołów 3&#8209;D&nbsp;Secure i SSL.",
     "city": "Miasto",
     "cityInvalid": "Nieprawidłowe miasto",
     "country": "Kraj",

@@ -5,8 +5,8 @@
       "description": "Odota, kunnes maksu on suoritettu onnistuneesti.<br/>Tämä kestää tavallisesti muutamia sekunteja."
     },
     "3ds": {
-      "title": "Sinut ohjataan nyt uudelleen<br>pankkisi verkkosivustolle vahvistamaan 3-D&nbsp;Secure-suojaus.",
-      "description": "3-D&nbsp;Secure-tarkistuksen läpäisemisen<br>ja maksun vastaanottamisen välillä saattaa olla viive. Se riippuu pankista, jota käytit maksuun."
+      "title": "Sinut ohjataan nyt uudelleen<br>pankkisi verkkosivustolle vahvistamaan 3&#8209;D&nbsp;Secure-suojaus.",
+      "description": "3&#8209;D&nbsp;Secure-tarkistuksen läpäisemisen<br>ja maksun vastaanottamisen välillä saattaa olla viive. Se riippuu pankista, jota käytit maksuun."
     },
     "systemSuccess": {
       "title": "Maksupalvelujesi tarjoaja <br>on antanut onnistuneen ensimmäisen vastauksen.",
@@ -92,7 +92,7 @@
     "email": "Sähköpostiosoite toimitusta varten",
     "emailInvalid": "Virheellinen sähköpostiosoite",
     "remember": "Muista minut",
-    "rememberInfo": "Maksutiedot säilytetään PCI- ja DSS-standardien mukaisesti 3-D&nbsp;Secure-järjestelmän ja SSL-protokollien avulla.",
+    "rememberInfo": "Maksutiedot säilytetään PCI- ja DSS-standardien mukaisesti 3&#8209;D&nbsp;Secure-järjestelmän ja SSL-protokollien avulla.",
     "city": "Paikkakunta",
     "cityInvalid": "Virheellinen paikkakunta",
     "country": "Maa",

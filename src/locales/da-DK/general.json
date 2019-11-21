@@ -5,8 +5,8 @@
       "description": "Vent indtil betalingen er afsluttet.<br/>Dette tager normalt kun få sekunder."
     },
     "3ds": {
-      "title": "Du bliver nu ledt vicere<br>til din banks websted for at bekræfte 3-D&nbsp;Secure-beskyttelse.",
-      "description": "Der kan være en forsinkelse, fra 3-D&nbsp;Secure-tjekket<br>er foretaget til modtagelse af betalingen. Det afhænger af den bank, du har brugt til betaling."
+      "title": "Du bliver nu ledt vicere<br>til din banks websted for at bekræfte 3&#8209;D&nbsp;Secure-beskyttelse.",
+      "description": "Der kan være en forsinkelse, fra 3&#8209;D&nbsp;Secure-tjekket<br>er foretaget til modtagelse af betalingen. Det afhænger af den bank, du har brugt til betaling."
     },
     "systemSuccess": {
       "title": "Din betalingsudbyder<br>har givet et indledende svar.",
@@ -92,7 +92,7 @@
     "email": "E-mailadresse til levering",
     "emailInvalid": "Ugyldig e-mailadresse",
     "remember": "Husk mig",
-    "rememberInfo": "Betalingsoplysninger gemmes i overensstemmelse med kravene i PCI- og DSS-standarderne ved hjælp af 3-D&nbsp;Secure- og SSL-protokoller.",
+    "rememberInfo": "Betalingsoplysninger gemmes i overensstemmelse med kravene i PCI- og DSS-standarderne ved hjælp af 3&#8209;D&nbsp;Secure- og SSL-protokoller.",
     "city": "By",
     "cityInvalid": "Ugyldig by",
     "country": "Land",

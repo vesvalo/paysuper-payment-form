@@ -5,8 +5,8 @@
       "description": "Please wait until the payment has been completed successfully.<br/>This usually only takes a few seconds."
     },
     "3ds": {
-      "title": "You will now be redirected<br>to your bank's website to confirm 3-D&nbsp;Secure protection.",
-      "description": "There may be a delay between passing the 3-D&nbsp;Secure check<br>and receiving the payment. It depends on the bank you used for payment."
+      "title": "You will now be redirected<br>to your bank's website to confirm 3&#8209;D&nbsp;Secure protection.",
+      "description": "There may be a delay between passing the 3&#8209;D&nbsp;Secure check<br>and receiving the payment. It depends on the bank you used for payment."
     },
     "systemSuccess": {
       "title": "Your payment provider<br>has provided a successful initial response.",
@@ -79,7 +79,7 @@
     "email": "Email address for delivery",
     "emailInvalid": "Invalid email address",
     "remember": "Remember me",
-    "rememberInfo": "Payment information is stored in accordance with the requirements of the PCI and DSS standards using the 3-D&nbsp;Secure and SSL protocols.",
+    "rememberInfo": "Payment information is stored in accordance with the requirements of the PCI and DSS standards using the 3&#8209;D&nbsp;Secure and SSL protocols.",
     "city": "City",
     "cityInvalid": "Invalid city",
     "country": "Country",
