@@ -242,7 +242,7 @@ export default {
 <style module lang="scss">
 .header {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
   flex-wrap: wrap-reverse;
 
   @include if-rtl {
@@ -338,6 +338,7 @@ export default {
     flex-basis: 260px;
     justify-content: flex-start;
     height: auto;
+    align-items: normal;
 
     &:after {
       left: 5.5vw;

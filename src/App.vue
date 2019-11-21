@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
+import FastClick from 'fastclick';
 import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 import CartSection from '@/components/CartSection.vue';
@@ -53,6 +54,12 @@ export default {
     isModalEssence() {
       return this.$layout === 'modal';
     },
+    wrapperComponentName() {
+      if (!this.isPageView) {
+        return 'Modal';
+      }
+      return this.isMobile ? 'div' : 'UiScrollbarBox';
+    },
   },
   created() {
     this.$addCssRules({
@@ -67,6 +74,11 @@ export default {
   beforeMount() {
     postMessage('LOADED');
 
+
+    window.addEventListener('DOMContentLoaded', () => {
+      FastClick.attach(document.body);
+    }, false);
+
     this.updateLayout();
     window.addEventListener('resize', this.updateLayout);
   },
@@ -78,10 +90,6 @@ export default {
 
       if (this.isMobile) {
         this.layout = 'page';
-
-        this.$nextTick(() => {
-          this.$refs.wrapper.update();
-        });
       } else {
         this.layout = this.$layout;
       }
@@ -116,8 +124,7 @@ export default {
 <div :class="[$style.layout, { [$style._isPage]: isPageView }]">
   <component
     v-if="opened"
-    :is="isPageView ? 'UiScrollbarBox' : 'Modal'"
-    ref="wrapper"
+    :is="wrapperComponentName"
     :class="$style.wrapper"
     :opened="opened"
     :isUpdateOnClick="true"
@@ -129,7 +136,6 @@ export default {
         <LayoutHeader
           :isCartOpened="isCartOpened"
           :isModal="isModalEssence"
-          :isPageView="isPageView"
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
           :isMobile="isMobile"
@@ -214,6 +220,8 @@ export default {
   justify-content: center;
   align-items: center;
   display: flex;
+  flex-direction: column;
+  touch-action: manipulation;
 
   &._isPage {
     display: flex;
@@ -243,7 +251,7 @@ export default {
       width: 100%;
       width: 100vw;
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
 
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         height: 100vh;

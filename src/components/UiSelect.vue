@@ -50,8 +50,8 @@
       >
         <div :class="$style.options">
           <UiSelectOption
-            v-for="option in actualOtions"
-            :key="option.value"
+            v-for="(option, index) in actualOtions"
+            :key="index"
             :isRemovable="isRemovable"
             :iconPosition="iconPosition"
             :option="option"
@@ -259,6 +259,7 @@ export default {
       this.focused = true;
     },
     selectOption(value) {
+      console.error(value);
       this.setSelectValue(value);
       this.blur();
       this.$emit('input', value);

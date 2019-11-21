@@ -82,7 +82,7 @@ export default {
 <style module lang="scss">
 .footer {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
 
   @include if-rtl {
     flex-direction: row-reverse;
