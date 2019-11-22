@@ -74,7 +74,7 @@ export default {
   beforeMount() {
     postMessage('LOADED');
 
-
+    // Delete touch latency for mobile devices
     window.addEventListener('DOMContentLoaded', () => {
       FastClick.attach(document.body);
     }, false);

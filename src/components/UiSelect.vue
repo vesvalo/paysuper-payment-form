@@ -259,7 +259,6 @@ export default {
       this.focused = true;
     },
     selectOption(value) {
-      console.error(value);
       this.setSelectValue(value);
       this.blur();
       this.$emit('input', value);
