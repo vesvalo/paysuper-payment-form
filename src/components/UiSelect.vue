@@ -50,8 +50,8 @@
       >
         <div :class="$style.options">
           <UiSelectOption
-            v-for="option in actualOtions"
-            :key="option.value"
+            v-for="(option, index) in actualOtions"
+            :key="index"
             :isRemovable="isRemovable"
             :iconPosition="iconPosition"
             :option="option"

@@ -1,5 +1,8 @@
 <template>
-<label :class="[$style.option, { [$style._empty]: optionIsEmpty }]">
+<label
+  :class="[$style.option, { [$style._empty]: optionIsEmpty }]"
+  v-touch:tap="emitChange"
+>
   <div
     v-if="option.iconComponent"
     :class="[$style.icon, $style[`_${iconPosition}`]]"
@@ -28,6 +31,7 @@
 
   <input
     type="radio"
+    ref="radio"
     :class="$style.input"
     :name="selectId"
     :value="option.value"
@@ -83,6 +87,12 @@ export default {
         color: this.$gui.selectRemoveColor,
       },
     });
+  },
+  methods: {
+    emitChange() {
+      const changeEvent = new Event('change');
+      this.$refs.radio.dispatchEvent(changeEvent);
+    },
   },
 };
 </script>

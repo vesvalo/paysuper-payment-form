@@ -25,6 +25,7 @@ import { gtagConfig, gtagSet } from '@/analytics';
 import { apiUrl, sentryDsn } from '@/constants';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
+import '@/noScalableViewport';
 
 Vue.use(Vue2TouchEvents);
 
