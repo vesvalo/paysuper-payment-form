@@ -5,8 +5,8 @@
       "description": "결제가 성공적으로 완료될 때까지 기다려주십시오.<br/>보통 몇 초가 소요될 수 있습니다."
     },
     "3ds": {
-      "title": "3-D&nbsp;Secure 확인을 위해<br>거래 은행 웹사이트로 이동합니다.",
-      "description": "3-D&nbsp;Secure 확인 송신과 결제 수신 사이에<br>지연이 발생할 수 있습니다. 결제에 이용하는 은행에 따라 다를 수 있습니다."
+      "title": "3&#8209;D&nbsp;Secure 확인을 위해<br>거래 은행 웹사이트로 이동합니다.",
+      "description": "3&#8209;D&nbsp;Secure 확인 송신과 결제 수신 사이에<br>지연이 발생할 수 있습니다. 결제에 이용하는 은행에 따라 다를 수 있습니다."
     },
     "systemSuccess": {
       "title": "결제 수단 제공자가<br>성공적으로 최초 응답을 보냈습니다.",
@@ -92,7 +92,7 @@
     "email": "배송용 이메일 주소",
     "emailInvalid": "유효하지 않은 이메일 주소",
     "remember": "저장하기",
-    "rememberInfo": "결제 정보는 3-D&nbsp;Secure 및 SSL 프로토콜을 사용하여 PCI 및 DSS 표준에 따라 저장됩니다.",
+    "rememberInfo": "결제 정보는 3&#8209;D&nbsp;Secure 및 SSL 프로토콜을 사용하여 PCI 및 DSS 표준에 따라 저장됩니다.",
     "city": "도시",
     "cityInvalid": "유효하지 않은 도시",
     "country": "국가",

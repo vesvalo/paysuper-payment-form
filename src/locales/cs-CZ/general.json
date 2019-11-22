@@ -5,8 +5,8 @@
       "description": "Počkejte, až bude platba úspěšně dokončena.<br/>Obvykle to trvá jen několik sekund."
     },
     "3ds": {
-      "title": "Nyní budete přesměrováni<br>na webové stránky své banky, abyste potvrdili ochranu 3-D&nbsp;Secure.",
-      "description": "Mezi předáním šeku 3-D&nbsp;Secure<br>a přijetím platby může být zpoždění. Závisí to na bance, kterou jste využili k provedení platby."
+      "title": "Nyní budete přesměrováni<br>na webové stránky své banky, abyste potvrdili ochranu 3&#8209;D&nbsp;Secure.",
+      "description": "Mezi předáním šeku 3&#8209;D&nbsp;Secure<br>a přijetím platby může být zpoždění. Závisí to na bance, kterou jste využili k provedení platby."
     },
     "systemSuccess": {
       "title": "Váš poskytovatel plateb<br>poskytl úspěšnou počáteční odezvu.",
@@ -92,7 +92,7 @@
     "email": "E-mailová adresa pro doručení",
     "emailInvalid": "Neplatná e-mailová adresa",
     "remember": "Zapamatuj si mě",
-    "rememberInfo": "Informace o platbě jsou ukládány v souladu s požadavky standardů PCI a DSS pomocí protokolů 3-D&nbsp;Secure a SSL.",
+    "rememberInfo": "Informace o platbě jsou ukládány v souladu s požadavky standardů PCI a DSS pomocí protokolů 3&#8209;D&nbsp;Secure a SSL.",
     "city": "Město",
     "cityInvalid": "Neplatné město",
     "country": "Země",
