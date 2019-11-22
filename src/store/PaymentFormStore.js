@@ -330,7 +330,7 @@ export default {
         // Delay is used for the redirect window not to open too soon
         await useDelayedCallbackOnPromise(
           axios.post(
-            `${rootState.apiUrl}/api/v1/payment`,
+            `${rootState.apiUrl}/payment`,
             request,
           ),
           ({ data }) => {
@@ -382,7 +382,7 @@ export default {
       };
 
       const response = await axios.patch(
-        `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
+        `${rootState.apiUrl}/orders/${state.orderData.id}/customer`,
         request,
       );
       setGeoParams(commit, response.data);
@@ -398,7 +398,7 @@ export default {
 
       try {
         const response = await axios.patch(
-          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/language`,
+          `${rootState.apiUrl}/orders/${state.orderData.id}/language`,
           request,
         );
         setGeoParams(commit, response.data);
@@ -426,7 +426,7 @@ export default {
 
       try {
         const response = await axios.post(
-          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/billing_address`,
+          `${rootState.apiUrl}/orders/${state.orderData.id}/billing_address`,
           request,
         );
 
@@ -453,7 +453,7 @@ export default {
     async changePlatform({ state, commit, rootState }, platform) {
       try {
         await axios.post(
-          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/platform`,
+          `${rootState.apiUrl}/orders/${state.orderData.id}/platform`,
           {
             platform,
           },

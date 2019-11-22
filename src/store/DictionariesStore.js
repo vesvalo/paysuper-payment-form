@@ -33,7 +33,7 @@ export default {
     },
 
     getCountries({ rootState }) {
-      const url = `${rootState.apiUrl}/api/v1/country`;
+      const url = `${rootState.apiUrl}/country`;
 
       return axios.get(url)
         .then(response => response.data)
