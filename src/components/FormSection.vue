@@ -90,6 +90,7 @@ export default {
       'isUserCountryConfirmRequested',
       'isUserCountryRestricted',
       'userIpGeoData',
+      'isEmailFieldExposed',
       'isGeoFieldsExposed',
       'isZipInvalid',
       'currentPlatformId',
@@ -184,6 +185,7 @@ export default {
     this.paymentData.email = this.orderData.email;
     if (this.userIpGeoData) {
       this.paymentData.country = this.userIpGeoData.country;
+      this.paymentData.zip = this.userIpGeoData.zip;
     }
   },
 
@@ -191,7 +193,7 @@ export default {
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById',
       'createPayment',
-      'clearActionResult',
+      'recreateOrder',
       'usePaymentApi',
       'removeCard',
       'checkPaymentAccount',
@@ -214,8 +216,7 @@ export default {
           gtagEvent('clickOkButton', { event_category: 'userAction' });
           this.$emit('close');
         } else {
-          gtagEvent('clickTryAgainButton', { event_category: 'userAction' });
-          this.clearActionResult();
+          this.recreateOrder();
         }
       } else if (this.isPaymentFormVisible) {
         gtagEvent('clickPayButton', { event_category: 'userAction' });
@@ -318,6 +319,7 @@ export default {
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
+          :isEmailFieldExposed="isEmailFieldExposed"
           :isGeoFieldsExposed="isGeoFieldsExposed"
           :isZipInvalid="isZipInvalid"
           @cardNumberChange="checkBankCardNumber"
@@ -336,6 +338,7 @@ export default {
             :label="$t('FormSection.abstractNumberPlaceholder', {name: activePaymentMethod.name})"
           />
           <UiTextField
+            v-if="isEmailFieldExposed"
             :class="$style.formItem"
             v-model="paymentData.email"
             type="email"

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import assert from 'assert';
+import qs from 'qs';
 import {
   reject, find, findIndex, get, includes,
 } from 'lodash-es';
@@ -112,6 +113,7 @@ export default {
     cards: [],
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
+    isEmailFieldExposed: true,
     isGeoFieldsExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
@@ -174,6 +176,9 @@ export default {
     isUserCountryRestricted(state, value) {
       state.isUserCountryRestricted = value;
     },
+    isEmailFieldExposed(state, value) {
+      state.isEmailFieldExposed = value;
+    },
     isGeoFieldsExposed(state, value) {
       state.isGeoFieldsExposed = value;
     },
@@ -205,6 +210,9 @@ export default {
 
       if (orderData.platforms) {
         commit('currentPlatformId', orderData.platforms[0].id);
+      }
+      if (orderData.email) {
+        commit('isEmailFieldExposed', false);
       }
 
       setGeoParams(commit, orderData);
@@ -238,10 +246,6 @@ export default {
         event_category: 'userAction',
         paymentMethodId: value,
       });
-    },
-
-    clearActionResult({ commit }) {
-      commit('actionResult', null);
     },
 
     async createPayment({
@@ -414,13 +418,12 @@ export default {
     /**
      * Used when geo data changes (country/city/zip)
      */
-    async updateBillingData({ state, commit, rootState }, { country, city, zip }) {
-      if (country === 'US' && (!city || !zip)) {
+    async updateBillingData({ state, commit, rootState }, { country, zip }) {
+      if (country === 'US' && !zip) {
         return;
       }
       const request = {
         country,
-        ...(city ? { city } : {}),
         ...(zip ? { zip } : {}),
       };
 
@@ -462,6 +465,34 @@ export default {
       } catch (error) {
         console.error(error);
       }
+    },
+
+    async recreateOrder({ state, rootState }) {
+      gtagEvent('clickTryAgainButton', { event_category: 'userAction' });
+      let location = window.location.href;
+
+      if (!state.orderParams.project) {
+        try {
+          const { data } = await axios.post(
+            `${rootState.apiUrl}/order/recreate`,
+            {
+              order_id: state.orderData.id,
+            },
+          );
+
+          const [host] = window.location.href.split('?');
+          const queryString = qs.stringify({
+            order_id: data.id,
+            ...state.orderParams,
+          });
+
+          location = `${host}?${queryString}`;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      postMessage('TRY_TO_BEGIN_AGAIN');
+      window.location.replace(location);
     },
   },
 };

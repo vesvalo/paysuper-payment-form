@@ -83,7 +83,7 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions('PaymentForm', ['changePlatform']),
+    ...mapActions('PaymentForm', ['changePlatform', 'recreateOrder']),
 
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
@@ -110,11 +110,6 @@ export default {
           window.location.replace(redirectUrl);
         }
       }
-    },
-
-    tryToBeginAgain() {
-      postMessage('TRY_TO_BEGIN_AGAIN');
-      window.location.reload();
     },
   },
 };
@@ -194,7 +189,7 @@ export default {
       v-bind="actionResult"
       :class="$style.orderCreationError"
       :isModal="isModalEssence"
-      @tryAgain="tryToBeginAgain"
+      @tryAgain="recreateOrder"
     />
 
     <div
