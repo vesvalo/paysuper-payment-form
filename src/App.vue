@@ -121,7 +121,10 @@ export default {
 </script>
 
 <template>
-<div :class="[$style.layout, { [$style._isPage]: isPageView }]">
+<div :class="[
+  $style.layout,
+  { [$style._isPage]: isPageView, [$style._isMobile]: isMobile },
+]">
   <component
     v-if="opened"
     :is="wrapperComponentName"
@@ -221,7 +224,10 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  touch-action: manipulation;
+
+  &._isMobile {
+    touch-action: manipulation;
+  }
 
   &._isPage {
     display: flex;
@@ -251,7 +257,12 @@ export default {
       width: 100%;
       width: 100vw;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+
+      .layout._isMobile & {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         height: 100vh;

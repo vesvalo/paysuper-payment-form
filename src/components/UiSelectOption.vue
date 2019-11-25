@@ -35,7 +35,6 @@
     :class="$style.input"
     :name="selectId"
     :value="option.value"
-    @change="$emit('input', option.value)"
   >
 </label>
 </template>
@@ -92,6 +91,7 @@ export default {
     emitChange() {
       const changeEvent = new Event('change');
       this.$refs.radio.dispatchEvent(changeEvent);
+      this.$emit('input', this.option.value);
     },
   },
 };
