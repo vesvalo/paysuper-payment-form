@@ -1,11 +1,11 @@
 <template>
 <div
+  v-touch:tap="toggle"
   v-clickaway="blur"
   :class="selectClasses"
 >
   <div :class="$style.wrapper">
     <div
-      @click="focused ? blur() : focus()"
       :class="[
         $style.selected,
         { [$style._focused]: focused },
@@ -250,6 +250,13 @@ export default {
     });
   },
   methods: {
+    toggle() {
+      if (this.focused) {
+        this.blur();
+      } else {
+        this.focus();
+      }
+    },
     blur() {
       this.$emit('blur');
       this.focused = false;
@@ -260,7 +267,6 @@ export default {
     },
     selectOption(value) {
       this.setSelectValue(value);
-      this.blur();
       this.$emit('input', value);
       this.$refs.input.focus();
     },
