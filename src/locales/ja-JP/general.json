@@ -31,7 +31,7 @@
     "success": {
       "title": "プレイしましょう！",
       "titleSubSlave": {
-        "key": "ライセンスプロバイダーのウェブサイトでキーを起動します。 <a href='{link}'>Instructions</a>",
+        "key": "ライセンスプロバイダーのウェブサイトでキーを起動します。<br/><a href='{link}'>Instructions</a>",
         "product": "お客様は新しいゲームを購入しました。おめでとうございます！お楽しみください！",
         "simple": "お客様の支払いは正常に完了しました。",
         "virtual_items": "新規アイテムがアカウントに追加されました。お楽しみください！",

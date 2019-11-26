@@ -31,7 +31,7 @@
     "success": {
       "title": "Kokeillaan!",
       "titleSubSlave": {
-        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta. <a href='{link}'>Ohjeet</a>",
+        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta.<br/><a href='{link}'>Ohjeet</a>",
         "product": "Olet osatnut uuden pelin. Onnittelut! Pidä hauskaa!",
         "simple": "Maksusi suorittaminen onnistui!",
         "virtual_items": "Uusia kohteita on lisätty tiliisi. Pidä hauskaa!",

@@ -31,7 +31,7 @@
     "success": {
       "title": "Zagrajmy!",
       "titleSubSlave": {
-        "key": "Aktywuj klucz na stronie internetowej licencjodawcy <a href='{link}'>Instrukcje</a>",
+        "key": "Aktywuj klucz na stronie internetowej licencjodawcy<br/><a href='{link}'>Instrukcje</a>",
         "product": "Kupiłeś/-aś nową grę. Gratulacje! Baw się dobrze!",
         "simple": "Twoja płatność została pomyślnie zakończona!",
         "virtual_items": "Do Twojego konta dodano nowe pozycje. Baw się dobrze!",

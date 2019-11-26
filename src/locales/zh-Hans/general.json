@@ -31,8 +31,8 @@
     "success": {
       "title": "开始游戏！",
       "titleSubSlave": {
-        "key": "在许可证提供商网站上激活密钥。<a href='{link}'>说明</a>",
-        "product": "您已购新游戏。恭喜您！祝您愉快！",
+        "key": "在许可证提供商网站上激活密钥。<br><a href='{link}'>说明</a>",
+        "product": "您已购新游戏。恭喜您！<br>祝您愉快！",
         "simple": "您的付款已成功完成！",
         "virtual_items": "新商品已添加到您的帐户。祝您愉快！",
         "virtual_currency": "新资金已添加到您的游戏帐户！"
@@ -102,7 +102,7 @@
   },
   "LayoutFooter": {
     "userAgreement": "用户协议",
-    "support": "救生"
+    "support": "支持"
   },
   "LayoutHeader": {
     "termsOfUse": "条款和条件",
@@ -111,7 +111,7 @@
   "ModalCart": {
     "legalInfo": "法律信息",
     "termsOfUse": "条款和条件",
-    "support": "救生",
+    "support": "支持",
     "userAgreement": "用户协议"
   },
   "PaymentAreaWarning": {

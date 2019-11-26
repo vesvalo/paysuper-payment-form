@@ -22,7 +22,7 @@
     "unknownError": {
       "title": "糟糕！",
       "subtitle": "發生錯誤。",
-      "description": "此錯誤發生概率<br>只有萬分之一！"
+      "description": "此錯誤發生概率只有萬分之一！"
     },
     "customError": {
       "title": "糟糕！",
@@ -31,10 +31,10 @@
     "success": {
       "title": "開始遊戲！",
       "titleSubSlave": {
-        "key": "在授權提供商網站上啟用金鑰。<a href='{link}'>說明</a>",
-        "product": "您已購新遊戲。恭喜您！祝您愉快！",
+        "key": "在授權提供商網站上啟用金鑰。<br><a href='{link}'>說明</a>",
+        "product": "您已購新遊戲。恭喜您！<br>祝您愉快！",
         "simple": "您的付款已成功完成！",
-        "virtual_items": "新商品已新增到您的帳戶。祝您愉快！",
+        "virtual_items": "新商品已新增到您的帳戶。<br>祝您愉快！",
         "virtual_currency": "新資金已新增到您的遊戲帳戶！"
       },
       "descriptionSlaveInitial": "輸入您的電子郵件地址以獲取收據。",
@@ -117,7 +117,7 @@
   "PaymentAreaWarning": {
     "oops": "糟糕！",
     "cantAcceptPayments": "我們無法接受從您所在國家付款。",
-    "chooseAnotherArea": "我們偵測的國家是否錯誤？請選取正確國家。",
+    "chooseAnotherArea": "<br>我們偵測的國家是否錯誤？請選取正確國家。",
     "country": "選取國家。"
   },
   "UiCardField": {
