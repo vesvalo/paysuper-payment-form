@@ -12,7 +12,7 @@ import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
 import '@/plugins/vuelidate';
-import '@/plugins/computedStyles';
+import '@/plugins/cssRules';
 import store from '@/store/RootStore';
 import i18n from '@/i18n';
 import { postMessage, receiveMessages } from '@/postMessage';

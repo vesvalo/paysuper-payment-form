@@ -5,6 +5,7 @@
     :cards="cards"
     v-model="innerValue.savedCardId"
     @remove="$emit('removeCard', $event)"
+    @select="emitChanges('savedCardId')"
   />
   <template v-if="innerValue.cardDataType === 'manual'">
     <UiCardField
@@ -18,6 +19,7 @@
       :hasError="$isFieldInvalid('innerValue.cardNumber')"
       :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
       @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
+      @input="emitChanges('cardNumber')"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <UiTextField
@@ -34,6 +36,7 @@
         :label="$t('FormSectionBankCard.expiryDate')"
         @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
         @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
+        @input="emitChanges('expiryDate')"
       />
       <UiCvvField
         v-model="innerValue.cvv"
@@ -41,6 +44,7 @@
         tabindex="4"
         :hasError="$isFieldInvalid('innerValue.cvv')"
         @keyup.native.delete="moveFocusBackOnEmpty('cvv', 'expiryDateField')"
+        @input="emitChanges('cvv')"
       />
     </div>
   </template>
@@ -62,6 +66,7 @@
     :hasError="$isFieldInvalid('innerValue.email')"
     :errorText="$t('FormSectionBankCard.emailInvalid')"
     :label="$t('FormSectionBankCard.email')"
+    @input="emitChanges('email')"
   />
   <template v-if="isGeoFieldsExposed">
     <UiSelect
@@ -73,6 +78,7 @@
       :hasError="$isFieldInvalid('innerValue.country')"
       :errorText="$t('FormSectionBankCard.countryInvalid')"
       tabindex="6"
+      @input="emitChanges('country')"
     />
     <!-- <UiTextField
       v-model="innerValue.city"
@@ -92,6 +98,7 @@
       :hasError="$isFieldInvalid('innerValue.zip')"
       :errorText="$t('FormSectionBankCard.zipInvalid')"
       tabindex="8"
+      @input="emitChanges('zip')"
     />
   </template>
 
@@ -102,6 +109,7 @@
     <UiCheckbox
       v-model="innerValue.hasRemembered"
       tabindex="9"
+      @input="emitChanges('hasRemembered')"
     >
       {{ $t('FormSectionBankCard.remember') }}
       <div
@@ -131,7 +139,7 @@ import {
   maxLength,
   minLength,
 } from 'vuelidate/lib/validators';
-import { toInteger, extend, forEach } from 'lodash-es';
+import { toInteger, extend } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import FormSectionSavedCards from '@/components/FormSectionSavedCards.vue';
 import SavedCardToPlainFieldsSwitch from '@/components/SavedCardToPlainFieldsSwitch.vue';
@@ -298,10 +306,6 @@ export default {
     };
   },
 
-  created() {
-    this.emitOnInnerValueChanges();
-  },
-
   mounted() {
     this.focusCardNumberField();
   },
@@ -324,20 +328,17 @@ export default {
         this.$refs[prevField].focus();
       }
     },
-    emitOnInnerValueChanges() {
-      forEach(this.innerValue, (a, key) => {
-        this.$watch(`innerValue.${key}`, (value) => {
-          // For v-model
-          this.$emit('change', this.innerValue);
+    emitChanges(key) {
+      // For v-model
+      this.$emit('change', this.innerValue);
 
-          // to watch certain field
-          this.$emit(`${key}Change`, value);
+      const value = this.innerValue[key];
+      // to watch certain field
+      this.$emit(`${key}Change`, value);
 
-          if (key === 'hasRemembered' && value) {
-            gtagEvent('clickRememberCard', { event_category: 'userAction' });
-          }
-        });
-      });
+      if (key === 'hasRemembered' && value) {
+        gtagEvent('clickRememberCard', { event_category: 'userAction' });
+      }
     },
     validate() {
       this.$v.$touch();

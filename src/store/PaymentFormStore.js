@@ -2,7 +2,7 @@ import axios from 'axios';
 import assert from 'assert';
 import qs from 'qs';
 import {
-  reject, find, findIndex, get, includes,
+  reject, find, findIndex, get, includes, pick,
 } from 'lodash-es';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
@@ -80,10 +80,6 @@ function setPaymentStatus(commit, name, extraData) {
 function setGeoParams(commit, data) {
   // Drop to defaults
   commit('isUserCountryConfirmRequested', false);
-
-  if (data.user_ip_data) {
-    commit('userIpGeoData', data.user_ip_data);
-  }
 
   if (data.country_payments_allowed === false) {
     commit('isGeoFieldsExposed', true);
@@ -225,7 +221,9 @@ export default {
       if (orderData.email) {
         commit('isEmailFieldExposed', false);
       }
-
+      if (orderData.user_ip_data) {
+        commit('userIpGeoData', orderData.user_ip_data);
+      }
       setGeoParams(commit, orderData);
       setPaymentStatus(commit, 'NEW');
 
@@ -389,7 +387,7 @@ export default {
     },
 
     async checkPaymentAccount({
-      state, rootState, commit,
+      state, rootState, commit, dispatch,
     }, account) {
       const request = {
         method_id: state.activePaymentMethodId,
@@ -400,6 +398,7 @@ export default {
         `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
         request,
       );
+      dispatch('setOrderDataBillingParams', response.data);
       setGeoParams(commit, response.data);
     },
 
@@ -429,7 +428,9 @@ export default {
     /**
      * Used when geo data changes (country/city/zip)
      */
-    async updateBillingData({ state, commit, rootState }, { country, zip }) {
+    async updateBillingData({
+      state, commit, dispatch, rootState,
+    }, { country, zip }) {
       if (country === 'US' && !zip) {
         return;
       }
@@ -444,11 +445,7 @@ export default {
           request,
         );
 
-        commit('orderData', {
-          ...state.orderData,
-          ...response.data,
-        });
-
+        dispatch('setOrderDataBillingParams', response.data);
         commit('isZipInvalid', false);
       } catch (error) {
         const zipErrors = [
@@ -504,6 +501,25 @@ export default {
       }
       postMessage('TRY_TO_BEGIN_AGAIN');
       window.location.replace(location);
+    },
+
+    setOrderDataBillingParams({ state, commit }, data) {
+      const pickedProps = pick(data, [
+        'amount',
+        'charge_amount',
+        'charge_currency',
+        'currency',
+        'has_vat',
+        'items',
+        'total_amount',
+        'vat',
+        'vat_in_charge_currency',
+      ]);
+
+      commit('orderData', {
+        ...state.orderData,
+        ...pickedProps,
+      });
     },
   },
 };

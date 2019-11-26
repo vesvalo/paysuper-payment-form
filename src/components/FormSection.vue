@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
-import { includes, get, toLower } from 'lodash-es';
+import { get, toLower, find } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
@@ -74,9 +74,6 @@ export default {
           iconComponent: 'IconCard',
         },
       },
-
-      isBankCardNumberChecking: false,
-      checkedBankCardNumberPart: '',
     };
   },
 
@@ -268,23 +265,25 @@ export default {
     },
 
     async checkBankCardNumber(value) {
-      if (
-        value.length === 16 // complete card number
-        && !this.isBankCardNumberChecking
-        && (
-          !this.checkedBankCardNumberPart
-          || !includes(value, this.checkedBankCardNumberPart)
-        )
-      ) {
-        this.isBankCardNumberChecking = true;
-
+      // complete card number
+      if (value.length === 16) {
         try {
           await this.checkPaymentAccount(value);
-          this.checkedBankCardNumberPart = value;
         } catch (error) {
           console.error(error);
         }
-        this.isBankCardNumberChecking = false;
+      }
+    },
+
+    async checkSavedCardNumberById(id) {
+      const card = find(this.cards, { id });
+      if (!card) {
+        return;
+      }
+      try {
+        await this.checkPaymentAccount(card.pan.slice(0, 6));
+      } catch (error) {
+        console.error(error);
       }
     },
   },
@@ -303,8 +302,13 @@ export default {
       :class="$style.scrollbox"
       :settings="isPageView ? undefined : { suppressScrollX: true }"
     >
+      <!--
+        It's important not to render the form until the requested country is selected
+        Otherwise rendering saved cards will cause buggy behavior
+        (it's emitting "select" on created)
+         -->
       <div
-        v-show="isPaymentFormVisible"
+        v-if="isPaymentFormVisible"
         :class="$style.contentInner"
       >
         <UiSelect
@@ -326,6 +330,7 @@ export default {
           :isEmailFieldExposed="isEmailFieldExposed"
           :isGeoFieldsExposed="isGeoFieldsExposed"
           :isZipInvalid="isZipInvalid"
+          @savedCardIdChange="checkSavedCardNumberById"
           @cardNumberChange="checkBankCardNumber"
           @countryChange="setNewUserCountry"
           @cityChange="requestBillingDataUpdate"
@@ -388,7 +393,7 @@ export default {
           {{ $t('FormSection.payButtonPrefix') }}
         </span>
         <span>
-          {{ $getPrice(orderData.total_amount, orderData.currency) }}
+          {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </template>
       <template v-if="actionResult">

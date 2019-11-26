@@ -3,6 +3,7 @@ import Vue from 'vue';
 import { configure, addDecorator } from '@storybook/vue';
 import '../../src/vueExtentions';
 import '../../src/globalComponents';
+import '../../src/plugins/cssRules';
 import '../../src/assets/styles/storybook-setup.scss';
 import viewSchemes from '../../src/viewSchemes';
 import i18n from '../../src/i18n';

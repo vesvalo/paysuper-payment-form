@@ -14,23 +14,53 @@ export default {
     },
   },
 
-  mounted() {
-    this.$addCssRules({
-      [`.${this.$style.item}`]: {
-        color: this.$gui.cartTextColor,
-      },
-      [`.${this.$style.item}.${this.$style._total}`]: {
-        color: this.$gui.cartAccentColor,
-      },
-      [`.${this.$style.oldPrice}`]: {
-        color: this.$gui.cartOldPriceColor,
-      },
-      [`.${this.$style.totals}`]: {
-        'border-top': `1px solid ${this.$gui.cartStrokeColor}`,
-      },
-    });
+  computed: {
+    vatPercentage() {
+      return Number((100 / this.orderData.total_amount * this.orderData.vat).toFixed(2));
+    },
+    isExplicitCharge() {
+      if (
+        this.orderData.total_amount !== this.orderData.charge_amount
+        || this.orderData.currency !== this.orderData.charge_currency
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
 
+  cssRules() {
+    return {
+      '.{item}': {
+        color: this.$gui.cartTextColor,
+      },
+      [`
+        .{item}.{_total},
+        .{item}.{_subtotal},
+        .{item}.{_taxes}
+      `]: {
+        color: this.$gui.cartAccentColor,
+      },
+      '.{item}.{_common} .{itemCell}.{_price}, .{specialPrice}': {
+        color: this.$gui.cartPriceColor,
+      },
+      '.{titleNotice}': {
+        color: this.$gui.cartTextColor,
+      },
+      '.{oldPrice}': {
+        color: this.$gui.cartOldPriceColor,
+      },
+      '.{totals}': {
+        'border-top': `1px solid ${this.$gui.cartStrokeColor}`,
+      },
+      '.{totalNotice}': {
+        color: this.$gui.cartTotalNoticeColor,
+      },
+      '.{totalNotice} > svg': {
+        fill: this.$gui.cartTotalNoticeColor,
+      },
+    };
+  },
 };
 </script>
 
@@ -45,7 +75,7 @@ export default {
     <template v-if="orderData.items">
       <div
         v-for="(item, index) in orderData.items"
-        :class="$style.item"
+        :class="[$style.item, $style._common]"
         :key="item.id"
       >
         <span
@@ -74,35 +104,69 @@ export default {
       </span>
     </div>
   </div>
+  <div
+    v-if="isExplicitCharge || orderData.vat"
+    :class="$style.totals"
+  >
+    <div :class="$style.items">
+      <div :class="[$style.item, $style._subtotal, $style.hidden]">
+        <span :class="[$style.itemCell, $style._title]">
+          {{ $t('CartSection.orderSummary') }}
+        </span>
+        <span :class="[$style.itemCell, $style._price]">
+          {{ $getPrice(orderData.amount, orderData.currency) }}
+        </span>
+      </div>
+      <div
+        v-if="orderData.vat"
+        :class="[$style.item, $style._taxes, $style.hidden]"
+      >
+        <span :class="[$style.itemCell, $style._title]">
+          {{ $t('CartSection.taxes') }}
+          <span :class="$style.titleNotice">
+            ({{ $t('CartSection.vat') }} {{vatPercentage}}%)
+          </span>
+        </span>
+        <span :class="[$style.itemCell, $style._price]">
+          {{ $getPrice(orderData.vat, orderData.currency) }}
+        </span>
+      </div>
+      <div
+        v-if="isExplicitCharge"
+        :class="[$style.item, $style._subtotal, $style.hidden]"
+      >
+        <span :class="[$style.itemCell, $style._title]">
+          {{ $t('CartSection.subtotal') }}
+        </span>
+        <span :class="[$style.itemCell, $style._price]">
+          <span :class="$style.specialPrice">
+            {{ $getPrice(orderData.total_amount, orderData.currency) }} =
+          </span>
+          {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
+        </span>
+      </div>
+    </div>
+  </div>
   <div :class="$style.totals">
     <div :class="$style.items">
-      <template v-if="orderData.vat">
-        <div :class="[$style.item, $style.subtotal, $style.hidden]">
-          <span :class="[$style.itemCell, $style._title]">
-            {{ $t('CartSection.subtotal') }}
-          </span>
-          <span :class="[$style.itemCell, $style._price]">
-            {{ $getPrice(orderData.amount, orderData.currency) }}
-          </span>
-        </div>
-        <div :class="[$style.item, $style.taxes, $style.hidden]">
-          <span :class="[$style.itemCell, $style._title]">
-            {{ $t('CartSection.taxes') }}
-          </span>
-          <span :class="[$style.itemCell, $style._price]">
-            {{ $getPrice(orderData.vat, orderData.currency) }}
-          </span>
-        </div>
-      </template>
       <div :class="[$style.item, $style._total]">
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.total') }}
         </span>
         <span :class="[$style.itemCell, $style._price]">
-          {{ $getPrice(orderData.total_amount, orderData.currency) }}
+          {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </div>
     </div>
+  </div>
+
+  <div :class="$style.totalNotice">
+    <IconInfoStroke />
+    <template v-if="isExplicitCharge && orderData.vat">
+      {{ $t('CartSection.totalNoticeVat') }} {{vatPercentage}}%
+      {{ $getPrice(orderData.vat_in_charge_currency, orderData.charge_currency) }}.
+    </template>
+    <span v-html="$t('CartSection.totalNotice')"></span>
   </div>
 
   <slot />
@@ -126,13 +190,20 @@ export default {
 .item {
   display: table-row;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 18px;
+  word-break: break-word;
 
   &._total {
     font-size: 16px;
     line-height: 20px;
     font-weight: bold;
+  }
+
+  &._common,
+  &._subtotal,
+  &._taxes {
+    opacity: 1;
   }
 }
 .itemCell {
@@ -161,6 +232,10 @@ export default {
     }
   }
 }
+.specialPrice,
+.titleNotice {
+  opacity: 1;
+}
 .oldPrice {
   text-decoration: line-through;
   padding-right: 6px;
@@ -176,6 +251,20 @@ export default {
     .cartSectionListing._closed & {
       margin-top: 0;
     }
+  }
+}
+
+.totalNotice {
+  position: relative;
+  font-size: 9px;
+  line-height: 13px;
+  padding-left: 13px;
+  margin-top: 6px;
+
+  & > svg {
+    position: absolute;
+    left: 1px;
+    top: 1px;
   }
 }
 </style>
