@@ -2,15 +2,15 @@
   "ActionProcessing": {
     "simpleLoading": {
       "title": "お待ち下さい。<br/>当社はお客様のお支払いを処理しています。",
-      "description": "お支払いが正常に完了するまでお待ちください。<br/> これには 通常数秒しかかかりません。"
+      "description": "お支払いが正常に完了するまでお待ちください。<br/> これには通常数秒しかかかりません。"
     },
     "3ds": {
-      "title": "お客様は 3&#8209;D&nbsp;Secure 保護を確認するため、<br> ご利用 の銀行のウェブサイトにリダイレクトされます。",
-      "description": "3&#8209;D&nbsp;Secure の確認および<br> お支払いの受領の間のやりとりに遅延が起こる可能性があります。それはお客様が支払いのために使用した銀行によります。"
+      "title": "お客様は 3&#8209;D&nbsp;Secure 保護を確認するため、<br> ご利用の銀行のウェブサイトにリダイレクトされます。",
+      "description": "3&#8209;D&nbsp;Secure の確認および、お支払いの受領の間の<br>やりとりに遅延が起こる可能性があります。それはお客様が支払いのために<br>使用した銀行によります。"
     },
     "systemSuccess": {
-      "title": "お客様の支払いプロバイダー<br>は正常な初期応答を返しました。",
-      "description": "最終決定はもうすぐなされます。少々お待ちください。<br> 支払いシステムは場合により技術的な理由で遅れることがあります。"
+      "title": "お客様の支払いプロバイダーは<br>正常な初期応答を返しました。",
+      "description": "最終決定処理はまもなく完了します。少々お待ちください。<br> 支払いシステムは場合により技術的な理由で遅れることがあります。"
     }
   },
   "ActionResult": {
@@ -31,16 +31,16 @@
     "success": {
       "title": "プレイしましょう！",
       "titleSubSlave": {
-        "key": "ライセンスプロバイダーのウェブサイトでキーを起動します。<br/><a href='{link}'>Instructions</a>",
+        "key": "ライセンスプロバイダーのウェブサイトで<br>キーを起動します。<br><a href='{link}'>Instructions</a>",
         "product": "お客様は新しいゲームを購入しました。おめでとうございます！お楽しみください！",
         "simple": "お客様の支払いは正常に完了しました。",
-        "virtual_items": "新規アイテムがアカウントに追加されました。お楽しみください！",
-        "virtual_currency": "お客様のゲームアカウントに新規の資金が追加されました"
+        "virtual_items": "新規アイテムがアカウントに<br>追加されました。お楽しみください！",
+        "virtual_currency": "お客様のゲームアカウントに新規の資金が<br>追加されました"
       },
-      "descriptionSlaveInitial": "メールアドレスを入力してレシートを入手してください。",
+      "descriptionSlaveInitial": "メールアドレスを入力してレシートを<br>入手してください。",
       "descriptionSlaveFinal": {
         "key": "支払い確認およびアクティベーションキーが送信されました",
-        "product": "支払い確認およびアクセスリンクが送信されました",
+        "product": "支払い確認およびアクティベーションキーが<br>送信されました",
         "simple": "支払い確認が送信されました",
         "virtual_items": "支払い確認が送信されました",
         "virtual_currency": "支払い確認が送信されました"
@@ -72,7 +72,7 @@
     "cvv": "CVC/CVV",
     "email": "配信用メールアドレス",
     "emailInvalid": "無効なメールアドレス",
-    "remember": "お知らせください",
+    "remember": "メールアドレスの保存",
     "abstractNumberError": "無効な番号",
     "abstractNumberPlaceholder": "{name} ウォレット番号",
     "placeholderEmail": "メールアドレスを入力してください。",
@@ -91,14 +91,14 @@
     "cvvError": "無効な値",
     "email": "配信用メールアドレス",
     "emailInvalid": "無効なメールアドレス",
-    "remember": "お知らせください",
-    "rememberInfo": "お支払い情報は 3&#8209;D&nbsp;Secure および SSL プロトコルを使用して、PCI および DSS 基準の要件に従って保存されます。",
+    "remember": "メールアドレスの保存",
+    "rememberInfo": "お支払い情報は 3&#8209;D&nbsp;Secure および<br>SSL プロトコルを使用して、PCI<br>および DSS 基準の要件に従って<br>保存されます。",
     "city": "都市",
     "cityInvalid": "無効な都市",
     "country": "国",
     "countryInvalid": "国を選択してください",
     "zip": "ZIP コード",
-    "zipInvalid": "無効なジップコード"
+    "zipInvalid": "無効なZIP コード"
   },
   "LayoutFooter": {
     "userAgreement": "ユーザー契約",
@@ -131,7 +131,7 @@
     "remove": "削除"
   },
   "OrderCreationResult": {
-    "title": "あいにく当社はお支払いのための注文を作成できません。",
+    "title": "あいにく当社はお支払いのための注文を<br>作成できません。",
     "tryAgain": "再度お試しください",
     "unknownError": "このエラーは1万回に1回発生します。"
   },
