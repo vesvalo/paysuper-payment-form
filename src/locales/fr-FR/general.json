@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Supprimer"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Malheureusement, nous n’avons pas pu créer l’ordre de paiement.",
     "tryAgain": "RÉESSAYER",
     "unknownError": "Cette erreur se produit une fois sur&nbsp;10&nbsp;000&nbsp;!"

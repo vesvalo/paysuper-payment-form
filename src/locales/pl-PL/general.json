@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Usuń"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Niestety nie mogliśmy utworzyć zlecenia płatności.",
     "tryAgain": "SPRÓBUJ PONOWNIE",
     "unknownError": "Ten błąd pojawia się raz na 10 000 przypadków!"

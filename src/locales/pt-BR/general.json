@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Apagar"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Infelizmente não conseguimos criar a ordem de pagamento.",
     "tryAgain": "TENTE NOVAMENTE",
     "unknownError": "Esse erro só ocorre uma vez a cada 10.000!"

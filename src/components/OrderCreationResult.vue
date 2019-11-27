@@ -4,7 +4,7 @@ import IconTotemFail from '@/components/IconTotemFail.vue';
 import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
 
 export default {
-  name: 'OrderCreationError',
+  name: 'OrderCreationResult',
 
   components: {
     IconTotemFail,
@@ -15,8 +15,12 @@ export default {
       required: true,
       type: String,
       validator(value) {
-        return includes(['unknownError', 'customError'], value);
+        return includes(['unknownError', 'customError', 'alreadyProcessed'], value);
       },
+    },
+
+    receiptUrl: {
+      type: String,
     },
 
     isModal: {
@@ -32,6 +36,23 @@ export default {
   computed: {
     message() {
       return getErrorCodeTranslation(this.code, this.$i18n.locale);
+    },
+    titleMain() {
+      if (this.type === 'alreadyProcessed') {
+        return this.$t('OrderCreationResult.alreadyCompletedTitle');
+      }
+      return this.$t('OrderCreationResult.title');
+    },
+    description() {
+      if (this.type === 'alreadyProcessed') {
+        return '';
+      }
+
+      if (this.type === 'unknownError') {
+        return this.$t('OrderCreationResult.unknownError');
+      }
+
+      return this.message;
     },
   },
 
@@ -56,28 +77,43 @@ export default {
   <div :class="$style.orderCreationError">
     <div :class="$style.content">
       <div :class="$style.icon">
-        <IconTotemFail/>
+        <IconTotemSuccess v-if="type === 'alreadyProcessed'" />
+        <IconTotemFail v-else/>
       </div>
       <div>
         <h2
           :class="$style.titleMain"
-          v-html="$t('OrderCreationError.title')"
+          v-html="titleMain"
         >
         </h2>
       </div>
       <div
+        v-if="description"
         :class="$style.description"
-        v-html="type === 'unknownError' ? $t('OrderCreationError.unknownError') : message"
+        v-html="description"
       >
       </div>
     </div>
     <div :class="$style.footer">
+      <a
+        v-if="type === 'alreadyProcessed'"
+        :href="receiptUrl"
+        target="_blank"
+      >
+        <UiButton
+          :class="$style.button"
+          :hasBorderRadius="false"
+        >
+          {{ $t('OrderCreationResult.openReceipt') }}
+        </UiButton>
+      </a>
       <UiButton
+        v-else
         :class="$style.button"
         :hasBorderRadius="false"
         @click="$emit('tryAgain')"
       >
-        {{$t('OrderCreationError.tryAgain')}}
+        {{$t('OrderCreationResult.tryAgain')}}
       </UiButton>
     </div>
   </div>

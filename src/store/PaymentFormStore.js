@@ -24,7 +24,8 @@ const actionResultsByStatus = {
     if (data) {
       return {
         type: 'customError',
-        code: data.code,
+        code: '',
+        ...data,
       };
     }
     return { type: 'unknownError' };
@@ -199,6 +200,16 @@ export default {
         setPaymentStatus(
           commit, 'FAILED_TO_BEGIN',
           orderData.error,
+        );
+        return;
+      }
+      if (orderData.is_already_processed) {
+        setPaymentStatus(
+          commit, 'FAILED_TO_BEGIN',
+          {
+            type: 'alreadyProcessed',
+            receiptUrl: orderData.receipt_url,
+          },
         );
         return;
       }

@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Изтрий"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "За съжаление, не успяхме да създадем платежно нареждане.",
     "tryAgain": "ОПИТАЙ ОТНОВО",
     "unknownError": "Тази грешка се появява веднъж на 10 000 пъти!"

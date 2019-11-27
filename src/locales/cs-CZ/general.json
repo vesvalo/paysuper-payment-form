@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Odstranit"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Bohužel se nám nepodařilo vytvořit platební příkaz.",
     "tryAgain": "ZKUSTE TO ZNOVU!",
     "unknownError": "K této chybě dochází v jednom z 10.000 případů!"

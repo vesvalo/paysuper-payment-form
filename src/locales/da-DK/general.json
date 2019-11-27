@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Slet"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Vi kunne desværre ikke oprette betalingsordren.",
     "tryAgain": "PRØV IGEN",
     "unknownError": "Denne fejl opstår en ud af 10.000 gange!"

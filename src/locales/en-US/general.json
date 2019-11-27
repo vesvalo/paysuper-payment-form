@@ -113,8 +113,10 @@
   "UiSelectOption": {
     "remove": "Delete"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Unfortunately, we were unable to create the order for payment.",
+    "alreadyCompletedTitle": "The order is already completed",
+    "openReceipt": "OPEN RECEIPT",
     "tryAgain": "TRY AGAIN",
     "unknownError": "This error occurs once every 10,000 times!"
   },
