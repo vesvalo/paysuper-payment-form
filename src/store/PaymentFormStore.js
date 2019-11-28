@@ -68,7 +68,7 @@ function setPaymentStatus(commit, name, extraData) {
 
   const actionResult = actionResultsByStatus[name];
   if (actionResult) {
-    commit('actionResult', actionResult(extraData));
+    commit('actionResult', actionResult({ code: 'fm000016' }));
   }
 
   const actionProcessing = actionProcessingByStatus[name];

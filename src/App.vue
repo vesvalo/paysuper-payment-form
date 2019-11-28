@@ -219,7 +219,6 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  word-break: keep-all;
   hyphens: none;
 
   &._isMobile {
