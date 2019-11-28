@@ -113,8 +113,10 @@
   "UiSelectOption": {
     "remove": "Удалить"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Нам очень жаль, но мы не смогли создать заказ для оплаты",
+    "alreadyCompletedTitle": "Этот заказ уже выполнен",
+    "openReceipt": "ОТКРЫТЬ ЧЕК",
     "tryAgain": "ПОПРОБОВАТЬ СНОВА",
     "unknownError": "Эта ошибка случается 1 раз из 10 000!"
   },

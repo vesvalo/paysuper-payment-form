@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Xóa"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Thật không may, chúng tôi không thể tạo đơn hàng để thanh toán.",
     "tryAgain": "THỬ LẠI",
     "unknownError": "Lỗi này xảy ra cứ sau 10.000 lần!"

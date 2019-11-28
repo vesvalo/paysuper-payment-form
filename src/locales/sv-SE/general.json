@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Radera"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Tyvärr kunde vi inte skapa beställningen för betalning.",
     "tryAgain": "FÖRSÖK IGEN",
     "unknownError": "Detta fel sker bara var 10 000:e gång!"

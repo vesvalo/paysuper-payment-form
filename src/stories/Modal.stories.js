@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
-import OrderCreationError from '@/components/OrderCreationError.vue';
+import OrderCreationResult from '@/components/OrderCreationResult.vue';
 import AnimationsOff from '@/components/AnimationsOff.vue';
 
 storiesOf('Modal', module)
@@ -41,11 +41,11 @@ storiesOf('Modal', module)
     `,
   }))
   .add('order error', () => ({
-    components: { AnimationsOff, Modal, OrderCreationError },
+    components: { AnimationsOff, Modal, OrderCreationResult },
     template: `
       <AnimationsOff>
         <Modal :opened="true">
-          <OrderCreationError type="unknownError" />
+          <OrderCreationResult type="unknownError" />
         </Modal>
       </AnimationsOff>
     `,

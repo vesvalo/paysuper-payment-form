@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Cancella"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Purtroppo non possiamo creare l’ordine per il pagamento.",
     "tryAgain": "RIPROVA",
     "unknownError": "Questo errore si verifica una volta ogni 10.000!"

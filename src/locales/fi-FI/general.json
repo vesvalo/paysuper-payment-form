@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Poista"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Emme valitettavasti voi luoda tilausta maksullesi.",
     "tryAgain": "YRITÄ UUDELLEEN",
     "unknownError": "Tämä virhe ilmenee joka 10.000. kerta!"

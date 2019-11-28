@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Borrar"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Desafortunadamente, no pudimos crear el requerimiento de pago.",
     "tryAgain": "INTÉNTELO DE NUEVO",
     "unknownError": "¡Este error sucede una vez de cada 10.000!"

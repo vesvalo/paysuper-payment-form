@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "ลบ"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "น่าเสียดาย เราไม่สามารถสร้างคำสั่งซื้อสำหรับการชำระเงินได้",
     "tryAgain": "ลองอีกครั้ง",
     "unknownError": "ข้อผิดพลาดนี้เกิดขึ้นทุกๆ 10,000 ครั้ง!"

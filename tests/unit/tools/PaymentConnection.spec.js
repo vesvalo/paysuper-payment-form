@@ -108,6 +108,7 @@ describe('PaymentConnection', () => {
       orderId,
       token,
       options,
+      rwcTime: 10,
     });
     paymentConnection
       .init()

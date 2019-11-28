@@ -5,18 +5,20 @@ import { formLoadingPageUrl, websocketServerUrl } from '@/constants';
 
 export default class PaymentConnection extends Events.EventEmitter {
   constructor({
-    window, orderId, token, options,
+    window, orderId, token, options, rwcTime = 5000,
   }) {
     super();
     this.window = window;
     this.orderId = orderId;
     this.token = token;
     this.options = options;
+    this.rwcTime = rwcTime;
 
     this.centrifuge = null;
 
     this.redirectWindow = null;
     this.redirectWindowClosedInterval = null;
+    this.redirectWindowClosedTimeout = null;
     this.isPaymentFinished = false;
     this.isNormallyDisconnected = false;
     this.systemSuccessTimeout = null;
@@ -53,10 +55,14 @@ export default class PaymentConnection extends Events.EventEmitter {
     // Its important to open the window with empty url first. Sup IE11
     this.redirectWindow = this.window.open('', '_blank');
     this.setRedirectWindowLocation(formLoadingPageUrl);
+
     this.redirectWindowClosedInterval = setInterval(() => {
       if (this.redirectWindow.closed) {
-        this.emit('redirectWindowClosedByUser');
-        this.closeRedirectWindow().disconnect();
+        clearInterval(this.redirectWindowClosedInterval);
+        this.redirectWindowClosedTimeout = setTimeout(() => {
+          this.emit('redirectWindowClosedByUser');
+          this.closeRedirectWindow().disconnect();
+        }, this.rwcTime);
       }
     }, 200);
 
@@ -82,6 +88,7 @@ export default class PaymentConnection extends Events.EventEmitter {
 
   closeRedirectWindow() {
     clearInterval(this.redirectWindowClosedInterval);
+    clearTimeout(this.redirectWindowClosedTimeout);
     this.redirectWindow.close();
     return this;
   }

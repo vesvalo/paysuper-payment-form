@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "削除"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "あいにく当社はお支払いのための注文を作成できません。",
     "tryAgain": "再度お試しください",
     "unknownError": "このエラーは1万回に1回発生します。"

@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Sil"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Maalesef ödeme için sipariş oluşturamadık.",
     "tryAgain": "TEKRAR DENE",
     "unknownError": "Bu hata 10.000'de 1 defa gerçekleşir."

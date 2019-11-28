@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "Διαγραφή"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "Δυστυχώς, δεν μπορέσαμε να δημιουργήσουμε την παραγγελία για πληρωμή.",
     "tryAgain": "ΠΡΟΣΠΑΘΗΣΤΕ ΞΑΝΑ",
     "unknownError": "Αυτό το σφάλμα προκύπτει μια φορά στις τόσες!"

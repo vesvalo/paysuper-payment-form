@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "حذف"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "للأسف، تعذر علينا إنشاء طلب الدفع.",
     "tryAgain": "حاول لاحقًا",
     "unknownError": "يحدث هذا الخطأ كل 10000 مرة!"

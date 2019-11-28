@@ -11,7 +11,7 @@ import LayoutHeader from '@/components/LayoutHeader.vue';
 import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
-import OrderCreationError from '@/components/OrderCreationError.vue';
+import OrderCreationResult from '@/components/OrderCreationResult.vue';
 import { postMessage } from './postMessage';
 
 export default {
@@ -25,7 +25,7 @@ export default {
     Modal,
     ModalCart,
     ModalForm,
-    OrderCreationError,
+    OrderCreationResult,
   },
   data() {
     return {
@@ -184,7 +184,7 @@ export default {
       v-if="actionProcessing && !isPageView"
       v-bind="actionProcessing"
     />
-    <OrderCreationError
+    <OrderCreationResult
       v-if="paymentStatus === 'FAILED_TO_BEGIN'"
       v-bind="actionResult"
       :class="$style.orderCreationError"

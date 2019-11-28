@@ -130,7 +130,7 @@
   "UiSelectOption": {
     "remove": "삭제"
   },
-  "OrderCreationError": {
+  "OrderCreationResult": {
     "title": "죄송하지만, 결제를 위한 주문을 생성하지 못했습니다.",
     "tryAgain": "재시도",
     "unknownError": "10,000번에 한 번 발생할까 하는 오류입니다!"
