@@ -5,11 +5,11 @@
       "description": "Bitte warten Sie, bis die Zahlung erfolgreich abgeschlossen wurde.<br/>Es dauert in der Regel wenige Sekunden."
     },
     "3ds": {
-      "title": "Sie werden jetzt<br>zur Bestätigung der 3D&nbsp;Secure Sicherheit zur Website Ihrer Bank weitergeleitet.",
-      "description": "Nach der Überprüfung der 3D&nbsp;Secure-Sicherheit kann es<br>bis zur Zahlung zu Verzögerungen kommen. Das ist abhängig von der Bank, mit der Sie bezahlen."
+      "title": "Sie werden jetzt<br>zur Bestätigung der 3D&nbsp;Secure&#8209;Sicherheit zur Website Ihrer Bank weitergeleitet.",
+      "description": "Nach der Überprüfung der 3D&nbsp;Secure&#8209;Sicherheit kann es<br>bis zur Zahlung zu Verzögerungen kommen. Das ist abhängig von der Bank, mit der Sie bezahlen."
     },
     "systemSuccess": {
-      "title": "Die erste Antwort Ihres Zahlungsanbieter<br>war positiv.",
+      "title": "Die erste Antwort Ihres Zahlungsanbieters<br>war positiv.",
       "description": "In Kürze wird die endgültige Entscheidung getroffen. Bitte haben Sie Geduld.<br>Es kann bei Zahlungssystemen aufgrund technischer Probleme manchmal zu Verzögerungen kommen."
     }
   },
@@ -31,13 +31,13 @@
     "success": {
       "title": "Spielen Sie!",
       "titleSubSlave": {
-        "key": "Aktivieren Sie den Schlüssel auf der Lizenzseite des Anbieters.<br/><a href='{link}'>Anleitung</a>",
-        "product": "Sie haben ein neues Spiel gekauft. Herzlichen Glückwunsch! Viel Spaß!",
+        "key": "Aktivieren Sie den Schlüssel auf der Lizenzseite des Anbieters.<br><a href='{link}'>Anleitung</a>",
+        "product": "Sie haben ein neues Spiel gekauft. Herzlichen Glückwunsch!<br> Viel Spaß!",
         "simple": "Ihre Zahlung wurde erfolgreich abgeschlossen!",
         "virtual_items": "Es wurden neue Artikel zu Ihrem Konto hinzugefügt. Viel Spaß!",
         "virtual_currency": "Es wurden neue Zahlungsmittel zu Ihrem Konto hinzugefügt."
       },
-      "descriptionSlaveInitial": "Geben Sie Ihre E-Mail-Adresse ein, um einen Beleg zu erhalten.",
+      "descriptionSlaveInitial": "Geben Sie Ihre E&#8209;Mail&#8209;Adresse ein, um einen Beleg zu erhalten.",
       "descriptionSlaveFinal": {
         "key": "Die Zahlungsbestätigung und ein Aktivierungsschlüssel wurden gesendet an",
         "product": "Die Zahlungsbestätigung und ein Zugangslink wurden gesendet an",
@@ -45,7 +45,7 @@
         "virtual_items": "Die Zahlungsbestätigung wurde gesendet an",
         "virtual_currency": "Die Zahlungsbestätigung wurde gesendet an"
       },
-      "email": "E-Mail-Adresse"
+      "email": "E&#8209;Mail&#8209;Adresse"
     }
   },
   "CartSection": {
@@ -69,13 +69,13 @@
     "qiwi": "QIWI",
     "webmoney": "Webmoney",
     "btc": "BTC",
-    "cvv": "CVC/CVV-Prüfziffer",
-    "email": "Ungültige E-Mail-Adresse für die Zustellung",
-    "emailInvalid": "Ungültige E-Mail-Adresse",
+    "cvv": "CVC/CVV&#8209;Prüfnr.",
+    "email": "E&#8209;Mail&#8209;Adresse für die Zustellung",
+    "emailInvalid": "Ungültige E&#8209;Mail&#8209;Adresse",
     "remember": "An mich erinnern",
     "abstractNumberError": "Ungültige Nummer",
     "abstractNumberPlaceholder": "Nummer des {name} Wallets",
-    "placeholderEmail": "Geben Sie Ihre E-Mail-Adresse ein.",
+    "placeholderEmail": "Geben Sie Ihre E&#8209;Mail&#8209;Adresse ein.",
     "payButtonPrefix": "ZAHLEN",
     "tryAgain": "ERNEUT VERSUCHEN",
     "save": "SPEICHERN",
@@ -86,11 +86,11 @@
     "cardNumberInvalid": "Ungültige Kartennummer",
     "expiryDate": "Ablaufdatum",
     "expiryDateInvalid": "Ungültiges Ablaufdatum",
-    "cvv": "CVC/CVV-Prüfziffer",
+    "cvv": "CVC/CVV&#8209;Prüfnr.",
     "cvvInfo": "Die drei Ziffern<br>auf der Rückseite der Karte",
     "cvvError": "Ungültiger Wert",
-    "email": "Ungültige E-Mail-Adresse für die Zustellung",
-    "emailInvalid": "Ungültige E-Mail-Adresse",
+    "email": "E&#8209;Mail&#8209;Adresse für die Zustellung",
+    "emailInvalid": "Ungültige E&#8209;Mail&#8209;Adresse",
     "remember": "An mich erinnern",
     "rememberInfo": "Die Zahlungsinformationen werden gemäß den Anforderungen der Standards PCI und DSS und mit den Protokollen 3D&nbsp;Secure und SSL gespeichert.",
     "city": "Stadt",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Hoppla!",
-    "cantAcceptPayments": "Leider können wir Zahlungen aus Ihrem Land nicht akzeptieren.",
+    "cantAcceptPayments": "Leider können wir Zahlungen aus Ihrem Land nicht akzeptieren.<br>",
     "chooseAnotherArea": "Haben wir Ihr Land richtig erkannt? Bitte wählen Sie das richtige Land.",
-    "country": "Wählen Sie Ihr Land."
+    "country": "Wählen Sie Ihr Land"
   },
   "UiCardField": {
     "cardNumber": "Kartennummer"

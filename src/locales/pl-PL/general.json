@@ -2,22 +2,22 @@
   "ActionProcessing": {
     "simpleLoading": {
       "title": "Chwileczkę.<br/>Przetwarzamy Twoją płatność.",
-      "description": "Poczekaj do czasu udanego sfinalizowania Twojej płatności.<br/>Zwykle zajmuje to tylko kilka sekund."
+      "description": "Poczekaj na udane zakończenie Twojej płatności.<br/>Zwykle zajmuje to tylko kilka sekund."
     },
     "3ds": {
-      "title": "Zostaniesz teraz przekierowany/-a<br>na stronę internetową swojego banku, aby potwierdzić ochronę 3&#8209;D&nbsp;Secure.",
-      "description": "Może wystąpić opóźnienie pomiędzy wypisaniem czeku 3&#8209;D&nbsp;Secure <br>a otrzymaniem płatności. Zależy to od banku, w którym dokonałeś/-aś płatności."
+      "title": "Zostaniesz teraz przekierowany/&#8209;a<br>na stronę internetową swojego banku, aby potwierdzić ochronę 3&#8209;D&nbsp;Secure.",
+      "description": "Może wystąpić opóźnienie pomiędzy wykonaniem sprawdzenia 3&#8209;D&nbsp;Secure<br>a otrzymaniem płatności. Zależy to od banku, w którym dokonałeś/&#8209;aś płatności."
     },
     "systemSuccess": {
       "title": "Twój dostawca płatności<br>przekazał pomyślną odpowiedź wstępną.",
-      "description": "Ostateczna decyzja zostanie podjęta wkrótce. Prosimy o cierpliwość. <br> Systemy płatności nieraz działają z opóźnieniami z przyczyn technicznych."
+      "description": "Ostateczna decyzja zostanie podjęta wkrótce. Prosimy o cierpliwość. <br>Systemy płatności nieraz działają z opóźnieniami z przyczyn technicznych."
     }
   },
   "ActionResult": {
     "noMoneyError": {
       "title": "Odrzucono.",
       "subtitle": "Brak dostatecznych środków.",
-      "description": "Wróć<br> i spróbuj innej metody płatności."
+      "description": "Wróć i spróbuj<br>innej metody płatności."
     },
     "unknownError": {
       "title": "Niedobrze!",
@@ -31,13 +31,13 @@
     "success": {
       "title": "Zagrajmy!",
       "titleSubSlave": {
-        "key": "Aktywuj klucz na stronie internetowej licencjodawcy<br/><a href='{link}'>Instrukcje</a>",
-        "product": "Kupiłeś/-aś nową grę. Gratulacje! Baw się dobrze!",
-        "simple": "Twoja płatność została pomyślnie zakończona!",
+        "key": "Aktywuj klucz na stronie internetowej licencjodawcy.<br><a href='{link}'>Instrukcje</a>",
+        "product": "Kupiłeś/&#8209;aś nową grę. Gratulacje!<br> Baw się dobrze!",
+        "simple": "Twoja płatność zakończyła się pomyślnie!",
         "virtual_items": "Do Twojego konta dodano nowe pozycje. Baw się dobrze!",
         "virtual_currency": "Do Twojego konta gracza dodano nowe środki!"
       },
-      "descriptionSlaveInitial": "Wprowadź swój adres e-mail, aby otrzymać rachunek.",
+      "descriptionSlaveInitial": "Wprowadź swój adres e&#8209;mail, aby otrzymać rachunek.",
       "descriptionSlaveFinal": {
         "key": "Potwierdzenie płatności i klucz aktywacyjny przesłano na adres",
         "product": "Potwierdzenie płatności i link z dostępem przesłano na adres",
@@ -45,7 +45,7 @@
         "virtual_items": "Potwierdzenie płatności przesłano na adres",
         "virtual_currency": "Potwierdzenie płatności przesłano na adres"
       },
-      "email": "Adres e-mail"
+      "email": "Adres e&#8209;mail"
     }
   },
   "CartSection": {
@@ -70,12 +70,12 @@
     "webmoney": "Webmoney",
     "btc": "BTC",
     "cvv": "CVC/CVV",
-    "email": "Adres e-mail do dostawy",
-    "emailInvalid": "Nieprawidłowy adres e-mail",
+    "email": "Adres e&#8209;mail do dostawy",
+    "emailInvalid": "Nieprawidłowy adres e&#8209;mail",
     "remember": "Zapamiętaj mnie",
     "abstractNumberError": "Nieprawidłowy numer",
-    "abstractNumberPlaceholder": "{imię i nazwisko} numer portfela",
-    "placeholderEmail": "Wprowadź swój adres e-mail",
+    "abstractNumberPlaceholder": "{name} numer portfela",
+    "placeholderEmail": "Wprowadź swój adres e&#8209;mail",
     "payButtonPrefix": "ZAPŁAĆ",
     "tryAgain": "SPRÓBUJ PONOWNIE",
     "save": "ZAPISZ",
@@ -89,8 +89,8 @@
     "cvv": "CVC/CVV",
     "cvvInfo": "Trzy cyfry<br>na odwrocie karty",
     "cvvError": "Nieprawidłowa wartość",
-    "email": "Adres e-mail do dostawy",
-    "emailInvalid": "Nieprawidłowy adres e-mail",
+    "email": "Adres e&#8209;mail do dostawy",
+    "emailInvalid": "Nieprawidłowy adres e&#8209;mail",
     "remember": "Zapamiętaj mnie",
     "rememberInfo": "Dane dotyczące płatności są przechowywane zgodnie z wymogami PCI i normami DSS przy użyciu protokołów 3&#8209;D&nbsp;Secure i SSL.",
     "city": "Miasto",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Ups!",
-    "cantAcceptPayments": "Nie możemy przyjmować płatności z Twojego kraju.",
+    "cantAcceptPayments": "Nie możemy przyjmować płatności z Twojego kraju.<br>",
     "chooseAnotherArea": "Czy nieprawidłowo wyszukaliśmy Twój kraj? Wybierz prawidłowy kraj.",
-    "country": "Wybierz swój kraj."
+    "country": "Wybierz swój kraj"
   },
   "UiCardField": {
     "cardNumber": "Numer karty"

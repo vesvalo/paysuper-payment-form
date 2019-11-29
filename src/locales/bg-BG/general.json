@@ -20,19 +20,19 @@
       "description": "Върнете се<br> и изберете друг начин на плащане."
     },
     "unknownError": {
-      "title": "Жалко!",
+      "title": "Съжаляваме!",
       "subtitle": "Възникна грешка.",
       "description": "Тази грешка се появява<br/> веднъж на 10 000 пъти!"
     },
     "customError": {
-      "title": "Жалко!",
+      "title": "Съжаляваме!",
       "subtitle": "Възникна грешка."
     },
     "success": {
       "title": "Да играем!",
       "titleSubSlave": {
-        "key": "Активирайте ключа в страницата на доставчика на лиценза.<br/><a href='{link}'>Инструкции</a>",
-        "product": "Закупихте нова игра. Поздравления! Приятно забавление!",
+        "key": "Активирайте ключа в страницата на доставчика на лиценза.<br><a href='{link}'>Инструкции</a>",
+        "product": "Закупихте нова игра. Поздравления!<br> Приятно забавление!",
         "simple": "Плащането беше успешно!",
         "virtual_items": "В профила Ви има добавени нови продукти. Приятно забавление!",
         "virtual_currency": "В профила Ви има добавени нови средства!"
@@ -76,23 +76,23 @@
     "abstractNumberError": "Невалиден номер",
     "abstractNumberPlaceholder": "{name} номер на портфейл",
     "placeholderEmail": "Въведете имейл адрес",
-    "payButtonPrefix": "ПЛАТИ",
-    "tryAgain": "ОПИТАЙ ОТНОВО",
-    "save": "ЗАПАЗИ",
-    "close": "ЗАТВОРИ",
+    "payButtonPrefix": "ПЛАТЕТЕ",
+    "tryAgain": "ОПИТАЙТЕ ОТНОВО",
+    "save": "ЗАПАЗВАНЕ",
+    "close": "ЗАТВАРЯНЕ",
     "ok": "ОК"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Невалиден номер на карта",
-    "expiryDate": "Дата на валидност",
-    "expiryDateInvalid": "Невалидна дата на валидност",
+    "expiryDate": "Валиден до:",
+    "expiryDateInvalid": "Невалидна дата",
     "cvv": "CVC/CVV",
     "cvvInfo": "Трите цифри<br>на гърба на картата",
     "cvvError": "Невалидна стойност",
     "email": "Имейл адрес за доставка",
     "emailInvalid": "Невалиден имейл адрес",
     "remember": "Запомни ме",
-    "rememberInfo": "Информацията за плащане се съхранява съгласно изискванията на Политиката за поверителност и защита на личните данни, използвайки 3&#8209;D&nbsp;Secure и SSL протоколи.",
+    "rememberInfo": "Информацията за плащане се съхранява съгласно изискванията на Политиката за поверителност и защита на личните данни, използвайки<br>3&#8209;D&nbsp;Secure и SSL протоколи.",
     "city": "Град",
     "cityInvalid": "Невалиден град",
     "country": "Държава",
@@ -101,24 +101,24 @@
     "zipInvalid": "Невалиден пощенски код"
   },
   "LayoutFooter": {
-    "userAgreement": "Договор",
+    "userAgreement": "Потребителско споразумение",
     "support": "Поддръжка"
   },
   "LayoutHeader": {
-    "termsOfUse": "Условия и политика",
-    "userAgreement": "Договор"
+    "termsOfUse": "Условия и правила",
+    "userAgreement": "Потребителско споразумение"
   },
   "ModalCart": {
     "legalInfo": "Правна информация",
-    "termsOfUse": "Условия и политика",
+    "termsOfUse": "Условия и правила",
     "support": "Поддръжка",
-    "userAgreement": "Договор"
+    "userAgreement": "Потребителско споразумение"
   },
   "PaymentAreaWarning": {
     "oops": "Опа!",
-    "cantAcceptPayments": "Не приемаме плащания от Вашата държава.",
+    "cantAcceptPayments": "Не приемаме плащания от Вашата държава.<br>",
     "chooseAnotherArea": "Грешно ли разпознахме държавата Ви? Моля, изберете правилната.",
-    "country": "Изберете държава."
+    "country": "Изберете държава"
   },
   "UiCardField": {
     "cardNumber": "Номер на кредитна карта"
@@ -128,20 +128,20 @@
     "cardNumber": "Номер на кредитна карта"
   },
   "UiSelectOption": {
-    "remove": "Изтрий"
+    "remove": "Изтриване"
   },
   "OrderCreationResult": {
     "title": "За съжаление, не успяхме да създадем платежно нареждане.",
-    "tryAgain": "ОПИТАЙ ОТНОВО",
+    "tryAgain": "ОПИТАЙTE ОТНОВО",
     "unknownError": "Тази грешка се появява веднъж на 10 000 пъти!"
   },
   "FormSectionSavedCards": {
-    "title": "Плати със запазена карта",
-    "deletingCard": "Изтрий картата",
-    "undo": "Отмени"
+    "title": "Плащане със запазена карта",
+    "deletingCard": "Изтриване на картата",
+    "undo": "Отказ"
   },
   "SavedCardToPlainFieldsSwitch": {
-    "payWithSavedCards": "Плати със запазена карта",
-    "anotherWayToPay": "Използвай друга карта"
+    "payWithSavedCards": "Плащане със запазена карта",
+    "anotherWayToPay": "Използвайте друга карта"
   }
 }

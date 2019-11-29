@@ -31,10 +31,10 @@
     "success": {
       "title": "Et c’est parti&nbsp;!",
       "titleSubSlave": {
-        "key": "Activez la clé sur le site Web du fournisseur de licence.<br/><a href='{link}'>Instructions</a>",
-        "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp;! Amusez-vous bien&nbsp;!",
+        "key": "Activez la clé sur le site Web du fournisseur de licence.<br><a href='{link}'>Instructions</a>",
+        "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp;!<br> Amusez&#8209;vous bien&nbsp;!",
         "simple": "Votre paiement a été effectué avec succès&nbsp;!",
-        "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez-vous bien&nbsp;!",
+        "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez&#8209;vous bien&nbsp;!",
         "virtual_currency": "De nouveaux fonds ont été ajoutés à votre compte de jeu&nbsp;!"
       },
       "descriptionSlaveInitial": "Entrez votre adresse électronique pour obtenir un reçu.",
@@ -49,7 +49,7 @@
     }
   },
   "CartSection": {
-    "subtotal": "Sous-total",
+    "subtotal": "Sous&#8209;total",
     "taxes": "Taxe",
     "total": "Total",
     "voluntaryAmount": "Montant sélectionné"
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Oups&nbsp;!",
-    "cantAcceptPayments": "Nous ne pouvons accepter les paiements en provenance de votre pays.",
-    "chooseAnotherArea": "Avons-nous mal détecté votre pays&nbsp;? Veuillez choisir le bon.",
-    "country": "Sélectionnez votre pays."
+    "cantAcceptPayments": "Nous ne pouvons accepter les paiements en provenance de votre pays.<br>",
+    "chooseAnotherArea": "Avons&#8209;nous mal détecté votre pays&nbsp;? Veuillez choisir le bon.",
+    "country": "Sélectionnez votre pays"
   },
   "UiCardField": {
     "cardNumber": "Numéro de carte"

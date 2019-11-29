@@ -31,7 +31,7 @@
     "success": {
       "title": "プレイしましょう！",
       "titleSubSlave": {
-        "key": "ライセンスプロバイダーのウェブサイトで<br>キーを起動します。<br><a href='{link}'>Instructions</a>",
+        "key": "ライセンスプロバイダーのウェブサイトで<br>キーを起動します。<br><a href='{link}'>手順</a>",
         "product": "お客様は新しいゲームを購入しました。おめでとうございます！お楽しみください！",
         "simple": "お客様の支払いは正常に完了しました。",
         "virtual_items": "新規アイテムがアカウントに<br>追加されました。お楽しみください！",
@@ -39,7 +39,7 @@
       },
       "descriptionSlaveInitial": "メールアドレスを入力してレシートを<br>入手してください。",
       "descriptionSlaveFinal": {
-        "key": "支払い確認およびアクティベーションキーが送信されました",
+        "key": "支払い確認およびアクティベーションキーが<br>送信されました",
         "product": "支払い確認およびアクティベーションキーが<br>送信されました",
         "simple": "支払い確認が送信されました",
         "virtual_items": "支払い確認が送信されました",
@@ -116,8 +116,8 @@
   },
   "PaymentAreaWarning": {
     "oops": "ああ！",
-    "cantAcceptPayments": "当社はお客様の国からのお支払いを受け付けることができません。",
-    "chooseAnotherArea": "お客様の国を間違って検知しましたか？正しいものを選択してください。",
+    "cantAcceptPayments": "当社はお客様の国からのお支払いを受け付ける<br>ことができません。",
+    "chooseAnotherArea": "お客様の国を間違って<br>検知しましたか？正しいものを選択してください。",
     "country": "国を選択してください。"
   },
   "UiCardField": {

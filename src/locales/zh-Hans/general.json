@@ -118,7 +118,7 @@
     "oops": "哎呀！",
     "cantAcceptPayments": "我们无法接受从您所在国家付款。",
     "chooseAnotherArea": "我们检测到的国家是否错误？请选择正确国家。",
-    "country": "选择国家。"
+    "country": "选择国家"
   },
   "UiCardField": {
     "cardNumber": "卡号"
