@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Bitte warten.<br/>Ihre Zahlung wird verarbeitet.",
       "description": "Bitte warten Sie, bis die Zahlung erfolgreich abgeschlossen wurde.<br/>Es dauert in der Regel wenige Sekunden."
     },

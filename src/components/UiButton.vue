@@ -49,7 +49,7 @@ export default {
       return this.$style._hasRadius;
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.container}`]: {
         color: this.$gui.buttonColor,

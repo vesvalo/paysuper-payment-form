@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Vent venligst.<br/>Vi behandler din betaling.",
       "description": "Vent indtil betalingen er afsluttet.<br/>Dette tager normalt kun få sekunder."
     },

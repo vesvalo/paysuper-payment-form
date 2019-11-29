@@ -46,7 +46,7 @@ export default {
       type: Boolean,
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.content}`]: {
         'background-color': this.$gui.formBackgroundColor,

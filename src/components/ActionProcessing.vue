@@ -16,7 +16,7 @@ export default {
       type: String,
       default: 'simpleLoading',
       validator(value) {
-        return includes(['simpleLoading', 'systemSuccess', '3ds'], value);
+        return includes(['simpleLoading', 'paymentLoading', 'systemSuccess', '3ds'], value);
       },
     },
   },
@@ -24,10 +24,11 @@ export default {
   computed: {
     types() {
       return {
-        simpleLoading: {
-          title: this.$t('ActionProcessing.simpleLoading.title'),
+        simpleLoading: {},
+        paymentLoading: {
+          title: this.$t('ActionProcessing.paymentLoading.title'),
           iconComponent: 'IconCardSecurity',
-          description: this.$t('ActionProcessing.simpleLoading.description'),
+          description: this.$t('ActionProcessing.paymentLoading.description'),
         },
         '3ds': {
           title: this.$t('ActionProcessing.3ds.title'),
@@ -74,10 +75,13 @@ export default {
 >
   <div :class="$style.actionProcessing">
     <div :class="$style.content">
-      <div :class="$style.icon">
+      <div
+        v-if="content.iconComponent"
+        :class="$style.icon"
+      >
         <component :is="content.iconComponent" />
       </div>
-      <div>
+      <div v-if="content.title">
         <h2
           :class="$style.titleMain"
           v-html="content.title"
@@ -85,6 +89,7 @@ export default {
         </h2>
       </div>
       <div
+        v-if="content.description"
         :class="$style.description"
         v-html="content.description"
       >
@@ -162,6 +167,6 @@ export default {
 }
 .enterActive,
 .leaveActive {
-  transition: opacity 0.15s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 </style>

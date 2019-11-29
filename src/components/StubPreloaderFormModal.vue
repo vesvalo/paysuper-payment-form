@@ -12,7 +12,7 @@ export default {
   components: {
     StubPreloaderForm,
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`
         .${this.$style.formStubHeader}::before,

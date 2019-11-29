@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Počkejte prosím.<br/>Zpracováváme vaši platbu.",
       "description": "Počkejte, až bude platba úspěšně dokončena.<br/>Obvykle to trvá jen několik sekund."
     },

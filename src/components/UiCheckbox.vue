@@ -38,7 +38,7 @@ export default {
       return this.$style.label;
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.container}`]: {
         color: this.$gui.checkboxColor,

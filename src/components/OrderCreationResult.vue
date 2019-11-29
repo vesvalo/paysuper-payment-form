@@ -129,8 +129,10 @@ export default {
   align-items: center;
   height: 100%;
   width: 100%;
-  position: relative;
   z-index: 100;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .content {

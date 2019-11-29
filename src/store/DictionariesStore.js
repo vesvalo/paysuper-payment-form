@@ -12,7 +12,6 @@ export default {
   getters: {
     countries(state) {
       const countries = state.countries
-        .filter(item => item.payments_allowed)
         .map(item => ({
           label: i18n.t(`countries.${item.iso_code_a2}`),
           value: item.iso_code_a2,
@@ -28,22 +27,16 @@ export default {
   },
 
   actions: {
-    initState({ dispatch }) {
-      return dispatch('fetchCountries');
+    initState({ dispatch }, orderId) {
+      return dispatch('fetchCountries', orderId);
     },
 
-    getCountries({ rootState }) {
-      const url = `${rootState.apiUrl}/api/v1/country`;
-
-      return axios.get(url)
-        .then(response => response.data)
+    async fetchCountries({ commit, rootState }, orderId) {
+      const response = await axios.get(`${rootState.apiUrl}/api/v1/payment_countries/${orderId}`)
+        .then(({ data }) => data)
         .catch(() => ({
           items: null,
         }));
-    },
-
-    async fetchCountries({ commit, dispatch }) {
-      const response = await dispatch('getCountries');
       commit('countries', response.countries || []);
     },
   },

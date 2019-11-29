@@ -10,7 +10,10 @@ export default {
 
 <template>
 <div :class="$style.layout">
-  <ActionProcessing :class="$style.preloader" />
+  <ActionProcessing
+    type="paymentLoading"
+    :class="$style.preloader"
+  />
 </div>
 </template>
 

@@ -51,7 +51,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.item}, .${this.$style.platformSelect}`]: {
         'border-color': this.$gui.cartStrokeColor,

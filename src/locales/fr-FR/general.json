@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Veuillez patienter.<br/>Votre paiement est en cours de traitement.",
       "description": "Veuillez patienter jusqu’à la fin du traitement du paiement.<br/>Cela ne prend généralement que quelques secondes."
     },

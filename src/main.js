@@ -4,10 +4,10 @@
 
 import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
+import qs from 'qs';
 import assert from 'assert';
 import webfontloader from 'webfontloader';
 import Vue2TouchEvents from 'vue2-touch-events';
-import { get } from 'lodash-es';
 import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
@@ -16,13 +16,11 @@ import '@/plugins/cssRules';
 import store from '@/store/RootStore';
 import i18n from '@/i18n';
 import { postMessage, receiveMessages } from '@/postMessage';
-import localesScheme from '@/locales/scheme';
-import getLanguage from '@/helpers/getLanguage';
 import viewSchemes from '@/viewSchemes';
 import '@/globalComponents';
 import '@/vueExtentions';
 import { gtagConfig, gtagSet } from '@/analytics';
-import { apiUrl, sentryDsn } from '@/constants';
+import { buildPurpose, apiUrl, sentryDsn } from '@/constants';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import '@/noScalableViewport';
@@ -41,30 +39,56 @@ if (isProd) {
 
 const mountPoint = '#paysuper-payment-form';
 const isPageInsideIframe = window.location !== window.parent.location;
-const { orderData, orderParams, baseOptions } = window.PAYSUPER_PAYMENT_FORM;
+
+function getOrderParams({
+  project, token, products, amount, type, currency, sdk, devPreset,
+}) {
+  return {
+    project,
+    ...(devPreset ? {
+      project: '5cc7f1cf790c2900010849ee',
+      products: ['5dbac6de120a810001a8fe7e'],
+      // amount: 25,
+      // currency: 'USD',
+      type: 'product',
+    } : {}),
+    ...(token ? { token } : {}),
+    ...(products ? { products } : {}),
+    ...(amount ? { amount: Number(amount), currency } : {}),
+    ...(type ? { type } : {}),
+    ...(sdk ? { sdk: true } : {}),
+  };
+}
+
+function getBaseOptions(query) {
+  if (query.loading) {
+    return { layout: 'loading' };
+  }
+
+  if (buildPurpose === 'dev' && query.modal) {
+    return { layout: 'modal' };
+  }
+  return {};
+}
 
 /**
  * Mounts the app into element
  *
+ * @param {Object} orderParams
+ * @param {Object} baseOptions
  * @param {Object} customOptions
  */
-async function mountApp(customOptions = {}) {
+async function mountApp({
+  orderParams,
+  baseOptions,
+  customOptions = {},
+  query,
+}) {
   assert(
     document.querySelector(mountPoint),
     `Define "${mountPoint}" element in the document to mount the app`,
   );
 
-  // if (isPageInsideIframe) {
-  //   if (!window.PAYSUPER_ORDER_PARAMS) {
-  //     assert(orderParams, '"window.PAYSUPER_ORDER_PARAMS" is not defined or empty');
-  //   } else if (!orderParams) {
-  //     assert(orderParams, 'The order params are not recieved');
-  //   }
-  // }
-
-  const language = getLanguage(
-    localesScheme, orderData.lang || get(navigator, 'language'),
-  );
   const options = {
     apiUrl,
     email: '',
@@ -72,18 +96,15 @@ async function mountApp(customOptions = {}) {
     viewSchemeConfig: null,
     layout: 'page',
     isPageInsideIframe,
-    language,
     ...baseOptions,
     ...customOptions,
   };
 
-  if (options.layout !== 'loading') {
-    store.dispatch('initState', {
-      orderParams,
-      orderData,
-      options,
-    });
-  }
+  store.dispatch('initState', {
+    orderParams,
+    options,
+    query,
+  });
 
   let appComponent = App;
   if (options.layout === 'page') {
@@ -108,13 +129,22 @@ async function mountApp(customOptions = {}) {
   new VueApp({
     store,
     i18n,
+    watch: {
+      '$store.state.initialLocale': {
+        handler(value) {
+          if (value) {
+            this.$changeLocale(value);
+          }
+        },
+        immediate: true,
+      },
+    },
     created() {
       webfontloader.load({
         google: {
           families: ['PT Mono'],
         },
       });
-      this.$changeLocale(options.language);
 
       gtagSet({
         currency: orderParams.currency,
@@ -127,16 +157,26 @@ async function mountApp(customOptions = {}) {
   }).$mount(mountPoint);
 }
 
+const [, queryString] = window.location.href.split('?');
+const query = qs.parse(queryString);
+const orderParams = getOrderParams(query);
+const baseOptions = getBaseOptions(query);
+
 if (orderParams.sdk) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { options } = data;
-      mountApp(options);
+      mountApp({
+        orderParams,
+        baseOptions,
+        customOptions: options,
+        query,
+      });
     },
   });
 } else {
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp();
+  mountApp({ orderParams, baseOptions, query });
 }
 
 postMessage('INITED');

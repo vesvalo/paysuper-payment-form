@@ -138,7 +138,7 @@ export default {
     },
 
     orderType() {
-      return this.orderParams.type;
+      return this.orderData.type;
     },
 
     platformInstructionLink() {
@@ -191,11 +191,10 @@ export default {
   },
 
   methods: {
+    ...mapActions(['recreateOrder']),
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById',
       'createPayment',
-      'recreateOrder',
-      'usePaymentApi',
       'removeCard',
       'checkPaymentAccount',
       'submitUserCountry',
@@ -217,7 +216,7 @@ export default {
           gtagEvent('clickOkButton', { event_category: 'userAction' });
           this.$emit('close');
         } else {
-          this.recreateOrder();
+          this.recreateOrder('RECREATE_TO_CONTINUE');
         }
       } else if (this.isPaymentFormVisible) {
         gtagEvent('clickPayButton', { event_category: 'userAction' });

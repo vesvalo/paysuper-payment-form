@@ -1,6 +1,5 @@
 import axios from 'axios';
 import assert from 'assert';
-import qs from 'qs';
 import {
   reject, find, findIndex, get, includes, pick,
 } from 'lodash-es';
@@ -15,11 +14,13 @@ const allowedPaymentStatuses = [
   'INITIAL', 'FAILED_TO_BEGIN', 'NEW', 'BEFORE_CREATED',
   'CREATED', 'FAILED_TO_CREATE', 'INTERRUPTED',
   'SYSTEM_SUCCESS', 'COMPLETED', 'DECLINED',
+  'RECREATE_TO_BEGIN', 'RECREATE_TO_CONTINUE',
 ];
 
 // See ActionResult.vue to understand how it looks
 // "type" and "message" are its props
 const actionResultsByStatus = {
+  NEW: () => null,
   FAILED_TO_BEGIN(data) {
     if (data) {
       return {
@@ -50,32 +51,19 @@ const actionResultsByStatus = {
     }
     return { type: 'unknownError' };
   },
+  RECREATE_TO_CONTINUE: () => null,
 };
 
 const actionProcessingByStatus = {
-  BEFORE_CREATED: () => ({ type: 'simpleLoading' }),
+  NEW: () => null,
+  BEFORE_CREATED: () => ({ type: 'paymentLoading' }),
   SYSTEM_SUCCESS: () => ({ type: 'systemSuccess' }),
   FAILED_TO_CREATE: () => null,
   INTERRUPTED: () => null,
   COMPLETED: () => null,
   DECLINED: () => null,
+  RECREATE_TO_CONTINUE: () => ({ type: 'simpleLoading' }),
 };
-
-function setPaymentStatus(commit, name, extraData) {
-  gtagEvent('changePaymentStatus', { event_label: name });
-  commit('paymentStatus', name);
-  postMessage(`PAYMENT_${name}`);
-
-  const actionResult = actionResultsByStatus[name];
-  if (actionResult) {
-    commit('actionResult', actionResult(extraData));
-  }
-
-  const actionProcessing = actionProcessingByStatus[name];
-  if (actionProcessing) {
-    commit('actionProcessing', actionProcessing(extraData));
-  }
-}
 
 function setGeoParams(commit, data) {
   // Drop to defaults
@@ -99,8 +87,12 @@ export default {
   namespaced: true,
 
   state: {
-    orderParams: null,
-    orderData: null,
+    orderParams: {},
+    orderData: {
+      project: {
+        name: '',
+      },
+    },
     activePaymentMethodId: '',
     currentPlatformId: '',
     actionProcessing: null,
@@ -188,26 +180,47 @@ export default {
   },
 
   actions: {
-    async initState({ commit }, { orderParams, orderData, options }) {
-      commit('options', options);
-      commit('orderParams', orderParams);
-      commit('orderData', orderData);
+    setPaymentStatus({ commit }, [name, extraData]) {
+      gtagEvent('changePaymentStatus', { event_label: name });
+      commit('paymentStatus', name);
+      postMessage(`PAYMENT_${name}`);
+
+      const actionResult = actionResultsByStatus[name];
+      if (actionResult) {
+        commit('actionResult', actionResult(extraData));
+      }
+
+      const actionProcessing = actionProcessingByStatus[name];
+      if (actionProcessing) {
+        commit('actionProcessing', actionProcessing(extraData));
+      }
+    },
+
+    initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
       if (orderData.error) {
-        setPaymentStatus(
-          commit, 'FAILED_TO_BEGIN',
+        dispatch('setPaymentStatus', [
+          'FAILED_TO_BEGIN',
           orderData.error,
-        );
+        ]);
         return;
       }
       if (orderData.is_already_processed) {
-        setPaymentStatus(
-          commit, 'FAILED_TO_BEGIN',
+        dispatch('setPaymentStatus', [
+          'FAILED_TO_BEGIN',
           {
             type: 'alreadyProcessed',
             receiptUrl: orderData.receipt_url,
           },
-        );
+        ]);
         return;
+      }
+      assert(orderData, 'orderData is required to init PaymentFormStore');
+      commit('orderData', orderData);
+      if (orderParams) {
+        commit('orderParams', orderParams);
+      }
+      if (options) {
+        commit('options', options);
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
@@ -225,7 +238,7 @@ export default {
         commit('userIpGeoData', orderData.user_ip_data);
       }
       setGeoParams(commit, orderData);
-      setPaymentStatus(commit, 'NEW');
+      dispatch('setPaymentStatus', ['NEW']);
 
       const items = (get(orderData, 'items') || []).map((item, index) => ({
         id: item.id,
@@ -240,7 +253,7 @@ export default {
         items: items.length
           ? items
           : [{
-            id: orderParams.project,
+            id: state.orderParams.project,
             name: 'Virtual Currency',
             price: `${orderData.amount}`,
             quantity: 1,
@@ -258,12 +271,12 @@ export default {
     },
 
     async createPayment({
-      state, rootState, commit,
+      state, rootState, dispatch,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
       country, city, zip, cardDataType, savedCardId,
     }) {
-      setPaymentStatus(commit, 'BEFORE_CREATED');
+      dispatch('setPaymentStatus', ['BEFORE_CREATED']);
 
       const paymentConnection = new PaymentConnection(
         {
@@ -274,19 +287,19 @@ export default {
         },
       )
         .on('redirectWindowClosedByUser', () => {
-          setPaymentStatus(commit, 'INTERRUPTED');
+          dispatch('setPaymentStatus', ['INTERRUPTED']);
         })
         .on('paymentDeclined', (data) => {
-          setPaymentStatus(commit, 'DECLINED', data);
+          dispatch('setPaymentStatus', ['DECLINED', data]);
         })
         .on('paymentFailed', (data) => {
-          setPaymentStatus(commit, 'FAILED_TO_CREATE', data);
+          dispatch('setPaymentStatus', ['FAILED_TO_CREATE', data]);
         })
         .on('paymentSystemSuccess', () => {
-          setPaymentStatus(commit, 'SYSTEM_SUCCESS');
+          dispatch('setPaymentStatus', ['SYSTEM_SUCCESS']);
         })
         .on('paymentCompleted', () => {
-          setPaymentStatus(commit, 'COMPLETED');
+          dispatch('setPaymentStatus', ['COMPLETED']);
 
           const items = (get(state.orderData, 'items') || []).map((item, index) => ({
             id: item.id,
@@ -347,7 +360,7 @@ export default {
             request,
           ),
           ({ data }) => {
-            setPaymentStatus(commit, 'CREATED');
+            dispatch('setPaymentStatus', ['CREATED']);
             if (data.need_redirect) {
               paymentConnection.setRedirectWindowLocation(data.redirect_url);
             } else {
@@ -366,17 +379,27 @@ export default {
           errorMessage: errorData.message || undefined,
         });
 
-        setPaymentStatus(
-          commit, 'FAILED_TO_CREATE',
+        dispatch('setPaymentStatus', [
+          'FAILED_TO_CREATE',
           errorData || undefined,
-        );
+        ]);
       }
     },
-    async removeCard({ commit, state }, id) {
+
+    setActionResult({ commit }, value) {
+      commit('actionResult', value);
+    },
+    setActionProcessing({ commit }, value) {
+      commit('actionProcessing', value);
+    },
+
+    async removeCard({ commit, state, rootState }, id) {
       try {
-        await axios.post(
-          '/order/remove_saved_card',
-          { id },
+        await axios.delete(
+          `${rootState.apiUrl}/api/v1/saved_card`,
+          {
+            data: { id },
+          },
         );
         const cards = reject(state.cards, { id });
         commit('cards', cards);
@@ -473,34 +496,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },
-
-    async recreateOrder({ state, rootState }) {
-      gtagEvent('clickTryAgainButton', { event_category: 'userAction' });
-      let location = window.location.href;
-
-      if (!state.orderParams.project) {
-        try {
-          const { data } = await axios.post(
-            `${rootState.apiUrl}/api/v1/order/recreate`,
-            {
-              order_id: state.orderData.id,
-            },
-          );
-
-          const [host] = window.location.href.split('?');
-          const queryString = qs.stringify({
-            order_id: data.id,
-            ...state.orderParams,
-          });
-
-          location = `${host}?${queryString}`;
-        } catch (error) {
-          console.error(error);
-        }
-      }
-      postMessage('TRY_TO_BEGIN_AGAIN');
-      window.location.replace(location);
     },
 
     setOrderDataBillingParams({ state, commit }, data) {
