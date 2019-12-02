@@ -2,20 +2,20 @@
   "ActionProcessing": {
     "simpleLoading": {
       "title": "Vui lòng chờ.<br/>Chúng tôi đang xử lý thanh toán của quý vị.",
-      "description": "Vui lòng đợi cho đến khi thanh toán được thực ênện thành công.<br/> Việc này thường chỉ mất vài giây."
+      "description": "Vui lòng đợi cho đến khi thanh toán được thực hiện thành công.<br/> Việc này thường chỉ mất vài giây."
     },
     "3ds": {
       "title": "Bây giờ quý vị sẽ được chuyển hướng<br>đến trang web của ngân hàng của quý vị để xác nhận bảo vệ 3&#8209;D&nbsp;Secure.",
-      "description": "Có thể có sự chậm trễ giữa việc vượt qua kiểm tra 3&#8209;D&nbsp;Secure<br>và nhận thanh toán. Điều đó phụ thuộc vào ngân hàng quý vị sử dụng để thanh toán."
+      "description": "Có thể có độ trễ từ lúc đạt được kiểm tra 3&#8209;D&nbsp;Secure<br>đến lúc nhận thanh toán. Điều đó phụ thuộc vào ngân hàng quý vị sử dụng để thanh toán."
     },
     "systemSuccess": {
-      "title": "Nhà cung cấp dịch vụ thanh toán của quý vị<br>đã cung cấp phản hồi ban đầu là thành công.",
+      "title": "Nhà cung cấp dịch vụ thanh toán của quý vị<br>đã cung cấp phản hồi ban đầu thành công.",
       "description": "Quyết định cuối cùng sẽ được đưa ra sớm. Xin hãy kiên nhẫn.<br>Hệ thống thanh toán đôi khi gặp phải sự chậm trễ vì lý do kỹ thuật."
     }
   },
   "ActionResult": {
     "noMoneyError": {
-      "title": "Đã từ ciối",
+      "title": "Đã từ chối",
       "subtitle": "Không đủ tiền.",
       "description": "Vui lòng quay lại<br>và chọn một phương thức thanh toán khác."
     },
@@ -31,11 +31,11 @@
     "success": {
       "title": "Hãy cùng chơi nào!",
       "titleSubSlave": {
-        "key": "Kích hoạt khóa trên trang web của nhà cung cấp giấy phép. <a href='{link}'>Hướng dẫn</a>",
-        "product": "Quý vị đã mua một trò chơi mới. Xin chúc mừng! Chúc quý vị chơi vui vẻ!",
+        "key": "Kích hoạt khóa trên trang web của nhà cung cấp giấy phép.<br><a href='{link}'>Hướng dẫn</a>",
+        "product": "Quý vị đã mua một trò chơi mới. Xin chúc mừng!<br> Chúc quý vị chơi vui vẻ!",
         "simple": "Thanh toán của quý vị đã được hoàn thành thành công!",
         "virtual_items": "Các mục hàng mới đã được thêm vào tài khoản của quý vị. Chúc quý vị chơi vui vẻ!",
-        "virtual_currency": "Khoản tiền mới đã được thêm vào tài khoản của trò chơi quý vị."
+        "virtual_currency": "Khoản tiền mới đã được thêm vào tài khoản trò chơi của quý vị."
       },
       "descriptionSlaveInitial": "Nhập địa chỉ email của quý vị để nhận hóa đơn.",
       "descriptionSlaveFinal": {
@@ -74,7 +74,7 @@
     "emailInvalid": "Địa chỉ email không hợp lệ",
     "remember": "Ghi nhớ tôi",
     "abstractNumberError": "Số không hợp lệ",
-    "abstractNumberPlaceholder": "mã số ví {tên}",
+    "abstractNumberPlaceholder": "mã số ví {name}",
     "placeholderEmail": "Nhập địa chỉ email của quý vị",
     "payButtonPrefix": "THANH TOÁN",
     "tryAgain": "THỬ LẠI",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Rất tiếc!",
-    "cantAcceptPayments": "Chúng tôi không chấp nhận thanh toán từ quốc gia của quý vị.",
+    "cantAcceptPayments": "Chúng tôi không chấp nhận thanh toán từ quốc gia của quý vị.<br>",
     "chooseAnotherArea": "Chúng tôi đã phát hiện quốc gia của bạn không chính xác phải không? Vui lòng chọn quốc gia chính xác.",
-    "country": "Chọn quốc gia của quý vị."
+    "country": "Chọn quốc gia của quý vị"
   },
   "UiCardField": {
     "cardNumber": "Số thẻ"

@@ -28,7 +28,7 @@
     "ps000006": "Non è stato possibile confermare la protezione 3&#8209;D&nbsp;Secure per la tua carta. Contatta la tua banca per maggiori informazioni.",
     "ps000011": "La sua carta di debito è stata rifiutata a causa di mancanza di copertura.",
     "ps000016": "Sembra che tu abbia problemi con la tua connessione internet. Riprova più tardi.",
-    "bc000001": "Inserisci il codice della carta.",
+    "bc000001": "Inserisci il numero della carta.",
     "bc000002": "Inserisci il CVV.",
     "bc000003": "Inserisci il mese di scadenza della carta.",
     "bc000004": "Inserisci l’anno di scadenza della carta.",
@@ -36,7 +36,7 @@
     "bc000006": "Data di scadenza non valida.",
     "bc000007": "La tua carta è scaduta. Usa un’altra carta.",
     "bc000008": "Codice CVV non valido. Reinseriscilo.",
-    "bc000009": "Codice della carta non valido. Reinseriscilo.",
+    "bc000009": "Numero della carta non valido. Reinseriscilo.",
     "ks*": "Si è verificato un problema con il tuo codice di attivazione. Riprova più tardi o contatta il supporto tecnico per assistenza."
   }
 }

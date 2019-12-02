@@ -1,51 +1,51 @@
 ﻿{
   "ActionProcessing": {
     "simpleLoading": {
-      "title": "Aguarde.<br/>Estamos processando seu pagamento.",
-      "description": "Aguarde até o pagamento ter sido concluído.<br/>Isto costuma levar apenas alguns segundos."
+      "title": "Aguarde.<br/>Estamos a processar o seu pagamento.",
+      "description": "Aguarde até o pagamento ter sido concluído com sucesso.<br/>Geralmente, isto demora apenas alguns segundos."
     },
     "3ds": {
-      "title": "Você agora será redirecionado<br>ao site do seu banco para confirmar a proteção 3&#8209;D&nbsp;Secure.",
-      "description": "Pode demorar um pouco entre passar a checagem 3&#8209;D&nbsp;Secure<br>e o recebimento do pagamento. Depende do banco usado para fazer o pagamento."
+      "title": "Será agora direcionado<br>para o site do seu banco, para confirmar a proteção 3&#8209;D&nbsp;Secure.",
+      "description": "Poderá ocorrer um atraso entre a passagem da verificação 3&#8209;D&nbsp;Secure<br>e o recebimento do pagamento. Depende do banco que usou para o pagamento."
     },
     "systemSuccess": {
-      "title": "Seu provedor de pagamento<br>forneceu uma resposta inicial.",
-      "description": "A decisão final será feita em breve. Por favor, tenha paciência. <br>Sistemas de pagamento ocasionalmente têm atrasos por razões técnicas."
+      "title": "O seu provedor de pagamento<br>forneceu uma resposta inicial com sucesso.",
+      "description": "A decisão final será tomada em breve. Seja paciente. <br>Os sistemas de pagamento, por vezes, sofrem atrasos por motivos técnicos."
     }
   },
   "ActionResult": {
     "noMoneyError": {
-      "title": "Negado",
-      "subtitle": "Saldo insuficiente.",
-      "description": "Volte<br>e tente outro meio de pagamento."
+      "title": "Recusado",
+      "subtitle": "Fundos insuficientes.",
+      "description": "Volte atrás<br>e experimente outro método de pagamento."
     },
     "unknownError": {
       "title": "Que pena!",
-      "subtitle": "Aconteceu um erro.",
-      "description": "Esse erro só ocorre<br>uma vez a cada 10.000!"
+      "subtitle": "Ocorreu um erro.",
+      "description": "Este erro ocorre<br>uma vez em cada 10.000!"
     },
     "customError": {
       "title": "Que pena!",
-      "subtitle": "Aconteceu um erro."
+      "subtitle": "Ocorreu um erro."
     },
     "success": {
       "title": "Vamos jogar!",
       "titleSubSlave": {
-        "key": "Ative a chave no site do fornecedor da licença. <a href='{link}'>Instruções</a>",
-        "product": "Você comprou um novo jogo. Parabéns! Divirta-se!",
-        "simple": "Seu pagamento foi concluído com sucesso!",
-        "virtual_items": "Novos itens foram adicionados à sua conta. Divirta-se!",
-        "virtual_currency": "Novo saldo adicionado adicionados à sua conta do jogo!"
+        "key": "Ative a chave no site do fornecedor da licença.<br><a href='{link}'>Instruções</a>",
+        "product": "Comprou um novo jogo. Parabéns!<br> Divirta&#8209;se!",
+        "simple": "O seu pagamento foi concluído com sucesso!",
+        "virtual_items": "Foram adicionados novos elementos à sua conta. Divirta&#8209;se!",
+        "virtual_currency": "Foram adicionados novos fundos à sua conta de jogo!"
       },
-      "descriptionSlaveInitial": "Insira seu endereço de e-mail para receber o recibo.",
+      "descriptionSlaveInitial": "Insira o seu endereço de e&#8209;mail para obter um recibo.",
       "descriptionSlaveFinal": {
-        "key": "Confirmação de pagamento e chave de ativação foram enviadas para",
-        "product": "Confirmação de pagamento e link de acesso foram enviados para",
-        "simple": "Confirmação de pagamento foi enviada para",
-        "virtual_items": "Confirmação de pagamento foi enviada para",
-        "virtual_currency": "Confirmação de pagamento foi enviada para"
+        "key": "A confirmação do pagamento e a chave de ativação foram enviadas para",
+        "product": "A confirmação do pagamento e um link de acesso foram enviados para",
+        "simple": "A confirmação do pagamento foi enviada para",
+        "virtual_items": "A confirmação do pagamento foi enviada para",
+        "virtual_currency": "A confirmação do pagamento foi enviada para"
       },
-      "email": "Endereço de e-mail"
+      "email": "Endereço de e&#8209;mail"
     }
   },
   "CartSection": {
@@ -56,7 +56,7 @@
   },
   "FormSection": {
     "prependLabel": "Pagar com ",
-    "card": "cartão",
+    "card": "um cartão",
     "neteller": "Neteller",
     "alipay": "Alipay",
     "bitcoin": "Bitcoin",
@@ -70,55 +70,55 @@
     "webmoney": "Webmoney",
     "btc": "BTC",
     "cvv": "CVC/CVV",
-    "email": "Endereço de e-mail para entrega",
-    "emailInvalid": "Endereço de e-mail inválido",
-    "remember": "Lembre-me",
+    "email": "Endereço de e&#8209;mail para entrega",
+    "emailInvalid": "Endereço de e&#8209;mail inválido",
+    "remember": "Lembrar&#8209;se de mim",
     "abstractNumberError": "Número inválido",
-    "abstractNumberPlaceholder": "{name} número da carteira",
-    "placeholderEmail": "Insira seu endereço de e-mail",
+    "abstractNumberPlaceholder": "Número de carteira {name}",
+    "placeholderEmail": "Introduza o seu endereço de e&#8209;mail",
     "payButtonPrefix": "PAGAR",
-    "tryAgain": "TENTE DE NOVO",
-    "save": "SALVAR",
+    "tryAgain": "TENTAR NOVAMENTE",
+    "save": "GUARDAR",
     "close": "FECHAR",
     "ok": "OK"
   },
   "FormSectionBankCard": {
     "cardNumberInvalid": "Número de cartão inválido",
-    "expiryDate": "Validade",
-    "expiryDateInvalid": "Validade inválida",
+    "expiryDate": "Data de validade",
+    "expiryDateInvalid": "Data de validade inválida",
     "cvv": "CVC/CVV",
     "cvvInfo": "Os três números<br>no verso do cartão",
-    "cvvError": "Número inválido",
-    "email": "Endereço de e-mail para entrega",
-    "emailInvalid": "Endereço de e-mail inválido",
-    "remember": "Lembre-me",
-    "rememberInfo": "Os dados para pagamento são armazenados em conformidade com as normas PCI e DSS usando os protocolos 3&#8209;D&nbsp;Secure e SSL.",
+    "cvvError": "Valor inválido",
+    "email": "Endereço de e&#8209;mail para entrega",
+    "emailInvalid": "Endereço de e&#8209;mail inválido",
+    "remember": "Lembrar&#8209;se de mim",
+    "rememberInfo": "A informação de pagamento é armazenada segundo os requisitos das normas PCI e DSS, usando os protocolos 3&#8209;D&nbsp;Secure e SSL.",
     "city": "Cidade",
     "cityInvalid": "Cidade inválida",
     "country": "País",
-    "countryInvalid": "Escolha seu país",
-    "zip": "CEP",
-    "zipInvalid": "CEP inválido"
+    "countryInvalid": "Selecione o seu país",
+    "zip": "Código Postal",
+    "zipInvalid": "Código Postal inválido"
   },
   "LayoutFooter": {
-    "userAgreement": "Acordo de Usuário",
-    "support": "Suporte"
+    "userAgreement": "Acordo de Utilização",
+    "support": "Apoio"
   },
   "LayoutHeader": {
     "termsOfUse": "Termos e Condições",
-    "userAgreement": "Acordo de Usuário"
+    "userAgreement": "Acordo de Utilização"
   },
   "ModalCart": {
-    "legalInfo": "Informação Legal",
+    "legalInfo": "Informações legais",
     "termsOfUse": "Termos e Condições",
-    "support": "Suporte",
-    "userAgreement": "Acordo de Usuário"
+    "support": "Apoio",
+    "userAgreement": "Acordo de Utilização"
   },
   "PaymentAreaWarning": {
-    "oops": "Opa!",
-    "cantAcceptPayments": "Não podemos aceitar pagamentos do seu país.",
-    "chooseAnotherArea": "Detectamos seu país corretamente? Por favor, selecione o país correto.",
-    "country": "Selecione seu país."
+    "oops": "Ups!",
+    "cantAcceptPayments": "Não podemos aceitar pagamentos vindos do seu país.<br>",
+    "chooseAnotherArea": "Será que detetámos o seu país incorretamente? Selecione o país correto.",
+    "country": "Selecione o seu país"
   },
   "UiCardField": {
     "cardNumber": "Número do cartão"
@@ -128,20 +128,20 @@
     "cardNumber": "Número do cartão"
   },
   "UiSelectOption": {
-    "remove": "Apagar"
+    "remove": "Eliminar"
   },
   "OrderCreationResult": {
-    "title": "Infelizmente não conseguimos criar a ordem de pagamento.",
+    "title": "Infelizmente, não conseguimos criar a ordem para pagamento.",
     "tryAgain": "TENTE NOVAMENTE",
-    "unknownError": "Esse erro só ocorre uma vez a cada 10.000!"
+    "unknownError": "Este erro ocorre uma vez em cada 10.000!"
   },
   "FormSectionSavedCards": {
-    "title": "Pagar com um cartão salvo",
-    "deletingCard": "Apagando cartão",
+    "title": "Pagar com um cartão guardado",
+    "deletingCard": "A eliminar o cartão",
     "undo": "Cancelar"
   },
   "SavedCardToPlainFieldsSwitch": {
-    "payWithSavedCards": "Pagar com um cartão salvo",
-    "anotherWayToPay": "Usar cartão diferente"
+    "payWithSavedCards": "Pagar com um cartão guardado",
+    "anotherWayToPay": "Usar um cartão diferente"
   }
 }

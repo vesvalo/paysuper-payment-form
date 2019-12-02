@@ -5,11 +5,11 @@
       "description": "Vänta till betalningen är slutförd.<br/>Detta tar vanligtvis bara några sekunder."
     },
     "3ds": {
-      "title": "Du dirigeras nu om<br>till din banks webbsida för att bekräfta 3&#8209;D&nbsp;Secure-skydd.",
-      "description": "Det kan dröja lite mellan kontrollen av 3&#8209;D&nbsp;Secure<br> och betalningsmottagandet. Det beror på den bank som du använder för betalning."
+      "title": "Du dirigeras nu om<br>till din banks webbsida för att bekräfta 3&#8209;D&nbsp;Secure&#8209;skydd.",
+      "description": "Det kan dröja lite mellan kontrollen av 3&#8209;D&nbsp;Secure<br> och betalningsmottagandet. Detta beror på banken som du använder för betalning."
     },
     "systemSuccess": {
-      "title": "Din betalningsleverantör<br>har givit ett initialt framgångsrikt svar.",
+      "title": "Din betalningsleverantör<br>har givit ett initialt positivt svar.",
       "description": "Det slutliga beslutet sker snart. Var tålmodig.<br>Betalsystem kan ibland bli försenade av tekniska skäl."
     }
   },
@@ -31,13 +31,13 @@
     "success": {
       "title": "Nu sätter vi igång!",
       "titleSubSlave": {
-        "key": "Aktivera koden på licensgivarens webbsida. <a href='{link}'>Instructions</a>",
-        "product": "Du har köpt ett nytt spel. Grattis! Ha det så kul!",
+        "key": "Aktivera koden på licensgivarens webbsida.<br><a href='{link}'>Instructions</a>",
+        "product": "Du har köpt ett nytt spel. Grattis!<br> Ha det så kul!",
         "simple": "Din betalning slutfördes framgångsrikt!",
         "virtual_items": "Nya objekt har lagts till på ditt konto. Ha det så kul!",
         "virtual_currency": "Nya tillgångar har lagts till på ditt spelkonto!"
       },
-      "descriptionSlaveInitial": "Ange din e-postadress för att få ett kvitto.",
+      "descriptionSlaveInitial": "Ange din e&#8209;postadress för att få ett kvitto.",
       "descriptionSlaveFinal": {
         "key": "Betalningsbekräftelse och en aktiveringskod har skickats till",
         "product": "Betalningsbekräftelse och en åtkomstlänk har skickats till",
@@ -45,7 +45,7 @@
         "virtual_items": "Betalningsbekräftelse har skickats till",
         "virtual_currency": "Betalningsbekräftelse har skickats till"
       },
-      "email": "E-postadress"
+      "email": "E&#8209;postadress"
     }
   },
   "CartSection": {
@@ -70,12 +70,12 @@
     "webmoney": "Webmoney",
     "btc": "BTC",
     "cvv": "CVC/CVV",
-    "email": "E-postadress för leverans",
-    "emailInvalid": "Ogiltig e-postadress",
+    "email": "E&#8209;postadress för leverans",
+    "emailInvalid": "Ogiltig e&#8209;postadress",
     "remember": "Kom ihåg mig",
     "abstractNumberError": "Ogiltigt nummer",
-    "abstractNumberPlaceholder": "{namn} wallet-nummer",
-    "placeholderEmail": "Ange din e-postadress",
+    "abstractNumberPlaceholder": "{name} wallet&#8209;nummer",
+    "placeholderEmail": "Ange din e&#8209;postadress",
     "payButtonPrefix": "BETALA",
     "tryAgain": "FÖRSÖK IGEN",
     "save": "SPARA",
@@ -89,10 +89,10 @@
     "cvv": "CVC/CVV",
     "cvvInfo": "De tre siffrorna<br>på kortets baksida",
     "cvvError": "Ogiltigt värde",
-    "email": "E-postadress för leverans",
-    "emailInvalid": "Ogiltig e-postadress",
+    "email": "E&#8209;postadress för leverans",
+    "emailInvalid": "Ogiltig e&#8209;postadress",
     "remember": "Kom ihåg mig",
-    "rememberInfo": "Betalningsinformation lagras i enlighet med kraven för PCI- och DSS-standarder vid användning av 3&#8209;D&nbsp;Secure och SSL-protokoll.",
+    "rememberInfo": "Betalningsinformation lagras i enlighet med kraven för PCI&#8209; och DSS&#8209;standarder vid användning av 3&#8209;D&nbsp;Secure och SSL&#8209;protokoll.",
     "city": "Ort",
     "cityInvalid": "Ogiltig ort",
     "country": "Land",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Hoppsan!",
-    "cantAcceptPayments": "Vi accepterar inte betalningar från ditt land.",
+    "cantAcceptPayments": "Vi accepterar inte betalningar från ditt land.<br>",
     "chooseAnotherArea": "Uppfattade vi ditt land fel? Välj rätt land.",
-    "country": "Välj ditt land."
+    "country": "Välj ditt land"
   },
   "UiCardField": {
     "cardNumber": "Kortnummer"
