@@ -41,7 +41,10 @@ export function $addCssRules(rules) {
 function $changeLocale(locale) {
   this.$i18n.locale = locale;
   const dir = localesScheme[locale].rtl ? 'rtl' : 'ltr';
+  const wordBreak = localesScheme[locale].withoutSpaces ? 'break-word' : 'keep-all';
+
   document.body.style.direction = dir;
+  document.body.style['word-break'] = wordBreak;
 
   const font = fontsScheme[localesScheme[locale].font || 'Quicksand'];
   if (!font.isLoaded) {

@@ -29,10 +29,10 @@
       "subtitle": "Si è verificato un errore."
     },
     "success": {
-      "title": "Riprova!",
+      "title": "Giochiamo!",
       "titleSubSlave": {
-        "key": "Attiva il codice sul sito web del fornitore della licenza. <a href='{link}'>Istruzioni</a>",
-        "product": "Hai acquistato un nuovo gioco. Congratulazioni! Divertiti!",
+        "key": "Attiva il codice sul sito web del fornitore della licenza.<br><a href='{link}'>Istruzioni</a>",
+        "product": "Hai acquistato un nuovo gioco. Congratulazioni!<br> Divertiti!",
         "simple": "Il tuo pagamento è stato completato con successo!",
         "virtual_items": "Sono stati aggiunti nuovi elementi al tuo account. Divertiti!",
         "virtual_currency": "Sono stati aggiunti nuovi fondi al tuo account di gioco!"
@@ -74,7 +74,7 @@
     "emailInvalid": "Indirizzo email non valido",
     "remember": "Ricordami",
     "abstractNumberError": "Codice non valido",
-    "abstractNumberPlaceholder": "codice portafoglio {name}",
+    "abstractNumberPlaceholder": "Codice portafoglio {name}",
     "placeholderEmail": "Inserisci il tuo indirizzo email",
     "payButtonPrefix": "PAGA",
     "tryAgain": "RIPROVA",
@@ -83,7 +83,7 @@
     "ok": "OK"
   },
   "FormSectionBankCard": {
-    "cardNumberInvalid": "Codice della carta non valido",
+    "cardNumberInvalid": "Numero della carta non valido",
     "expiryDate": "Data di scadenza",
     "expiryDateInvalid": "Data di scadenza non valida",
     "cvv": "CVC/CVV",
@@ -92,7 +92,7 @@
     "email": "Indirizzo email per la consegna",
     "emailInvalid": "Indirizzo email non valido",
     "remember": "Ricordami",
-    "rememberInfo": "Le informazioni di pagamento sono memorizzate in conformità ai requisiti degli standard PCI e DSS utilizzando i protocolli 3&#8209;D&nbsp;Secure e SSL.",
+    "rememberInfo": "Le informazioni di pagamento sono memorizzate in conformità ai requisiti degli standard PCI e DSS utilizzando i protocolli&nbsp;3&#8209;D&nbsp;Secure e SSL.",
     "city": "Città",
     "cityInvalid": "Città non valida",
     "country": "Paese",
@@ -116,16 +116,16 @@
   },
   "PaymentAreaWarning": {
     "oops": "Oops!",
-    "cantAcceptPayments": "Non accettiamo pagamenti dal tuo paese.",
+    "cantAcceptPayments": "Non accettiamo pagamenti dal tuo paese.<br>",
     "chooseAnotherArea": "Abbiamo localizzato il tuo paese in modo errato? Scegli quello corretto.",
-    "country": "Scegli il paese."
+    "country": "Scegli il paese"
   },
   "UiCardField": {
-    "cardNumber": "Codice carta"
+    "cardNumber": "Numero carta"
   },
   "UiCardSelect": {
     "anotherCard": "Un’altra carta",
-    "cardNumber": "Codice carta"
+    "cardNumber": "Numero carta"
   },
   "UiSelectOption": {
     "remove": "Cancella"
@@ -138,7 +138,7 @@
   "FormSectionSavedCards": {
     "title": "Paga con una carta memorizzata",
     "deletingCard": "Cancellazione carta",
-    "undo": "Elimina"
+    "undo": "Annulla"
   },
   "SavedCardToPlainFieldsSwitch": {
     "payWithSavedCards": "Paga con una carta memorizzata",

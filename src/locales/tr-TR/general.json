@@ -6,7 +6,7 @@
     },
     "3ds": {
       "title": "3&#8209;D&nbsp;Secure korumasını onaylamak için şimdi<br>bankanızın web sitesine yönlendirileceksiniz.",
-      "description": "3&#8209;D&nbsp;Secure kontrolü<br>ve ödemenin ulaşması arasında bir gecikme yaşanabilir. Ödeme için tercih etmiş olduğunuz bankaya göre değişkenlik gösterebilir."
+      "description": "3&#8209;D&nbsp;Secure kontrolü ve ödemenin ulaşması arasında<br>bir gecikme yaşanabilir. Ödeme için tercih etmiş olduğunuz bankaya göre değişkenlik gösterebilir."
     },
     "systemSuccess": {
       "title": "Ödeme sağlayıcınız<br>başarılı bir ön yanıt verdi.",
@@ -31,13 +31,13 @@
     "success": {
       "title": "Haydi oynayalım!",
       "titleSubSlave": {
-        "key": "Lisans sağlayıcısının web sitesinden ürün anahtarını etkinleştirin.<a href='{link}'>Talimatlar</a>",
-        "product": "Yeni bir oyun satın aldınız. Tebrikler! İyi eğlenceler!",
+        "key": "Lisans sağlayıcısının web sitesinden ürün anahtarını etkinleştirin.<br><a href='{link}'>Talimatlar</a>",
+        "product": "Yeni bir oyun satın aldınız. Tebrikler!<br> İyi eğlenceler!",
         "simple": "Ödemeniz başarıyla gerçekleştirildi!",
         "virtual_items": "Hesabınıza yeni ürünler eklendi. İyi eğlenceler!",
         "virtual_currency": "Yeni bir tutar oyun hesabınıza eklendi."
       },
-      "descriptionSlaveInitial": "Faturanızı edinmek için e-posta adresinizi girin.",
+      "descriptionSlaveInitial": "Faturanızı edinmek için e&#8209;posta adresinizi girin.",
       "descriptionSlaveFinal": {
         "key": "Ödeme onayı ve ürün etkinleştirme anahtarı şuraya gönderildi",
         "product": "Ödeme onayı ve erişim bağlantısı şuraya gönderildi",
@@ -45,7 +45,7 @@
         "virtual_items": "Ödeme onayı şuraya gönderildi",
         "virtual_currency": "Ödeme onayı şuraya gönderildi"
       },
-      "email": "E-posta adresi"
+      "email": "E&#8209;posta adresi"
     }
   },
   "CartSection": {
@@ -70,12 +70,12 @@
     "webmoney": "Webmoney",
     "btc": "BTC",
     "cvv": "CVC/CVV",
-    "email": "Teslimat için e-posta adresi",
-    "emailInvalid": "Geçersiz e-posta adresi",
+    "email": "Teslimat için e&#8209;posta adresi",
+    "emailInvalid": "Geçersiz e&#8209;posta adresi",
     "remember": "Beni hatırla",
     "abstractNumberError": "Geçersiz numara",
     "abstractNumberPlaceholder": "{name} cüzdan numarası",
-    "placeholderEmail": "E-posta adresinizi girin",
+    "placeholderEmail": "E&#8209;posta adresinizi girin",
     "payButtonPrefix": "ÖDE",
     "tryAgain": "TEKRAR DENE",
     "save": "KAYDET",
@@ -89,8 +89,8 @@
     "cvv": "CVC/CVV",
     "cvvInfo": "Kartın arkasında yer alan<br>üç haneli sayı",
     "cvvError": "Geçersiz değer",
-    "email": "Teslimat için e-posta adresi",
-    "emailInvalid": "Geçersiz e-posta adresi",
+    "email": "Teslimat için e&#8209;posta adresi",
+    "emailInvalid": "Geçersiz e&#8209;posta adresi",
     "remember": "Beni hatırla",
     "rememberInfo": "Ödeme bilgileri, 3&#8209;D&nbsp;Secure ve SSL protokolleri kullanılarak PCI ve DSS standartlarının gerekliliklerine uygun bir şekilde kayıt altında tutulmaktadır.",
     "city": "Şehir",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Tüh!",
-    "cantAcceptPayments": "Ülkenizden ödeme kabul edemiyoruz.",
+    "cantAcceptPayments": "Ülkenizden ödeme kabul edemiyoruz.<br>",
     "chooseAnotherArea": "Ülkenizi yanlış mı tespit ettik? Lütfen doğrusunu seçin.",
-    "country": "Ülkenizi seçin."
+    "country": "Ülkenizi seçin"
   },
   "UiCardField": {
     "cardNumber": "Kart numarası"

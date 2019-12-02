@@ -1,7 +1,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
-import { includes, get } from 'lodash-es';
+import { includes, get, toLower } from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
@@ -102,14 +102,18 @@ export default {
       return this.orderData.payment_methods.map((item) => {
         const group = this.paymentMethodGroups[item.group_alias];
         const type = this.paymentMethodTypes[item.type];
+        const i18nAlias = toLower(item.group_alias) || toLower(item.name);
+        const hasI18nLabel = this.$i18n.te(`FormSection.${i18nAlias}`);
+        const label = hasI18nLabel ? this.$i18n.t(`FormSection.${i18nAlias}`) : item.name;
         const config = {
-          label: item.name,
+          label,
           ...(type || {}),
           ...(group || {}),
         };
+
         return {
           value: item.id,
-          label: this.$i18n.t(get(config, 'label')),
+          label: get(config, 'label'),
           iconComponent: get(config, 'iconComponent'),
         };
       });

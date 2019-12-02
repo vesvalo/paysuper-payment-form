@@ -219,6 +219,7 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
+  hyphens: none;
 
   &._isMobile {
     touch-action: manipulation;

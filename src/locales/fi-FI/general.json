@@ -5,8 +5,8 @@
       "description": "Odota, kunnes maksu on suoritettu onnistuneesti.<br/>Tämä kestää tavallisesti muutamia sekunteja."
     },
     "3ds": {
-      "title": "Sinut ohjataan nyt uudelleen<br>pankkisi verkkosivustolle vahvistamaan 3&#8209;D&nbsp;Secure-suojaus.",
-      "description": "3&#8209;D&nbsp;Secure-tarkistuksen läpäisemisen<br>ja maksun vastaanottamisen välillä saattaa olla viive. Se riippuu pankista, jota käytit maksuun."
+      "title": "Sinut ohjataan nyt uudelleen<br>pankkisi verkkosivustolle vahvistamaan 3&#8209;D&nbsp;Secure&#8209;suojaus.",
+      "description": "3&#8209;D&nbsp;Secure&#8209;tarkistuksen läpäisemisen<br>ja maksun vastaanottamisen välillä saattaa olla viive. Se riippuu pankista, jota käytit maksuun."
     },
     "systemSuccess": {
       "title": "Maksupalvelujesi tarjoaja <br>on antanut onnistuneen ensimmäisen vastauksen.",
@@ -31,8 +31,8 @@
     "success": {
       "title": "Kokeillaan!",
       "titleSubSlave": {
-        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta. <a href='{link}'>Ohjeet</a>",
-        "product": "Olet osatnut uuden pelin. Onnittelut! Pidä hauskaa!",
+        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta.<br><a href='{link}'>Ohjeet</a>",
+        "product": "Olet osatnut uuden pelin. Onnittelut!<br> Pidä hauskaa!",
         "simple": "Maksusi suorittaminen onnistui!",
         "virtual_items": "Uusia kohteita on lisätty tiliisi. Pidä hauskaa!",
         "virtual_currency": "Uusia varoja on lisätty pelitililesi."
@@ -92,13 +92,13 @@
     "email": "Sähköpostiosoite toimitusta varten",
     "emailInvalid": "Virheellinen sähköpostiosoite",
     "remember": "Muista minut",
-    "rememberInfo": "Maksutiedot säilytetään PCI- ja DSS-standardien mukaisesti 3&#8209;D&nbsp;Secure-järjestelmän ja SSL-protokollien avulla.",
+    "rememberInfo": "Maksutiedot säilytetään PCI&#8209; ja DSS&#8209;standardien mukaisesti 3&#8209;D&nbsp;Secure&#8209;järjestelmän ja SSL&#8209;protokollien avulla.",
     "city": "Paikkakunta",
     "cityInvalid": "Virheellinen paikkakunta",
     "country": "Maa",
     "countryInvalid": "Valitse maasi",
     "zip": "Postinumero",
-    "zipInvalid": "Virheellinen ZIP-koodi"
+    "zipInvalid": "Virheellinen postinumero"
   },
   "LayoutFooter": {
     "userAgreement": "Käyttäjäsopimus",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Hups!",
-    "cantAcceptPayments": "Emme hetkellä hyväksy maksuja maastasi.",
+    "cantAcceptPayments": "Emme hetkellä hyväksy maksuja maastasi.<br>",
     "chooseAnotherArea": "Havaitsimmeko maasi virheellisesti? Valitse oikea maa.",
-    "country": "Valitse maasi."
+    "country": "Valitse maasi"
   },
   "UiCardField": {
     "cardNumber": "Korttinumero"

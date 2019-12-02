@@ -5,8 +5,8 @@
       "description": "Vent indtil betalingen er afsluttet.<br/>Dette tager normalt kun få sekunder."
     },
     "3ds": {
-      "title": "Du bliver nu ledt vicere<br>til din banks websted for at bekræfte 3&#8209;D&nbsp;Secure-beskyttelse.",
-      "description": "Der kan være en forsinkelse, fra 3&#8209;D&nbsp;Secure-tjekket<br>er foretaget til modtagelse af betalingen. Det afhænger af den bank, du har brugt til betaling."
+      "title": "Du bliver nu ledt vicere<br>til din banks websted for at bekræfte 3&#8209;D&nbsp;Secure&#8209;beskyttelse.",
+      "description": "Der kan være en forsinkelse, fra 3&#8209;D&nbsp;Secure&#8209;tjekket<br>er foretaget til modtagelse af betalingen. Det afhænger af den bank, du har brugt til betaling."
     },
     "systemSuccess": {
       "title": "Din betalingsudbyder<br>har givet et indledende svar.",
@@ -31,13 +31,13 @@
     "success": {
       "title": "Så er vi klar til at spille!",
       "titleSubSlave": {
-        "key": "Aktiver nøglen på licensudbyderens websted. <a href='{link}'>Instructions</a>",
-        "product": "Du har købt et nyt spil. Tillykke! God fornøjelse!",
+        "key": "Aktiver nøglen på licensudbyderens websted.<br><a href='{link}'>Instruktioner</a>",
+        "product": "Du har købt et nyt spil. Tillykke!<br> God fornøjelse!",
         "simple": "Din betaling er gennemført!",
         "virtual_items": "Nye varer er føjet til din konto. God fornøjelse!",
         "virtual_currency": "Der er føjet penge til din spilkonto!"
       },
-      "descriptionSlaveInitial": "Indtast din e-mailadresse for at få tilsendt en kvittering.",
+      "descriptionSlaveInitial": "Indtast din e&#8209;mailadresse for at få tilsendt en kvittering.",
       "descriptionSlaveFinal": {
         "key": "Betalingsbekræftelse og en aktiveringsnøgle er sendt til",
         "product": "Betalingsbekræftelse og et adgangslink er sendt til",
@@ -45,7 +45,7 @@
         "virtual_items": "Betalingsbekræftelse er sendt til",
         "virtual_currency": "Betalingsbekræftelse er sendt til"
       },
-      "email": "E-mailadresse"
+      "email": "E&#8209;mailadresse"
     }
   },
   "CartSection": {
@@ -70,12 +70,12 @@
     "webmoney": "Webmoney",
     "btc": "BTC",
     "cvv": "CVC/CVV",
-    "email": "E-mailadresse til levering",
-    "emailInvalid": "Ugyldig e-mailadresse",
+    "email": "E&#8209;mailadresse til levering",
+    "emailInvalid": "Ugyldig e&#8209;mailadresse",
     "remember": "Husk mig",
     "abstractNumberError": "Ugyldigt nummer",
     "abstractNumberPlaceholder": "{name} nummer på pengepung",
-    "placeholderEmail": "Indtast din e-mailadresse",
+    "placeholderEmail": "Indtast din e&#8209;mailadresse",
     "payButtonPrefix": "BETAL",
     "tryAgain": "PRØV IGEN",
     "save": "GEM",
@@ -89,10 +89,10 @@
     "cvv": "CVC/CVV",
     "cvvInfo": "De tre tal<br>på bagsiden af kortet",
     "cvvError": "Ugyldig værdi",
-    "email": "E-mailadresse til levering",
-    "emailInvalid": "Ugyldig e-mailadresse",
+    "email": "E&#8209;mailadresse til levering",
+    "emailInvalid": "Ugyldig e&#8209;mailadresse",
     "remember": "Husk mig",
-    "rememberInfo": "Betalingsoplysninger gemmes i overensstemmelse med kravene i PCI- og DSS-standarderne ved hjælp af 3&#8209;D&nbsp;Secure- og SSL-protokoller.",
+    "rememberInfo": "Betalingsoplysninger gemmes i overensstemmelse med kravene i PCI&#8209; og DSS&#8209;standarderne ved hjælp af 3&#8209;D&nbsp;Secure&#8209; og SSL&#8209;protokoller.",
     "city": "By",
     "cityInvalid": "Ugyldig by",
     "country": "Land",
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "Ups!",
-    "cantAcceptPayments": "Vi kan ikke acceptere betalinger fra dit land.",
+    "cantAcceptPayments": "Vi kan ikke acceptere betalinger fra dit land.<br>",
     "chooseAnotherArea": "Har vi registreret dit land forkert? Vælg det rigtige.",
-    "country": "Vælg dit land."
+    "country": "Vælg dit land"
   },
   "UiCardField": {
     "cardNumber": "Kortnummer"

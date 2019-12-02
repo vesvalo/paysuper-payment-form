@@ -63,6 +63,9 @@ export default {
   cursor: pointer;
 
   & > svg {
+    @include if-rtl {
+      transform: rotate(180deg);
+    }
   }
 }
 </style>

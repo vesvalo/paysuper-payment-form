@@ -31,8 +31,8 @@
     "success": {
       "title": "놀아봅시다!",
       "titleSubSlave": {
-        "key": "라이선스 공급자의 웹사이트에서 키를 활성화하세요. <a href='{link}'>안내</a>",
-        "product": "새 게임을 구매하셨습니다. 축하드립니다! 재미있게 즐기세요!",
+        "key": "라이선스 공급자의 웹사이트에서<br>키를 활성화하세요.<br><a href='{link}'>안내</a>",
+        "product": "새 게임을 구매하셨습니다. 축하드립니다!<br> 재미있게 즐기세요!",
         "simple": "결제가 성공적으로 완료되었습니다.",
         "virtual_items": "새로운 아이템이 계정에 추가되었습니다. 재미있게 즐기세요!",
         "virtual_currency": "새 게임 머니가 계정에 추가되었습니다!"
@@ -116,9 +116,9 @@
   },
   "PaymentAreaWarning": {
     "oops": "어이쿠!",
-    "cantAcceptPayments": "해당 국가에서 결제가 불가능합니다.",
-    "chooseAnotherArea": "혹시 국가 선택을 잘못하셨나요? 올바른 국가를 선택해주세요.",
-    "country": "국가를 선택하세요."
+    "cantAcceptPayments": "해당 국가에서 결제가 불가능합니다.<br>",
+    "chooseAnotherArea": "혹시 국가 선택이 잘못되었나요? 올바른 국가를 선택해주세요.",
+    "country": "국가를 선택하세요"
   },
   "UiCardField": {
     "cardNumber": "카드 번호"
