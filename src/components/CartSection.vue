@@ -64,7 +64,7 @@ export default {
     },
   },
 
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.imageItemInner}.${this.$style._noImage}`]: {
         'border-color': this.$gui.cartStrokeColor,

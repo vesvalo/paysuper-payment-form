@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "請稍後。<br/>我們正在處理您的付款。",
       "description": "請等待，直到付款成功完成。<br/>這通常只需幾秒鐘。"
     },

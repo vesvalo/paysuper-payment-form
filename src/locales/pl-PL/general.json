@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Chwileczkę.<br/>Przetwarzamy Twoją płatność.",
       "description": "Poczekaj na udane zakończenie Twojej płatności.<br/>Zwykle zajmuje to tylko kilka sekund."
     },

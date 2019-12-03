@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Lütfen bekleyin.<br/>Ödemenizi işleme alıyoruz.",
       "description": "Lütfen ödeme başarılı bir şekilde tamamlanana kadar bekleyin.<br/>Bu işlem birkaç saniye sürebilir."
     },

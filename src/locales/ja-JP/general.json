@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "お待ち下さい。<br/>当社はお客様のお支払いを処理しています。",
       "description": "お支払いが正常に完了するまでお待ちください。<br/> これには通常数秒しかかかりません。"
     },

@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Odota.<br/>Käsittelemme maksuasi.",
       "description": "Odota, kunnes maksu on suoritettu onnistuneesti.<br/>Tämä kestää tavallisesti muutamia sekunteja."
     },

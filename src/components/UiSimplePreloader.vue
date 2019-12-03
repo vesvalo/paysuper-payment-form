@@ -9,7 +9,7 @@ export default {
       return this.$style.container;
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.container}`]: {
         'border-color': this.$gui.preloaderColor,

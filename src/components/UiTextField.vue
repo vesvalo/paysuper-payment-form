@@ -178,7 +178,7 @@ export default {
       this.innerValue = value;
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.container}.${this.stateDisabled}`]: {
         opacity: this.$gui.inputDisabledOpacity,

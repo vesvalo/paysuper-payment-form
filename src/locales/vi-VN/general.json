@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Vui lòng chờ.<br/>Chúng tôi đang xử lý thanh toán của quý vị.",
       "description": "Vui lòng đợi cho đến khi thanh toán được thực hiện thành công.<br/> Việc này thường chỉ mất vài giây."
     },

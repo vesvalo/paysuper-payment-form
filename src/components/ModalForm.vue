@@ -19,7 +19,7 @@ export default {
       hasLocaleChangerOpened: false,
     };
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.layout}`]: {
         'background-color': this.$gui.formBackgroundColor,

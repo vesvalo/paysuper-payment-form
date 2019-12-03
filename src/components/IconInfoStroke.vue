@@ -1,0 +1,6 @@
+<template>
+<svg width="9" height="9" viewBox="0 0 9 9" fill="#999DA7" xmlns="http://www.w3.org/2000/svg">
+<!-- eslint-disable -->
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 8C6.433 8 8 6.433 8 4.5C8 2.567 6.433 1 4.5 1C2.567 1 1 2.567 1 4.5C1 6.433 2.567 8 4.5 8ZM4.5 9C6.98528 9 9 6.98528 9 4.5C9 2.01472 6.98528 0 4.5 0C2.01472 0 0 2.01472 0 4.5C0 6.98528 2.01472 9 4.5 9ZM5 2.5V4.5H4V2.5H5ZM5 6.5V5.5H4V6.5H5Z" />
+</svg>
+</template>

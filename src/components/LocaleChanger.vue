@@ -49,7 +49,7 @@ export default {
       locales,
     };
   },
-  mounted() {
+  created() {
     const layoutClass = this.$style[`_${this.layout}`];
     const itemClass = this.$style.item;
     const layout = upperFirst(this.layout);

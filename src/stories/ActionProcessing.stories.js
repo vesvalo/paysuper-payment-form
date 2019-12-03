@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/vue';
 import ActionProcessing from '@/components/ActionProcessing.vue';
 
 storiesOf('ActionProcessing', module)
-  .add('simpleLoading', () => ({
+  .add('paymentLoading', () => ({
     components: { ActionProcessing },
     template: `
       <div style="width: 500px">

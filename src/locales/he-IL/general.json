@@ -1,6 +1,6 @@
 ﻿{
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "אנא המתן.<br/>אנו מעבדים את התשלום שביצעת.",
       "description": "אנא המתן עד סיום ביצוע התשלום.<br/>בדרך כלל, הדבר אורך מספר שניות."
     },

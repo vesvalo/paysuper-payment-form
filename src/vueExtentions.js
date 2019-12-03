@@ -34,7 +34,10 @@ export function $addCssRules(rules) {
   document.head.appendChild(styleElement);
 
   this.$on('hook:destroyed', () => {
-    styleElement.parentNode.removeChild(styleElement);
+    // To destroyed components finish leave animations
+    setTimeout(() => {
+      styleElement.parentNode.removeChild(styleElement);
+    }, 500);
   });
 }
 

@@ -72,7 +72,7 @@ export default {
       return isEmpty(this.option) || this.option.value === '';
     },
   },
-  mounted() {
+  created() {
     this.$addCssRules({
       [`.${this.$style.option}`]: {
         color: this.$gui.selectColor,

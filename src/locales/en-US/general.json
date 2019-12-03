@@ -1,6 +1,6 @@
 {
   "ActionProcessing": {
-    "simpleLoading": {
+    "paymentLoading": {
       "title": "Please wait.<br/>We are processing your payment.",
       "description": "Please wait until the payment has been completed successfully.<br/>This usually only takes a few seconds."
     },
@@ -49,10 +49,14 @@
     }
   },
   "CartSection": {
+    "orderSummary": "Order summary",
     "subtotal": "Subtotal",
     "taxes": "Tax",
     "total": "Total",
-    "voluntaryAmount": "Selected amount"
+    "voluntaryAmount": "Selected amount",
+    "vat": "VAT",
+    "totalNoticeVat": "Including VAT",
+    "totalNotice": "The total amount may include a fee for converting<br/>the payment currency into the currency of the country<br/>of the Bank that issued the card."
   },
   "FormSection": {
     "prependLabel": "Pay with",

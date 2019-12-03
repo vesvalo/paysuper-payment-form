@@ -8,7 +8,7 @@ export default {
     StubPreloaderCart,
   },
 
-  mounted() {
+  created() {
     this.$addCssRules({
       [`
         .${this.$style.cartStubHeader}::before,

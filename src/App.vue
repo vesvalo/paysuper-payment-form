@@ -1,5 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
+import { includes } from 'lodash-es';
 import FastClick from 'fastclick';
 import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
@@ -46,7 +47,10 @@ export default {
     ]),
 
     isLoading() {
-      return this.paymentStatus === 'INITIAL';
+      return includes(['INITIAL'], this.paymentStatus);
+    },
+    isContentEnabled() {
+      return !includes(['FAILED_TO_BEGIN', 'RECREATE_TO_BEGIN'], this.paymentStatus);
     },
     isPageView() {
       return this.layout === 'page';
@@ -83,7 +87,8 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions('PaymentForm', ['changePlatform', 'recreateOrder']),
+    ...mapActions(['recreateOrder']),
+    ...mapActions('PaymentForm', ['changePlatform']),
 
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
@@ -129,7 +134,7 @@ export default {
     :settings="{ suppressScrollX: true }"
     @close="closeForm"
   >
-    <template v-if="paymentStatus !== 'FAILED_TO_BEGIN'">
+    <template v-if="isContentEnabled">
       <template v-if="isPageView">
         <LayoutHeader
           :isCartOpened="isCartOpened"
@@ -149,7 +154,7 @@ export default {
             :orderData="orderData"
             :isCartOpened="isCartOpened"
             :isPageView="isPageView"
-            :hasPlatformSelect="orderParams.type === 'key'"
+            :hasPlatformSelect="orderData.type === 'key'"
             :currentPlatformId="currentPlatformId"
             @changePlatform="changePlatform"
           />
@@ -169,7 +174,7 @@ export default {
         >
           <CartSection
             :orderData="orderData"
-            :hasPlatformSelect="orderParams.type === 'key'"
+            :hasPlatformSelect="orderData.type === 'key'"
             :currentPlatformId="currentPlatformId"
             @changePlatform="changePlatform"
           />
@@ -189,7 +194,7 @@ export default {
       v-bind="actionResult"
       :class="$style.orderCreationError"
       :isModal="isModalEssence"
-      @tryAgain="recreateOrder"
+      @tryAgain="recreateOrder('RECREATE_TO_BEGIN')"
     />
 
     <div
@@ -237,14 +242,6 @@ export default {
 
     .preloader {
       position: fixed;
-    }
-
-    .orderCreationError {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
     }
 
     .wrapper {
