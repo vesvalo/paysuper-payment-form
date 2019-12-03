@@ -70,6 +70,7 @@
   />
   <template v-if="isGeoFieldsExposed">
     <UiSelect
+      v-if="isCountryFieldExposed"
       v-model="innerValue.country"
       maxHeight="240px"
       :options="countries"
@@ -200,6 +201,10 @@ export default {
       required: true,
     },
     isEmailFieldExposed: {
+      type: Boolean,
+      required: true,
+    },
+    isCountryFieldExposed: {
       type: Boolean,
       required: true,
     },
