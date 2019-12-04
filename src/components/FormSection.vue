@@ -88,6 +88,7 @@ export default {
       'isUserCountryRestricted',
       'userIpGeoData',
       'isEmailFieldExposed',
+      'isCountryFieldExposed',
       'isGeoFieldsExposed',
       'isZipInvalid',
       'currentPlatformId',
@@ -201,9 +202,10 @@ export default {
       'updateBillingData',
     ]),
 
-    handleMainButtonClick() {
+    async handleMainButtonClick() {
       if (this.isUserCountryConfirmRequested) {
         gtagEvent('confirmUserCountry', { event_category: 'userAction' });
+        await this.requestBillingDataUpdate();
         this.submitUserCountry();
         if (this.$refs.bankCardForm) {
           this.$refs.bankCardForm.focusCardNumberField();
@@ -251,7 +253,6 @@ export default {
       this.paymentData.country = value;
       this.paymentData.city = '';
       this.paymentData.zip = '';
-      this.requestBillingDataUpdate();
 
       gtagEvent('setUserCountry', {
         event_category: 'userAction',
@@ -259,8 +260,8 @@ export default {
       });
     },
 
-    requestBillingDataUpdate() {
-      this.updateBillingData(this.paymentData);
+    async requestBillingDataUpdate() {
+      await this.updateBillingData(this.paymentData);
     },
 
     async checkBankCardNumber(value) {
@@ -327,11 +328,12 @@ export default {
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
           :isEmailFieldExposed="isEmailFieldExposed"
+          :isCountryFieldExposed="isCountryFieldExposed"
           :isGeoFieldsExposed="isGeoFieldsExposed"
           :isZipInvalid="isZipInvalid"
           @savedCardIdChange="checkSavedCardNumberById"
           @cardNumberChange="checkBankCardNumber"
-          @countryChange="setNewUserCountry"
+          @countryChange="setNewUserCountry($event), requestBillingDataUpdate()"
           @cityChange="requestBillingDataUpdate"
           @zipChange="requestBillingDataUpdate"
           @removeCard="removeCard"

@@ -65,24 +65,6 @@ const actionProcessingByStatus = {
   RECREATE_TO_CONTINUE: () => ({ type: 'simpleLoading' }),
 };
 
-function setGeoParams(commit, data) {
-  // Drop to defaults
-  commit('isUserCountryConfirmRequested', false);
-
-  if (data.country_payments_allowed === false) {
-    commit('isGeoFieldsExposed', true);
-    if (data.country_change_allowed) {
-      commit('isUserCountryConfirmRequested', true);
-    } else {
-      commit('isUserCountryRestricted', true);
-    }
-  }
-
-  if (data.user_address_data_required) {
-    commit('isGeoFieldsExposed', true);
-  }
-}
-
 export default {
   namespaced: true,
 
@@ -103,6 +85,7 @@ export default {
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
     isEmailFieldExposed: true,
+    isCountryFieldExposed: true,
     isGeoFieldsExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
@@ -168,6 +151,9 @@ export default {
     isEmailFieldExposed(state, value) {
       state.isEmailFieldExposed = value;
     },
+    isCountryFieldExposed(state, value) {
+      state.isCountryFieldExposed = value;
+    },
     isGeoFieldsExposed(state, value) {
       state.isGeoFieldsExposed = value;
     },
@@ -180,22 +166,6 @@ export default {
   },
 
   actions: {
-    setPaymentStatus({ commit }, [name, extraData]) {
-      gtagEvent('changePaymentStatus', { event_label: name });
-      commit('paymentStatus', name);
-      postMessage(`PAYMENT_${name}`);
-
-      const actionResult = actionResultsByStatus[name];
-      if (actionResult) {
-        commit('actionResult', actionResult(extraData));
-      }
-
-      const actionProcessing = actionProcessingByStatus[name];
-      if (actionProcessing) {
-        commit('actionProcessing', actionProcessing(extraData));
-      }
-    },
-
     initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
       if (orderData.error) {
         dispatch('setPaymentStatus', [
@@ -237,7 +207,7 @@ export default {
       if (orderData.user_ip_data) {
         commit('userIpGeoData', orderData.user_ip_data);
       }
-      setGeoParams(commit, orderData);
+      dispatch('setGeoParams', orderData);
       dispatch('setPaymentStatus', ['NEW']);
 
       const items = (get(orderData, 'items') || []).map((item, index) => ({
@@ -259,6 +229,40 @@ export default {
             quantity: 1,
           }],
       });
+    },
+
+    setPaymentStatus({ commit }, [name, extraData]) {
+      gtagEvent('changePaymentStatus', { event_label: name });
+      commit('paymentStatus', name);
+      postMessage(`PAYMENT_${name}`);
+
+      const actionResult = actionResultsByStatus[name];
+      if (actionResult) {
+        commit('actionResult', actionResult(extraData));
+      }
+
+      const actionProcessing = actionProcessingByStatus[name];
+      if (actionProcessing) {
+        commit('actionProcessing', actionProcessing(extraData));
+      }
+    },
+
+    setGeoParams({ commit }, data) {
+      // Drop to defaults
+      commit('isUserCountryConfirmRequested', false);
+
+      if (data.country_payments_allowed === false) {
+        commit('isGeoFieldsExposed', true);
+        if (data.country_change_allowed) {
+          commit('isUserCountryConfirmRequested', true);
+        } else {
+          commit('isUserCountryRestricted', true);
+        }
+      }
+
+      if (data.user_address_data_required) {
+        commit('isGeoFieldsExposed', true);
+      }
     },
 
     setActivePaymentMethodById({ commit }, value) {
@@ -410,7 +414,7 @@ export default {
     },
 
     async checkPaymentAccount({
-      state, rootState, commit, dispatch,
+      state, rootState, dispatch,
     }, account) {
       const request = {
         method_id: state.activePaymentMethodId,
@@ -422,11 +426,11 @@ export default {
         request,
       );
       dispatch('setOrderDataBillingParams', response.data);
-      setGeoParams(commit, response.data);
+      dispatch('setGeoParams', response.data);
     },
 
     async checkUserLanguage({
-      state, rootState, commit,
+      state, rootState, dispatch,
     }, locale) {
       const [lang] = locale.split('-');
       const request = {
@@ -438,7 +442,7 @@ export default {
           `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/language`,
           request,
         );
-        setGeoParams(commit, response.data);
+        dispatch('setGeoParams', response.data);
       } catch (error) {
         console.error(error);
       }
@@ -454,9 +458,6 @@ export default {
     async updateBillingData({
       state, commit, dispatch, rootState,
     }, { country, zip }) {
-      if (country === 'US' && !zip) {
-        return;
-      }
       const request = {
         country,
         ...(zip ? { zip } : {}),
@@ -470,6 +471,9 @@ export default {
 
         dispatch('setOrderDataBillingParams', response.data);
         commit('isZipInvalid', false);
+        if (!response.data.country_change_allowed) {
+          commit('isCountryFieldExposed', false);
+        }
       } catch (error) {
         const zipErrors = [
           'fm000050', // zip not found
@@ -480,6 +484,12 @@ export default {
           commit('isZipInvalid', true);
         } else {
           console.error(error);
+          if (apiErrorCode) {
+            commit('actionResult', {
+              type: 'customError',
+              code: apiErrorCode,
+            });
+          }
         }
       }
     },
