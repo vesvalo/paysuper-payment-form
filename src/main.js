@@ -56,7 +56,6 @@ function getOrderParams({
     ...(products ? { products } : {}),
     ...(amount ? { amount: Number(amount), currency } : {}),
     ...(type ? { type } : {}),
-    ...(sdk ? { sdk: true } : {}),
   };
 }
 
@@ -162,7 +161,7 @@ const query = qs.parse(queryString);
 const orderParams = getOrderParams(query);
 const baseOptions = getBaseOptions(query);
 
-if (orderParams.sdk) {
+if (query.sdk) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { options } = data;
