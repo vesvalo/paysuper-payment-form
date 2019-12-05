@@ -1,45 +1,42 @@
 # Contributing
 
-## Разработка
+## Development
+These are some of the points to keep in mind when contributing.
 
-При разработке нужно учитывать несколько нюансов:
-1. У формы два вида: страничный адаптивный вид и вид модального окна.
-Страничный вид, за счет свой адаптивности, может использоваться на любых по размерам устройствах. Его отображение меняется на мобильное при размерах экрана менее чем 640px на 510px.
-Страничный вид, в отличие от вида модального окна, предполагается без возожности закрытия формы.
-Модальное окно имеет фиксированные размеры 640px на 510px. При размерах страницы менее этих параметров, форма автоматически переходит в страничный вид. Однако возможность закрытия формы (которая изначально имела вид модального окна) должна оставаться, и отображаться в UI.
-2. Так как форма обязана быть адаптивной, то ничего внутри формы не должно вылезать за пределы экрана устройства.
-3. Все внутренние скроллируемые элементы используют кастомный компонент UiScrollboxBar, основанный на vue-perfect-scrollbar.
-4. Большая часть простых компонентов форм, таких как селекты, кнопки, всплывашки, инпуты уже реализованы и имеют префикс Ui. Если добавляется новый переиспользуемый компонент, наподобие прелоадера, переклюачлки и т.д., его стоит делать с таким же префиксом.
-5. Все иконки имеют префикс Icon.
-6. Для реализации событий кликов и свайпов используется библиотека vue2-touch-events (сейчас не всё перенесено, и возможно, на некоторых iOS'ах на какие-то элементы нужно тыкнуть два раза). Все новые клики, даблклики, свайпы и т.д. нужно делать через нее.
-7. Для восполнения тач-лага на тач устройствах используется библиотека fastclick. С ней ничего делать не нужно, но учитывать в случае не предвиденных ошибок (так как библиотека еще не полностью протестировалась).
-8. При реализации события нажатия на что-то вне нужного элемента используется библиотека vue-clickaway.
-9. Форма мультиязычна, и при разработке стоит это учитыавть. Так же стоит учитывать, что у нас присутствуют два rtl языка, и на них обязательно нужно проверять полученный UI. Это касается отступов, направлений стрелочек, расположения элементов и так далее. В scss-миксинах есть миксины на этот счет. Они уже подключены и могут быть использованы в любом месте формы.
-10. Стоит учитывать реалии кроссбраузерных решений: любые мелкие фиксы стилей или изменения в разметке могут привести к багам в iOS, IE11 или мобильном браузере (в основном тоже iOS). На этой стезе стоит в первую очередь обращать внимание на некоторые детали:
-10.1. Правильно ли ваш код транспилируется (на js это может вылится в полностью не работающее состояние формы на некоторых устройствах, которые могу не поддержвать то или иное апи, например Array.includes)
-10.2. Правильно ли ваш css код дополняется стилями для поддерживаемых браузеров (да, может не правильно дополняться. Чего-то может не быть, или свойства могут быть не верно расставлены между собой. В последнем случае нужно руками добавить нужное свойство после остальных аналогичных).
-10.3. Аккуратней работайте с flex-box'ом, на iOS'ах свой flex-box, и ваш код не всегда будет правильно транспилится под них, а что-то и вовсе не получится. На IE11 так же есть баги у flex-box.
-10.4. Не забываем о производительности наших решений. Это касается и уровня логики и уроня UI. Стараемся, чтобы браузер не делал лишней работы. Но не переусердствуем, ибо попытка под каждую анимацию создать новый слой через transform или иначе приведет к падению этой самой производительности.
-10.5. Стоит учитывать, что минимальная ширина работы формы - 320px.
+1. The form supports two views: *page view* and *modal view*.
+*The page view* is adaptive and can be used with devices of any size. It switches to a mobile view on screens with resolution lower than 640px by 510px. *The page view* does not support the means to close the form, while the *modal view* does support a form close feature.  However, *the modal view* has a fixed dimension of 640px by 510px. Yet if it opens on a page with a lower resolution, the form automatically switches to the *page view* but has to remain the means to close the form in the UI.
+2. The form has to be adaptive, meaning the horizontal scroll bar cannot appear
+3. All internal scrollable elements use the custom component `UiScrollboxBar` that is based on  `vue-perfect-scrollbar`
+4. The majority of the simple form components, such as selects, buttons, popups, editboxes are already implemented and have `UI` prefix. All new reusable UI components (preloaders, switches etc) shall have the same prefix
+5. All icons have `Icon` prefix
+6. Clicks and swipes are (in most cases) implemented using `vue2-touch-events` library. All new clicks and swipea-based events have also be implemented using `vue2-touch-events` library.
+7. The touch lag is processed by `fastclick` library. You may want to keep it in mind.
+8. We use `vue-clickaway` to detect clicks outside of the element  
+9. Yout should remember that the form is multilingual (with 2 RTL-languages). Meaning that UI-related code contributions should be tested to accommodate the supported languages, which also includes testing for proper tabs, spaces, arrow directions, element positions, etc. We have relevant SCSS-mixin plugged in. They can be used at any place in the form.
+10. As in any cross-browser solution, any small style or markdown fixes can lead to bugs in iOS, IE11 or mobile browsers (often mobile Safari). These are some of the things to keep in mind:
+* Does your code transpile well? For JavaScript, any non-supported API (such as JavaScript Array includes()) may result in a non-functional form on some devices/browsers.
+* Was your CSS code supplied with styles that actually work with the supported browsers? Sometimes code can be transpiled in non-optimal ways, reply on missing or non-working features. Meaning you have to supply the styles for certain browsers on your own.
+* Flex-box requires special attention on iOS, because of custom implementation. Your code sometimes does not transpile well for iOS or IE11 and may have bugs.
+* Don't forget about the performance of your UI and the logic.  
+* The minimal width of the form is 320px.
 
 
-## Тестирование
+## Testing
 
-Так как продукт предполагается кроссбраузерным, мы должны протестировать наш код на релевантных браузерах и устройствах.
-Тестируем интерфейсы через browserstack.
+The product offers the cross-browser compatibility, so it has to be tested according to the requirements below. The UI can be tested via BrowserStack.
 
-Требования по кроссбраузрности:
+Crossbrowser compatibility requirements:
 1. IE11+
-2. Chrome, Firefox, Safari (текущие версии)
-3. Мобильные браузеры Chrome, Firefox, Safari
-4. Экраны от 320px до 1920px
+2. Chrome, Firefox, Safari (latest versions)
+3. Mobile browsers Chrome, Firefox, Safari
+4. Screens from 320px to 1920px
 
-При тестировании стоит учитывать, что браузер на нужном устройстве может быть старой версии, и потому выдавать ту или иную багу. Старых устройств со свежими бразуерами не так много, как хотелось бы.
-Так же, если есть на руках реальные устройства, то так же стоит потыкать форму на них.
-Список устройств-браузеров, на которых стоит протестировать форму после внедрения какого-либо изменения UI:
-1. iOS 13: iPhone XS, iPhone 11, iPad (Chrome, Safari актуальных версий)
-2. iOS 12: iPhone XS, iPhone 11, iPhone 7, iPad (Chrome, Safari актуальных версий)
-3. iOS 11: iPhone X, iPhone 8, iPhone 6, iPad (Chrome, Safari актуальных версий)
-4. Android 6-9: Тут проще, нужно просто найти актуальные версии Chrome и Firefox для каждой из версий
-5. Windows 8-10: IE11 и Chrome, Firefox, Opera, Safari, Edge актуальных версий
-6. Mac последних трех-четырех версий: Chrome, Firefox, Opera, Safari актуальных версий
+Often old devices have old browser versions installed and certain bugs may show up. It often makes sense to also test on real devices.
+
+#### The list of devices/browsers that the form shall be tested against after any UI-related changes
+* iOS 13: iPhone XS, iPhone 11, iPad (latest Chrome, Safari)
+* iOS 12: iPhone XS, iPhone 11, iPhone 7, iPad (latest Chrome, Safari)
+* iOS 11: iPhone X, iPhone 8, iPhone 6, iPad (latest Chrome, Safari)
+* Android 6-9: the latest Chrome and Firefox for each Android version
+* Windows 8-10: the latest IE11, Chrome, Firefox, Opera, Safari, Edge 
+* Mac OS X family: the latest Chrome, Firefox, Opera, Safari
