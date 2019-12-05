@@ -41,7 +41,7 @@ const mountPoint = '#paysuper-payment-form';
 const isPageInsideIframe = window.location !== window.parent.location;
 
 function getOrderParams({
-  project, token, products, amount, type, currency, sdk, devPreset,
+  project, token, products, amount, type, currency, devPreset,
 }) {
   return {
     project,

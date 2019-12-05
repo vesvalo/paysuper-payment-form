@@ -82,7 +82,7 @@ export default {
     changeLocale(locale) {
       this.$changeLocale(locale);
       this.$emit('changeLocale', locale);
-      this.checkUserLanguage(locale);
+      // this.checkUserLanguage(locale);
     },
     iconLang(locale) {
       const [lang] = locale.split('-');
