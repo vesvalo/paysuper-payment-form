@@ -8,51 +8,35 @@ https://github.com/
 
 ## Usage
 
-### In development
-You can use the package in pair with `payone-js-sdk`.
-With `yarn serve` the form will be accessable in `payone-js-sdk` in development mode.
+### Development
+The package requires `paysuper-dashboard` backend to be served first (`yarn serve:be` to run).
+The form itself runs on `http://localhost:4040/` where you will be redirected to 
+`http://localhost:8080/order` page. It's provided by `paysuper-dashboard` backend
 
-#### http://localhost:4040/
-Modal form in new design
+#### Modal view
+Add `modal=true` into request url to run the form in modal view mode:
+`http://localhost:8080/order?modal=true`
 
-#### http://localhost:4040/sandbox/
-Sandbox page for new design components development
+#### Dev data preset
+Add `devPreset=1` into request url to use default development data preset 
+(project + products combination): `http://localhost:8080/order?devPreset=1`
 
-#### http://localhost:4040/page/
-Standalone page in new design
-
-### In production
-Define mounting place with id `p1payone-form` and initial data before attaching the form script
+### Production
+Define mounting place with id `paysuper-payment-form` and attach the form script library
 ```html
-<div id="p1payone-form"></div>
-<script>
-// Required
-window.PAYSUPER_FORM_DATA = {
-  id: '5c20e',
-  has_vat: true,
-  has_user_commission: true,
-  project: { ... },
-  payment_methods: [ ... ]
-}
-// Those are optional. Below defined values are default.
-window.PAYSUPER_API_URL = 'https://p1payapi.tst.protocol.one';
-window.PAYSUPER_WEBSOCKET_URL = 'wss://cf.tst.protocol.one/connection/websocket';
-</script>
+<div id="paysuper-payment-form"></div>
 <script src="https://cdn.pay.super.com/payform/latest/paysuper-form.js"></script>
 ```
 
 ### Library URLs
-#### Hub with navigation
-https://static.protocol.one/minio/payone/
-
 #### Dev version
-https://static.protocol.one/payone/form/dev/p1payone-form.js
-Updates automatically with `master` branch updates
+https://cdn.pay.super.com/payform/dev/paysuper-form.js
+Updates automatically when `develop` branch updates
 
 #### Production release
 https://cdn.pay.super.com/payform/latest/paysuper-form.js
-https://cdn.pay.super.com/payform/v2.2.1-alpha/paysuper-form.js
-Updates width actual version releases (`v*` tag pushed into repo)
+https://cdn.pay.super.com/payform/v0.22.0/paysuper-form.js
+Updates with actual version release (`v*` tag pushed into repo)
 
 ## Development
 
