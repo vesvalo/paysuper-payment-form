@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const createSetAuthInterceptor = () => config => ({
+const createRequestInterceptor = () => config => ({
   ...config,
   withCredentials: true,
 });
-const setAuthCb = createSetAuthInterceptor();
-axios.interceptors.request.use(setAuthCb);
+const requestInterceptor = createRequestInterceptor();
+axios.interceptors.request.use(requestInterceptor);
