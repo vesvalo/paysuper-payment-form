@@ -1,12 +1,17 @@
 # PaySuper Payment Form
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0) [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/paysuper/paysuper-payment-form/issues)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/paysuper/paysuper-js-sdk/issues)
+[![Build Status](https://api.travis-ci.org/paysuper/paysuper-payment-form.svg?branch=master)](https://travis-ci.org/paysuper/paysuper-payment-form)
+[![codecov](https://codecov.io/gh/paysuper/paysuper-payment-form/branch/master/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-payment-form)
 
-[![Build Status](https://api.travis-ci.org/paysuper/paysuper-payment-form.svg?branch=master)](https://travis-ci.org/paysuper/paysuper-payment-form) [![codecov](https://codecov.io/gh/paysuper/paysuper-payment-form/branch/master/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-payment-form)
+##### Do not use this module directly, use [paysuper-js-sdk](https://github.com/paysuper/paysuper-js-sdk) instead. 
 
-PaySuper Javascript SDK is designed to integrate a [PaySuper Payment Form](https://github.com/paysuper/paysuper-payment-form) on your website or a game client.
+<p align="center">
+<a href="https://pay.super.com/" target="_blank"><img align="center" width="640" height="510" src="https://docs.pay.super.com/images/chreckout-form.gif"></a>
+</p>
 
-Learn more about a [payments flow](https://docs.pay.super.com/docs/payments/quick-start) and [PaySuper Checkout integration](https://docs.pay.super.com/docs/payments/sdk-integration).
+PaySuper payment form is a PaySuper-hosted mobile browsers-friendly widget that lets you collect payments with just a few lines of code. Learn more about a [payments flow](https://docs.pay.super.com/docs/payments/quick-start) and [PaySuper Checkout integration](https://docs.pay.super.com/docs/payments/sdk-integration).
 
 |   | PaySuper Service Architecture
 :---: | :---
@@ -20,19 +25,16 @@ Learn more about a [payments flow](https://docs.pay.super.com/docs/payments/quic
 
 ## Features
 
-**Conversion-optimized:** The payment form loads instantly with a single-page layout.
-
-**Payment methods:** VISA, Master Card, AMEX, JCB, China UnionPay, Bitcoin payments, Alipay, QIWI, Bank Wire Transfers.
-
-**Payment types:** Simple Checkout, Items Checkout.
-
-**Authentication:** Dynamic 3D Secure (ready for Strong Customer Authentication).
-
-**Localization:** Localized for [24 languages](https://docs.pay.super.com/docs/payments/localization).
+* **Conversion-optimized:** The payment form loads instantly with a single-page layout.
+* **Payment methods:** VISA, Master Card, AMEX, JCB, China UnionPay, Bitcoin payments, Alipay, QIWI, Bank Wire Transfers.
+* **Payment types:** Simple Checkout, Items Checkout.
+* **Authentication:** Dynamic 3D Secure (ready for Strong Customer Authentication).
+* **Localization:** Localized for [24 languages](https://docs.pay.super.com/docs/payments/localization).
 
 ## Table of Contents
 
 - [Demo](#demo)
+- [Usage](#usage)
 - [Developing](#developing)
     - [Branches](#branches)
     - [Versioning](#versioning)
@@ -45,6 +47,10 @@ Learn more about a [payments flow](https://docs.pay.super.com/docs/payments/quic
 ## Demo
 
 Try out [the payment sample](https://dashboard.pay.super.com/form-demo) for a [Simple Checkout](https://docs.pay.super.com/docs/payments/#simple-checkout) and a [Products Checkout](https://docs.pay.super.com/docs/payments/#products-checkout).
+
+## Usage
+
+Do not use this module directly, use [paysuper-js-sdk](https://github.com/paysuper/paysuper-js-sdk) instead. PaySuper JS SDK is designed to integrate a [PaySuper Payment Form](https://github.com/paysuper/paysuper-payment-form) on your website or a game client.
 
 ## Developing
 
@@ -144,13 +150,18 @@ vs
 - rclone copy tests/unit/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY --s3-endpoint=$S3_HOST
 ```
 
-## Contributing
+## Contributing, Feature Requests and Support
+If you like this project then you can put a ⭐️ on it. It means a lot to us.
 
-If you like this project then you can put a ⭐️ on it.
+If you have an idea of how to improve PaySuper (or any of the product parts) or have general feedback, you're welcome to submit a [feature request](../../issues/new?assignees=&labels=&template=feature_request.md&title=).
 
-We welcome contributions to PaySuper of any kind including documentation, suggestions, bug reports, pull requests etc. We would love to hear from you. In general, we follow the "fork-and-pull" Git workflow. Learn more about [PaySuper Form Contribution Guide](CONTRIBUTING.md).
+Chances are, you like what we have already but you may require a custom integration, a special license or something else big and specific to your needs. We're generally open to such conversations.
 
-We feel that a welcoming community is important and we ask that you follow the PaySuper's [Open Source Code of Conduct](https://github.com/paysuper/code-of-conduct/blob/master/README.md) in all interactions with the community.
+If you have a question and can't find the answer yourself, you can [raise an issue](../../issues/new?assignees=&labels=&template=support-request.md&title=I+have+a+question+about+%3Cthis+and+that%3E+%5BSupport%5D) and describe what exactly you're trying to do. We'll do our best to reply in a meaningful time.
+
+We feel that a welcoming community is important and we ask that you follow PaySuper's [Open Source Code of Conduct](https://github.com/paysuper/code-of-conduct/blob/master/README.md) in all interactions with the community.
+
+PaySuper welcomes contributions from anyone and everyone. Please refer to [our contribution guide to learn more](CONTRIBUTING.md).
 
 ## License
 
