@@ -281,7 +281,7 @@ export default {
         return;
       }
       try {
-        await this.checkPaymentAccount(card.pan.slice(0, 6));
+        await this.checkPaymentAccount(card.pan);
       } catch (error) {
         console.error(error);
       }
