@@ -64,6 +64,17 @@ export default {
       }
       return this.isMobile ? 'div' : 'UiScrollbarBox';
     },
+    wrapperComponentProps() {
+      if (this.wrapperComponentName === 'UiScrollbarBox') {
+        // A cosmetic thing
+        // Clients just don't like seeing settings="[object Object]" in page source
+        return {
+          isUpdateOnClick: true,
+          settings: { suppressScrollX: true },
+        };
+      }
+      return {};
+    },
   },
   created() {
     this.$addCssRules({
@@ -130,8 +141,7 @@ export default {
     :is="wrapperComponentName"
     :class="$style.wrapper"
     :opened="opened"
-    :isUpdateOnClick="true"
-    :settings="{ suppressScrollX: true }"
+    v-bind="wrapperComponentProps"
     @close="closeForm"
   >
     <template v-if="isContentEnabled">
