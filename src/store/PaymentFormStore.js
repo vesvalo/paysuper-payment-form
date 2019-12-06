@@ -519,6 +519,7 @@ export default {
         'total_amount',
         'vat',
         'vat_in_charge_currency',
+        'vat_rate',
       ]);
 
       commit('orderData', {
