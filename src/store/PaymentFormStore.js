@@ -403,7 +403,6 @@ export default {
           `${rootState.apiUrl}/api/v1/saved_card`,
           {
             data: { id },
-            withCredentials: true,
           },
         );
         const cards = reject(state.cards, { id });
