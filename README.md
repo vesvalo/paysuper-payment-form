@@ -59,7 +59,7 @@ The form runs on `http://localhost:4040/` where you will be redirected to
 
 #### Modal view
 
-Add `modal=true` as a query parameter into the request URL to run the form in a modal view mode:
+Add `modal=true` as a query parameter in the request URL to run the form in a modal view mode:
 
 ```http
 http://localhost:8080/order?modal=true
@@ -67,7 +67,7 @@ http://localhost:8080/order?modal=true
 
 #### Dev data preset
 
-Add `devPreset=1` as a query parameter into the request URL to use a default development data preset (project + products combination): 
+Add `devPreset=1` as a query parameter in the request URL to use a default development data preset (project + products combination): 
 
 ```http
 http://localhost:8080/order?devPreset=1
@@ -79,9 +79,13 @@ We use the [GitFlow](https://nvie.com/posts/a-successful-git-branching-model) as
 
 ## Versioning
 
-`https://cdn.pay.super.com/paysdk/v0.11.0/paysuper.js` is a release version (for example `v0.11.0`) and it updates by releases [paysuper-js-sdk/releases](https://github.com/paysuper/paysuper-js-sdk/releases).
+#### Dev version
+`https://cdn.pay.super.com/payform/dev/paysuper-form.js` updates automatically by the `develop` branch updates.
 
-`https://cdn.pay.super.com/paysdk/latest/paysuper.js` is the latest version.
+#### Production release
+`https://cdn.pay.super.com/payform/latest/paysuper-form.js` is a release version. 
+
+`https://cdn.pay.super.com/payform/v0.23.2/paysuper-form.js` updates with an actual version release by a tag starts with `v*` that is pushed into the repository.
 
 ### Building
 
@@ -105,7 +109,7 @@ yarn check-size
 
 ### Production
 
-Define a mounting place by attribute `"id = paysuper-payment-form"` and attach the form script library:
+Define a mounting place by id attribute `"id = paysuper-payment-form"` and attach the form script library:
 
 ```html
 <div id="paysuper-payment-form"></div>
