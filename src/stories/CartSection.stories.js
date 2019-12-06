@@ -9,6 +9,7 @@ const orderData = {
   id: '6e09ae25-00e5-4d57-9aa2-47f488a0ea78',
   has_vat: true,
   vat: 226,
+  vat_rate: 0.2,
   amount: 1129.99,
   total_amount: 1355.99,
   charge_amount: 34.24,

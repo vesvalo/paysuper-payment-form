@@ -16,7 +16,7 @@ export default {
 
   computed: {
     vatPercentage() {
-      return Number((100 / this.orderData.total_amount * this.orderData.vat).toFixed(2));
+      return Number(this.orderData.vat_rate * 100).toFixed(2);
     },
     isExplicitCharge() {
       if (
@@ -124,7 +124,7 @@ export default {
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.taxes') }}
           <span :class="$style.titleNotice">
-            ({{ $t('CartSection.vat') }} {{vatPercentage}}%)
+            ({{ $t('CartSection.vat') }} {{ vatPercentage }}%)
           </span>
         </span>
         <span :class="[$style.itemCell, $style._price]">
@@ -163,7 +163,7 @@ export default {
   <div :class="$style.totalNotice">
     <IconInfoStroke />
     <template v-if="isExplicitCharge && orderData.vat">
-      {{ $t('CartSection.totalNoticeVat') }} {{vatPercentage}}%
+      {{ $t('CartSection.totalNoticeVat') }} {{ vatPercentage }}%
       {{ $getPrice(orderData.vat_in_charge_currency, orderData.charge_currency) }}.
     </template>
     <span v-html="$t('CartSection.totalNotice')"></span>
