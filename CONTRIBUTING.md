@@ -1,8 +1,10 @@
 # Contributing to PaySuper
 
-Thank you for your interest in contributing to PaySuper! We welcome everybody who wants to contribute healthily and constructively. To help us create a safe and positive community experience for all, we require all participants to adhere to the [Code of Conduct](CODE_OF_CONDUCT.md).
+Thank you for your interest in contributing to PaySuper! We welcome everybody who wants to contribute healthily and constructively. To help us create a safe and positive community experience for all, we require all participants to adhere to [PaySuper Code of Conduct](https://github.com/paysuper/code-of-conduct/blob/master/README.md).
 
 This document guides you through the process of contributing to PaySuper overall and to this particular repository.
+
+If you find this project useful then please put a ⭐️ on it. It means a lot to us.
 
 ## Become a contributor
 
