@@ -91,7 +91,16 @@ function $isFieldInvalid(fieldPath) {
 }
 
 function $getPrice(value, currency) {
-  return new Intl.NumberFormat(this.$i18n.locale, { style: 'currency', currency }).format(value);
+  const isVirtualCurrency = currency === 'virtual';
+  const result = new Intl.NumberFormat(
+    this.$i18n.locale,
+    (isVirtualCurrency ? {} : { style: 'currency', currency }),
+  ).format(value);
+
+  if (isVirtualCurrency) {
+    return `${result} VC`;
+  }
+  return result;
 }
 
 extend(Vue.prototype, {

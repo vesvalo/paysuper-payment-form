@@ -4,7 +4,7 @@ import qs from 'qs';
 import axios from 'axios';
 import assert from 'assert';
 import { get } from 'lodash-es';
-import { gtagEvent } from '@/analytics';
+import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
 import DictionariesStore from './DictionariesStore';
@@ -55,8 +55,10 @@ export default new Vuex.Store({
         orderParams,
         queryOrderId: query.order_id,
       });
+      gtagSet({ currency: orderData.currency });
       if (orderData.lang) {
         dispatch('setInitialLocale', orderData.lang);
+        gtagEvent('customLocale', { locale: orderData.lang });
       }
       dispatch('PaymentForm/initState', { orderParams, orderData, options });
     },
@@ -134,7 +136,8 @@ export default new Vuex.Store({
         dispatch('PaymentForm/initState', { orderData });
       } catch (error) {
         console.error(error);
-        dispatch('PaymentForm/setPaymentStatus', ['FAILED_TO_BEGIN']);
+        dispatch('PaymentForm/setPaymentStatus', ['FAILED_TO_BEGIN', error]);
+        gtagEvent('orderRecreationError', { error });
       }
     },
 
