@@ -40,7 +40,6 @@ export default {
     ...mapState('PaymentForm', [
       'paymentStatus',
       'actionResult',
-      'orderParams',
       'orderData',
       'actionProcessing',
       'currentPlatformId',

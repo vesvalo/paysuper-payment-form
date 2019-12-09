@@ -1,5 +1,6 @@
 <script>
 import { get, find, reject } from 'lodash-es';
+import { gtagEvent } from '@/analytics';
 import getCardSystemType from '@/helpers/getCardSystemType';
 import PaysystemIcon from '@/components/PaysystemIcon.vue';
 import RemoveCountdown from '@/components/RemoveCountdown.vue';
@@ -80,6 +81,7 @@ export default {
 
     selectedCard(id) {
       this.$emit('select', id);
+      gtagEvent('selectSavedCard', { event_category: 'userAction', id });
     },
 
     toggleCardRemove({ id }) {
@@ -91,14 +93,17 @@ export default {
         if (!this.selectedCardId) {
           this.selectedCard(id);
         }
+        gtagEvent('cancelRemovingSavedCard', { event_category: 'userAction', id });
         return;
       }
+      gtagEvent('removeSavedCard', { event_category: 'userAction', id });
 
       this.cardsAboutToDelete.push({
         id,
         timeout: setTimeout(() => {
           this.cardsAboutToDelete = reject(this.cardsAboutToDelete, { id });
           this.$emit('remove', id);
+          gtagEvent('submitSavedCardRomve', { id });
         }, 5000),
       });
 

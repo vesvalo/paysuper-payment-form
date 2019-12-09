@@ -189,6 +189,7 @@ export default {
       this.paymentData.country = this.userIpGeoData.country;
       this.paymentData.zip = this.userIpGeoData.zip;
     }
+    gtagEvent('bankCardInputMethod', { value: this.paymentData.cardDataType });
   },
 
   methods: {

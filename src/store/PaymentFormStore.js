@@ -6,8 +6,7 @@ import {
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
-import { gtagEvent, gtagSet } from '@/analytics';
-
+import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
 const allowedPaymentStatuses = [
   // These ones are custom
@@ -128,9 +127,11 @@ export default {
     },
     actionProcessing(state, value) {
       state.actionProcessing = value;
+      gtagEvent('showActionProcessing', value);
     },
     actionResult(state, value) {
       state.actionResult = value;
+      gtagEvent('showActionResult', value);
     },
     paymentStatus(state, value) {
       assert(
@@ -172,6 +173,7 @@ export default {
           'FAILED_TO_BEGIN',
           orderData.error,
         ]);
+        gtagEvent('orderPrimaryInitError', { error: orderData.error });
         return;
       }
       if (orderData.is_already_processed) {
@@ -182,6 +184,7 @@ export default {
             receiptUrl: orderData.receipt_url,
           },
         ]);
+        gtagEvent('orderAlreadyProcessed');
         return;
       }
       assert(orderData, 'orderData is required to init PaymentFormStore');
@@ -210,24 +213,9 @@ export default {
       dispatch('setGeoParams', orderData);
       dispatch('setPaymentStatus', ['NEW']);
 
-      const items = (get(orderData, 'items') || []).map((item, index) => ({
-        id: item.id,
-        name: item.name,
-        list_name: 'Cart items',
-        list_position: index + 1,
-        price: `${item.amount}`,
-        quantity: 1,
-      }));
-
+      const items = getEcommerceItems(state.orderData);
       gtagEvent('begin_checkout', {
-        items: items.length
-          ? items
-          : [{
-            id: state.orderParams.project,
-            name: 'Virtual Currency',
-            price: `${orderData.amount}`,
-            quantity: 1,
-          }],
+        items,
       });
     },
 
@@ -305,26 +293,12 @@ export default {
         .on('paymentCompleted', () => {
           dispatch('setPaymentStatus', ['COMPLETED']);
 
-          const items = (get(state.orderData, 'items') || []).map((item, index) => ({
-            id: item.id,
-            name: item.name,
-            price: item.amount,
-            list_position: `${index + 1}`,
-            quantity: 1,
-          }));
-
+          const items = getEcommerceItems(state.orderData);
           gtagEvent('purchase', {
             transaction_id: state.orderData.id,
             currency: state.orderData.currency,
             tax: state.orderData.vat,
-            items: items.length
-              ? items
-              : [{
-                id: state.orderParams.project,
-                name: 'Virtual Currency',
-                price: `${state.orderData.amount}`,
-                quantity: 1,
-              }],
+            items,
           });
         });
 
@@ -422,6 +396,7 @@ export default {
         account,
       };
 
+      gtagEvent('checkPaymentAccount');
       const response = await axios.patch(
         `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
         request,
