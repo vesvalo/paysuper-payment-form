@@ -35,7 +35,7 @@ jobs:
     - set -e
     - yarn lint
     - yarn test
-    - yarn build-release --frozen-lockfile
+    - yarn build-stage --frozen-lockfile
     - rclone copy dist :s3://cdn.pay.super.com/payform/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
   - name: release
     if: "(tag =~ ^v)"
