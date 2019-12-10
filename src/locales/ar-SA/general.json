@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "للأسف، تعذر علينا إنشاء طلب الدفع.",
     "tryAgain": "حاول لاحقًا",
-    "unknownError": "يحدث هذا الخطأ مرة واحدة كل 10000 مرة!"
+    "unknownError": "يحدث هذا الخطأ مرة واحدة كل 10000 مرة!",
+    "close": "إغلاق"
   },
   "FormSectionSavedCards": {
     "title": "الدفع باستخدام بطاقة محفوظة",

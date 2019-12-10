@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "あいにく当社はお支払いのための注文を<br>作成できません。",
     "tryAgain": "再度お試しください",
-    "unknownError": "このエラーは1万回に1回発生します。"
+    "unknownError": "このエラーは1万回に1回発生します。",
+    "close": "閉じる"
   },
   "FormSectionSavedCards": {
     "title": "保存済みカードで支払う",

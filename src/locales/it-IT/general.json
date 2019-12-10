@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Purtroppo non possiamo creare l’ordine per il pagamento.",
     "tryAgain": "RIPROVA",
-    "unknownError": "Questo errore si verifica una volta ogni 10.000!"
+    "unknownError": "Questo errore si verifica una volta ogni 10.000!",
+    "close": "CHIUDI"
   },
   "FormSectionSavedCards": {
     "title": "Paga con una carta memorizzata",

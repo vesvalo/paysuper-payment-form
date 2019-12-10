@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Tyvärr kunde vi inte skapa beställningen för betalning.",
     "tryAgain": "FÖRSÖK IGEN",
-    "unknownError": "Detta fel sker bara var 10 000:e gång!"
+    "unknownError": "Detta fel sker bara var 10 000:e gång!",
+    "close": "STÄNG"
   },
   "FormSectionSavedCards": {
     "title": "Betala med ett kort som är sparat",

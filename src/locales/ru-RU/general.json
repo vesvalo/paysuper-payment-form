@@ -122,7 +122,8 @@
     "alreadyCompletedTitle": "Этот заказ уже выполнен",
     "openReceipt": "ОТКРЫТЬ ЧЕК",
     "tryAgain": "ПОПРОБОВАТЬ СНОВА",
-    "unknownError": "Эта ошибка случается 1 раз из 10 000!"
+    "unknownError": "Эта ошибка случается 1 раз из 10 000!",
+    "close": "ЗАКРЫТЬ"
   },
   "FormSectionSavedCards": {
     "title": "Сохранённые карты",
