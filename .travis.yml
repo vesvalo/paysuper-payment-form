@@ -30,7 +30,7 @@ jobs:
     - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
     #- yarn coverage:publish
   - name: stage
-    if: "(branch =~ ^release)"
+    if: "(branch =~ ^release/v)"
     script:
     - set -e
     - yarn lint
