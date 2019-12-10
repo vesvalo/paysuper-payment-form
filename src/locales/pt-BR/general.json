@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Infelizmente, não conseguimos criar a ordem para pagamento.",
     "tryAgain": "TENTE NOVAMENTE",
-    "unknownError": "Este erro ocorre uma vez em cada 10.000!"
+    "unknownError": "Este erro ocorre uma vez em cada 10.000!",
+    "close": "FECHAR"
   },
   "FormSectionSavedCards": {
     "title": "Pagar com um cartão guardado",

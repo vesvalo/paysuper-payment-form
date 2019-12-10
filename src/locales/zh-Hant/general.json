@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "很遺憾，我們無法建立付款訂單。",
     "tryAgain": "再試一次",
-    "unknownError": "此錯誤發生概率只有萬分之一！"
+    "unknownError": "此錯誤發生概率只有萬分之一！",
+    "close": "關閉"
   },
   "FormSectionSavedCards": {
     "title": "使用儲存的銀行卡付款",

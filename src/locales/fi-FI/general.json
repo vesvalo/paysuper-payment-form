@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Emme valitettavasti voi luoda tilausta maksullesi.",
     "tryAgain": "YRITÄ UUDELLEEN",
-    "unknownError": "Tämä virhe ilmenee joka 10.000. kerta!"
+    "unknownError": "Tämä virhe ilmenee joka 10.000. kerta!",
+    "close": "SULJE"
   },
   "FormSectionSavedCards": {
     "title": "Maksa tallennetulla kortilla",

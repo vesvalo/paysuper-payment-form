@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Lamentablemente, no pudimos crear el requerimiento de pago.",
     "tryAgain": "INTÉNTELO DE NUEVO",
-    "unknownError": "¡Este error sucede una vez de cada 10 000!"
+    "unknownError": "¡Este error sucede una vez de cada 10 000!",
+    "close": "CERRAR"
   },
   "FormSectionSavedCards": {
     "title": "Pagar con la tarjeta guardada",

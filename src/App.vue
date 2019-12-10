@@ -97,7 +97,6 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions(['recreateOrder']),
     ...mapActions('PaymentForm', ['changePlatform']),
 
     updateLayout() {
@@ -113,6 +112,12 @@ export default {
         this.layout = this.$layout;
       }
     },
+
+    handleCloseCrossClick() {
+      gtagEvent('clickCloseCross', { event_category: 'userAction' });
+      this.closeForm();
+    },
+
     closeForm() {
       if (this.isModalEssence) {
         this.opened = false;
@@ -125,9 +130,7 @@ export default {
         } else {
           redirectUrl = this.orderData.project.url_fail;
         }
-        if (redirectUrl) {
-          window.location.replace(redirectUrl);
-        }
+        window.location.replace(redirectUrl || 'https://pay.super.com/');
       }
     },
   },
@@ -146,7 +149,6 @@ export default {
     :class="$style.wrapper"
     :opened="opened"
     v-bind="wrapperComponentProps"
-    @close="closeForm"
   >
     <template v-if="isContentEnabled">
       <template v-if="isPageView">
@@ -208,13 +210,13 @@ export default {
       v-bind="actionResult"
       :class="$style.orderCreationError"
       :isModal="isModalEssence"
-      @tryAgain="recreateOrder('RECREATE_TO_BEGIN')"
+      @close="closeForm"
     />
 
     <div
       v-if="isModalEssence"
       :class="$style.close"
-      @click="closeForm"
+      @click="handleCloseCrossClick"
     >
       <IconClose :class="$style.iconClose" />
     </div>
