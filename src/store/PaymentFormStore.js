@@ -364,6 +364,7 @@ export default {
     },
 
     async removeCard({ commit, state, rootState }, id) {
+      gtagEvent('submitSavedCardRemove');
       try {
         await axios.delete(
           `${rootState.apiUrl}/api/v1/saved_card`,
@@ -377,7 +378,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-      gtagEvent('removeRememberedCard', { event_category: 'userAction' });
     },
 
     async checkPaymentAccount({
