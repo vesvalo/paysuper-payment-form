@@ -103,7 +103,6 @@ export default {
         timeout: setTimeout(() => {
           this.cardsAboutToDelete = reject(this.cardsAboutToDelete, { id });
           this.$emit('remove', id);
-          gtagEvent('submitSavedCardRomve', { id });
         }, 5000),
       });
 

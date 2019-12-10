@@ -197,7 +197,11 @@ export default {
       this.paymentData.country = this.userIpGeoData.country;
       this.paymentData.zip = this.userIpGeoData.zip;
     }
-    gtagEvent('bankCardInputMethod', { value: this.paymentData.cardDataType });
+    if (this.paymentData.cardDataType === 'saved') {
+      gtagEvent('hasSavedBankCards');
+    } else {
+      gtagEvent('noSavedBankCards');
+    }
   },
 
   methods: {
@@ -212,7 +216,7 @@ export default {
 
     async handleMainButtonClick() {
       if (this.isUserCountryConfirmRequested) {
-        gtagEvent('confirmUserCountry', { event_category: 'userAction' });
+        gtagEvent('clickSaveUserCountry', { event_category: 'userAction' });
         await this.requestBillingDataUpdate();
         this.submitUserCountry();
         if (this.$refs.bankCardForm) {
