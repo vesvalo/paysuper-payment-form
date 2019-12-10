@@ -328,10 +328,6 @@ export default {
 
   & > .inner {
     padding: 0 20px;
-
-    @media screen and (min-width: 640px) {
-      padding: 40px 30px 25px;
-    }
   }
 
   @media screen and (min-width: 640px) {
@@ -369,10 +365,6 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: flex-end;
-
-  .right._isModal & {
-    padding: 0 0 0 20px;
-  }
 
   @media screen and (min-width: 640px) {
     max-width: 480px;

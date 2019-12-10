@@ -49,8 +49,8 @@ function getOrderParams({
   return {
     project,
     ...(devPreset ? {
-      project: '5dd7b169e6c266000138fbcb',
-      products: ['5de66aab5aecaebc1b30f2a5'],
+      project: '5dbac9bb120a810001a90a49',
+      products: ['5dbace17f3f9fb0001511931'],
       // amount: 25,
       // currency: 'USD',
       type: 'product',
