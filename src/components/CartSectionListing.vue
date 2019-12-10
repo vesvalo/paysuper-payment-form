@@ -106,7 +106,7 @@ export default {
   </div>
   <div
     v-if="isExplicitCharge || orderData.vat"
-    :class="$style.totals"
+    :class="[$style.totals, $style._vat]"
   >
     <div :class="$style.items">
       <div :class="[$style.item, $style._subtotal, $style.hidden]">
@@ -250,6 +250,9 @@ export default {
   @media screen and (max-width: 639px) {
     .cartSectionListing._closed & {
       margin-top: 0;
+    }
+    .cartSectionListing._closed &._vat {
+      display: none;
     }
   }
 }
