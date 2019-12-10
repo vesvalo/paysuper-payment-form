@@ -61,7 +61,7 @@ export default {
       if (!this.isPageView) {
         return 'Modal';
       }
-      return this.isMobile ? 'div' : 'UiScrollbarBox';
+      return 'UiScrollbarBox';
     },
     wrapperComponentProps() {
       if (this.wrapperComponentName === 'UiScrollbarBox') {
@@ -105,6 +105,10 @@ export default {
 
       if (this.isMobile) {
         this.layout = 'page';
+
+        this.$nextTick(() => {
+          this.$refs.wrapper.update();
+        });
       } else {
         this.layout = this.$layout;
       }
@@ -137,6 +141,7 @@ export default {
 ]">
   <component
     v-if="opened"
+    ref="wrapper"
     :is="wrapperComponentName"
     :class="$style.wrapper"
     :opened="opened"
@@ -237,6 +242,11 @@ export default {
 
   &._isMobile {
     touch-action: manipulation;
+
+    &._isPage > .wrapper {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   &._isPage {
@@ -260,11 +270,6 @@ export default {
       width: 100vw;
       display: flex;
       flex-direction: column;
-
-      .layout._isMobile & {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
 
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         height: 100vh;
