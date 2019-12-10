@@ -19,6 +19,7 @@ export default new Vuex.Store({
     initialLocale: '',
     orderId: '',
     query: {},
+    options: {},
     lastSize: {
       width: 0,
       height: 0,
@@ -40,9 +41,13 @@ export default new Vuex.Store({
     lastSize(state, value) {
       state.lastSize = value;
     },
+    options(state, value) {
+      state.options = value;
+    },
   },
   actions: {
     async initState({ commit, dispatch }, { orderParams, options, query }) {
+      commit('options', options);
       commit('apiUrl', options.apiUrl);
       commit('query', query);
       dispatch('setInitialLocale');
