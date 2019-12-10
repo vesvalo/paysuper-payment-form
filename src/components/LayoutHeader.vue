@@ -49,6 +49,7 @@
             :class="$style.link"
             href="https://pay.super.com/policy/tou"
             target="_blank"
+            @click="fireAnalyticsEvent('TermsOfUse')"
           >
             {{$t('LayoutHeader.termsOfUse')}}
           </a>

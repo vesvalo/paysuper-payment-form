@@ -129,6 +129,7 @@ export default {
               :class="$style.tipLink"
               href="https://pay.super.com/policy/eula"
               target="_blank"
+              @click="fireAnalyticsEvent('UserAgreement')"
             >
               {{ $t('ModalCart.userAgreement') }}
             </a>
@@ -136,6 +137,7 @@ export default {
               :class="$style.tipLink"
               href="https://pay.super.com/policy/tou"
               target="_blank"
+              @click="fireAnalyticsEvent('TermsOfUse')"
             >
               {{ $t('ModalCart.termsOfUse') }}
             </a>

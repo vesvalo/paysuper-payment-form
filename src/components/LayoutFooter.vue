@@ -61,6 +61,7 @@ export default {
         <a
           :class="$style.link"
           href="https://pay.super.com/policy/eula"
+          @click="fireAnalyticsEvent('UserAgreement')"
           target="_blank"
         >
           {{$t('LayoutFooter.userAgreement')}}

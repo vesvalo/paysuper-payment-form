@@ -26,6 +26,8 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import '@/noScalableViewport';
 
+gtagConfig('UA-142750977-1', { page_path: window.location.pathname });
+
 Vue.use(Vue2TouchEvents);
 
 Vue.config.productionTip = false;
@@ -100,6 +102,11 @@ async function mountApp({
     ...customOptions,
   };
 
+  gtagSet({
+    viewType: options.layout,
+    viewScheme: options.viewScheme,
+  });
+
   store.dispatch('initState', {
     orderParams,
     options,
@@ -145,14 +152,6 @@ async function mountApp({
           families: ['PT Mono'],
         },
       });
-
-      gtagSet({
-        currency: orderParams.currency,
-        viewType: options.layout,
-        viewScheme: options.viewScheme,
-      });
-
-      gtagConfig('UA-142750977-1', { page_path: `/${options.layout}` });
     },
   }).$mount(mountPoint);
 }

@@ -1,5 +1,6 @@
 <script>
 import { upperFirst, groupBy, map } from 'lodash-es';
+import { gtagEvent } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 
 export default {
@@ -88,6 +89,14 @@ export default {
     getIconComponent(platformId) {
       return `IconPlatform${upperFirst(platformId)}`;
     },
+
+    selectPlatform(id) {
+      gtagEvent('selectPlatform', {
+        event_category: 'userAction',
+        platformId: id,
+      });
+      this.$emit('change', id);
+    },
   },
 };
 </script>
@@ -116,7 +125,7 @@ export default {
           :class="[$style.item, { [$style._current]: currentPlatformId === platform.id }]"
           :key="platform.id"
           :title="platform.name"
-          @click="$emit('change', platform.id)"
+          @click="selectPlatform(platform.id)"
         >
           <component :is="getIconComponent(platform.id)"></component>
         </div>
