@@ -39,9 +39,8 @@
     <span
       :class="[$style.error, { [$style._showed]: isVisibleError }]"
       :title="errorText"
-    >
-      {{ errorText }}
-    </span>
+      v-html="errorText"
+    ></span>
     <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
       <UiScrollbarBox
         :class="$style.scrollbar"

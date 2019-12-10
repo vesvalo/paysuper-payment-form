@@ -22,15 +22,13 @@
   <label
     :class="labelClass"
     :title="label"
-  >
-    {{ label }}
-  </label>
+    v-html="label"
+  ></label>
   <span
     :class="[$style.error, { [$style._showed]: isVisibleError }]"
     :title="errorText"
-  >
-    {{ errorText }}
-  </span>
+    v-html="errorText"
+  ></span>
 </div>
 </template>
 

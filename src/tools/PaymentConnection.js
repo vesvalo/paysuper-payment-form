@@ -5,13 +5,12 @@ import { formLoadingPageUrl, websocketServerUrl } from '@/constants';
 
 export default class PaymentConnection extends Events.EventEmitter {
   constructor({
-    window, orderId, token, options, rwcTime = 5000,
+    window, orderId, token, rwcTime = 5000,
   }) {
     super();
     this.window = window;
     this.orderId = orderId;
     this.token = token;
-    this.options = options;
     this.rwcTime = rwcTime;
 
     this.centrifuge = null;
