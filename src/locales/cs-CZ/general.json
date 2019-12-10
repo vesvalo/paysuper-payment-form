@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "Bohužel se nám nepodařilo vytvořit platební příkaz.",
     "tryAgain": "ZKUSIT ZNOVU",
-    "unknownError": "K této chybě dochází v jednom z 10 000 případů!"
+    "unknownError": "K této chybě dochází v jednom z 10 000 případů!",
+    "close": "ZAVŘÍT"
   },
   "FormSectionSavedCards": {
     "title": "Zaplatit uloženou kartou",

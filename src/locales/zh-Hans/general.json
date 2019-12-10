@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "很遗憾，我们无法创建付款订单。",
     "tryAgain": "再试一次",
-    "unknownError": "此错误发生概率只有万分之一！"
+    "unknownError": "此错误发生概率只有万分之一！",
+    "close": "关闭"
   },
   "FormSectionSavedCards": {
     "title": "使用保存的银行卡付款",

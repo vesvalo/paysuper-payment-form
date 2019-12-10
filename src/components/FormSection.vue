@@ -145,6 +145,14 @@ export default {
     platformInstructionLink() {
       return geInstructionLinkByPlatform(this.currentPlatformId);
     },
+
+    isPaymentSuccess() {
+      return this.actionResult && this.actionResult.type === 'success';
+    },
+
+    isPaymentFailed() {
+      return this.actionResult && this.actionResult.type !== 'success';
+    },
   },
 
   watch: {
@@ -193,7 +201,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['recreateOrder']),
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById',
       'createPayment',
@@ -211,16 +218,12 @@ export default {
         if (this.$refs.bankCardForm) {
           this.$refs.bankCardForm.focusCardNumberField();
         }
-      } else if (this.isUserCountryRestricted) {
-        gtagEvent('isUserCountryRestricted');
+      } else if (this.isUserCountryRestricted || this.isPaymentFailed) {
+        gtagEvent('clickCloseButton', { event_category: 'userAction' });
         this.$emit('close');
-      } else if (this.actionResult) {
-        if (this.actionResult.type === 'success') {
-          gtagEvent('clickOkButton', { event_category: 'userAction' });
-          this.$emit('close');
-        } else {
-          this.recreateOrder('RECREATE_TO_CONTINUE');
-        }
+      } else if (this.isPaymentSuccess) {
+        gtagEvent('clickOkButton', { event_category: 'userAction' });
+        this.$emit('close');
       } else if (this.isPaymentFormVisible) {
         gtagEvent('clickPayButton', { event_category: 'userAction' });
         this.submitPaymentForm();
@@ -398,14 +401,14 @@ export default {
           {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </template>
-      <template v-if="actionResult">
-        {{ actionResult.type === 'success' ? $t('FormSection.ok') : $t('FormSection.tryAgain') }}
+      <template v-if="isPaymentSuccess">
+        {{ $t('FormSection.ok') }}
       </template>
       <template v-if="isUserCountryConfirmRequested">
-        {{$t('FormSection.save')}}
+        {{ $t('FormSection.save') }}
       </template>
-      <template v-if="isUserCountryRestricted">
-        {{$t('FormSection.close')}}
+      <template v-if="isUserCountryRestricted || isPaymentFailed">
+        {{ $t('FormSection.close') }}
       </template>
     </UiButton>
   </div>
