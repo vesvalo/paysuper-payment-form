@@ -79,7 +79,6 @@ export default {
     actionProcessing: null,
     actionResult: null,
     paymentStatus: 'INITIAL',
-    options: false,
     cards: [],
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
@@ -140,9 +139,6 @@ export default {
       );
       state.paymentStatus = value;
     },
-    options(state, value) {
-      state.options = value;
-    },
     isUserCountryConfirmRequested(state, value) {
       state.isUserCountryConfirmRequested = value;
     },
@@ -167,7 +163,7 @@ export default {
   },
 
   actions: {
-    initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
+    initState({ state, commit, dispatch }, { orderParams, orderData }) {
       if (orderData.error) {
         dispatch('setPaymentStatus', [
           'FAILED_TO_BEGIN',
@@ -191,9 +187,6 @@ export default {
       commit('orderData', orderData);
       if (orderParams) {
         commit('orderParams', orderParams);
-      }
-      if (options) {
-        commit('options', options);
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
@@ -275,7 +268,6 @@ export default {
           window,
           orderId: state.orderData.id,
           token: state.orderData.token,
-          options: state.options,
         },
       )
         .on('redirectWindowClosedByUser', () => {

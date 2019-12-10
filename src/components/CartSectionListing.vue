@@ -123,7 +123,10 @@ export default {
       >
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.taxes') }}
-          <span :class="$style.titleNotice">
+          <span
+            v-if="$root.localeRedrawToggler"
+            :class="$style.titleNotice"
+          >
             ({{ $t('CartSection.vat') }} {{ vatPercentage }}%)
           </span>
         </span>

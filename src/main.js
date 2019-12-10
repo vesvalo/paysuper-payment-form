@@ -131,7 +131,6 @@ async function mountApp({
     ...viewSchemes[options.viewScheme],
     ...(options.viewSchemeConfig || {}),
   };
-  Vue.prototype.$layout = options.layout;
 
   new VueApp({
     store,

@@ -13,6 +13,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationResult from '@/components/OrderCreationResult.vue';
+import localesScheme from '@/locales/scheme';
 import { postMessage } from './postMessage';
 
 export default {
@@ -32,8 +33,9 @@ export default {
     return {
       isCartOpened: true,
       isMobile: false,
-      layout: this.$layout,
+      currentLayout: 'page',
       opened: true,
+      localeRedrawToggler: true,
     };
   },
   computed: {
@@ -44,6 +46,7 @@ export default {
       'actionProcessing',
       'currentPlatformId',
     ]),
+    ...mapState(['options']),
 
     isLoading() {
       return includes(['INITIAL'], this.paymentStatus);
@@ -52,10 +55,13 @@ export default {
       return !includes(['FAILED_TO_BEGIN', 'RECREATE_TO_BEGIN'], this.paymentStatus);
     },
     isPageView() {
-      return this.layout === 'page';
+      return this.currentLayout === 'page';
+    },
+    layoutEssence() {
+      return this.options.layout || 'page';
     },
     isModalEssence() {
-      return this.$layout === 'modal';
+      return this.layoutEssence === 'modal';
     },
     wrapperComponentName() {
       if (!this.isPageView) {
@@ -103,13 +109,13 @@ export default {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
 
       if (this.isMobile) {
-        this.layout = 'page';
+        this.currentLayout = 'page';
 
         this.$nextTick(() => {
           this.$refs.wrapper.update();
         });
       } else {
-        this.layout = this.$layout;
+        this.currentLayout = this.layoutEssence;
       }
     },
 
@@ -132,6 +138,18 @@ export default {
         }
         window.location.replace(redirectUrl || 'https://pay.super.com/');
       }
+    },
+  },
+  watch: {
+    '$i18n.locale': {
+      handler(newValue, oldValue) {
+        if (localesScheme[newValue].rtl !== true && localesScheme[oldValue].rtl === true) {
+          this.localeRedrawToggler = false;
+          this.$nextTick(() => {
+            this.localeRedrawToggler = true;
+          });
+        }
+      },
     },
   },
 };
