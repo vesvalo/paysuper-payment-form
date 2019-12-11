@@ -80,6 +80,9 @@ export default {
     },
 
     selectedCard(id) {
+      if (this.selectedCardId === id) {
+        return;
+      }
       this.$emit('select', id);
       gtagEvent('selectSavedCard', { event_category: 'userAction', id });
     },
@@ -204,7 +207,7 @@ export default {
   line-height: 20px;
 
   &._selected {
-    opacity: 1;
+    cursor: default;
   }
 
   &._removed {
