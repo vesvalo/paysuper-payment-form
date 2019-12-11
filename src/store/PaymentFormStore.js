@@ -462,14 +462,17 @@ export default {
       }
     },
 
-    async changePlatform({ state, commit, rootState }, platform) {
+    async changePlatform({
+      state, commit, dispatch, rootState,
+    }, platform) {
       try {
-        await axios.post(
+        const { data } = await axios.post(
           `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/platform`,
           {
             platform,
           },
         );
+        dispatch('setOrderDataBillingParams', data);
         commit('currentPlatformId', platform);
       } catch (error) {
         console.error(error);

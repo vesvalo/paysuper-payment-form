@@ -91,6 +91,9 @@ export default {
     },
 
     selectPlatform(id) {
+      if (this.currentPlatformId === id) {
+        return;
+      }
       gtagEvent('selectPlatform', {
         event_category: 'userAction',
         platformId: id,
