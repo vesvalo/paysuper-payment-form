@@ -4,17 +4,29 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <title>ProtocolONE PayOne</title>
+    <title>PaySuper payment form</title>
     <style>
-      body {
+      body, html {
         margin: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        height: 100%;
       }
     </style>
-    <meta http-equiv = "refresh" content = "2; url = http://localhost:8080/order" />
   </head>
   <body>
-    <h1>The form is hosted by paysuper-dashboard</h1>
-    <p>Redirecting to http://localhost:8080/order</p>
-    <!-- built files will be auto injected -->
+    <noscript>
+      <strong
+        >We're sorry but the page doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+    </noscript>
+
+    <div id="paysuper-payment-form"></div>
   </body>
 </html>
+

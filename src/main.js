@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import qs from 'qs';
 import assert from 'assert';
+import { includes } from 'lodash-es';
 import webfontloader from 'webfontloader';
 import Vue2TouchEvents from 'vue2-touch-events';
 import Sandbox from '@/Sandbox.vue';
@@ -160,7 +161,17 @@ const query = qs.parse(queryString);
 const orderParams = getOrderParams(query);
 const baseOptions = getBaseOptions(query);
 
-if (query.sdk) {
+if (includes(['success', 'fail'], query.result)) {
+  if (window.opener) {
+    window.opener.postMessage({
+      source: 'PAYSUPER_PAYMENT_PAGE',
+      name: 'PAYMENT_RESULT_PAGE_REPORT',
+      data: {
+        result: query.result,
+      },
+    }, '*');
+  }
+} else if (query.sdk) {
   receiveMessages(window, {
     REQUEST_INIT_FORM(data = {}) {
       const { options } = data;
