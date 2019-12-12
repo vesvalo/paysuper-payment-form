@@ -10,16 +10,10 @@
     <component :is="option.iconComponent" />
   </div>
 
-  <div :class="$style.label">
-    {{ option.label }}
-
-    <div
-      v-if="option.additional"
-      :class="$style.additionalLabel"
-    >
-      {{ option.additional }}
-    </div>
-  </div>
+  <div
+    :class="$style.label"
+    v-html="option.label"
+  ></div>
 
   <div
     v-if="isRemovable"
@@ -56,7 +50,7 @@ export default {
       },
     },
     /**
-     * @type {{ label: string, value: string, iconComponent?: string, additional?: string }}
+     * @type {{ label: string, value: string, iconComponent?: string }}
      */
     option: {
       default: () => ({}),
@@ -157,18 +151,6 @@ export default {
   white-space: nowrap;
   flex-grow: 1;
   transition: color 0.2s ease-out;
-}
-.additionalLabel {
-  display: inline-block;
-  font-size: 10px;
-
-  @include if-ltr {
-    margin: 0 0 0 16px;
-  }
-
-  @include if-rtl {
-    margin: 0 16px 0 0;
-  }
 }
 .input {
   height: 0;

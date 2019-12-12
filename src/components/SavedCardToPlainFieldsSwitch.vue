@@ -1,5 +1,6 @@
 <script>
 import { includes } from 'lodash-es';
+import { gtagEvent } from '@/analytics';
 
 export default {
   name: 'SavedCardToPlainFieldsSwitch',
@@ -33,6 +34,11 @@ export default {
   methods: {
     emitChange() {
       const value = this.nowUsing === 'saved' ? 'manual' : 'saved';
+      if (value === 'saved') {
+        gtagEvent('useSavedBankCards', { event_category: 'userAction' });
+      } else {
+        gtagEvent('useManualBankCardsInput', { event_category: 'userAction' });
+      }
       this.$emit('change', value);
     },
   },

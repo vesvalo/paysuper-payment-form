@@ -9,6 +9,8 @@ function gtag() {
   window.dataLayer.push(arguments);
 }
 
+gtag('js', new Date());
+
 export function gtagConfig() {
   gtag('config', ...arguments);
 }
@@ -21,4 +23,22 @@ export function gtagEvent() {
   gtag('event', ...arguments);
 }
 
-gtag('js', new Date());
+export function getEcommerceItems(orderData) {
+  if (orderData.items) {
+    return orderData.items.map((item, index) => ({
+      id: item.id,
+      name: item.name,
+      list_name: 'Cart items',
+      list_position: index + 1,
+      price: `${item.amount}`,
+      quantity: 1,
+    }));
+  }
+
+  return [{
+    id: orderData.project.id,
+    name: 'Simple Checkout',
+    price: `${orderData.amount}`,
+    quantity: 1,
+  }];
+}

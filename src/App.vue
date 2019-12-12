@@ -13,6 +13,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationResult from '@/components/OrderCreationResult.vue';
+import localesScheme from '@/locales/scheme';
 import { postMessage } from './postMessage';
 
 export default {
@@ -32,19 +33,20 @@ export default {
     return {
       isCartOpened: true,
       isMobile: false,
-      layout: this.$layout,
+      currentLayout: 'page',
       opened: true,
+      localeRedrawToggler: true,
     };
   },
   computed: {
     ...mapState('PaymentForm', [
       'paymentStatus',
       'actionResult',
-      'orderParams',
       'orderData',
       'actionProcessing',
       'currentPlatformId',
     ]),
+    ...mapState(['options']),
 
     isLoading() {
       return includes(['INITIAL'], this.paymentStatus);
@@ -53,16 +55,30 @@ export default {
       return !includes(['FAILED_TO_BEGIN', 'RECREATE_TO_BEGIN'], this.paymentStatus);
     },
     isPageView() {
-      return this.layout === 'page';
+      return this.currentLayout === 'page';
+    },
+    layoutEssence() {
+      return this.options.layout || 'page';
     },
     isModalEssence() {
-      return this.$layout === 'modal';
+      return this.layoutEssence === 'modal';
     },
     wrapperComponentName() {
       if (!this.isPageView) {
         return 'Modal';
       }
-      return this.isMobile ? 'div' : 'UiScrollbarBox';
+      return 'UiScrollbarBox';
+    },
+    wrapperComponentProps() {
+      if (this.wrapperComponentName === 'UiScrollbarBox') {
+        // A cosmetic thing
+        // Clients just don't like seeing settings="[object Object]" in page source
+        return {
+          isUpdateOnClick: true,
+          settings: { suppressScrollX: true },
+        };
+      }
+      return {};
     },
   },
   created() {
@@ -87,18 +103,27 @@ export default {
     window.addEventListener('resize', this.updateLayout);
   },
   methods: {
-    ...mapActions(['recreateOrder']),
     ...mapActions('PaymentForm', ['changePlatform']),
 
     updateLayout() {
       this.isMobile = window.innerWidth < 640 || window.innerHeight < 510;
 
       if (this.isMobile) {
-        this.layout = 'page';
+        this.currentLayout = 'page';
+
+        this.$nextTick(() => {
+          this.$refs.wrapper.update();
+        });
       } else {
-        this.layout = this.$layout;
+        this.currentLayout = this.layoutEssence;
       }
     },
+
+    handleCloseCrossClick() {
+      gtagEvent('clickCloseCross', { event_category: 'userAction' });
+      this.closeForm();
+    },
+
     closeForm() {
       if (this.isModalEssence) {
         this.opened = false;
@@ -111,10 +136,20 @@ export default {
         } else {
           redirectUrl = this.orderData.project.url_fail;
         }
-        if (redirectUrl) {
-          window.location.replace(redirectUrl);
-        }
+        window.location.replace(redirectUrl || 'https://pay.super.com/');
       }
+    },
+  },
+  watch: {
+    '$i18n.locale': {
+      handler(newValue, oldValue) {
+        if (localesScheme[newValue].rtl !== true && localesScheme[oldValue].rtl === true) {
+          this.localeRedrawToggler = false;
+          this.$nextTick(() => {
+            this.localeRedrawToggler = true;
+          });
+        }
+      },
     },
   },
 };
@@ -127,12 +162,11 @@ export default {
 ]">
   <component
     v-if="opened"
+    ref="wrapper"
     :is="wrapperComponentName"
     :class="$style.wrapper"
     :opened="opened"
-    :isUpdateOnClick="true"
-    :settings="{ suppressScrollX: true }"
-    @close="closeForm"
+    v-bind="wrapperComponentProps"
   >
     <template v-if="isContentEnabled">
       <template v-if="isPageView">
@@ -194,13 +228,13 @@ export default {
       v-bind="actionResult"
       :class="$style.orderCreationError"
       :isModal="isModalEssence"
-      @tryAgain="recreateOrder('RECREATE_TO_BEGIN')"
+      @close="closeForm"
     />
 
     <div
       v-if="isModalEssence"
       :class="$style.close"
-      @click="closeForm"
+      @click="handleCloseCrossClick"
     >
       <IconClose :class="$style.iconClose" />
     </div>
@@ -228,6 +262,11 @@ export default {
 
   &._isMobile {
     touch-action: manipulation;
+
+    &._isPage > .wrapper {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   &._isPage {
@@ -251,11 +290,6 @@ export default {
       width: 100vw;
       display: flex;
       flex-direction: column;
-
-      .layout._isMobile & {
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
 
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         height: 100vh;

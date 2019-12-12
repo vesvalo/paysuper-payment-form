@@ -122,7 +122,8 @@
     "alreadyCompletedTitle": "The order is already completed",
     "openReceipt": "OPEN RECEIPT",
     "tryAgain": "TRY AGAIN",
-    "unknownError": "This error occurs once every 10,000 times!"
+    "unknownError": "This error occurs once every 10,000 times!",
+    "close": "CLOSE"
   },
   "FormSectionSavedCards": {
     "title": "Pay with a saved card",

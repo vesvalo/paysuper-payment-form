@@ -133,7 +133,8 @@
   "OrderCreationResult": {
     "title": "לצערנו, לא הצלחנו ליצור את פקודת התשלום.",
     "tryAgain": "נסה שוב",
-    "unknownError": "שגיאה זו מתרחשת רק אחת ל-10,000 פעמים!"
+    "unknownError": "שגיאה זו מתרחשת רק אחת ל-10,000 פעמים!",
+    "close": "סגור"
   },
   "FormSectionSavedCards": {
     "title": "שלם באמצעות כרטיס שמור",

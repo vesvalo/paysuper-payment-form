@@ -6,8 +6,7 @@ import {
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
-import { gtagEvent, gtagSet } from '@/analytics';
-
+import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
 const allowedPaymentStatuses = [
   // These ones are custom
@@ -80,7 +79,6 @@ export default {
     actionProcessing: null,
     actionResult: null,
     paymentStatus: 'INITIAL',
-    options: false,
     cards: [],
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
@@ -128,9 +126,11 @@ export default {
     },
     actionProcessing(state, value) {
       state.actionProcessing = value;
+      gtagEvent('showActionProcessing', value);
     },
     actionResult(state, value) {
       state.actionResult = value;
+      gtagEvent('showActionResult', value);
     },
     paymentStatus(state, value) {
       assert(
@@ -138,9 +138,6 @@ export default {
         `Payment status "${value}" is not allowed`,
       );
       state.paymentStatus = value;
-    },
-    options(state, value) {
-      state.options = value;
     },
     isUserCountryConfirmRequested(state, value) {
       state.isUserCountryConfirmRequested = value;
@@ -166,12 +163,13 @@ export default {
   },
 
   actions: {
-    initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
+    initState({ state, commit, dispatch }, { orderParams, orderData }) {
       if (orderData.error) {
         dispatch('setPaymentStatus', [
           'FAILED_TO_BEGIN',
           orderData.error,
         ]);
+        gtagEvent('orderPrimaryInitError', { error: orderData.error });
         return;
       }
       if (orderData.is_already_processed) {
@@ -182,15 +180,13 @@ export default {
             receiptUrl: orderData.receipt_url,
           },
         ]);
+        gtagEvent('orderAlreadyProcessed');
         return;
       }
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
       if (orderParams) {
         commit('orderParams', orderParams);
-      }
-      if (options) {
-        commit('options', options);
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
@@ -210,24 +206,9 @@ export default {
       dispatch('setGeoParams', orderData);
       dispatch('setPaymentStatus', ['NEW']);
 
-      const items = (get(orderData, 'items') || []).map((item, index) => ({
-        id: item.id,
-        name: item.name,
-        list_name: 'Cart items',
-        list_position: index + 1,
-        price: `${item.amount}`,
-        quantity: 1,
-      }));
-
+      const items = getEcommerceItems(state.orderData);
       gtagEvent('begin_checkout', {
-        items: items.length
-          ? items
-          : [{
-            id: state.orderParams.project,
-            name: 'Virtual Currency',
-            price: `${orderData.amount}`,
-            quantity: 1,
-          }],
+        items,
       });
     },
 
@@ -287,7 +268,6 @@ export default {
           window,
           orderId: state.orderData.id,
           token: state.orderData.token,
-          options: state.options,
         },
       )
         .on('redirectWindowClosedByUser', () => {
@@ -305,26 +285,12 @@ export default {
         .on('paymentCompleted', () => {
           dispatch('setPaymentStatus', ['COMPLETED']);
 
-          const items = (get(state.orderData, 'items') || []).map((item, index) => ({
-            id: item.id,
-            name: item.name,
-            price: item.amount,
-            list_position: `${index + 1}`,
-            quantity: 1,
-          }));
-
+          const items = getEcommerceItems(state.orderData);
           gtagEvent('purchase', {
             transaction_id: state.orderData.id,
             currency: state.orderData.currency,
             tax: state.orderData.vat,
-            items: items.length
-              ? items
-              : [{
-                id: state.orderParams.project,
-                name: 'Virtual Currency',
-                price: `${state.orderData.amount}`,
-                quantity: 1,
-              }],
+            items,
           });
         });
 
@@ -398,11 +364,13 @@ export default {
     },
 
     async removeCard({ commit, state, rootState }, id) {
+      gtagEvent('submitSavedCardRemove');
       try {
         await axios.delete(
           `${rootState.apiUrl}/api/v1/saved_card`,
           {
             data: { id },
+            withCredentials: true,
           },
         );
         const cards = reject(state.cards, { id });
@@ -410,7 +378,6 @@ export default {
       } catch (error) {
         console.error(error);
       }
-      gtagEvent('removeRememberedCard', { event_category: 'userAction' });
     },
 
     async checkPaymentAccount({
@@ -421,6 +388,7 @@ export default {
         account,
       };
 
+      gtagEvent('checkPaymentAccount');
       const response = await axios.patch(
         `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
         request,
@@ -494,14 +462,17 @@ export default {
       }
     },
 
-    async changePlatform({ state, commit, rootState }, platform) {
+    async changePlatform({
+      state, commit, dispatch, rootState,
+    }, platform) {
       try {
-        await axios.post(
+        const { data } = await axios.post(
           `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/platform`,
           {
             platform,
           },
         );
+        dispatch('setOrderDataBillingParams', data);
         commit('currentPlatformId', platform);
       } catch (error) {
         console.error(error);
@@ -519,6 +490,7 @@ export default {
         'total_amount',
         'vat',
         'vat_in_charge_currency',
+        'vat_rate',
       ]);
 
       commit('orderData', {

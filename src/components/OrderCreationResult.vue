@@ -2,6 +2,7 @@
 import { includes } from 'lodash-es';
 import IconTotemFail from '@/components/IconTotemFail.vue';
 import getErrorCodeTranslation from '@/helpers/getErrorCodeTranslation';
+import { gtagEvent } from '@/analytics';
 
 export default {
   name: 'OrderCreationResult',
@@ -69,6 +70,17 @@ export default {
       },
     });
   },
+
+  methods: {
+    trackReceiptOpen() {
+      gtagEvent('clickOpenReceiptButton', { event_category: 'userAction' });
+    },
+
+    handleCloseButtonClick() {
+      gtagEvent('clickCloseButton', { event_category: 'userAction' });
+      this.$emit('close');
+    },
+  },
 };
 </script>
 
@@ -99,6 +111,7 @@ export default {
         v-if="type === 'alreadyProcessed'"
         :href="receiptUrl"
         target="_blank"
+        @click="trackReceiptOpen"
       >
         <UiButton
           :class="$style.button"
@@ -111,9 +124,9 @@ export default {
         v-else
         :class="$style.button"
         :hasBorderRadius="false"
-        @click="$emit('tryAgain')"
+        @click="handleCloseButtonClick"
       >
-        {{$t('OrderCreationResult.tryAgain')}}
+        {{$t('OrderCreationResult.close')}}
       </UiButton>
     </div>
   </div>

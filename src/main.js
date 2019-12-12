@@ -13,6 +13,7 @@ import App from '@/App.vue';
 import Loading from '@/Loading.vue';
 import '@/plugins/vuelidate';
 import '@/plugins/cssRules';
+import '@/plugins/extendAxios';
 import store from '@/store/RootStore';
 import i18n from '@/i18n';
 import { postMessage, receiveMessages } from '@/postMessage';
@@ -24,6 +25,8 @@ import { buildPurpose, apiUrl, sentryDsn } from '@/constants';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import '@/noScalableViewport';
+
+gtagConfig('UA-142750977-1', { page_path: window.location.pathname });
 
 Vue.use(Vue2TouchEvents);
 
@@ -46,8 +49,8 @@ function getOrderParams({
   return {
     project,
     ...(devPreset ? {
-      project: '5dd7b169e6c266000138fbcb',
-      products: ['5de66aab5aecaebc1b30f2a5'],
+      project: '5dbac9bb120a810001a90a49',
+      products: ['5dbace17f3f9fb0001511931'],
       // amount: 25,
       // currency: 'USD',
       type: 'product',
@@ -99,6 +102,11 @@ async function mountApp({
     ...customOptions,
   };
 
+  gtagSet({
+    viewType: options.layout,
+    viewScheme: options.viewScheme,
+  });
+
   store.dispatch('initState', {
     orderParams,
     options,
@@ -123,7 +131,6 @@ async function mountApp({
     ...viewSchemes[options.viewScheme],
     ...(options.viewSchemeConfig || {}),
   };
-  Vue.prototype.$layout = options.layout;
 
   new VueApp({
     store,
@@ -144,14 +151,6 @@ async function mountApp({
           families: ['PT Mono'],
         },
       });
-
-      gtagSet({
-        currency: orderParams.currency,
-        viewType: options.layout,
-        viewScheme: options.viewScheme,
-      });
-
-      gtagConfig('UA-142750977-1', { page_path: `/${options.layout}` });
     },
   }).$mount(mountPoint);
 }
