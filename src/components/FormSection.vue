@@ -34,21 +34,6 @@ export default {
 
   data() {
     return {
-      paymentData: {
-        cardNumber: '',
-        expiryDate: '',
-        cvv: '',
-        hasRemembered: false,
-        country: '',
-        city: '',
-        zip: '',
-        email: '',
-        ewallet: '',
-        crypto: '',
-        cardDataType: 'saved',
-        savedCardId: '',
-      },
-
       paymentMethodGroups: {
         BANKCARD: {
           iconComponent: 'IconCard',
@@ -81,6 +66,7 @@ export default {
     ...mapState('PaymentForm', [
       'orderData',
       'orderParams',
+      'paymentData',
       'activePaymentMethodId',
       'cards',
       'actionResult',
@@ -159,7 +145,7 @@ export default {
     cards: {
       handler(value) {
         if (!value.length) {
-          this.paymentData.cardDataType = 'manual';
+          this.setPaymentData({ cardDataType: 'manual' });
         }
       },
       immediate: true,
@@ -191,23 +177,11 @@ export default {
     };
   },
 
-  created() {
-    this.paymentData.email = this.orderData.email;
-    if (this.userIpGeoData) {
-      this.paymentData.country = this.userIpGeoData.country;
-      this.paymentData.zip = this.userIpGeoData.zip;
-    }
-    if (this.paymentData.cardDataType === 'saved') {
-      gtagEvent('hasSavedBankCards');
-    } else {
-      gtagEvent('noSavedBankCards');
-    }
-  },
-
   methods: {
     ...mapActions('PaymentForm', [
       'setActivePaymentMethodById',
       'createPayment',
+      'setPaymentData',
       'removeCard',
       'checkPaymentAccount',
       'submitUserCountry',
@@ -258,9 +232,7 @@ export default {
     },
 
     setNewUserCountry(value) {
-      this.paymentData.country = value;
-      this.paymentData.city = '';
-      this.paymentData.zip = '';
+      this.setPaymentData({ country: value, city: '', zip: '' });
 
       gtagEvent('setUserCountry', {
         event_category: 'userAction',
@@ -331,7 +303,7 @@ export default {
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"
-          v-model="paymentData"
+          :value="paymentData"
           :countries="countries"
           :cards="cards"
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
@@ -345,25 +317,28 @@ export default {
           @cityChange="requestBillingDataUpdate"
           @zipChange="requestBillingDataUpdate"
           @removeCard="removeCard"
+          @change="setPaymentData($event)"
         />
         <template v-else>
           <UiTextField
             :class="$style.formItem"
-            v-model="paymentData[activePaymentMethod.type]"
+            :value="paymentData[activePaymentMethod.type]"
             :name="activePaymentMethod.type"
             :hasError="$isFieldInvalid(`paymentData.${activePaymentMethod.type}`)"
             :errorText="$t('FormSection.abstractNumberError')"
-            :label="$t('FormSection.abstractNumberPlaceholder', {name: activePaymentMethod.name})"
+            :label="$t('FormSection.abstractNumberPlaceholder', { name: activePaymentMethod.name })"
+            @input="setPaymentData({ [activePaymentMethod.type]: $event })"
           />
           <UiTextField
             v-if="isEmailFieldExposed"
             :class="$style.formItem"
-            v-model="paymentData.email"
+            :value="paymentData.email"
             type="email"
             name="email"
             :hasError="$isFieldInvalid('paymentData.email')"
             :errorText="$t('FormSection.emailInvalid')"
             :label="$t('FormSection.email')"
+            @input="setPaymentData({ email: $event })"
           />
         </template>
       </div>
