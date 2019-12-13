@@ -75,7 +75,7 @@ export default {
       'userIpGeoData',
       'isEmailFieldExposed',
       'isCountryFieldExposed',
-      'isGeoFieldsExposed',
+      'isZipFieldExposed',
       'isZipInvalid',
       'currentPlatformId',
     ]),
@@ -309,7 +309,7 @@ export default {
           :cardNumberValidator="activePaymentMethod.account_regexp | getRegexp"
           :isEmailFieldExposed="isEmailFieldExposed"
           :isCountryFieldExposed="isCountryFieldExposed"
-          :isGeoFieldsExposed="isGeoFieldsExposed"
+          :isZipFieldExposed="isZipFieldExposed"
           :isZipInvalid="isZipInvalid"
           @savedCardIdChange="checkSavedCardNumberById"
           @cardNumberChange="checkBankCardNumber"

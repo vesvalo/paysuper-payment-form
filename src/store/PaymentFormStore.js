@@ -97,8 +97,8 @@ export default {
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
     isEmailFieldExposed: true,
-    isCountryFieldExposed: true,
-    isGeoFieldsExposed: false,
+    isCountryFieldExposed: false,
+    isZipFieldExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
   },
@@ -168,8 +168,8 @@ export default {
     isCountryFieldExposed(state, value) {
       state.isCountryFieldExposed = value;
     },
-    isGeoFieldsExposed(state, value) {
-      state.isGeoFieldsExposed = value;
+    isZipFieldExposed(state, value) {
+      state.isZipFieldExposed = value;
     },
     userIpGeoData(state, value) {
       state.userIpGeoData = value;
@@ -272,16 +272,15 @@ export default {
       commit('isUserCountryConfirmRequested', false);
 
       if (data.country_payments_allowed === false) {
-        commit('isGeoFieldsExposed', true);
+        commit('isCountryFieldExposed', true);
         if (data.country_change_allowed) {
           commit('isUserCountryConfirmRequested', true);
         } else {
           commit('isUserCountryRestricted', true);
         }
       }
-
-      if (data.user_address_data_required) {
-        commit('isGeoFieldsExposed', true);
+      if (get(data, 'user_ip_data.country') === 'US' && !data.user_ip_data.zip) {
+        commit('isZipFieldExposed', true);
       }
     },
 
@@ -298,7 +297,7 @@ export default {
       state, rootState, dispatch,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
-      country, city, zip, cardDataType, savedCardId,
+      country, zip, cardDataType, savedCardId,
     }) {
       dispatch('setPaymentStatus', ['BEFORE_CREATED']);
 
@@ -350,15 +349,8 @@ export default {
         store_data: hasRemembered,
         ewallet,
         address: crypto,
-        ...(
-          state.isGeoFieldsExposed
-            ? {
-              country,
-              city,
-              zip,
-            }
-            : {}
-        ),
+        ...(state.isCountryFieldExposed ? { country } : {}),
+        ...(state.isZipFieldExposed ? { zip } : {}),
       };
 
       try {
