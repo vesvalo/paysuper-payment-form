@@ -26,7 +26,7 @@ jobs:
     - yarn build --frozen-lockfile
     #- rclone copy tests/unit/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
     #  --s3-endpoint=$S3_HOST
-    - sonar-scanner
+    #- sonar-scanner
     - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
     #- yarn coverage:publish
   - name: stage
