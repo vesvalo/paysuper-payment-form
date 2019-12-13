@@ -200,14 +200,17 @@ export default {
         gtagEvent('orderAlreadyProcessed');
         return;
       }
+
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
+
       if (orderParams) {
         commit('orderParams', orderParams);
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
       const bankCardMethod = orderData.payment_methods[bankCardIndex];
+
       commit('activePaymentMethodId', bankCardMethod.id);
       commit('cards', bankCardMethod.saved_cards);
 
@@ -216,17 +219,29 @@ export default {
       }
       if (orderData.email) {
         commit('isEmailFieldExposed', false);
+        dispatch('setPaymentData', { email: orderData.email });
       }
-      if (orderData.user_ip_data) {
-        commit('userIpGeoData', orderData.user_ip_data);
+
+      const userIpGeoData = orderData.user_ip_data;
+      if (userIpGeoData) {
+        commit('userIpGeoData', userIpGeoData);
+        dispatch('setPaymentData', {
+          country: userIpGeoData.country,
+          zip: userIpGeoData.zip,
+        });
       }
+
       dispatch('setGeoParams', orderData);
       dispatch('setPaymentStatus', ['NEW']);
 
+      if (state.paymentData.cardDataType === 'saved') {
+        gtagEvent('hasSavedBankCards');
+      } else {
+        gtagEvent('noSavedBankCards');
+      }
+
       const items = getEcommerceItems(state.orderData);
-      gtagEvent('begin_checkout', {
-        items,
-      });
+      gtagEvent('begin_checkout', { items });
     },
 
     setPaymentStatus({ commit }, [name, extraData]) {
@@ -245,8 +260,11 @@ export default {
       }
     },
 
-    setPaymentData({ commit }, data) {
-      commit('paymentData', data);
+    setPaymentData({ commit, state }, data) {
+      commit('paymentData', {
+        ...state.paymentData,
+        ...data,
+      });
     },
 
     setGeoParams({ commit }, data) {

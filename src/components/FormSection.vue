@@ -145,7 +145,7 @@ export default {
     cards: {
       handler(value) {
         if (!value.length) {
-          this.setPaymentData({ ...this.paymentData, cardDataType: 'manual' });
+          this.setPaymentData({ cardDataType: 'manual' });
         }
       },
       immediate: true,
@@ -175,22 +175,6 @@ export default {
         },
       },
     };
-  },
-
-  created() {
-    this.setPaymentData({ ...this.paymentData, email: this.orderData.email });
-    if (this.userIpGeoData) {
-      this.setPaymentData({
-        ...this.paymentData,
-        country: this.userIpGeoData.country,
-        zip: this.userIpGeoData.zip,
-      });
-    }
-    if (this.paymentData.cardDataType === 'saved') {
-      gtagEvent('hasSavedBankCards');
-    } else {
-      gtagEvent('noSavedBankCards');
-    }
   },
 
   methods: {
@@ -248,12 +232,7 @@ export default {
     },
 
     setNewUserCountry(value) {
-      this.setPaymentData({
-        ...this.paymentData,
-        country: value,
-        city: '',
-        zip: '',
-      });
+      this.setPaymentData({ country: value, city: '', zip: '' });
 
       gtagEvent('setUserCountry', {
         event_category: 'userAction',
@@ -338,7 +317,7 @@ export default {
           @cityChange="requestBillingDataUpdate"
           @zipChange="requestBillingDataUpdate"
           @removeCard="removeCard"
-          @change="setPaymentData({ ...paymentData, ...$event })"
+          @change="setPaymentData($event)"
         />
         <template v-else>
           <UiTextField
@@ -348,7 +327,7 @@ export default {
             :hasError="$isFieldInvalid(`paymentData.${activePaymentMethod.type}`)"
             :errorText="$t('FormSection.abstractNumberError')"
             :label="$t('FormSection.abstractNumberPlaceholder', { name: activePaymentMethod.name })"
-            @input="setPaymentData({ ...paymentData, [activePaymentMethod.type]: $event })"
+            @input="setPaymentData({ [activePaymentMethod.type]: $event })"
           />
           <UiTextField
             v-if="isEmailFieldExposed"
@@ -359,7 +338,7 @@ export default {
             :hasError="$isFieldInvalid('paymentData.email')"
             :errorText="$t('FormSection.emailInvalid')"
             :label="$t('FormSection.email')"
-            @input="setPaymentData({ ...paymentData, email: $event })"
+            @input="setPaymentData({ email: $event })"
           />
         </template>
       </div>
