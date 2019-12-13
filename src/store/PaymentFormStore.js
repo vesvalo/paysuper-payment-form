@@ -74,6 +74,20 @@ export default {
         name: '',
       },
     },
+    paymentData: {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+      hasRemembered: false,
+      country: '',
+      city: '',
+      zip: '',
+      email: '',
+      ewallet: '',
+      crypto: '',
+      cardDataType: 'saved',
+      savedCardId: '',
+    },
     activePaymentMethodId: '',
     currentPlatformId: '',
     actionProcessing: null,
@@ -117,6 +131,9 @@ export default {
     },
     orderData(state, value) {
       state.orderData = value;
+    },
+    paymentData(state, value) {
+      state.paymentData = value;
     },
     currentPlatformId(state, value) {
       state.currentPlatformId = value;
@@ -226,6 +243,10 @@ export default {
       if (actionProcessing) {
         commit('actionProcessing', actionProcessing(extraData));
       }
+    },
+
+    setPaymentData({ commit }, data) {
+      commit('paymentData', data);
     },
 
     setGeoParams({ commit }, data) {
