@@ -68,40 +68,38 @@
     :label="$t('FormSectionBankCard.email')"
     @input="emitChanges('email')"
   />
-  <template v-if="isGeoFieldsExposed">
-    <UiSelect
-      v-if="isCountryFieldExposed"
-      v-model="innerValue.country"
-      maxHeight="240px"
-      :options="countries"
-      :placeholderLabel="$t('FormSectionBankCard.country')"
-      :hasReversible="true"
-      :hasError="$isFieldInvalid('innerValue.country')"
-      :errorText="$t('FormSectionBankCard.countryInvalid')"
-      tabindex="6"
-      @input="emitChanges('country')"
-    />
-    <!-- <UiTextField
-      v-model="innerValue.city"
-      name="city"
-      :class="$style.formItem"
-      :label="$t('FormSectionBankCard.city')"
-      :hasError="$isFieldInvalid('innerValue.city')"
-      :errorText="$t('FormSectionBankCard.cityInvalid')"
-      tabindex="7"
-    /> -->
-    <UiTextField
-      v-if="isZipRequired"
-      v-model="innerValue.zip"
-      name="zip"
-      :class="$style.formItem"
-      :label="$t('FormSectionBankCard.zip')"
-      :hasError="$isFieldInvalid('innerValue.zip')"
-      :errorText="$t('FormSectionBankCard.zipInvalid')"
-      tabindex="8"
-      @input="emitChanges('zip')"
-    />
-  </template>
+  <UiSelect
+    v-if="isCountryFieldExposed"
+    v-model="innerValue.country"
+    maxHeight="240px"
+    :options="countries"
+    :placeholderLabel="$t('FormSectionBankCard.country')"
+    :hasReversible="true"
+    :hasError="$isFieldInvalid('innerValue.country')"
+    :errorText="$t('FormSectionBankCard.countryInvalid')"
+    tabindex="6"
+    @input="emitChanges('country')"
+  />
+  <!-- <UiTextField
+    v-model="innerValue.city"
+    name="city"
+    :class="$style.formItem"
+    :label="$t('FormSectionBankCard.city')"
+    :hasError="$isFieldInvalid('innerValue.city')"
+    :errorText="$t('FormSectionBankCard.cityInvalid')"
+    tabindex="7"
+  /> -->
+  <UiTextField
+    v-if="isZipFieldExposed"
+    v-model="innerValue.zip"
+    name="zip"
+    :class="$style.formItem"
+    :label="$t('FormSectionBankCard.zip')"
+    :hasError="$isFieldInvalid('innerValue.zip')"
+    :errorText="$t('FormSectionBankCard.zipInvalid')"
+    tabindex="8"
+    @input="emitChanges('zip')"
+  />
 
   <div
     v-if="innerValue.cardDataType === 'manual'"
@@ -208,7 +206,7 @@ export default {
       type: Boolean,
       required: true,
     },
-    isGeoFieldsExposed: {
+    isZipFieldExposed: {
       type: Boolean,
       required: true,
     },
@@ -233,12 +231,6 @@ export default {
       isCvvInfoShown: false,
       isRememberInfoShown: false,
     };
-  },
-
-  computed: {
-    isZipRequired() {
-      return this.innerValue.country === 'US';
-    },
   },
 
   watch: {
@@ -283,28 +275,24 @@ export default {
       };
     }
 
-
-    if (this.isGeoFieldsExposed) {
+    if (this.isCountryFieldExposed) {
       innerValue = {
         ...innerValue,
         country: {
           required,
         },
       };
-      if (this.isZipRequired) {
-        innerValue = {
-          ...innerValue,
-          // city: {
-          //   required,
-          // },
-          zip: {
-            required,
-            wrongValue() {
-              return !this.isZipInvalid;
-            },
+    }
+    if (this.isZipFieldExposed) {
+      innerValue = {
+        ...innerValue,
+        zip: {
+          required,
+          wrongValue() {
+            return !this.isZipInvalid;
           },
-        };
-      }
+        },
+      };
     }
     return {
       innerValue,
