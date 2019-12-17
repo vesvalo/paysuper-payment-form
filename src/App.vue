@@ -234,7 +234,7 @@ export default {
     <div
       v-if="isModalEssence"
       :class="$style.close"
-      @click="handleCloseCrossClick"
+      v-touch:tap="handleCloseCrossClick"
     >
       <IconClose :class="$style.iconClose" />
     </div>
