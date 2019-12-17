@@ -34,10 +34,12 @@ export default {
 
     if (this.isUpdateOnClick) {
       window.addEventListener('click', this.update);
+      window.addEventListener('touchstart', this.update);
     }
   },
   beforeDestroy() {
     window.removeEventListener('click', this.update);
+    window.removeEventListener('touchstart', this.update);
   },
   methods: {
     update() {
