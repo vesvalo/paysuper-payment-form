@@ -29,14 +29,6 @@ jobs:
     #- sonar-scanner
     - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
     #- yarn coverage:publish
-  - name: standalone
-    if: "(branch = standalone)"
-    script:
-    - set -e
-    - yarn lint
-    - yarn test
-    - yarn build --frozen-lockfile
-    - rclone copy dist :s3://cdn.pay.super.com/payform/standalone/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
   - name: stage
     if: "(branch = master)"
     script:
@@ -44,7 +36,7 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-stage --frozen-lockfile
-    - rclone copy dist :s3://cdn.pay.super.com/payform/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: release
     if: "(tag =~ ^v)"
     script:
@@ -54,6 +46,32 @@ jobs:
     - yarn build-release --frozen-lockfile
     - rclone copy dist :s3://cdn.pay.super.com/payform/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
     - rclone copy dist :s3://cdn.pay.super.com/payform/$TRAVIS_TAG/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+
+  - name: standalone-dev
+    if: "(branch = standalone)"
+    script:
+    - set -e
+    - yarn lint
+    - yarn test
+    - yarn build --frozen-lockfile
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+  - name: standalone-stage
+    if: "(branch = standalone-stage)"
+    script:
+    - set -e
+    - yarn lint
+    - yarn test
+    - yarn build-stage --frozen-lockfile
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+  - name: standalone-prod
+    if: "(branch = standalone-prod)"
+    script:
+    - set -e
+    - yarn lint
+    - yarn test
+    - yarn build-release --frozen-lockfile
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+
 notifications:
   email: false
   slack:
