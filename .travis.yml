@@ -4,15 +4,12 @@ node_js:
 dist: trusty
 addons:
   sonarcloud:
-    organization: "paysuper"
+    organization: paysuper
 sudo: true
 env:
   global:
-  #s3_host
   - secure: a6E6hIh/h0Fh2oGkXY9FiRi34x/05wOQN1YOa4R1jHTXYVgBmzWt09nc1wkJM30msOtWkxt3CUSXpzfEWKNs1IAfunpiwG02uGtfCcBejE0Pv8ZIlm8IHke2xW8+E9J+uHXqL+PdQrN/a0I8WsLbOA1Vn293Bu2f8dlDzZeO2PObQHVTeMvhGH/MOTzkznDCYG5197XwGJz/553php6G5bTKo8GT6yARgTiW0vASfuUGaGYHnadRvjf4AdiMt74lTO/N5Lhdc+oH2jwd1ji4sIW4z8EAuYCVxLYUOHVcHyU67UeGk6GUNC/KIm4x3MSMn5yaUPnUEYDXwXLvPtX0Ekm6u3p+S6XIGGQvx9+7w4SIULCaK7qLOm9usJRfvwgQ0QYf0SRzVTdMQsfaaDyZj7pbD2GHrBbiHP3b6C7CjFb3aqbi08PZjF6p3hl2NsbfAorNIfN+158SCex2K3H3FPFcYJTpKZPzNkyoDW+KZwk+JbtyMp3+z7cLHjgSoRtXXKVXNXSPLcZ9Y1XoB+XicstpCzlL1DRqKeEXkkQrTY/QCgizHd9heWUtIH4m42Nv4X0RJufifbz/yCUBFIRHz1uI1I7AhldzBztUC5rm98Oh5sWjavR5b0FbhC/AjmwUkGgnbpY5NJIf12ewG/KTIzOyT2NWCDVcmjyWbfoIKN8=
-  #access_key
   - secure: MFdews3YV5ej/XkHxg4zCY6Y3M+9EBCFRTdt0kyS8ZVbVyV/rK4HXtop7gy3q8dfLBC+XrXqdV+JJ9s7NHX4jjQnyqc8PvBV1Rvom2CaeIXBmEgi3TS8XsMArKHrzzuH/AVsbsfGquFCPTdkQ5zYGXdhkpsVscZZkL6yrarKKPbBGMrpZirSGUKwMorjs5jVPsWbpnH88vck/9Kq9EHW66YZjJtKotU+feC7F4pKuDrWMqF+35sHTlOKmKX3Usm6ryVF414RXTxxL+4FUXm0dleWUtrOUKxS83fSIVXSbuL2zU4Mb2UMkEmSiGQ5o36tU9/mVj77eXCt+QwpCdGFH7iWu8cZK3xbNxY1nKuKTn0Yk98PsYzkYDt34W8Ypk37BsvhB539Q2h7L3lIn/8lqXSCw2zCMFEho5o+m1RCMYBttk/nHlfqG7MvHgBlB8kkZ0ye/beopbq3MStc3UlMimc1H+bLvfxegZ5KNJ+6qlzRLADd+lHE9i5buDaTow/qMs5qlL87qhpeJ+vLfutww1yLDwlXAlHttyiNiFKQLyQdi+HlULMpGV0WhnUMGSVRViZjvqJ1dW665QRyRG39ngNcJzV8TXOSNI/BvoIqQZErvxMV8Ocrdx+Wn8FOz83F7UoASdhnLvErTQRDqJjTELpGnrVN9j336Q+fAwo/9L4=
-  #secret_key
   - secure: aa9+1Jzv+o0ONXzZc0kDKT8vWZk4kQrHEP6PzfzJ10T/qc/CuIasBclY9oav4xxroyNm8TtphRhsIkOY7Q89QqGeUVM0y1X6OUCTUvpBBpem7lk5JNY5VuJ1O1lyKJr+Qy3IyREa0hUVDDe3thRKM1KKAOFHOKYn70MRTrMdg+X6pMjRFWY/syA2AGwEvwhLF1x1YLjbfqlWQvDHaq0aBdfp/bIjLlTFBhWl4d8iDfhz11QU+wpt5N71c1wFTpS9fi8JTNrh/z5kNfG5PomYjoIhIisYCDTUVtiapjDSU4nbEbfhWC4dop1/8h7dqSGZE2TWXsy3MffWAhXLQg7jH4LIWeUKaZPLMNFQ2MypwHHuIdK7fJ5r/kFr/drbAKDQBSpEv61HtwnwY33Ui4vIuE6q5O3N/K/KMtH1Y8b50liX1FzUX/sTO0gtH1ekFG1Y6yhdvdWVW/b51dql2OC6sE5xKQdJTNV9zGUAdWVo+pZlG627H3uzB2REcKnoijJIdlS8koY5ZutmmXGKoWNpUt/t4clhgbCT4ffSkljV8qMZz1vtzVkjoiOUdjwG+k+xj5ZGcht1PB8zy9YtsJNTPuJoKJ2RL7fS3LSarjGhdexoa0Dki8YDfhbhYMAFHu7K4cfFSgWwCUM7KjdbwHZtf86O4N5zIU0a6jil2PX/ZZU=
 before_script: curl https://rclone.org/install.sh | sudo bash
 jobs:
@@ -24,11 +21,10 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build --frozen-lockfile
-    #- rclone copy tests/unit/__image_snapshots__/__diff_output__/ :s3://paysuper/form/dev/tests --s3-access-key-id=$S3_ACCESS_KEY --s3-secret-access-key=$S3_SECRET_KEY
-    #  --s3-endpoint=$S3_HOST
-    #- sonar-scanner
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
-    #- yarn coverage:publish
+    - sonar-scanner
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/
+      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
+      --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: stage
     if: "(branch = master)"
     script:
@@ -36,7 +32,9 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-stage --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/stage/
+      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
+      --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: release
     if: "(tag =~ ^v)"
     script:
@@ -44,9 +42,10 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-release --frozen-lockfile
-    - rclone copy dist :s3://cdn.pay.super.com/payform/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
-    - rclone copy dist :s3://cdn.pay.super.com/payform/$TRAVIS_TAG/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
-
+    - rclone copy dist :s3://cdn.pay.super.com/payform/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID
+      --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
+    - rclone copy dist :s3://cdn.pay.super.com/payform/$TRAVIS_TAG/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID
+      --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
   - name: standalone-dev
     if: "(branch = standalone)"
     script:
@@ -54,7 +53,9 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/dev/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/dev/
+      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
+      --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: standalone-stage
     if: "(branch = standalone-stage)"
     script:
@@ -62,7 +63,9 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-stage --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/stage/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/stage/
+      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
+      --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: standalone-prod
     if: "(branch = standalone-prod)"
     script:
@@ -70,8 +73,9 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-release --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1; else echo "PR skip upload"; fi
-
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/latest/
+      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
+      --s3-region=eu-west-1; else echo "PR skip upload"; fi
 notifications:
   email: false
   slack:
