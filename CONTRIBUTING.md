@@ -49,8 +49,9 @@ These are some of the points to keep in mind when contributing.
 6. Clicks and swipes are (in most cases) implemented using `vue2-touch-events` library. All new clicks and swipea-based events have also be implemented using `vue2-touch-events` library.
 7. The touch lag is processed by `fastclick` library. You may want to keep it in mind.
 8. We use `vue-clickaway` to detect clicks outside of the element.  
-9. Yout should remember that the form is multilingual (with 2 RTL-languages). Meaning that UI-related code contributions should be tested to accommodate the supported languages, which also includes testing for proper tabs, spaces, arrow directions, element positions, etc. We have relevant SCSS-mixin plugged in. They can be used at any place in the form.
-10. As in any cross-browser solution, any small style or markdown fixes can lead to bugs in iOS, IE11 or mobile browsers (often mobile Safari). These are some of the things to keep in mind:
+9. We use `v-touch:tap` directive instead of `@click` for all nonactive elements (`div`, `span` etc.) to prevent the need of clicking them twice on some mobile devices. 
+10. You should remember that the form is multilingual (with 2 RTL-languages). Meaning that UI-related code contributions should be tested to accommodate the supported languages, which also includes testing for proper tabs, spaces, arrow directions, element positions, etc. We have relevant SCSS-mixin plugged in. They can be used at any place in the form.
+11. As in any cross-browser solution, any small style or markdown fixes can lead to bugs in iOS, IE11 or mobile browsers (often mobile Safari). These are some of the things to keep in mind:
 * Does your code transpile well? For JavaScript, any non-supported API (such as JavaScript Array includes()) may result in a non-functional form on some devices/browsers.
 * Was your CSS code supplied with styles that actually work with the supported browsers? Sometimes code can be transpiled in non-optimal ways, reply on missing or non-working features. Meaning you have to supply the styles for certain browsers on your own.
 * Flex-box requires special attention on iOS, because of custom implementation. Your code sometimes does not transpile well for iOS or IE11 and may have bugs.
