@@ -400,6 +400,9 @@ export default {
     async checkUserLanguage({
       state, rootState, dispatch,
     }, locale) {
+      if (state.actionResult) {
+        return;
+      }
       const [lang] = locale.split('-');
       const request = {
         lang,
