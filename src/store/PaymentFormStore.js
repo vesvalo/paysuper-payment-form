@@ -484,7 +484,7 @@ export default {
       } catch (error) {
         const zipErrors = [
           'fm000050', // zip not found
-          'ma000073', // zip invalid
+          'co000008', // zip invalid
         ];
         const apiErrorCode = get(error, 'response.data.code');
         if (includes(zipErrors, apiErrorCode)) {
