@@ -450,7 +450,12 @@ export default {
       }
     },
 
-    submitUserCountry({ commit }) {
+    submitUserCountry({ state, commit }) {
+      if (state.paymentData.country === 'US') {
+        commit('isZipFieldExposed', true);
+      } else {
+        commit('isZipFieldExposed', false);
+      }
       commit('isUserCountryConfirmRequested', false);
     },
 
