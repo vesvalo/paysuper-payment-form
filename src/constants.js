@@ -3,8 +3,8 @@ export const buildPurpose = process.env.VUE_APP_BUILD_PURPOSE;
 export const fallbackLocale = process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en-US';
 
 const apiUrlMap = {
-  dev: 'https://p1payapi.tst.protocol.one',
-  test: 'https://p1payapi.tst.protocol.one',
+  dev: 'https://checkout.tst.protocol.one',
+  test: 'https://checkout.tst.protocol.one',
   stage: 'https://api.stg.pay.super.com',
   release: 'https://api.pay.super.com',
 };
