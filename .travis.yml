@@ -21,8 +21,7 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build --frozen-lockfile
-    - sonar-scanner
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/dev/
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/dev/pay/order/
       --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
       --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: stage
@@ -32,42 +31,11 @@ jobs:
     - yarn lint
     - yarn test
     - yarn build-stage --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/stage/
+    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/stage/pay/order/
       --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
       --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: release
     if: "(tag =~ ^v)"
-    script:
-    - set -e
-    - yarn lint
-    - yarn test
-    - yarn build-release --frozen-lockfile
-    - rclone copy dist :s3://cdn.pay.super.com/payform/latest/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID
-      --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
-    - rclone copy dist :s3://cdn.pay.super.com/payform/$TRAVIS_TAG/ --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID
-      --s3-secret-access-key=$AWS_CDN_SECRET_KEY --s3-region=eu-west-1
-  - name: standalone-dev
-    if: "(branch = standalone)"
-    script:
-    - set -e
-    - yarn lint
-    - yarn test
-    - yarn build --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/dev/pay/order/
-      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
-      --s3-region=eu-west-1; else echo "PR skip upload"; fi
-  - name: standalone-stage
-    if: "(branch = standalone-stage)"
-    script:
-    - set -e
-    - yarn lint
-    - yarn test
-    - yarn build-stage --frozen-lockfile
-    - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then rclone copy dist :s3://cdn.pay.super.com/payform/standalone/stage/pay/order/
-      --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
-      --s3-region=eu-west-1; else echo "PR skip upload"; fi
-  - name: standalone-prod
-    if: "(branch = standalone-prod)"
     script:
     - set -e
     - yarn lint
