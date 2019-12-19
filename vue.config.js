@@ -3,6 +3,10 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const aliasesConfig = require('./aliases.config');
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/pay/order/'
+    : '/',
+
   css: {
     modules: true,
     extract: false,

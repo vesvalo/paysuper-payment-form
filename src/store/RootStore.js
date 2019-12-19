@@ -14,6 +14,14 @@ import { postMessage } from '../postMessage';
 
 Vue.use(Vuex);
 
+function getQueryOrderId(query) {
+  const [, , explicitOrderId] = window.location.pathname.split('/').filter(item => item);
+  if (explicitOrderId) {
+    return explicitOrderId;
+  }
+  return query.order_id;
+}
+
 export default new Vuex.Store({
   state: {
     apiUrl: '',
@@ -59,7 +67,7 @@ export default new Vuex.Store({
 
       const orderData = await dispatch('getPreparedOrderData', {
         orderParams,
-        queryOrderId: query.order_id,
+        queryOrderId: getQueryOrderId(query),
       });
       gtagSet({ currency: orderData.currency });
       if (orderData.lang) {
