@@ -3,6 +3,7 @@ import assert from 'assert';
 import {
   reject, find, findIndex, get, includes, pick,
 } from 'lodash-es';
+import { captureProductionException } from '@/helpers/errorLoggers';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
@@ -315,7 +316,10 @@ export default {
           dispatch('setPaymentStatus', ['DECLINED', data]);
         })
         .on('paymentFailed', (data) => {
-          dispatch('setPaymentStatus', ['FAILED_TO_CREATE', data]);
+          dispatch('setPaymentStatus', ['FAILED_TO_CREATE']);
+          const errorMessage = `Unexpected centrifuge disconnect: ${get(data, 'reason')}`;
+          console.error(errorMessage);
+          captureProductionException(errorMessage);
         })
         .on('paymentSystemSuccess', () => {
           dispatch('setPaymentStatus', ['SYSTEM_SUCCESS']);
@@ -371,6 +375,8 @@ export default {
           2000,
         );
       } catch (error) {
+        console.error(error);
+        captureProductionException(error);
         paymentConnection.closeRedirectWindow().disconnect();
 
         const errorData = get(error, 'response.data') || {};
@@ -408,6 +414,7 @@ export default {
         commit('cards', cards);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 
@@ -418,14 +425,18 @@ export default {
         method_id: state.activePaymentMethodId,
         account,
       };
-
       gtagEvent('checkPaymentAccount');
-      const response = await axios.patch(
-        `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
-        request,
-      );
-      dispatch('setOrderDataBillingParams', response.data);
-      dispatch('setGeoParams', response.data);
+      try {
+        const response = await axios.patch(
+          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
+          request,
+        );
+        dispatch('setOrderDataBillingParams', response.data);
+        dispatch('setGeoParams', response.data);
+      } catch (error) {
+        console.error(error);
+        captureProductionException(error);
+      }
     },
 
     async checkUserLanguage({
@@ -447,6 +458,7 @@ export default {
         dispatch('setGeoParams', response.data);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 
@@ -491,6 +503,7 @@ export default {
           commit('isZipInvalid', true);
         } else {
           console.error(error);
+          captureProductionException(error);
           if (apiErrorCode) {
             commit('actionResult', {
               type: 'customError',
@@ -515,6 +528,7 @@ export default {
         commit('currentPlatformId', platform);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 

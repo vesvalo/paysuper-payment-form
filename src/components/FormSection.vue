@@ -247,11 +247,7 @@ export default {
     async checkBankCardNumber(value) {
       // complete card number
       if (value.length === 16) {
-        try {
-          await this.checkPaymentAccount(value);
-        } catch (error) {
-          console.error(error);
-        }
+        await this.checkPaymentAccount(value);
       }
     },
 
@@ -260,11 +256,7 @@ export default {
       if (!card) {
         return;
       }
-      try {
-        await this.checkPaymentAccount(card.pan);
-      } catch (error) {
-        console.error(error);
-      }
+      await this.checkPaymentAccount(card.pan);
     },
   },
 };

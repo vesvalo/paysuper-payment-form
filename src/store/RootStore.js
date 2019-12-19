@@ -4,6 +4,7 @@ import qs from 'qs';
 import axios from 'axios';
 import assert from 'assert';
 import { get } from 'lodash-es';
+import { captureProductionException } from '@/helpers/errorLoggers';
 import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
@@ -81,6 +82,7 @@ export default new Vuex.Store({
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
+        captureProductionException(error);
         let errorData = get(error, 'response.data');
         if (!errorData) {
           console.error(error);
@@ -141,6 +143,7 @@ export default new Vuex.Store({
         dispatch('PaymentForm/initState', { orderData });
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
         dispatch('PaymentForm/setPaymentStatus', ['FAILED_TO_BEGIN', error]);
         gtagEvent('orderRecreationError', { error });
       }
