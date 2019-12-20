@@ -25,7 +25,7 @@ jobs:
       --s3-access-key-id=$AWS_CDN_ACCESS_KEY_ID --s3-secret-access-key=$AWS_CDN_SECRET_KEY
       --s3-region=eu-west-1; else echo "PR skip upload"; fi
   - name: stage
-    if: "(branch = master)"
+    if: "(branch =~ ^release/v)"
     script:
     - set -e
     - yarn lint
