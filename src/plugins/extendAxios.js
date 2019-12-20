@@ -1,8 +1,11 @@
+
+
 import axios from 'axios';
+import { buildPurpose } from '@/constants';
 
 const createRequestInterceptor = () => config => ({
   ...config,
-  withCredentials: true,
+  ...(buildPurpose === 'dev' ? {} : { withCredentials: true }),
 });
 const requestInterceptor = createRequestInterceptor();
 axios.interceptors.request.use(requestInterceptor);
