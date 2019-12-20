@@ -288,7 +288,7 @@ $main-additional-height: 18px;
 
   &._secure {
     font-family: 'text-security-disc';
-    -webkit-text-security: disc;
+    // -webkit-text-security: disc; buggs now in safari
   }
 
   &::-webkit-textfield-decoration-container,
