@@ -4,9 +4,9 @@ export const fallbackLocale = process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en-US
 
 const apiUrlMap = {
   dev: 'https://checkout.tst.pay.super.com',
-  test: '',
-  stage: '',
-  release: '',
+  test: 'https://checkout.tst.pay.super.com',
+  stage: 'https://checkout.stg.pay.super.com',
+  release: 'https://checkout.pay.super.com',
 };
 export const apiUrl = apiUrlMap[buildPurpose] || apiUrlMap.dev;
 
