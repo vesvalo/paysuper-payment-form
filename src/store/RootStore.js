@@ -4,6 +4,7 @@ import qs from 'qs';
 import axios from 'axios';
 import assert from 'assert';
 import { get } from 'lodash-es';
+import { captureProductionException } from '@/helpers/errorLoggers';
 import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
@@ -12,6 +13,14 @@ import PaymentFormStore from './PaymentFormStore';
 import { postMessage } from '../postMessage';
 
 Vue.use(Vuex);
+
+function getQueryOrderId(query) {
+  const [, , explicitOrderId] = window.location.pathname.split('/').filter(item => item);
+  if (explicitOrderId) {
+    return explicitOrderId;
+  }
+  return query.order_id;
+}
 
 export default new Vuex.Store({
   state: {
@@ -58,7 +67,7 @@ export default new Vuex.Store({
 
       const orderData = await dispatch('getPreparedOrderData', {
         orderParams,
-        queryOrderId: query.order_id,
+        queryOrderId: getQueryOrderId(query),
       });
       gtagSet({ currency: orderData.currency });
       if (orderData.lang) {
@@ -81,6 +90,7 @@ export default new Vuex.Store({
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
+        captureProductionException(error);
         let errorData = get(error, 'response.data');
         if (!errorData) {
           console.error(error);
@@ -141,6 +151,7 @@ export default new Vuex.Store({
         dispatch('PaymentForm/initState', { orderData });
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
         dispatch('PaymentForm/setPaymentStatus', ['FAILED_TO_BEGIN', error]);
         gtagEvent('orderRecreationError', { error });
       }

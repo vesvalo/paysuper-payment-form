@@ -3,6 +3,7 @@ import assert from 'assert';
 import {
   reject, find, findIndex, get, includes, pick,
 } from 'lodash-es';
+import { captureProductionException } from '@/helpers/errorLoggers';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
@@ -74,6 +75,20 @@ export default {
         name: '',
       },
     },
+    paymentData: {
+      cardNumber: '',
+      expiryDate: '',
+      cvv: '',
+      hasRemembered: false,
+      country: '',
+      city: '',
+      zip: '',
+      email: '',
+      ewallet: '',
+      crypto: '',
+      cardDataType: 'saved',
+      savedCardId: '',
+    },
     activePaymentMethodId: '',
     currentPlatformId: '',
     actionProcessing: null,
@@ -83,8 +98,8 @@ export default {
     isUserCountryConfirmRequested: false,
     isUserCountryRestricted: false,
     isEmailFieldExposed: true,
-    isCountryFieldExposed: true,
-    isGeoFieldsExposed: false,
+    isCountryFieldExposed: false,
+    isZipFieldExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
   },
@@ -117,6 +132,9 @@ export default {
     },
     orderData(state, value) {
       state.orderData = value;
+    },
+    paymentData(state, value) {
+      state.paymentData = value;
     },
     currentPlatformId(state, value) {
       state.currentPlatformId = value;
@@ -151,8 +169,8 @@ export default {
     isCountryFieldExposed(state, value) {
       state.isCountryFieldExposed = value;
     },
-    isGeoFieldsExposed(state, value) {
-      state.isGeoFieldsExposed = value;
+    isZipFieldExposed(state, value) {
+      state.isZipFieldExposed = value;
     },
     userIpGeoData(state, value) {
       state.userIpGeoData = value;
@@ -183,14 +201,17 @@ export default {
         gtagEvent('orderAlreadyProcessed');
         return;
       }
+
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
+
       if (orderParams) {
         commit('orderParams', orderParams);
       }
 
       const bankCardIndex = findIndex(orderData.payment_methods, { type: 'bank_card' });
       const bankCardMethod = orderData.payment_methods[bankCardIndex];
+
       commit('activePaymentMethodId', bankCardMethod.id);
       commit('cards', bankCardMethod.saved_cards);
 
@@ -199,17 +220,29 @@ export default {
       }
       if (orderData.email) {
         commit('isEmailFieldExposed', false);
+        dispatch('setPaymentData', { email: orderData.email });
       }
-      if (orderData.user_ip_data) {
-        commit('userIpGeoData', orderData.user_ip_data);
+
+      const userIpGeoData = orderData.user_ip_data;
+      if (userIpGeoData) {
+        commit('userIpGeoData', userIpGeoData);
+        dispatch('setPaymentData', {
+          country: userIpGeoData.country,
+          zip: userIpGeoData.zip,
+        });
       }
+
       dispatch('setGeoParams', orderData);
       dispatch('setPaymentStatus', ['NEW']);
 
+      if (state.paymentData.cardDataType === 'saved') {
+        gtagEvent('hasSavedBankCards');
+      } else {
+        gtagEvent('noSavedBankCards');
+      }
+
       const items = getEcommerceItems(state.orderData);
-      gtagEvent('begin_checkout', {
-        items,
-      });
+      gtagEvent('begin_checkout', { items });
     },
 
     setPaymentStatus({ commit }, [name, extraData]) {
@@ -228,21 +261,27 @@ export default {
       }
     },
 
+    setPaymentData({ commit, state }, data) {
+      commit('paymentData', {
+        ...state.paymentData,
+        ...data,
+      });
+    },
+
     setGeoParams({ commit }, data) {
       // Drop to defaults
       commit('isUserCountryConfirmRequested', false);
 
       if (data.country_payments_allowed === false) {
-        commit('isGeoFieldsExposed', true);
+        commit('isCountryFieldExposed', true);
         if (data.country_change_allowed) {
           commit('isUserCountryConfirmRequested', true);
         } else {
           commit('isUserCountryRestricted', true);
         }
       }
-
-      if (data.user_address_data_required) {
-        commit('isGeoFieldsExposed', true);
+      if (get(data, 'user_ip_data.country') === 'US' && !data.user_ip_data.zip) {
+        commit('isZipFieldExposed', true);
       }
     },
 
@@ -259,7 +298,7 @@ export default {
       state, rootState, dispatch,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
-      country, city, zip, cardDataType, savedCardId,
+      country, zip, cardDataType, savedCardId,
     }) {
       dispatch('setPaymentStatus', ['BEFORE_CREATED']);
 
@@ -277,7 +316,10 @@ export default {
           dispatch('setPaymentStatus', ['DECLINED', data]);
         })
         .on('paymentFailed', (data) => {
-          dispatch('setPaymentStatus', ['FAILED_TO_CREATE', data]);
+          dispatch('setPaymentStatus', ['FAILED_TO_CREATE']);
+          const errorMessage = `Unexpected centrifuge disconnect: ${get(data, 'reason')}`;
+          console.error(errorMessage);
+          captureProductionException(errorMessage);
         })
         .on('paymentSystemSuccess', () => {
           dispatch('setPaymentStatus', ['SYSTEM_SUCCESS']);
@@ -311,15 +353,8 @@ export default {
         store_data: hasRemembered,
         ewallet,
         address: crypto,
-        ...(
-          state.isGeoFieldsExposed
-            ? {
-              country,
-              city,
-              zip,
-            }
-            : {}
-        ),
+        ...(state.isCountryFieldExposed ? { country } : {}),
+        ...(state.isZipFieldExposed ? { zip } : {}),
       };
 
       try {
@@ -340,6 +375,8 @@ export default {
           2000,
         );
       } catch (error) {
+        console.error(error);
+        captureProductionException(error);
         paymentConnection.closeRedirectWindow().disconnect();
 
         const errorData = get(error, 'response.data') || {};
@@ -377,6 +414,7 @@ export default {
         commit('cards', cards);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 
@@ -387,14 +425,18 @@ export default {
         method_id: state.activePaymentMethodId,
         account,
       };
-
       gtagEvent('checkPaymentAccount');
-      const response = await axios.patch(
-        `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
-        request,
-      );
-      dispatch('setOrderDataBillingParams', response.data);
-      dispatch('setGeoParams', response.data);
+      try {
+        const response = await axios.patch(
+          `${rootState.apiUrl}/api/v1/orders/${state.orderData.id}/customer`,
+          request,
+        );
+        dispatch('setOrderDataBillingParams', response.data);
+        dispatch('setGeoParams', response.data);
+      } catch (error) {
+        console.error(error);
+        captureProductionException(error);
+      }
     },
 
     async checkUserLanguage({
@@ -416,6 +458,7 @@ export default {
         dispatch('setGeoParams', response.data);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 
@@ -453,13 +496,14 @@ export default {
       } catch (error) {
         const zipErrors = [
           'fm000050', // zip not found
-          'ma000073', // zip invalid
+          'co000008', // zip invalid
         ];
         const apiErrorCode = get(error, 'response.data.code');
         if (includes(zipErrors, apiErrorCode)) {
           commit('isZipInvalid', true);
         } else {
           console.error(error);
+          captureProductionException(error);
           if (apiErrorCode) {
             commit('actionResult', {
               type: 'customError',
@@ -484,6 +528,7 @@ export default {
         commit('currentPlatformId', platform);
       } catch (error) {
         console.error(error);
+        captureProductionException(error);
       }
     },
 

@@ -555,7 +555,7 @@ export default {
     }
 
     .right._isModal & {
-      margin-right: -60px;
+      margin-right: -80px;
 
       @include if-rtl {
         margin-right: 0;

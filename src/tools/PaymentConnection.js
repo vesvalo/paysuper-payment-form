@@ -42,11 +42,11 @@ export default class PaymentConnection extends Events.EventEmitter {
       clearTimeout(this.systemSuccessTimeout);
       this.disconnect();
     });
-    this.centrifuge.on('disconnect', () => {
+    this.centrifuge.on('disconnect', (data) => {
       if (this.isNormallyDisconnected) {
         return;
       }
-      this.emit('paymentFailed');
+      this.emit('paymentFailed', data);
       this.closeRedirectWindow().disconnect();
     });
     this.centrifuge.connect();

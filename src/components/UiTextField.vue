@@ -288,12 +288,19 @@ $main-additional-height: 18px;
 
   &._secure {
     font-family: 'text-security-disc';
-    -webkit-text-security: disc;
+    // -webkit-text-security: disc; buggs now in safari
   }
 
-  &::-webkit-credentials-auto-fill-button,
   &::-webkit-textfield-decoration-container,
-  &::-webkit-contacts-auto-fill-button,
+  &::-webkit-credentials-auto-fill-button,
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
+
   &::-ms-reveal {
     visibility: hidden;
     display: none !important;
