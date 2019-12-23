@@ -65,6 +65,7 @@ export default {
 <style module lang="scss">
 .content {
   flex-grow: 1;
+  width: 100%;
 
   @media screen and (min-width: 640px) {
     display: flex;
