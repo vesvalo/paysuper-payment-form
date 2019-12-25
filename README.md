@@ -2,8 +2,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-brightgreen.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/paysuper/paysuper-js-sdk/issues)
-[![Build Status](https://api.travis-ci.org/paysuper/paysuper-payment-form.svg?branch=master)](https://travis-ci.org/paysuper/paysuper-payment-form)
-[![codecov](https://codecov.io/gh/paysuper/paysuper-payment-form/branch/master/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-payment-form)
+[![Build Status](https://api.travis-ci.org/paysuper/paysuper-payment-form.svg?branch=develop)](https://travis-ci.org/paysuper/paysuper-payment-form)
+[![codecov](https://codecov.io/gh/paysuper/paysuper-payment-form/branch/develop/graph/badge.svg)](https://codecov.io/gh/paysuper/paysuper-payment-form)
 
 ##### Do not use this module directly, use [paysuper-js-sdk](https://github.com/paysuper/paysuper-js-sdk) instead. 
 
