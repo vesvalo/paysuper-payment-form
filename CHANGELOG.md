@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [2.0.0] - 2019-12-23
 
 ### Added
-- Updated the `vat_payer` parameter settings for the localization in a cart.
+- Updated the `vat_payer` parameter of the settings for the localization in a cart.
 
 ### Changed
 - The application builds as a standalone SPA without the `paysuper-dashboard` dependency.
