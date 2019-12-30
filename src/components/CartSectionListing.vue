@@ -89,8 +89,11 @@ export default {
         >
           {{ item.name }}
         </span>
-        <span :class="[$style.itemCell, $style._price]">
-          <span :class="$style.oldPrice" v-if="item.discount">
+        <span
+          :class="[$style.itemCell, $style._price]"
+          :title="$getPrice(item.amount, item.currency)"
+        >
+          <span v-if="item.discount" :class="$style.oldPrice">
             {{ $getPrice(item.price.value, item.price.currency) }}
           </span>
           {{ $getPrice(item.amount, item.currency) }}
@@ -104,7 +107,10 @@ export default {
       <span :class="[$style.itemCell, $style._title]">
         {{ $t('CartSection.voluntaryAmount') }}
       </span>
-      <span :class="[$style.itemCell, $style._price]">
+      <span
+        :class="[$style.itemCell, $style._price]"
+        :title="$getPrice(orderData.amount, orderData.currency)"
+      >
         {{ $getPrice(orderData.amount, orderData.currency) }}
       </span>
     </div>
@@ -118,7 +124,10 @@ export default {
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.orderSummary') }}
         </span>
-        <span :class="[$style.itemCell, $style._price]">
+        <span
+          :class="[$style.itemCell, $style._price]"
+          :title="$getPrice(orderData.amount, orderData.currency)"
+        >
           {{ $getPrice(orderData.amount, orderData.currency) }}
         </span>
       </div>
@@ -135,7 +144,10 @@ export default {
             ({{ vatCommentText }} {{vatPercentageText}})
           </span>
         </span>
-        <span :class="[$style.itemCell, $style._price]">
+        <span
+          :class="[$style.itemCell, $style._price]"
+          :title="$getPrice(orderData.vat, orderData.currency)"
+        >
           {{ $getPrice(orderData.vat, orderData.currency) }}
         </span>
       </div>
@@ -146,7 +158,13 @@ export default {
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.subtotal') }}
         </span>
-        <span :class="[$style.itemCell, $style._price]">
+        <span
+          :class="[$style.itemCell, $style._price]"
+          :title="`
+            ${$getPrice(orderData.total_amount, orderData.currency)} =
+            ${$getPrice(orderData.charge_amount, orderData.charge_currency)}
+          `"
+        >
           <span :class="$style.specialPrice">
             {{ $getPrice(orderData.total_amount, orderData.currency) }} =
           </span>
@@ -161,7 +179,10 @@ export default {
         <span :class="[$style.itemCell, $style._title]">
           {{ $t('CartSection.total') }}
         </span>
-        <span :class="[$style.itemCell, $style._price]">
+        <span
+          :class="[$style.itemCell, $style._price]"
+          :title="$getPrice(orderData.charge_amount, orderData.charge_currency)"
+        >
           {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </div>
@@ -194,6 +215,7 @@ export default {
 .items {
   display: table;
   width: 100%;
+  table-layout: fixed;
 }
 .item {
   display: table-row;
@@ -219,7 +241,7 @@ export default {
   display: table-cell;
 
   &._title {
-    width: 74%;
+    width: 60%;
     padding-right: 10px;
 
     @include if-rtl {
@@ -230,6 +252,8 @@ export default {
 
   &._price {
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     @include if-ltr {
       text-align: right;
