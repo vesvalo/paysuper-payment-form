@@ -368,7 +368,7 @@ export default {
         <span>
           {{ $t('FormSection.payButtonPrefix') }}
         </span>
-        <span>
+        <span :title="$getPrice(orderData.charge_amount, orderData.charge_currency)">
           {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </template>
@@ -450,5 +450,7 @@ export default {
 .payBtn {
   width: 100%;
   transition: border-radius 0.2s ease-out;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
