@@ -1,7 +1,7 @@
 <template>
 <label
   :class="[$style.option, { [$style._empty]: optionIsEmpty }]"
-  v-touch:tap="emitChange"
+  v-touch:tap.stop="emitChange"
 >
   <div
     v-if="option.iconComponent"
@@ -18,7 +18,7 @@
   <div
     v-if="isRemovable"
     :class="$style.remove"
-    @click.prevent="$emit('remove')"
+    v-touch:tap.stop.prevent="$emit('remove')"
   >
     {{ $t('UiSelectOption.remove') }}
   </div>
