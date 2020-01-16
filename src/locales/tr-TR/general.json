@@ -31,7 +31,7 @@
     "success": {
       "title": "Haydi oynayalım!",
       "titleSubSlave": {
-        "key": "Lisans sağlayıcısının web sitesinden ürün anahtarını etkinleştirin.<br><a href='{link}'>Talimatlar</a>",
+        "key": "Lisans sağlayıcısının web sitesinden ürün anahtarını etkinleştirin.<br><a target='_blank' href='{link}'>Talimatlar</a>",
         "product": "Yeni bir oyun satın aldınız. Tebrikler!<br> İyi eğlenceler!",
         "simple": "Ödemeniz başarıyla gerçekleştirildi!",
         "virtual_items": "Hesabınıza yeni ürünler eklendi. İyi eğlenceler!",

@@ -31,7 +31,7 @@
     "success": {
       "title": "Hãy cùng chơi nào!",
       "titleSubSlave": {
-        "key": "Kích hoạt khóa trên trang web của nhà cung cấp giấy phép.<br><a href='{link}'>Hướng dẫn</a>",
+        "key": "Kích hoạt khóa trên trang web của nhà cung cấp giấy phép.<br><a target='_blank' href='{link}'>Hướng dẫn</a>",
         "product": "Quý vị đã mua một trò chơi mới. Xin chúc mừng!<br> Chúc quý vị chơi vui vẻ!",
         "simple": "Thanh toán của quý vị đã được hoàn thành thành công!",
         "virtual_items": "Các mục hàng mới đã được thêm vào tài khoản của quý vị. Chúc quý vị chơi vui vẻ!",

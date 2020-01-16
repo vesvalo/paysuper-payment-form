@@ -31,7 +31,7 @@
     "success": {
       "title": "Pojďme si zahrát!",
       "titleSubSlave": {
-        "key": "Aktivujte klíč na webu poskytovatele licence.<br><a href='\\{link}'>Pokyny</a>",
+        "key": "Aktivujte klíč na webu poskytovatele licence.<br><a target='_blank' href='{link}'>Pokyny</a>",
         "product": "Koupili jste si novou hru. Blahopřejeme!<br> Bavte se dobře!",
         "simple": "Vaše platba byla úspěšně dokončena!",
         "virtual_items": "Na váš účet byly přidány nové položky. Bavte se dobře!",

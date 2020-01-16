@@ -31,7 +31,7 @@
     "success": {
       "title": "开始游戏！",
       "titleSubSlave": {
-        "key": "在许可证提供商网站上激活密钥。<br><a href='{link}'>说明</a>",
+        "key": "在许可证提供商网站上激活密钥。<br><a target='_blank' href='{link}'>说明</a>",
         "product": "您已购新游戏。恭喜您！<br>祝您愉快！",
         "simple": "您的付款已成功完成！",
         "virtual_items": "新商品已添加到您的帐户。祝您愉快！",
