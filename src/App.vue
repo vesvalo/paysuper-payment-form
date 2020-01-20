@@ -199,7 +199,10 @@ export default {
           />
         </LayoutContent>
 
-        <LayoutFooter :isLoading="isLoading"/>
+        <LayoutFooter
+          :isLoading="isLoading"
+          :isMobile="isMobile"
+        />
       </template>
       <template v-else>
         <ModalCart

@@ -101,8 +101,10 @@
     "zipInvalid": "Geçersiz posta kodu"
   },
   "LayoutFooter": {
-    "userAgreement": "Kullanıcı Sözleşmesi",
-    "support": "Destek"
+    "legalInfo": "Yasal bilgilendirme",
+    "termsOfUse": "Hükümler ve Koşullar",
+    "support": "Destek",
+    "userAgreement": "Kullanıcı Sözleşmesi"
   },
   "LayoutHeader": {
     "termsOfUse": "Hükümler ve Koşullar",

@@ -101,8 +101,10 @@
     "zipInvalid": "رمز بريدي غير صالح"
   },
   "LayoutFooter": {
-    "userAgreement": "اتفاقية المستخدم",
-    "support": "الدعم"
+    "legalInfo": "معلومات قانونية",
+    "termsOfUse": "الشروط والأحكام",
+    "support": "الدعم",
+    "userAgreement": "اتفاقية المستخدم"
   },
   "LayoutHeader": {
     "termsOfUse": "الشروط والأحكام",

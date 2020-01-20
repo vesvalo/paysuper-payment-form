@@ -101,8 +101,10 @@
     "zipInvalid": "Невалиден пощенски код"
   },
   "LayoutFooter": {
-    "userAgreement": "Потребителско споразумение",
-    "support": "Поддръжка"
+    "legalInfo": "Правна информация",
+    "termsOfUse": "Условия и правила",
+    "support": "Поддръжка",
+    "userAgreement": "Потребителско споразумение"
   },
   "LayoutHeader": {
     "termsOfUse": "Условия и правила",

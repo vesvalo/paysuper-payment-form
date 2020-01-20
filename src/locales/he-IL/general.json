@@ -101,8 +101,10 @@
     "zipInvalid": "מיקוד לא חוקי"
   },
   "LayoutFooter": {
-    "userAgreement": "הסכם משתמש",
-    "support": "תמיכה"
+    "legalInfo": "מידע משפטי",
+    "termsOfUse": "תנאים והתניות",
+    "support": "תמיכה",
+    "userAgreement": "הסכם משתמש"
   },
   "LayoutHeader": {
     "termsOfUse": "תנאים והתניות",

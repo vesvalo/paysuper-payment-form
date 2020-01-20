@@ -101,8 +101,10 @@
     "zipInvalid": "รหัสไปรษณีย์ไม่ถูกต้อง"
   },
   "LayoutFooter": {
-    "userAgreement": "ข้อตกลงการใช้",
-    "support": "สนับสนุน"
+    "legalInfo": "ข้อมูลทางกฎหมาย",
+    "termsOfUse": "ข้อกำหนดและเงื่อนไข",
+    "support": "สนับสนุน",
+    "userAgreement": "ข้อตกลงการใช้"
   },
   "LayoutHeader": {
     "termsOfUse": "ข้อกำหนดและเงื่อนไข",

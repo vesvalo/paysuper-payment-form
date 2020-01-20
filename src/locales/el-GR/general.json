@@ -101,8 +101,10 @@
     "zipInvalid": "Μη έγκυρος ταχυδρομικός κωδικός"
   },
   "LayoutFooter": {
-    "userAgreement": "Άδεια χρήσης",
-    "support": "Υποστήριξη"
+    "legalInfo": "Νομικές πληροφορίες",
+    "termsOfUse": "Όροι και Προϋποθέσεις",
+    "support": "Υποστήριξη",
+    "userAgreement": "Άδεια χρήσης"
   },
   "LayoutHeader": {
     "termsOfUse": "Όροι και Προϋποθέσεις",

@@ -101,8 +101,10 @@
     "zipInvalid": "Nieprawidłowy kod pocztowy"
   },
   "LayoutFooter": {
-    "userAgreement": "Umowa użytkownika",
-    "support": "Pomoc"
+    "legalInfo": "Informacje prawne",
+    "termsOfUse": "Warunki",
+    "support": "Pomoc",
+    "userAgreement": "Umowa użytkownika"
   },
   "LayoutHeader": {
     "termsOfUse": "Warunki",

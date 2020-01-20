@@ -101,8 +101,10 @@
     "zipInvalid": "Ungültige PLZ"
   },
   "LayoutFooter": {
-    "userAgreement": "Nutzervereinbarung",
-    "support": "Support"
+    "legalInfo": "Rechtliche Informationen",
+    "termsOfUse": "Allgemeine Geschäftsbedingungen",
+    "support": "Support",
+    "userAgreement": "Nutzervereinbarung"
   },
   "LayoutHeader": {
     "termsOfUse": "Allgemeine Geschäftsbedingungen",

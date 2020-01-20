@@ -101,8 +101,10 @@
     "zipInvalid": "郵遞區號無效"
   },
   "LayoutFooter": {
-    "userAgreement": "使用者合約",
-    "support": "支援"
+    "legalInfo": "法律資訊",
+    "termsOfUse": "條款",
+    "support": "支援",
+    "userAgreement": "使用者合約"
   },
   "LayoutHeader": {
     "termsOfUse": "條款",

@@ -101,8 +101,10 @@
     "zipInvalid": "Ugyldigt postnummer"
   },
   "LayoutFooter": {
-    "userAgreement": "Brugeraftale",
-    "support": "Support"
+    "legalInfo": "Juridiske oplysninger",
+    "termsOfUse": "Vilkår og betingelser",
+    "support": "Support",
+    "userAgreement": "Brugeraftale"
   },
   "LayoutHeader": {
     "termsOfUse": "Vilkår og betingelser",

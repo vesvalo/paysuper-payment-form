@@ -101,8 +101,10 @@
     "zipInvalid": "邮政编码无效"
   },
   "LayoutFooter": {
-    "userAgreement": "用户协议",
-    "support": "支持"
+    "legalInfo": "法律信息",
+    "termsOfUse": "条款和条件",
+    "support": "支持",
+    "userAgreement": "用户协议"
   },
   "LayoutHeader": {
     "termsOfUse": "条款和条件",

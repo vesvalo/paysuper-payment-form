@@ -101,8 +101,10 @@
     "zipInvalid": "유효하지 않은 우편번호"
   },
   "LayoutFooter": {
-    "userAgreement": "사용자 계약",
-    "support": "고객지원"
+    "legalInfo": "법률 정보",
+    "termsOfUse": "이용약관",
+    "support": "고객지원",
+    "userAgreement": "사용자 계약"
   },
   "LayoutHeader": {
     "termsOfUse": "이용약관",

@@ -101,8 +101,10 @@
     "zipInvalid": "Neplatné PSČ"
   },
   "LayoutFooter": {
-    "userAgreement": "Uživatelská dohoda",
-    "support": "Podpora"
+    "legalInfo": "Právní informace",
+    "termsOfUse": "Obchodní podmínky",
+    "support": "Podpora",
+    "userAgreement": "Uživatelská dohoda"
   },
   "LayoutHeader": {
     "termsOfUse": "Obchodní podmínky",

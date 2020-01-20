@@ -101,8 +101,10 @@
     "zipInvalid": "Mã số ZIP không hợp lệ"
   },
   "LayoutFooter": {
-    "userAgreement": "Thỏa thuận Người dùng",
-    "support": "Hỗ trợ"
+    "legalInfo": "Thông tin pháp lý",
+    "termsOfUse": "Điều khoản và Điều kiện",
+    "support": "Hỗ trợ",
+    "userAgreement": "Thỏa thuận Người dùng"
   },
   "LayoutHeader": {
     "termsOfUse": "Điều khoản và Điều kiện",

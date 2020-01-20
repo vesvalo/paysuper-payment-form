@@ -93,8 +93,10 @@
     "zipInvalid": "Неверный почтовый индекс"
   },
   "LayoutFooter": {
-    "userAgreement": "Пользовательское соглашение",
-    "support": "Поддержка"
+    "legalInfo": "Юридическая информация",
+    "termsOfUse": "Условия использования",
+    "support": "Поддержка",
+    "userAgreement": "Пользовательское соглашение"
   },
   "LayoutHeader": {
     "termsOfUse": "Условия использования",

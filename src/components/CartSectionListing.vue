@@ -301,5 +301,15 @@ export default {
     left: 1px;
     top: 1px;
   }
+
+  @include if-rtl {
+    padding-left: 0;
+    padding-right: 13px;
+
+    & > svg {
+      left: auto;
+      right: 1px;
+    }
+  }
 }
 </style>

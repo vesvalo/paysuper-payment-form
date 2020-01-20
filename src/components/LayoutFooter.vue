@@ -9,6 +9,15 @@ export default {
       default: false,
       type: Boolean,
     },
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      isProfileShown: false,
+    };
   },
 
   created() {
@@ -20,7 +29,7 @@ export default {
         'background-color': this.$gui.formBackgroundColor,
       },
       [`.${this.$style.links}:before`]: {
-        'background-color': this.$gui.cartBackgroundColor,
+        'background-color': this.$gui.formBackgroundColor,
       },
       [`
         .${this.$style.stub}:before,
@@ -33,6 +42,12 @@ export default {
         color: this.$gui.layoutTextColor,
       },
       [`.${this.$style.link}:hover`]: {
+        color: this.$gui.baseHoverColor,
+      },
+      [`.${this.$style.tipLink}`]: {
+        color: this.$gui.tipLinkColor,
+      },
+      [`.${this.$style.tipLink}:hover`]: {
         color: this.$gui.baseHoverColor,
       },
     });
@@ -48,8 +63,7 @@ export default {
 
 <template>
 <div :class="$style.footer">
-  <div :class="$style.left"></div>
-  <div :class="$style.right">
+  <div :class="$style.left">
     <div :class="$style.links">
       <div
         v-if="isLoading"
@@ -57,26 +71,52 @@ export default {
       >
         <span></span>
       </div>
-      <template v-else>
-        <a
+      <div
+        v-else
+        :class="$style.linkBox"
+      >
+        <span
           :class="$style.link"
-          href="https://pay.super.com/policy/eula"
-          @click="fireAnalyticsEvent('UserAgreement')"
-          target="_blank"
+          @mouseenter="isProfileShown = true"
+          @mouseleave="isProfileShown = false"
         >
-          {{$t('LayoutFooter.userAgreement')}}
-        </a>
-        <a
-          :class="$style.link"
-          href="http://help.pay.super.com"
-          target="_blank"
-          @click="fireAnalyticsEvent('Support')"
-        >
-          {{$t('LayoutFooter.support')}}
-        </a>
-      </template>
+          {{ $t('LayoutFooter.legalInfo') }}
+          <UiTip
+            position="top"
+            width="260px"
+            :innerPosition="isMobile ? 'center' : 'right'"
+            :visible="isProfileShown"
+          >
+            <a
+              :class="$style.tipLink"
+              href="https://pay.super.com/policy/eula"
+              target="_blank"
+              @click="fireAnalyticsEvent('UserAgreement')"
+            >
+              {{$t('LayoutFooter.userAgreement')}}
+            </a>
+            <a
+              :class="$style.tipLink"
+              href="https://pay.super.com/policy/tou"
+              target="_blank"
+              @click="fireAnalyticsEvent('TermsOfUse')"
+            >
+              {{ $t('LayoutFooter.termsOfUse') }}
+            </a>
+            <a
+              :class="$style.tipLink"
+              href="http://help.pay.super.com"
+              target="_blank"
+              @click="fireAnalyticsEvent('Support')"
+            >
+              {{$t('LayoutFooter.support')}}
+            </a>
+          </UiTip>
+        </span>
+      </div>
     </div>
   </div>
+  <div :class="$style.right"></div>
 </div>
 </template>
 
@@ -90,13 +130,14 @@ export default {
   }
 }
 .left {
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+.right {
   @media screen and (min-width: 640px) {
     width: 100%;
   }
-}
-.right {
-  display: flex;
-  width: 100%;
 }
 .links {
   display: flex;
@@ -108,10 +149,6 @@ export default {
   justify-content: center;
   position: relative;
 
-  @include if-rtl {
-    flex-direction: row-reverse;
-  }
-
   &::before {
     content: '';
     position: absolute;
@@ -122,10 +159,14 @@ export default {
   }
 
   @media screen and (min-width: 640px) {
-    margin: 0 0 0 5.5vw;
+    margin: 0 5.5vw 0 0;
     padding: 12px 0 40px;
-    justify-content: flex-start;
     margin-top: 30px;
+    justify-content: flex-end;
+
+    @include if-rtl {
+      flex-direction: row-reverse;
+    }
 
     &::before {
       top: -24px;
@@ -133,35 +174,53 @@ export default {
   }
 
   @media screen and (min-width: 1080px) {
-    margin: 30px 0 0 60px;
+    margin: 30px 60px 0 0;
+  }
+}
+.linkBox {
+  display: flex;
+  max-width: 420px;
+  width: 100%;
+  justify-content: center;
+
+  @media screen and (min-width: 640px) {
+    justify-content: flex-end;
   }
 }
 .link {
+  position: relative;
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
-  padding: 8px 0;
+  line-height: 18px;
+  transition: color 0.2s ease-out;
+  cursor: pointer;
 
-  &:not(:last-child) {
-    margin-right: 5vw;
-
-    @media screen and (min-width: 640px) {
-      margin-right: 30px;
-    }
+  &:hover {
+    text-decoration: none;
   }
 }
+.tipLink {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  line-height: 18px;
+  transition: color 0.2s ease-out;
 
+  &:hover {
+    text-decoration: none;
+  }
+}
 .stub {
   display: flex;
   width: 100%;
+  flex-direction: row-reverse;
 
-  &:before,
-  &:after,
   span {
     content: '';
     width: 110px;
     height: 7px;
-    margin-right: 25px;
   }
 }
 </style>

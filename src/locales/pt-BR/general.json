@@ -101,8 +101,10 @@
     "zipInvalid": "Código Postal inválido"
   },
   "LayoutFooter": {
-    "userAgreement": "Acordo de Utilização",
-    "support": "Apoio"
+    "legalInfo": "Informações legais",
+    "termsOfUse": "Termos e Condições",
+    "support": "Apoio",
+    "userAgreement": "Acordo de Utilização"
   },
   "LayoutHeader": {
     "termsOfUse": "Termos e Condições",

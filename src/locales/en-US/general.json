@@ -93,8 +93,10 @@
     "zipInvalid": "Invalid ZIP code"
   },
   "LayoutFooter": {
-    "userAgreement": "User Agreement",
-    "support": "Support"
+    "legalInfo": "Legal information",
+    "termsOfUse": "Terms and Conditions",
+    "support": "Support",
+    "userAgreement": "User Agreement"
   },
   "LayoutHeader": {
     "termsOfUse": "Terms and Conditions",

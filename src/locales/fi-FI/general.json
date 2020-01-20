@@ -101,8 +101,10 @@
     "zipInvalid": "Virheellinen postinumero"
   },
   "LayoutFooter": {
-    "userAgreement": "Käyttäjäsopimus",
-    "support": "Tuki"
+    "legalInfo": "Oikeudelliset tiedot",
+    "termsOfUse": "Käyttöehdot",
+    "support": "Tuki",
+    "userAgreement": "Käyttäjäsopimus"
   },
   "LayoutHeader": {
     "termsOfUse": "Käyttöehdot",
