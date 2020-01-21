@@ -31,7 +31,7 @@
     "success": {
       "title": "Let's do it!",
       "titleSubSlave": {
-        "key": "Activate the key on the license provider's website.<br/><a href='{link}'>Instructions</a>",
+        "key": "Activate the key on the license provider's website.<br/><a target='_blank' href='{link}'>Instructions</a>",
         "product": "You’ve bought a new game. Congratulations! Have fun!",
         "simple": "Your payment was completed successfully!",
         "virtual_items": "New items have been added to your account. Have fun!",
@@ -93,8 +93,10 @@
     "zipInvalid": "Invalid ZIP code"
   },
   "LayoutFooter": {
-    "userAgreement": "User Agreement",
-    "support": "Support"
+    "legalInfo": "Legal information",
+    "termsOfUse": "Terms and Conditions",
+    "support": "Support",
+    "userAgreement": "User Agreement"
   },
   "LayoutHeader": {
     "termsOfUse": "Terms and Conditions",

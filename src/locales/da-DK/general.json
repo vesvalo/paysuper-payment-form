@@ -31,7 +31,7 @@
     "success": {
       "title": "Så er vi klar til at spille!",
       "titleSubSlave": {
-        "key": "Aktiver nøglen på licensudbyderens websted.<br><a href='{link}'>Instruktioner</a>",
+        "key": "Aktiver nøglen på licensudbyderens websted.<br><a target='_blank' href='{link}'>Instruktioner</a>",
         "product": "Du har købt et nyt spil. Tillykke!<br> God fornøjelse!",
         "simple": "Din betaling er gennemført!",
         "virtual_items": "Nye varer er føjet til din konto. God fornøjelse!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Ugyldigt postnummer"
   },
   "LayoutFooter": {
-    "userAgreement": "Brugeraftale",
-    "support": "Support"
+    "legalInfo": "Juridiske oplysninger",
+    "termsOfUse": "Vilkår og betingelser",
+    "support": "Support",
+    "userAgreement": "Brugeraftale"
   },
   "LayoutHeader": {
     "termsOfUse": "Vilkår og betingelser",

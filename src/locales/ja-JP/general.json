@@ -31,7 +31,7 @@
     "success": {
       "title": "プレイしましょう！",
       "titleSubSlave": {
-        "key": "ライセンスプロバイダーのウェブサイトで<br>キーを起動します。<br><a href='{link}'>手順</a>",
+        "key": "ライセンスプロバイダーのウェブサイトで<br>キーを起動します。<br><a target='_blank' href='{link}'>手順</a>",
         "product": "お客様は新しいゲームを購入しました。おめでとうございます！お楽しみください！",
         "simple": "お客様の支払いは正常に完了しました。",
         "virtual_items": "新規アイテムがアカウントに<br>追加されました。お楽しみください！",
@@ -101,8 +101,10 @@
     "zipInvalid": "無効なZIP コード"
   },
   "LayoutFooter": {
-    "userAgreement": "ユーザー契約",
-    "support": "サポート"
+    "legalInfo": "法的情報",
+    "termsOfUse": "規約",
+    "support": "サポート",
+    "userAgreement": "ユーザー契約"
   },
   "LayoutHeader": {
     "termsOfUse": "規約",
