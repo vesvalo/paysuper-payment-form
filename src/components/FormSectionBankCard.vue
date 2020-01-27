@@ -28,7 +28,7 @@
         name="cc-exp"
         mask="##/##"
         type="tel"
-        autocomplete="cc-exp"
+        autocomplete="cc-exp[MM/YY]"
         tabindex="3"
         :class="$style.expiry"
         :hasError="$isFieldInvalid('innerValue.expiryDate')"
