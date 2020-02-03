@@ -23,13 +23,21 @@
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <UiTextField
+        v-model="innerExpiryDate"
+        id="expdate"
+        name="cc-exp"
+        autocomplete="cc-exp"
+        label="expiration date"
+        :class="$style['hidden-expiry']"
+        @input="prepareExpiryDate"
+      />
+      <UiTextField
         v-model="innerValue.expiryDate"
         ref="expiryDateField"
-        name="cc-exp"
         mask="##/##"
         type="tel"
-        autocomplete="cc-exp[MM/YY]"
         tabindex="3"
+        autocomplete="off"
         :class="$style.expiry"
         :hasError="$isFieldInvalid('innerValue.expiryDate')"
         :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
@@ -230,6 +238,7 @@ export default {
       innerValue: extend({}, this.value),
       isCvvInfoShown: false,
       isRememberInfoShown: false,
+      innerExpiryDate: '',
     };
   },
 
@@ -311,6 +320,15 @@ export default {
         }
       });
     },
+    prepareExpiryDate() {
+      const expiryLength = this.innerExpiryDate.length;
+      const month = this.innerExpiryDate.substring(0, 2);
+      const year = expiryLength === 7
+        ? this.innerExpiryDate.substring(5)
+        : this.innerExpiryDate.substring(3);
+      this.innerValue.expiryDate = `${month}/${year}`;
+      this.emitChanges('expiryDate');
+    },
     moveFocusToFieldOnComplete(fieldValueName, length, nextField) {
       if (this.innerValue[fieldValueName].length === length) {
         this.$refs[nextField].focus();
@@ -355,6 +373,7 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  position: relative;
 
   &._oneLine {
     width: calc(50% - 10px);
@@ -363,6 +382,19 @@ export default {
 .expiry {
   @include if-ltr {
     margin-right: 20px;
+  }
+}
+.hidden-expiry {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  width: calc(50% - 10px);
+
+  @include if-rtl {
+    left: auto;
+    right: 0;
   }
 }
 .remember {
