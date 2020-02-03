@@ -28,7 +28,7 @@
         name="cc-exp"
         autocomplete="cc-exp"
         label="expiration date"
-        :class="$style['hidden-expiry']"
+        :class="$style.hiddenExpiry"
         @input="prepareExpiryDate"
       />
       <UiTextField
@@ -384,7 +384,7 @@ export default {
     margin-right: 20px;
   }
 }
-.hidden-expiry {
+.hiddenExpiry {
   position: absolute;
   left: 0;
   top: 0;
