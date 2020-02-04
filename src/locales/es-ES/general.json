@@ -31,7 +31,7 @@
     "success": {
       "title": "¡Juguemos!",
       "titleSubSlave": {
-        "key": "Active el código en el sitio web del proveedor de licencias.<br><a href='{link}'>Instrucciones</a>",
+        "key": "Active el código en el sitio web del proveedor de licencias.<br><a target='_blank' href='{link}'>Instrucciones</a>",
         "product": "Compró un juego nuevo. ¡Enhorabuena!<br> ¡Que se divierta!",
         "simple": "¡Se completó su pago correctamente!",
         "virtual_items": "Se agregaron elementos nuevos a su cuenta. ¡Que se divierta!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Código postal inválido"
   },
   "LayoutFooter": {
-    "userAgreement": "Acuerdo de usuario",
-    "support": "Soporte"
+    "legalInfo": "Información legal",
+    "termsOfUse": "Términos y condiciones",
+    "support": "Soporte",
+    "userAgreement": "Acuerdo de usuario"
   },
   "LayoutHeader": {
     "termsOfUse": "Términos y condiciones",

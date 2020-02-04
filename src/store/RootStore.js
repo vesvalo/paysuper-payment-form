@@ -90,17 +90,18 @@ export default new Vuex.Store({
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
-        captureProductionException(error);
         let errorData = get(error, 'response.data');
         if (!errorData) {
-          console.error(error);
           errorData = {
             code: 'fm000025',
             message: 'Unknown error. Try request later',
           };
-        } else {
-          console.error(errorData);
         }
+        // fm000023 - time to enter date on payment form expired
+        if (errorData.code !== 'fm000023') {
+          captureProductionException(error);
+        }
+        console.error(error);
         orderData = { error: errorData };
       }
       return orderData;

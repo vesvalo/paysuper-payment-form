@@ -19,41 +19,6 @@
         >
           <IconArrow />
         </div>
-        <div :class="[$style.additional, { [$style._opened]: isCartOpened }]">
-          <!-- <span
-            :class="$style.profile"
-            @mouseenter="isProfileShown = true"
-            @mouseleave="isProfileShown = false"
-          >
-            {{ $t('LayoutHeader.profile') }}
-            <UiTip
-              innerPosition="left"
-              position="bottom"
-              width="200px"
-              :visible="isProfileShown"
-            >
-              <a
-                href="#"
-                :class="$style.tipLink"
-                @click="fireAnalyticsEvent('PurchaseInformation')"
-              >{{ $t('LayoutHeader.purchaseInformation') }}</a>
-              <a
-                href="#"
-                :class="$style.tipLink"
-                @click="fireAnalyticsEvent('PaymentManagement')"
-              >{{ $t('LayoutHeader.paymentManagement') }}</a>
-            </UiTip>
-          </span> -->
-
-          <a
-            :class="$style.link"
-            href="https://pay.super.com/policy/tou"
-            target="_blank"
-            @click="fireAnalyticsEvent('TermsOfUse')"
-          >
-            {{$t('LayoutHeader.termsOfUse')}}
-          </a>
-        </div>
       </template>
     </div>
   </div>

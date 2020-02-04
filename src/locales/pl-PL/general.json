@@ -31,7 +31,7 @@
     "success": {
       "title": "Zagrajmy!",
       "titleSubSlave": {
-        "key": "Aktywuj klucz na stronie internetowej licencjodawcy.<br><a href='{link}'>Instrukcje</a>",
+        "key": "Aktywuj klucz na stronie internetowej licencjodawcy.<br><a target='_blank' href='{link}'>Instrukcje</a>",
         "product": "Kupiłeś/&#8209;aś nową grę. Gratulacje!<br> Baw się dobrze!",
         "simple": "Twoja płatność zakończyła się pomyślnie!",
         "virtual_items": "Do Twojego konta dodano nowe pozycje. Baw się dobrze!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Nieprawidłowy kod pocztowy"
   },
   "LayoutFooter": {
-    "userAgreement": "Umowa użytkownika",
-    "support": "Pomoc"
+    "legalInfo": "Informacje prawne",
+    "termsOfUse": "Warunki",
+    "support": "Pomoc",
+    "userAgreement": "Umowa użytkownika"
   },
   "LayoutHeader": {
     "termsOfUse": "Warunki",

@@ -31,7 +31,7 @@
     "success": {
       "title": "Kokeillaan!",
       "titleSubSlave": {
-        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta.<br><a href='{link}'>Ohjeet</a>",
+        "key": "Aktivoi avain lisenssintarjoajan verkkosivustolta.<br><a target='_blank' href='{link}'>Ohjeet</a>",
         "product": "Olet osatnut uuden pelin. Onnittelut!<br> Pidä hauskaa!",
         "simple": "Maksusi suorittaminen onnistui!",
         "virtual_items": "Uusia kohteita on lisätty tiliisi. Pidä hauskaa!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Virheellinen postinumero"
   },
   "LayoutFooter": {
-    "userAgreement": "Käyttäjäsopimus",
-    "support": "Tuki"
+    "legalInfo": "Oikeudelliset tiedot",
+    "termsOfUse": "Käyttöehdot",
+    "support": "Tuki",
+    "userAgreement": "Käyttäjäsopimus"
   },
   "LayoutHeader": {
     "termsOfUse": "Käyttöehdot",

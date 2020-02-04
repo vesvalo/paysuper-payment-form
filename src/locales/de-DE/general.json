@@ -31,7 +31,7 @@
     "success": {
       "title": "Spielen Sie!",
       "titleSubSlave": {
-        "key": "Aktivieren Sie den Schlüssel auf der Lizenzseite des Anbieters.<br><a href='{link}'>Anleitung</a>",
+        "key": "Aktivieren Sie den Schlüssel auf der Lizenzseite des Anbieters.<br><a target='_blank' href='{link}'>Anleitung</a>",
         "product": "Sie haben ein neues Spiel gekauft. Herzlichen Glückwunsch!<br> Viel Spaß!",
         "simple": "Ihre Zahlung wurde erfolgreich abgeschlossen!",
         "virtual_items": "Es wurden neue Artikel zu Ihrem Konto hinzugefügt. Viel Spaß!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Ungültige PLZ"
   },
   "LayoutFooter": {
-    "userAgreement": "Nutzervereinbarung",
-    "support": "Support"
+    "legalInfo": "Rechtliche Informationen",
+    "termsOfUse": "Allgemeine Geschäftsbedingungen",
+    "support": "Support",
+    "userAgreement": "Nutzervereinbarung"
   },
   "LayoutHeader": {
     "termsOfUse": "Allgemeine Geschäftsbedingungen",

@@ -31,7 +31,7 @@
     "success": {
       "title": "Et c’est parti&nbsp;!",
       "titleSubSlave": {
-        "key": "Activez la clé sur le site Web du fournisseur de licence.<br><a href='{link}'>Instructions</a>",
+        "key": "Activez la clé sur le site Web du fournisseur de licence.<br><a target='_blank' href='{link}'>Instructions</a>",
         "product": "Vous venez d’acheter un nouveau jeu. Félicitations&nbsp;!<br> Amusez&#8209;vous bien&nbsp;!",
         "simple": "Votre paiement a été effectué avec succès&nbsp;!",
         "virtual_items": "De nouveaux articles ont été ajoutés à votre compte. Amusez&#8209;vous bien&nbsp;!",
@@ -101,8 +101,10 @@
     "zipInvalid": "Code postal invalide."
   },
   "LayoutFooter": {
-    "userAgreement": "Contrat d’utilisation",
-    "support": "Support"
+    "legalInfo": "Information juridique",
+    "termsOfUse": "Conditions générales",
+    "support": "Support",
+    "userAgreement": "Contrat d’utilisation"
   },
   "LayoutHeader": {
     "termsOfUse": "Conditions générales",
