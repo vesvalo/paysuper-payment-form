@@ -321,12 +321,8 @@ export default {
       });
     },
     prepareExpiryDate() {
-      const expiryLength = this.innerExpiryDate.length;
-      const month = this.innerExpiryDate.substring(0, 2);
-      const year = expiryLength === 7
-        ? this.innerExpiryDate.substring(5)
-        : this.innerExpiryDate.substring(3);
-      this.innerValue.expiryDate = `${month}/${year}`;
+      const [month, year] = this.innerExpiryDate.split('/');
+      this.innerValue.expiryDate = `${month}${year.length === 2 ? year : year.substr(-2)}`;
       this.emitChanges('expiryDate');
     },
     moveFocusToFieldOnComplete(fieldValueName, length, nextField) {
