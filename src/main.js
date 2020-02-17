@@ -45,7 +45,7 @@ const mountPoint = '#paysuper-payment-form';
 const isPageInsideIframe = window.location !== window.parent.location;
 
 function getOrderParams({
-  project, token, products, amount, type, currency, devPreset,
+  project, token, products, amount, type, currency, devPreset, formUsage,
 }) {
   const testData = {
     simple: {
@@ -73,6 +73,7 @@ function getOrderParams({
     ...(products ? { products } : {}),
     ...(amount ? { amount: Number(amount), currency } : {}),
     ...(type ? { type } : {}),
+    ...(formUsage ? { formUsage } : {}),
   };
 }
 
@@ -191,14 +192,27 @@ if (includes(['success', 'fail'], query.result)) {
       mountApp({
         orderParams,
         baseOptions,
-        customOptions: options,
+        customOptions: { ...options, formUsage: 'embed' },
         query,
       });
     },
   });
 } else {
+  let isFramed = false;
+  try {
+    isFramed = window !== window.top
+      || document !== window.top.document
+      || window.self.location !== window.top.location;
+  } catch (e) {
+    isFramed = true;
+  }
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp({ orderParams, baseOptions, query });
+  mountApp({
+    orderParams,
+    baseOptions,
+    query,
+    customOptions: { formUsage: isFramed ? 'iframe' : 'standalone' },
+  });
 }
 
 postMessage('INITED');

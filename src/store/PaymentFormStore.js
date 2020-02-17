@@ -70,6 +70,7 @@ export default {
 
   state: {
     orderParams: {},
+    formUsage: 'standalone',
     orderData: {
       project: {
         name: '',
@@ -111,6 +112,49 @@ export default {
     hasPaymentRequestApi() {
       return Boolean(window.PaymentRequest);
     },
+    isPaymentSuccess(state) {
+      return state.actionResult && state.actionResult.type === 'success';
+    },
+    isPaymentFailed(state) {
+      return state.actionResult && state.actionResult.type !== 'success';
+    },
+    redirectMode(state) {
+      return get(state.orderData, 'project.redirect_settings.mode', 'disable');
+    },
+    isRedirect(state, getters) {
+      const isFormTypeAccordance = getters.redirectFormType === 'any'
+        || getters.redirectFormType === state.formUsage;
+      const isRedirectModeAccordance = (
+        getters.redirectMode === 'any' && (getters.isPaymentSuccess || getters.isPaymentFailed)
+      )
+        || (getters.redirectMode === 'successful' && getters.isPaymentSuccess)
+        || (getters.redirectMode === 'fail' && getters.isPaymentFailed);
+
+      return isFormTypeAccordance && isRedirectModeAccordance;
+    },
+    redirectDelay(state) {
+      return get(state.orderData, 'project.redirect_settings.delay', 0);
+    },
+    isAutoRedirect(state, getters) {
+      return getters.redirectDelay > 0;
+    },
+    redirectFormType(state) {
+      return get(state.orderData, 'project.redirect_settings.usage', 'any');
+    },
+    redirectButtonText(state, getters) {
+      return getters.isRedirect
+        ? get(state.orderData, 'project.redirect_settings.button_caption', '')
+        : '';
+    },
+    redirectSuccess(state) {
+      return get(state.orderData, 'project.url_success', '');
+    },
+    redirectFail(state) {
+      return get(state.orderData, 'project.url_fail', '');
+    },
+    hasTimer(state, getters) {
+      return getters.isRedirect && getters.isAutoRedirect;
+    },
   },
 
   mutations: {
@@ -129,6 +173,9 @@ export default {
     },
     orderParams(state, value) {
       state.orderParams = value;
+    },
+    formUsage(state, value) {
+      state.formUsage = value;
     },
     orderData(state, value) {
       state.orderData = value;
@@ -181,7 +228,8 @@ export default {
   },
 
   actions: {
-    initState({ state, commit, dispatch }, { orderParams, orderData }) {
+    initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
+      commit('formUsage', options.formUsage);
       if (orderData.error) {
         dispatch('setPaymentStatus', [
           'FAILED_TO_BEGIN',

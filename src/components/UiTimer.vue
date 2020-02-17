@@ -39,14 +39,15 @@ export default {
       return this.$style.append;
     },
   },
+  cssRules() {
+    return {
+      '.{container}': { color: this.$gui.timerColor },
+      '.{inner}': { border: `2px solid ${this.$gui.timerBorderColor}` },
+      '.{shadow}': { 'background-color': this.$gui.timerShadowColor },
+      '.{prepend} > svg, .{append} > svg': { fill: this.$gui.timerColor },
+    };
+  },
   created() {
-    this.$addCssRules({
-      [`.${this.container}`]: { color: this.$gui.timerColor },
-      [`.${this.inner}`]: { border: `2px solid ${this.$gui.timerBorderColor}` },
-      [`.${this.shadow}`]: { 'background-color': this.$gui.timerShadowColor },
-      [`${this.prepend} > svg, .${this.append} > svg`]: { fill: this.$gui.timerColor },
-    });
-
     this.timer = this.time;
 
     if (this.autoStart) {

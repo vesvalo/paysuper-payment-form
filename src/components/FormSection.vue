@@ -79,9 +79,19 @@ export default {
       'isZipInvalid',
       'currentPlatformId',
     ]),
-    ...mapGetters('PaymentForm', ['activePaymentMethod']),
+    ...mapGetters('PaymentForm', [
+      'activePaymentMethod',
+      'isPaymentFailed',
+      'isPaymentSuccess',
+      'isRedirect',
+      'isAutoRedirect',
+      'redirectDelay',
+      'redirectButtonText',
+      'hasTimer',
+      'redirectSuccess',
+      'redirectFail',
+    ]),
     ...mapGetters('Dictionaries', ['countries']),
-    ...mapState(['formUsage']),
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -132,52 +142,6 @@ export default {
     platformInstructionLink() {
       return geInstructionLinkByPlatform(this.currentPlatformId);
     },
-
-    isPaymentSuccess() {
-      return this.actionResult && this.actionResult.type === 'success';
-    },
-
-    isPaymentFailed() {
-      return this.actionResult && this.actionResult.type !== 'success';
-    },
-
-    redirectMode() {
-      return get(this.orderData, 'project.redirect_settings.mode', 'disable');
-    },
-    isRedirect() {
-      const isFormTypeAccordance = this.redirectFormType === 'any'
-        || this.redirectFormType === this.formUsage;
-      const isRedirectModeAccordance = (
-        this.redirectMode === 'any' && (this.isPaymentSuccess || this.isPaymentFailed)
-      )
-        || (this.redirectMode === 'successful' && this.isPaymentSuccess)
-        || (this.redirectMode === 'fail' && this.isPaymentFailed);
-
-      return isFormTypeAccordance && isRedirectModeAccordance;
-    },
-    redirectDelay() {
-      return get(this.orderData, 'project.redirect_settings.delay', 0);
-    },
-    isAutoRedirect() {
-      return this.redirectDelay > 0;
-    },
-    redirectFormType() {
-      return get(this.orderData, 'project.redirect_settings.usage', 'any');
-    },
-    redirectButtonText() {
-      return this.isRedirect
-        ? get(this.orderData, 'project.redirect_settings.button_caption', '')
-        : '';
-    },
-    redirectSuccess() {
-      return get(this.orderData, 'project.url_success', '');
-    },
-    redirectFail() {
-      return get(this.orderData, 'project.url_fail', '');
-    },
-    hasTimer() {
-      return this.isRedirect && this.isAutoRedirect;
-    },
   },
 
   watch: {
@@ -189,11 +153,14 @@ export default {
       },
       immediate: true,
     },
-    isRedirect(value) {
-      if (value === true && this.isAutoRedirect) {
-        const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
-        setTimeout(() => window.location.replace(redirectUrl), this.redirectDelay * 1000);
-      }
+    isRedirect: {
+      handler(value) {
+        if (value === true && this.isAutoRedirect) {
+          const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
+          setTimeout(() => window.location.replace(redirectUrl), this.redirectDelay * 1000);
+        }
+      },
+      immediate: true,
     },
   },
 

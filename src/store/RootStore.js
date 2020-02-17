@@ -62,6 +62,7 @@ export default new Vuex.Store({
     async initState({ commit, dispatch }, { orderParams, options, query }) {
       commit('options', options);
       commit('apiUrl', options.apiUrl);
+      commit('formUsage', options.formUsage || 'standalone');
       commit('query', query);
       dispatch('setInitialLocale');
 
@@ -69,28 +70,10 @@ export default new Vuex.Store({
         return;
       }
 
-      let isFramed = false;
-      let formUsage = 'standalone';
-      try {
-        isFramed = window !== window.top
-          || document !== window.top.document
-          || window.self.location !== window.top.location;
-      } catch (e) {
-        isFramed = true;
-      }
-      if (isFramed) {
-        formUsage = 'iframe';
-      } else if (options.layout === 'modal') {
-        formUsage = 'standalone';
-      } else if (options.layout === 'page') {
-        formUsage = 'embed';
-      }
-      commit('formUsage', formUsage);
-
       const orderData = await dispatch('getPreparedOrderData', {
         orderParams: {
           ...orderParams,
-          form_mode: formUsage,
+          form_mode: options.formUsage,
         },
         queryOrderId: getQueryOrderId(query),
       });
