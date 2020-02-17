@@ -1,0 +1,149 @@
+<script>
+export default {
+  props: {
+    autoStart: {
+      default: true,
+      type: Boolean,
+    },
+    minWidth: {
+      default: '',
+      type: String,
+    },
+    time: {
+      required: true,
+      type: Number,
+    },
+  },
+  data() {
+    return {
+      timer: 0,
+    };
+  },
+  computed: {
+    container() {
+      return this.$style.container;
+    },
+    inner() {
+      return this.$style.inner;
+    },
+    main() {
+      return this.$style.main;
+    },
+    shadow() {
+      return this.$style.shadow;
+    },
+    prepend() {
+      return this.$style.prepend;
+    },
+    append() {
+      return this.$style.append;
+    },
+  },
+  created() {
+    this.$addCssRules({
+      [`.${this.container}`]: { color: this.$gui.timerColor },
+      [`.${this.inner}`]: { border: `2px solid ${this.$gui.timerBorderColor}` },
+      [`.${this.shadow}`]: { 'background-color': this.$gui.timerShadowColor },
+      [`${this.prepend} > svg, .${this.append} > svg`]: { fill: this.$gui.timerColor },
+    });
+
+    this.timer = this.time;
+
+    if (this.autoStart) {
+      this.startTimer();
+    }
+  },
+  methods: {
+    startTimer() {
+      const intervalId = setInterval(() => {
+        this.timer -= 1;
+
+        if (this.timer <= 0) {
+          this.$emit('endsTime');
+          clearInterval(intervalId);
+        }
+      }, 1000);
+    },
+  },
+};
+</script>
+
+<template>
+<div
+  :class="container"
+  :style="{ minWidth: minWidth || undefined }"
+>
+  <div :class="shadow"></div>
+  <div :class="inner">
+    <span :class="prepend">
+      <slot name="prepend" />
+    </span>
+
+    <div :class="main">
+      {{ timer }}
+    </div>
+
+    <span :class="append">
+      <slot name="append" />
+    </span>
+  </div>
+</div>
+</template>
+
+<style module lang="scss">
+$append-margin: 6px;
+$prepend-margin: 6px;
+$font-size: 16px;
+$font-weight: 700;
+$padding: 8px 6px;
+$border-radius: 50px;
+
+.container {
+  position: relative;
+  cursor: progress;
+  outline-width: 0;
+  font-family: inherit;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  border-radius: $border-radius;
+  background-color: transparent;
+}
+.inner {
+  position: relative;
+  outline-width: 0;
+  display: inline-flex;
+  padding: $padding;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+}
+.shadow {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 100%;
+  height: 100%;
+  border-radius: $border-radius;
+}
+.main,
+.prepend,
+.append {
+  height: 20px;
+
+  &:empty {
+    display: none;
+  }
+}
+.prepend {
+  margin-left: $prepend-margin;
+  margin-right: $prepend-margin;
+}
+.append {
+  margin-left: $append-margin;
+  margin-right: $append-margin;
+}
+</style>

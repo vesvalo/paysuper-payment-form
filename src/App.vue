@@ -129,14 +129,6 @@ export default {
         this.opened = false;
         postMessage('MODAL_CLOSED');
         gtagEvent('formClosed');
-      } else {
-        let redirectUrl;
-        if (this.paymentStatus === 'COMPLETED') {
-          redirectUrl = this.orderData.project.url_success;
-        } else {
-          redirectUrl = this.orderData.project.url_fail;
-        }
-        window.location.replace(redirectUrl || 'https://pay.super.com/');
       }
     },
   },
@@ -195,6 +187,7 @@ export default {
           <FormSection
             slot="form"
             :isPageView="isPageView"
+            :isModalEssence="isModalEssence"
             @close="closeForm"
           />
         </LayoutContent>
@@ -217,7 +210,10 @@ export default {
           />
         </ModalCart>
         <ModalForm :isLoading="isLoading">
-          <FormSection @close="closeForm"/>
+          <FormSection
+            :isModalEssence="isModalEssence"
+            @close="closeForm"
+          />
         </ModalForm>
       </template>
     </template>

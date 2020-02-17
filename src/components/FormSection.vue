@@ -26,6 +26,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    isModalEssence: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   filters: {
@@ -139,6 +143,58 @@ export default {
     isPaymentFailed() {
       return this.actionResult && this.actionResult.type !== 'success';
     },
+
+    redirectMode() {
+      return get(this.orderData, 'project.redirect_settings.mode', 'disable');
+    },
+    isRedirect() {
+      const isFormTypeAccordance = this.redirectFormType === 'any'
+        || (this.redirectFormType === 'iframe' && this.isIframe)
+        || (this.redirectFormType === 'embed' && !this.isModalEssence)
+        || (this.redirectFormType === 'standalone' && this.isModalEssence);
+      const isRedirectModeAccordance = (
+        this.redirectMode === 'any' && (this.isPaymentSuccess || this.isPaymentFailed)
+      )
+        || (this.redirectMode === 'successful' && this.isPaymentSuccess)
+        || (this.redirectMode === 'fail' && this.isPaymentFailed);
+
+      return isFormTypeAccordance && isRedirectModeAccordance;
+    },
+    redirectDelay() {
+      return get(this.orderData, 'project.redirect_settings.delay', 0);
+    },
+    isAutoRedirect() {
+      return this.redirectDelay > 0;
+    },
+    redirectFormType() {
+      return get(this.orderData, 'project.redirect_settings.usage', 'any');
+    },
+    redirectButtonText() {
+      return this.isRedirect
+        ? get(this.orderData, 'project.redirect_settings.button_caption', '')
+        : '';
+    },
+    redirectSuccess() {
+      return get(this.orderData, 'project.url_success', '');
+    },
+    redirectFail() {
+      return get(this.orderData, 'project.url_fail', '');
+    },
+    hasTimer() {
+      return this.isRedirect && this.isAutoRedirect;
+    },
+
+    isIframe() {
+      let isFramed = false;
+      try {
+        isFramed = window !== window.top
+          || document !== window.top.document
+          || window.self.location !== window.top.location;
+      } catch (e) {
+        isFramed = true;
+      }
+      return isFramed;
+    },
   },
 
   watch: {
@@ -149,6 +205,12 @@ export default {
         }
       },
       immediate: true,
+    },
+    isRedirect(value) {
+      if (value === true && this.isAutoRedirect) {
+        const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
+        setTimeout(() => window.location.replace(redirectUrl), this.redirectDelay * 1000);
+      }
     },
   },
 
@@ -196,15 +258,23 @@ export default {
         if (this.$refs.bankCardForm) {
           this.$refs.bankCardForm.focusCardNumberField();
         }
-      } else if (this.isUserCountryRestricted || this.isPaymentFailed) {
+      } else if (this.isUserCountryRestricted) {
         gtagEvent('clickCloseButton', { event_category: 'userAction' });
-        this.$emit('close');
-      } else if (this.isPaymentSuccess) {
-        gtagEvent('clickOkButton', { event_category: 'userAction' });
         this.$emit('close');
       } else if (this.isPaymentFormVisible) {
         gtagEvent('clickPayButton', { event_category: 'userAction' });
         this.submitPaymentForm();
+      } else if (this.isRedirect) {
+        const eventName = this.isPaymentFailed ? 'clickCloseButton' : 'clickOkButton';
+        const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
+
+        gtagEvent(eventName, { event_category: 'userAction' });
+
+        if (this.isAutoRedirect === false) {
+          window.location.replace(redirectUrl);
+        }
+      } else {
+        this.$emit('close');
       }
     },
 
@@ -226,7 +296,8 @@ export default {
       }
 
       gtagEvent('submitPaymentForm');
-      this.createPayment({
+
+      await this.createPayment({
         ...this.paymentData,
       });
     },
@@ -357,7 +428,16 @@ export default {
     </component>
   </div>
   <div :class="$style.footer">
+    <UiTimer
+      v-if="hasTimer"
+      minWidth="100px"
+      :time="redirectDelay"
+    >
+      <IconTimer slot="prepend" />
+      <span slot="append">{{ $t('FormSection.seconds') }}</span>
+    </UiTimer>
     <UiButton
+      v-else
       :class="$style.payBtn"
       :hasBorderRadius="isPageView"
       :disabled="isSubmitButtonDisabled"
@@ -372,14 +452,17 @@ export default {
           {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </template>
-      <template v-if="isPaymentSuccess">
-        {{ $t('FormSection.ok') }}
-      </template>
       <template v-if="isUserCountryConfirmRequested">
         {{ $t('FormSection.save') }}
       </template>
-      <template v-if="isUserCountryRestricted || isPaymentFailed">
+      <template v-if="isUserCountryRestricted">
         {{ $t('FormSection.close') }}
+      </template>
+      <template v-if="isPaymentFailed">
+        {{ redirectButtonText || $t('FormSection.close') }}
+      </template>
+      <template v-if="isPaymentSuccess">
+        {{ redirectButtonText || $t('FormSection.ok') }}
       </template>
     </UiButton>
   </div>
@@ -397,7 +480,6 @@ export default {
   max-height: 100%;
   width: 100%;
 }
-
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -408,13 +490,11 @@ export default {
   width: 100%;
   max-height: calc(100% - 70px);
 }
-
 .scrollbox {
   width: 100%;
   height: 100%;
   flex-grow: 1;
 }
-
 .contentInner {
   width: 100%;
   height: 100%;
@@ -429,15 +509,13 @@ export default {
     }
   }
 }
-
 .formItem {
   display: flex;
   justify-content: space-between;
 }
-
 .footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-end;
   width: 100%;
 
@@ -446,7 +524,6 @@ export default {
     width: 100vw !important;
   }
 }
-
 .payBtn {
   width: 100%;
   transition: border-radius 0.2s ease-out;
