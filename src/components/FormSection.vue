@@ -26,10 +26,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    isModalEssence: {
-      type: Boolean,
-      default: false,
-    },
   },
 
   filters: {
@@ -85,6 +81,7 @@ export default {
     ]),
     ...mapGetters('PaymentForm', ['activePaymentMethod']),
     ...mapGetters('Dictionaries', ['countries']),
+    ...mapState(['formUsage']),
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -149,9 +146,7 @@ export default {
     },
     isRedirect() {
       const isFormTypeAccordance = this.redirectFormType === 'any'
-        || (this.redirectFormType === 'iframe' && this.isIframe)
-        || (this.redirectFormType === 'embed' && !this.isModalEssence)
-        || (this.redirectFormType === 'standalone' && this.isModalEssence);
+        || this.redirectFormType === this.formUsage;
       const isRedirectModeAccordance = (
         this.redirectMode === 'any' && (this.isPaymentSuccess || this.isPaymentFailed)
       )
@@ -182,18 +177,6 @@ export default {
     },
     hasTimer() {
       return this.isRedirect && this.isAutoRedirect;
-    },
-
-    isIframe() {
-      let isFramed = false;
-      try {
-        isFramed = window !== window.top
-          || document !== window.top.document
-          || window.self.location !== window.top.location;
-      } catch (e) {
-        isFramed = true;
-      }
-      return isFramed;
     },
   },
 

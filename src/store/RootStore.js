@@ -33,6 +33,7 @@ export default new Vuex.Store({
       width: 0,
       height: 0,
     },
+    formUsage: 'standalone',
   },
   mutations: {
     apiUrl(state, value) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     options(state, value) {
       state.options = value;
     },
+    formUsage(state, value) {
+      state.formUsage = value;
+    },
   },
   actions: {
     async initState({ commit, dispatch }, { orderParams, options, query }) {
@@ -65,8 +69,29 @@ export default new Vuex.Store({
         return;
       }
 
+      let isFramed = false;
+      let formUsage = 'standalone';
+      try {
+        isFramed = window !== window.top
+          || document !== window.top.document
+          || window.self.location !== window.top.location;
+      } catch (e) {
+        isFramed = true;
+      }
+      if (isFramed) {
+        formUsage = 'iframe';
+      } else if (options.layout === 'modal') {
+        formUsage = 'standalone';
+      } else if (options.layout === 'page') {
+        formUsage = 'embed';
+      }
+      commit('formUsage', formUsage);
+
       const orderData = await dispatch('getPreparedOrderData', {
-        orderParams,
+        orderParams: {
+          ...orderParams,
+          form_mode: formUsage,
+        },
         queryOrderId: getQueryOrderId(query),
       });
       gtagSet({ currency: orderData.currency });

@@ -187,7 +187,6 @@ export default {
           <FormSection
             slot="form"
             :isPageView="isPageView"
-            :isModalEssence="isModalEssence"
             @close="closeForm"
           />
         </LayoutContent>
@@ -210,10 +209,7 @@ export default {
           />
         </ModalCart>
         <ModalForm :isLoading="isLoading">
-          <FormSection
-            :isModalEssence="isModalEssence"
-            @close="closeForm"
-          />
+          <FormSection @close="closeForm" />
         </ModalForm>
       </template>
     </template>
