@@ -44,7 +44,8 @@ export default {
       '.{container}': { color: this.$gui.timerColor },
       '.{inner}': { border: `2px solid ${this.$gui.timerBorderColor}` },
       '.{shadow}': { 'background-color': this.$gui.timerShadowColor },
-      '.{prepend} > svg, .{append} > svg': { fill: this.$gui.timerColor },
+      '.{prepend} > svg > path, .{append} > svg > path': { fill: this.$gui.timerColor },
+      '.{prepend} > svg > circle': { stroke: this.$gui.timerColor },
     };
   },
   created() {

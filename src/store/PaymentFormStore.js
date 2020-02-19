@@ -6,6 +6,7 @@ import {
 import { captureProductionException } from '@/helpers/errorLoggers';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
+import RedirectStore from '@/store/RedirectStore';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
@@ -70,7 +71,6 @@ export default {
 
   state: {
     orderParams: {},
-    formUsage: 'standalone',
     orderData: {
       project: {
         name: '',
@@ -118,43 +118,6 @@ export default {
     isPaymentFailed(state) {
       return state.actionResult && state.actionResult.type !== 'success';
     },
-    redirectMode(state) {
-      return get(state.orderData, 'project.redirect_settings.mode', 'disable');
-    },
-    isRedirect(state, getters) {
-      const isFormTypeAccordance = getters.redirectFormType === 'any'
-        || getters.redirectFormType === state.formUsage;
-      const isRedirectModeAccordance = (
-        getters.redirectMode === 'any' && (getters.isPaymentSuccess || getters.isPaymentFailed)
-      )
-        || (getters.redirectMode === 'successful' && getters.isPaymentSuccess)
-        || (getters.redirectMode === 'fail' && getters.isPaymentFailed);
-
-      return isFormTypeAccordance && isRedirectModeAccordance;
-    },
-    redirectDelay(state) {
-      return get(state.orderData, 'project.redirect_settings.delay', 0);
-    },
-    isAutoRedirect(state, getters) {
-      return getters.redirectDelay > 0;
-    },
-    redirectFormType(state) {
-      return get(state.orderData, 'project.redirect_settings.usage', 'any');
-    },
-    redirectButtonText(state, getters) {
-      return getters.isRedirect
-        ? get(state.orderData, 'project.redirect_settings.button_caption', '')
-        : '';
-    },
-    redirectSuccess(state) {
-      return get(state.orderData, 'project.url_success', '');
-    },
-    redirectFail(state) {
-      return get(state.orderData, 'project.url_fail', '');
-    },
-    hasTimer(state, getters) {
-      return getters.isRedirect && getters.isAutoRedirect;
-    },
   },
 
   mutations: {
@@ -173,9 +136,6 @@ export default {
     },
     orderParams(state, value) {
       state.orderParams = value;
-    },
-    formUsage(state, value) {
-      state.formUsage = value;
     },
     orderData(state, value) {
       state.orderData = value;
@@ -229,7 +189,6 @@ export default {
 
   actions: {
     initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
-      commit('formUsage', options.formUsage);
       if (orderData.error) {
         dispatch('setPaymentStatus', [
           'FAILED_TO_BEGIN',
@@ -252,6 +211,8 @@ export default {
 
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
+
+      dispatch('Redirect/initState', { orderData, formUsage: options.formUsage });
 
       if (orderParams) {
         commit('orderParams', orderParams);
@@ -293,7 +254,7 @@ export default {
       gtagEvent('begin_checkout', { items });
     },
 
-    setPaymentStatus({ commit }, [name, extraData]) {
+    setPaymentStatus({ commit, dispatch }, [name, extraData]) {
       gtagEvent('changePaymentStatus', { event_label: name });
       commit('paymentStatus', name);
       postMessage(`PAYMENT_${name}`);
@@ -301,6 +262,7 @@ export default {
       const actionResult = actionResultsByStatus[name];
       if (actionResult) {
         commit('actionResult', actionResult(extraData));
+        dispatch('Redirect/initRedirectTimeout');
       }
 
       const actionProcessing = actionProcessingByStatus[name];
@@ -599,5 +561,8 @@ export default {
         ...pickedProps,
       });
     },
+  },
+  modules: {
+    Redirect: RedirectStore,
   },
 };

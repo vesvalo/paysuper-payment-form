@@ -83,15 +83,22 @@ export default {
       'activePaymentMethod',
       'isPaymentFailed',
       'isPaymentSuccess',
+    ]),
+    ...mapGetters('PaymentForm/Redirect', [
       'isRedirect',
       'isAutoRedirect',
       'redirectDelay',
-      'redirectButtonText',
       'hasTimer',
-      'redirectSuccess',
-      'redirectFail',
+      'redirectSuccessUrl',
+      'redirectFailUrl',
     ]),
     ...mapGetters('Dictionaries', ['countries']),
+
+    redirectButtonText() {
+      return this.isRedirect
+        ? get(this.orderData, 'project.redirect_settings.button_caption', '')
+        : '';
+    },
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -153,15 +160,6 @@ export default {
       },
       immediate: true,
     },
-    isRedirect: {
-      handler(value) {
-        if (value === true && this.isAutoRedirect) {
-          const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
-          setTimeout(() => window.location.replace(redirectUrl), this.redirectDelay * 1000);
-        }
-      },
-      immediate: true,
-    },
   },
 
   validations() {
@@ -216,7 +214,7 @@ export default {
         this.submitPaymentForm();
       } else if (this.isRedirect) {
         const eventName = this.isPaymentFailed ? 'clickCloseButton' : 'clickOkButton';
-        const redirectUrl = this.isPaymentFailed ? this.redirectFail : this.redirectSuccess;
+        const redirectUrl = this.isPaymentFailed ? this.redirectFailUrl : this.redirectSuccessUrl;
 
         gtagEvent(eventName, { event_category: 'userAction' });
 
@@ -228,7 +226,7 @@ export default {
       }
     },
 
-    async submitPaymentForm() {
+    submitPaymentForm() {
       this.$v.$touch();
 
       const isValidArray = [
@@ -247,7 +245,7 @@ export default {
 
       gtagEvent('submitPaymentForm');
 
-      await this.createPayment({
+      this.createPayment({
         ...this.paymentData,
       });
     },
