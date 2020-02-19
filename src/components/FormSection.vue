@@ -79,8 +79,26 @@ export default {
       'isZipInvalid',
       'currentPlatformId',
     ]),
-    ...mapGetters('PaymentForm', ['activePaymentMethod']),
+    ...mapGetters('PaymentForm', [
+      'activePaymentMethod',
+      'isPaymentFailed',
+      'isPaymentSuccess',
+    ]),
+    ...mapGetters('PaymentForm/Redirect', [
+      'isRedirect',
+      'isAutoRedirect',
+      'redirectDelay',
+      'hasTimer',
+      'redirectSuccessUrl',
+      'redirectFailUrl',
+    ]),
     ...mapGetters('Dictionaries', ['countries']),
+
+    redirectButtonText() {
+      return this.isRedirect
+        ? get(this.orderData, 'project.redirect_settings.button_caption', '')
+        : '';
+    },
 
     paymentMethodsSelectList() {
       return this.orderData.payment_methods.map((item) => {
@@ -130,14 +148,6 @@ export default {
 
     platformInstructionLink() {
       return geInstructionLinkByPlatform(this.currentPlatformId);
-    },
-
-    isPaymentSuccess() {
-      return this.actionResult && this.actionResult.type === 'success';
-    },
-
-    isPaymentFailed() {
-      return this.actionResult && this.actionResult.type !== 'success';
     },
   },
 
@@ -196,19 +206,27 @@ export default {
         if (this.$refs.bankCardForm) {
           this.$refs.bankCardForm.focusCardNumberField();
         }
-      } else if (this.isUserCountryRestricted || this.isPaymentFailed) {
+      } else if (this.isUserCountryRestricted) {
         gtagEvent('clickCloseButton', { event_category: 'userAction' });
-        this.$emit('close');
-      } else if (this.isPaymentSuccess) {
-        gtagEvent('clickOkButton', { event_category: 'userAction' });
         this.$emit('close');
       } else if (this.isPaymentFormVisible) {
         gtagEvent('clickPayButton', { event_category: 'userAction' });
         this.submitPaymentForm();
+      } else if (this.isRedirect) {
+        const eventName = this.isPaymentFailed ? 'clickCloseButton' : 'clickOkButton';
+        const redirectUrl = this.isPaymentFailed ? this.redirectFailUrl : this.redirectSuccessUrl;
+
+        gtagEvent(eventName, { event_category: 'userAction' });
+
+        if (this.isAutoRedirect === false) {
+          window.location.replace(redirectUrl);
+        }
+      } else {
+        this.$emit('close');
       }
     },
 
-    async submitPaymentForm() {
+    submitPaymentForm() {
       this.$v.$touch();
 
       const isValidArray = [
@@ -226,6 +244,7 @@ export default {
       }
 
       gtagEvent('submitPaymentForm');
+
       this.createPayment({
         ...this.paymentData,
       });
@@ -357,7 +376,16 @@ export default {
     </component>
   </div>
   <div :class="$style.footer">
+    <UiTimer
+      v-if="hasTimer"
+      minWidth="100px"
+      :time="redirectDelay"
+    >
+      <IconTimer slot="prepend" />
+      <span slot="append">{{ $t('FormSection.seconds') }}</span>
+    </UiTimer>
     <UiButton
+      v-else
       :class="$style.payBtn"
       :hasBorderRadius="isPageView"
       :disabled="isSubmitButtonDisabled"
@@ -372,14 +400,17 @@ export default {
           {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
         </span>
       </template>
-      <template v-if="isPaymentSuccess">
-        {{ $t('FormSection.ok') }}
-      </template>
       <template v-if="isUserCountryConfirmRequested">
         {{ $t('FormSection.save') }}
       </template>
-      <template v-if="isUserCountryRestricted || isPaymentFailed">
+      <template v-if="isUserCountryRestricted">
         {{ $t('FormSection.close') }}
+      </template>
+      <template v-if="isPaymentFailed">
+        {{ redirectButtonText || $t('FormSection.close') }}
+      </template>
+      <template v-if="isPaymentSuccess">
+        {{ redirectButtonText || $t('FormSection.ok') }}
       </template>
     </UiButton>
   </div>
@@ -397,7 +428,6 @@ export default {
   max-height: 100%;
   width: 100%;
 }
-
 .content {
   display: flex;
   flex-wrap: wrap;
@@ -408,13 +438,11 @@ export default {
   width: 100%;
   max-height: calc(100% - 70px);
 }
-
 .scrollbox {
   width: 100%;
   height: 100%;
   flex-grow: 1;
 }
-
 .contentInner {
   width: 100%;
   height: 100%;
@@ -429,15 +457,13 @@ export default {
     }
   }
 }
-
 .formItem {
   display: flex;
   justify-content: space-between;
 }
-
 .footer {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: flex-end;
   width: 100%;
 
@@ -446,7 +472,6 @@ export default {
     width: 100vw !important;
   }
 }
-
 .payBtn {
   width: 100%;
   transition: border-radius 0.2s ease-out;

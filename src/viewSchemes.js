@@ -124,6 +124,10 @@ export default {
     resultEmailColor: '#ffffff',
 
     scrollbarColor: 'rgba(0, 0, 0, 0.7)',
+
+    timerColor: '#f255ed',
+    timerBorderColor: '#ffffff',
+    timerShadowColor: '#333b50',
   },
   light: {
     baseHoverColor: '#06eaa7',
@@ -250,5 +254,9 @@ export default {
     resultEmailColor: '#202226',
 
     scrollbarColor: 'rgba(0, 0, 0, 0.7)',
+
+    timerColor: '#f255ed',
+    timerBorderColor: '#ffffff',
+    timerShadowColor: '#333b50',
   },
 };

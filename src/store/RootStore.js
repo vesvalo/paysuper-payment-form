@@ -33,6 +33,7 @@ export default new Vuex.Store({
       width: 0,
       height: 0,
     },
+    formUsage: 'standalone',
   },
   mutations: {
     apiUrl(state, value) {
@@ -53,11 +54,15 @@ export default new Vuex.Store({
     options(state, value) {
       state.options = value;
     },
+    formUsage(state, value) {
+      state.formUsage = value;
+    },
   },
   actions: {
     async initState({ commit, dispatch }, { orderParams, options, query }) {
       commit('options', options);
       commit('apiUrl', options.apiUrl);
+      commit('formUsage', options.formUsage || 'standalone');
       commit('query', query);
       dispatch('setInitialLocale');
 
@@ -66,7 +71,10 @@ export default new Vuex.Store({
       }
 
       const orderData = await dispatch('getPreparedOrderData', {
-        orderParams,
+        orderParams: {
+          ...orderParams,
+          form_mode: options.formUsage,
+        },
         queryOrderId: getQueryOrderId(query),
       });
       gtagSet({ currency: orderData.currency });

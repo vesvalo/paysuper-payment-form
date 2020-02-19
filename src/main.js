@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/browser';
 import Vue from 'vue';
 import qs from 'qs';
 import assert from 'assert';
-import { includes } from 'lodash-es';
+import { get, includes } from 'lodash-es';
 import webfontloader from 'webfontloader';
 import Vue2TouchEvents from 'vue2-touch-events';
 import Sandbox from '@/Sandbox.vue';
@@ -47,15 +47,28 @@ const isPageInsideIframe = window.location !== window.parent.location;
 function getOrderParams({
   project, token, products, amount, type, currency, devPreset,
 }) {
-  return {
-    project,
-    ...(devPreset ? {
-      project: '5dbac9bb120a810001a90a49',
-      products: ['5dbace17f3f9fb0001511931'],
-      // amount: 25,
-      // currency: 'USD',
+  const testData = {
+    simple: {
+      project: '5db8141ff0c9c60001a859e1',
+      amount: 30,
+      currency: 'USD',
+      type: 'simple',
+    },
+    product: {
+      project: '5db8141ff0c9c60001a859e1',
+      products: ['5df1bb5540e9bc2d4d44cabb'],
       type: 'product',
-    } : {}),
+    },
+    key: {
+      project: '5db8141ff0c9c60001a859e1',
+      products: ['5e00bf50f091a2937c71574a'],
+      type: 'key',
+    },
+  };
+
+  return {
+    ...(devPreset ? get(testData, devPreset, testData.simple) : {}),
+    ...(project ? { project } : {}),
     ...(token ? { token } : {}),
     ...(products ? { products } : {}),
     ...(amount ? { amount: Number(amount), currency } : {}),
@@ -178,14 +191,27 @@ if (includes(['success', 'fail'], query.result)) {
       mountApp({
         orderParams,
         baseOptions,
-        customOptions: options,
+        customOptions: { ...options, formUsage: 'embed' },
         query,
       });
     },
   });
 } else {
+  let isFramed = false;
+  try {
+    isFramed = window !== window.top
+      || document !== window.top.document
+      || window.self.location !== window.top.location;
+  } catch (e) {
+    isFramed = true;
+  }
   // Case where the form is opened by as actual page inside browser, not inside iframe
-  mountApp({ orderParams, baseOptions, query });
+  mountApp({
+    orderParams,
+    baseOptions,
+    query,
+    customOptions: { formUsage: isFramed ? 'iframe' : 'standalone' },
+  });
 }
 
 postMessage('INITED');

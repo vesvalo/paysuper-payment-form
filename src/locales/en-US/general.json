@@ -68,6 +68,7 @@
     "abstractNumberError": "Invalid number",
     "abstractNumberPlaceholder": "{name} wallet number",
     "placeholderEmail": "Enter your email address",
+    "seconds": "sec",
     "payButtonPrefix": "PAY",
     "tryAgain": "RETRY",
     "save": "SAVE",
