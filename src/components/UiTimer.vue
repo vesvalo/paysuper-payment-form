@@ -19,26 +19,6 @@ export default {
       timer: 0,
     };
   },
-  computed: {
-    container() {
-      return this.$style.container;
-    },
-    inner() {
-      return this.$style.inner;
-    },
-    main() {
-      return this.$style.main;
-    },
-    shadow() {
-      return this.$style.shadow;
-    },
-    prepend() {
-      return this.$style.prepend;
-    },
-    append() {
-      return this.$style.append;
-    },
-  },
   cssRules() {
     return {
       '.{container}': { color: this.$gui.timerColor },
@@ -72,20 +52,20 @@ export default {
 
 <template>
 <div
-  :class="container"
+  :class="$style.container"
   :style="{ minWidth: minWidth || undefined }"
 >
-  <div :class="shadow"></div>
-  <div :class="inner">
-    <span :class="prepend">
+  <div :class="$style.shadow"></div>
+  <div :class="$style.inner">
+    <span :class="$style.prepend">
       <slot name="prepend" />
     </span>
 
-    <div :class="main">
+    <div :class="$style.main">
       {{ timer }}
     </div>
 
-    <span :class="append">
+    <span :class="$style.append">
       <slot name="append" />
     </span>
   </div>
