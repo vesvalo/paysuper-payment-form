@@ -114,7 +114,8 @@ $border-radius: 50px;
 .main,
 .prepend,
 .append {
-  height: 20px;
+  height: 18px;
+  line-height: 18px;
 
   &:empty {
     display: none;
