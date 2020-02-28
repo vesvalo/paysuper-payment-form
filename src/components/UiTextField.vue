@@ -186,7 +186,13 @@ export default {
         'background-color': this.$gui.inputBoxColor,
         'border-color': this.$gui.inputBorderColor,
       },
-      [`.${this.input}:-webkit-autofill, .${this.input}:-internal-autofill-selected`]: {
+      [`
+        .${this.input}:-webkit-autofill,
+        .${this.input}:-webkit-autofill:hover,
+        .${this.input}:-webkit-autofill:focus,
+        .${this.input}:-webkit-autofill:active,
+        .${this.input}:-internal-autofill-selected
+      `]: {
         '-webkit-box-shadow': `inset 0 0 0 50px ${this.$gui.formBackgroundColor}`,
         '-webkit-text-fill-color': this.$gui.inputColor,
       },
@@ -311,6 +317,15 @@ $main-additional-height: 18px;
   &::-ms-clear {
     display: none;
   }
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background-color: transparent !important;
+    background-clip: content-box !important;
+    -webkit-animation: autofill 0s forwards;
+    animation: autofill 0s forwards;
+  }
 }
 
 .label {
@@ -363,6 +378,12 @@ $main-additional-height: 18px;
 
   @include if-rtl {
     border-radius: 3px 0 3px 3px;
+  }
+}
+@keyframes autofill {
+  100% {
+    background: transparent;
+    color: inherit;
   }
 }
 </style>

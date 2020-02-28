@@ -24,8 +24,8 @@
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <UiTextField
         v-model="innerExpiryMonth"
-        id="month"
-        name="cc-exp-month"
+        id="CCExpiryMonth"
+        name="cardExpiryMonth"
         autocomplete="cc-exp-month"
         label="month"
         :class="$style.hiddenExpiry"
@@ -33,8 +33,8 @@
       />
       <UiTextField
         v-model="innerExpiryYear"
-        id="year"
-        name="cc-exp-year"
+        id="CCExpiryYear"
+        name="cardExpiryYear"
         autocomplete="cc-exp-year"
         label="year"
         :class="$style.hiddenExpiry"
