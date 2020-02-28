@@ -193,8 +193,9 @@ export default {
         .${this.input}:-webkit-autofill:active,
         .${this.input}:-internal-autofill-selected
       `]: {
-        '-webkit-box-shadow': `inset 0 0 0 50px ${this.$gui.formBackgroundColor}`,
-        '-webkit-text-fill-color': this.$gui.inputColor,
+        '-webkit-box-shadow': `inset 0 0 0 50px ${this.$gui.formBackgroundColor} !important`,
+        '-webkit-text-fill-color': `${this.$gui.inputColor} !important`,
+        'border-color': `${this.$gui.inputBorderColor} !important`,
       },
       [`.${this.input}:hover`]: {
         'border-color': this.$gui.inputHoverBorderColor,
@@ -296,7 +297,9 @@ $main-additional-height: 18px;
     font-family: 'text-security-disc';
   }
 
-  &::-webkit-textfield-decoration-container,
+  &::-webkit-textfield-decoration-container {
+    display: none !important;
+  }
   &::-webkit-credentials-auto-fill-button,
   &::-webkit-contacts-auto-fill-button {
     visibility: hidden;
@@ -321,10 +324,7 @@ $main-additional-height: 18px;
   &:-webkit-autofill:hover,
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
-    background-color: transparent !important;
     background-clip: content-box !important;
-    -webkit-animation: autofill 0s forwards;
-    animation: autofill 0s forwards;
   }
 }
 
@@ -378,12 +378,6 @@ $main-additional-height: 18px;
 
   @include if-rtl {
     border-radius: 3px 0 3px 3px;
-  }
-}
-@keyframes autofill {
-  100% {
-    background: transparent;
-    color: inherit;
   }
 }
 </style>

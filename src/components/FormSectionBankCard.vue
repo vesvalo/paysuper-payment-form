@@ -23,20 +23,20 @@
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <UiTextField
-        v-model="innerExpiryMonth"
-        id="CCExpiryMonth"
-        name="cardExpiryMonth"
-        autocomplete="cc-exp-month"
-        label="month"
-        :class="$style.hiddenExpiry"
-        @input="prepareExpiryDate"
-      />
-      <UiTextField
         v-model="innerExpiryYear"
         id="CCExpiryYear"
         name="cardExpiryYear"
         autocomplete="cc-exp-year"
         label="year"
+        :class="$style.hiddenExpiry"
+        @input="prepareExpiryDate"
+      />
+      <UiTextField
+        v-model="innerExpiryMonth"
+        id="CCExpiryMonth"
+        name="cardExpiryMonth"
+        autocomplete="cc-exp-month"
+        label="month"
         :class="$style.hiddenExpiry"
         @input="prepareExpiryDate"
       />
