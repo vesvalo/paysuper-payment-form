@@ -324,7 +324,6 @@ $main-additional-height: 18px;
   &:-webkit-autofill:focus,
   &:-webkit-autofill:active {
     background-clip: content-box !important;
-    border: none !important;
     transition: background-color 5000s ease-in-out 0s;
   }
 }
