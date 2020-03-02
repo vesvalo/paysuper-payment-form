@@ -13,7 +13,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationResult from '@/components/OrderCreationResult.vue';
-import TestNotify from '@/components/TestNotify.vue';
+import TestNotificationBlock from '@/components/TestNotificationBlock.vue';
 import localesScheme from '@/locales/scheme';
 import { postMessage } from './postMessage';
 
@@ -29,7 +29,7 @@ export default {
     ModalCart,
     ModalForm,
     OrderCreationResult,
-    TestNotify,
+    TestNotificationBlock,
   },
   data() {
     return {
@@ -181,9 +181,9 @@ export default {
           :isLoading="isLoading"
           :isTestTransaction="isTestTransaction"
         >
-          <TestNotify
+          <TestNotificationBlock
             v-if="isTestTransaction"
-            slot="TestNotify"
+            slot="testNotificationBlock"
             :isPageView="isPageView"
           />
           <CartSection
@@ -213,9 +213,9 @@ export default {
           :isLoading="isLoading"
           :isTestTransaction="isTestTransaction"
         >
-          <TestNotify
+          <TestNotificationBlock
             v-if="isTestTransaction"
-            slot="TestNotify"
+            slot="testNotificationBlock"
             :isPageView="isPageView"
           />
           <CartSection

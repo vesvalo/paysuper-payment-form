@@ -39,10 +39,10 @@ export default {
       width="220px"
       :visible="notifyShown"
     >
-      <div v-html="$t('TestNotify.testInfo')"></div>
+      <div v-html="$t('TestNotificationBlock.testInfo')"></div>
     </UiTip>
   </div>
-  {{ $t('TestNotify.transaction') }}
+  {{ $t('TestNotificationBlock.transaction') }}
 </div>
 </template>
 

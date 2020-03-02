@@ -3,8 +3,8 @@
   <div :class="$style.box">
     <div :class="$style.left">
       <div :class="[$style.mainBox, {[$style._closed]: !isCartOpened}]">
-        <div :class="[$style.main, { [$style._hasTestNotify]: isTestTransaction }]">
-          <slot name="TestNotify" />
+        <div :class="[$style.main, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
+          <slot name="testNotificationBlock" />
           <StubPreloaderCart
             v-if="isLoading"
             layout="page"
@@ -162,14 +162,14 @@ export default {
   position: relative;
   padding-bottom: 12px;
 
-  &._hasTestNotify {
+  &._hasTestNotificationBlock {
     padding-top: 40px;
   }
 
   @media screen and (min-width: 640px) {
     display: block;
 
-    &._hasTestNotify {
+    &._hasTestNotificationBlock {
       padding-top: 0px;
     }
   }

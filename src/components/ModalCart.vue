@@ -81,8 +81,8 @@ export default {
       v-else
       :class="$style.wrapper"
     >
-      <slot name="TestNotify" />
-      <div :class="[$style.header, { [$style._hasTestNotify]: isTestTransaction }]">
+      <slot name="testNotificationBlock" />
+      <div :class="[$style.header, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
         <span
           :class="$style.projectName"
           @click="fireAnalyticsEvent('Project')"
@@ -113,7 +113,7 @@ export default {
         </span> -->
       </div>
 
-      <div :class="[$style.content, { [$style._hasTestNotify]: isTestTransaction }]">
+      <div :class="[$style.content, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
         <slot />
       </div>
 
@@ -202,7 +202,7 @@ export default {
   top: 0;
   z-index: 2;
 
-  &._hasTestNotify {
+  &._hasTestNotificationBlock {
     top: 28px;
   }
 }
@@ -242,7 +242,7 @@ export default {
   position: relative;
   width: 100%;
 
-  &._hasTestNotify {
+  &._hasTestNotificationBlock {
     padding-top: 28px;
   }
 }
