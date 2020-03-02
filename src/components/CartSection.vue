@@ -64,15 +64,15 @@ export default {
     },
   },
 
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.imageItemInner}.${this.$style._noImage}`]: {
+  cssRules() {
+    return {
+      '.{imageItemInner}.{_noImage}': {
         'border-color': this.$gui.cartStrokeColor,
       },
-      [`.${this.$style.imageItemInner}.${this.$style._noImage} > svg`]: {
+      '.{imageItemInner}.{_noImage} > svg': {
         fill: this.$gui.cartIconsColor,
       },
-    });
+    };
   },
 
   methods: {

@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex';
-import { includes } from 'lodash-es';
+import { get, includes } from 'lodash-es';
 import FastClick from 'fastclick';
 import { gtagEvent } from '@/analytics';
 import ActionProcessing from '@/components/ActionProcessing.vue';
@@ -13,6 +13,7 @@ import Modal from '@/components/Modal.vue';
 import ModalCart from '@/components/ModalCart.vue';
 import ModalForm from '@/components/ModalForm.vue';
 import OrderCreationResult from '@/components/OrderCreationResult.vue';
+import TestNotificationBlock from '@/components/TestNotificationBlock.vue';
 import localesScheme from '@/locales/scheme';
 import { postMessage } from './postMessage';
 
@@ -28,6 +29,7 @@ export default {
     ModalCart,
     ModalForm,
     OrderCreationResult,
+    TestNotificationBlock,
   },
   data() {
     return {
@@ -80,16 +82,19 @@ export default {
       }
       return {};
     },
+    isTestTransaction() {
+      return !get(this.orderData, 'is_production', true);
+    },
   },
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.iconClose}`]: {
+  cssRules() {
+    return {
+      '.{iconClose}': {
         fill: this.$gui.modalCloseIconColor,
       },
-      [`.${this.$style.close}:hover > .${this.$style.iconClose}`]: {
+      '.{close}:hover > {iconClose}': {
         fill: this.$gui.baseHoverColor,
       },
-    });
+    };
   },
   beforeMount() {
     postMessage('LOADED');
@@ -174,7 +179,13 @@ export default {
         <LayoutContent
           :isCartOpened="isCartOpened"
           :isLoading="isLoading"
+          :isTestTransaction="isTestTransaction"
         >
+          <TestNotificationBlock
+            v-if="isTestTransaction"
+            slot="testNotificationBlock"
+            :isPageView="isPageView"
+          />
           <CartSection
             slot="cart"
             :orderData="orderData"
@@ -200,7 +211,13 @@ export default {
         <ModalCart
           :projectName="orderData ? orderData.project.name : ''"
           :isLoading="isLoading"
+          :isTestTransaction="isTestTransaction"
         >
+          <TestNotificationBlock
+            v-if="isTestTransaction"
+            slot="testNotificationBlock"
+            :isPageView="isPageView"
+          />
           <CartSection
             :orderData="orderData"
             :hasPlatformSelect="orderData.type === 'key'"
@@ -292,7 +309,6 @@ export default {
     }
   }
 }
-
 .close {
   position: absolute;
   right: 0;
