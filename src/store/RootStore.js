@@ -35,6 +35,16 @@ export default new Vuex.Store({
     },
     formUsage: 'standalone',
   },
+  getters: {
+    hasPaylink(state) {
+      return !!state.query.paylink_id;
+    },
+    pathGetOrderId(state, getters) {
+      return getters.hasPaylink
+        ? `${state.apiUrl}/api/v1/paylink/${state.query.paylink_id}`
+        : `${state.apiUrl}/api/v1/order`;
+    },
+  },
   mutations: {
     apiUrl(state, value) {
       state.apiUrl = value;
@@ -115,11 +125,9 @@ export default new Vuex.Store({
       return orderData;
     },
 
-    async getOrderId({ state }, orderParams) {
-      const { data } = await axios.post(
-        `${state.apiUrl}/api/v1/order`,
-        orderParams,
-      );
+    async getOrderId({ getters }, orderParams) {
+      const { hasPaylink, pathGetOrderId } = getters;
+      const { data } = await axios.post(pathGetOrderId, hasPaylink ? undefined : orderParams);
       return data.id;
     },
 
