@@ -70,6 +70,7 @@ export default {
     v-model="innerValue"
     v-bind="inputBindProps"
     ref="textField"
+    id="cardCsc"
     name="cvv2"
     autocomplete="cc-csc"
     mask="###"
