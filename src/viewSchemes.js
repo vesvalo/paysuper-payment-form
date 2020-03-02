@@ -128,6 +128,9 @@ export default {
     timerColor: '#f255ed',
     timerBorderColor: '#ffffff',
     timerShadowColor: '#333b50',
+
+    testNotifyBackgroundColor: 'rgba(243, 170, 24, 0.2)',
+    testNotifyColor: '#f3aa18',
   },
   light: {
     baseHoverColor: '#06eaa7',
@@ -258,5 +261,8 @@ export default {
     timerColor: '#f255ed',
     timerBorderColor: '#ffffff',
     timerShadowColor: '#333b50',
+
+    testNotifyBackgroundColor: 'rgba(243, 170, 24, 0.2)',
+    testNotifyColor: '#f3aa18',
   },
 };

@@ -8,12 +8,16 @@ export default {
   },
   props: {
     projectName: {
-      required: true,
       type: String,
+      required: true,
     },
     isLoading: {
-      default: false,
       type: Boolean,
+      default: false,
+    },
+    isTestTransaction: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -21,24 +25,24 @@ export default {
       isProfileShown: false,
     };
   },
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.layout}`]: {
+  cssRules() {
+    return {
+      '.{layout}': {
         'background-color': this.$gui.cartBackgroundColor,
       },
-      [`.${this.$style.link}, .${this.$style.projectName}`]: {
+      '.{link}, .{projectName}': {
         color: this.$gui.layoutTextColor,
       },
-      [`.${this.$style.link}:hover`]: {
+      '.{link}:hover': {
         color: this.$gui.baseHoverColor,
       },
-      [`.${this.$style.tipLink}`]: {
+      '.{tipLink}': {
         color: this.$gui.tipLinkColor,
       },
-      [`.${this.$style.tipLink}:hover`]: {
+      '.{tipLink}:hover': {
         color: this.$gui.baseHoverColor,
       },
-      [`.${this.$style.header}`]: {
+      '.{header}': {
         'background-image': `
           linear-gradient(
             180deg,
@@ -47,7 +51,7 @@ export default {
           )
         `,
       },
-      [`.${this.$style.footer}`]: {
+      '.{footer}': {
         'background-image': `
           linear-gradient(
             180deg,
@@ -56,7 +60,7 @@ export default {
           )
         `,
       },
-    });
+    };
   },
   methods: {
     fireAnalyticsEvent(elementName) {
@@ -77,7 +81,8 @@ export default {
       v-else
       :class="$style.wrapper"
     >
-      <div :class="$style.header">
+      <slot name="TestNotify" />
+      <div :class="[$style.header, { [$style._hasTestNotify]: isTestTransaction }]">
         <span
           :class="$style.projectName"
           @click="fireAnalyticsEvent('Project')"
@@ -108,7 +113,7 @@ export default {
         </span> -->
       </div>
 
-      <div :class="$style.content">
+      <div :class="[$style.content, { [$style._hasTestNotify]: isTestTransaction }]">
         <slot />
       </div>
 
@@ -196,6 +201,10 @@ export default {
   right: 0;
   top: 0;
   z-index: 2;
+
+  &._hasTestNotify {
+    top: 28px;
+  }
 }
 .projectName {
   font-size: 12px;
@@ -232,6 +241,10 @@ export default {
   z-index: 1;
   position: relative;
   width: 100%;
+
+  &._hasTestNotify {
+    padding-top: 28px;
+  }
 }
 .footer {
   display: flex;

@@ -3,7 +3,8 @@
   <div :class="$style.box">
     <div :class="$style.left">
       <div :class="[$style.mainBox, {[$style._closed]: !isCartOpened}]">
-        <div :class="$style.main">
+        <div :class="[$style.main, { [$style._hasTestNotify]: isTestTransaction }]">
+          <slot name="TestNotify" />
           <StubPreloaderCart
             v-if="isLoading"
             layout="page"
@@ -44,6 +45,10 @@ export default {
     isLoading: {
       default: false,
       type: Boolean,
+    },
+    isTestTransaction: {
+      type: Boolean,
+      default: false,
     },
   },
   created() {
@@ -144,23 +149,29 @@ export default {
   max-width: 640px;
 
   &._closed {
-    padding: 0 30px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   @media screen and (min-width: 640px) {
     padding: 0;
     max-width: 480px;
-
-    &._closed {
-      padding: 20px 30px;
-    }
   }
 }
 .main {
+  position: relative;
   padding-bottom: 12px;
+
+  &._hasTestNotify {
+    padding-top: 40px;
+  }
 
   @media screen and (min-width: 640px) {
     display: block;
+
+    &._hasTestNotify {
+      padding-top: 0px;
+    }
   }
 }
 </style>

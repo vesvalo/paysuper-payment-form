@@ -137,5 +137,9 @@
   "SavedCardToPlainFieldsSwitch": {
     "payWithSavedCards": "Pay with a saved card",
     "anotherWayToPay": "Use a different card"
+  },
+  "TestNotify": {
+    "transaction": "Test transaction",
+    "testInfo": "This transaction is for a testing purposes only. No real money movement will be performed"
   }
 }
