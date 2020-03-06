@@ -83,6 +83,8 @@ export default {
       'activePaymentMethod',
       'isPaymentFailed',
       'isPaymentSuccess',
+      // Todo: remove after #195691
+      'hasExpAutofill',
     ]),
     ...mapGetters('PaymentForm/Redirect', [
       'isRedirect',
@@ -322,6 +324,7 @@ export default {
           :isCountryFieldExposed="isCountryFieldExposed"
           :isZipFieldExposed="isZipFieldExposed"
           :isZipInvalid="isZipInvalid"
+          :hasExpAutofill="hasExpAutofill"
           @savedCardIdChange="checkSavedCardNumberById"
           @cardNumberChange="checkBankCardNumber"
           @countryChange="setNewUserCountry($event), requestBillingDataUpdate()"

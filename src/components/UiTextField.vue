@@ -299,6 +299,7 @@ $main-additional-height: 18px;
     font-family: 'text-security-disc';
   }
 
+  &::-webkit-credit-card-auto-fill-button,
   &::-webkit-credentials-auto-fill-button,
   &::-webkit-contacts-auto-fill-button {
     visibility: hidden;
