@@ -74,6 +74,7 @@ export default new Vuex.Store({
       commit('apiUrl', options.apiUrl);
       commit('formUsage', options.formUsage || 'standalone');
       commit('query', query);
+
       dispatch('setInitialLocale');
 
       if (options.layout === 'loading') {

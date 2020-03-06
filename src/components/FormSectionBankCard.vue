@@ -22,24 +22,27 @@
       @input="emitChanges('cardNumber')"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
-      <UiTextField
-        v-model="innerExpiryMonth"
-        id="cardExpirationMonth"
-        name="CCExpiryMonth"
-        autocomplete="cc-exp-month"
-        label="month"
-        :class="$style.hiddenExpiry"
-        @input="prepareExpiryDate"
-      />
-      <UiTextField
-        v-model="innerExpiryYear"
-        id="cardExpirationYear"
-        name="CCExpiryYear"
-        autocomplete="cc-exp-year"
-        label="year"
-        :class="$style.hiddenExpiry"
-        @input="prepareExpiryDate"
-      />
+      <!-- Todo: will fix into #195691 -->
+      <template v-if="hasExpAutofill">
+        <UiTextField
+          v-model="innerExpiryMonth"
+          id="cardExpirationMonth"
+          name="CCExpiryMonth"
+          autocomplete="cc-exp-month"
+          label="month"
+          :class="$style.hiddenExpiry"
+          @input="prepareExpiryDate"
+        />
+        <UiTextField
+          v-model="innerExpiryYear"
+          id="cardExpirationYear"
+          name="CCExpiryYear"
+          autocomplete="cc-exp-year"
+          label="year"
+          :class="$style.hiddenExpiry"
+          @input="prepareExpiryDate"
+        />
+      </template>
       <UiTextField
         v-model="innerValue.expiryDate"
         ref="expiryDateField"
@@ -234,6 +237,11 @@ export default {
     isOneLine: {
       type: Boolean,
       default: false,
+    },
+    // Todo: remove after #195691
+    hasExpAutofill: {
+      type: Boolean,
+      default: true,
     },
   },
 

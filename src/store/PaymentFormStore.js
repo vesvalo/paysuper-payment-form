@@ -66,6 +66,18 @@ const actionProcessingByStatus = {
   RECREATE_TO_CONTINUE: () => ({ type: 'simpleLoading' }),
 };
 
+// Todo: remove after #195691
+function isIOS() {
+  const navigator = get(window, 'navigator', {});
+  const hasMobileIOS = /iPad|iPhone|iPod/.test(navigator.platform);
+  const hasMacIntl = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  const hasAppleComp = navigator.vendor
+    && navigator.vendor.match(/Apple Computer, Inc./)
+    && navigator.userAgent.indexOf('Safari') !== -1;
+
+  return ((hasMobileIOS || hasMacIntl) && !window.MSStream) || hasAppleComp;
+}
+
 export default {
   namespaced: true,
 
@@ -103,6 +115,7 @@ export default {
     isZipFieldExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
+    hasExpAutofill: true,
   },
 
   getters: {
@@ -185,6 +198,9 @@ export default {
     isZipInvalid(state, value) {
       state.isZipInvalid = value;
     },
+    hasExpAutofill(state, value) {
+      state.hasExpAutofill = value;
+    },
   },
 
   actions: {
@@ -208,6 +224,9 @@ export default {
         gtagEvent('orderAlreadyProcessed');
         return;
       }
+
+      // Todo: remove after #195691
+      commit('hasExpAutofill', !isIOS || options.formUsage === 'standalone');
 
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
