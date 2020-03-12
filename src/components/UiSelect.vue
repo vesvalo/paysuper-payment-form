@@ -1,38 +1,48 @@
 <template>
 <div
-  v-touch:tap="toggle"
   v-clickaway="blur"
   :class="selectClasses"
 >
-  <div :class="$style.wrapper">
+  <div
+    :class="$style.wrapper"
+    v-touch:tap.self="toggle"
+  >
     <div
       :class="[
         $style.selected,
-        { [$style._focused]: focused },
-        { [$style._nativeFocus]: hasNativeFocus }
+        {
+          [$style._focused]: focused,
+          [$style._nativeFocus]: hasNativeFocus,
+        },
       ]"
+      v-touch:tap.self="toggle"
     >
       <div
         v-if="selectedItem && selectedItem.iconComponent"
         :class="[$style.icon, $style[`_${iconPosition}`]]"
+        v-touch:tap="toggle"
       >
         <component :is="selectedItem.iconComponent" />
       </div>
       <input
         ref="input"
-        :class="[$style.input, { [$style._focused]: focused }, { [$style._empty]: !selectValue }]"
+        :class="[$style.input, { [$style._focused]: focused, [$style._empty]: !selectValue }]"
         :value="label"
         :readonly="true"
         :tabindex="tabindex"
+        v-touch:tap="toggle"
         @focus="hasNativeFocus = true"
         @blur="hasNativeFocus = false"
         @keydown.up="selectPrevItem"
         @keydown.down="selectNextItem"
       />
-      <div :class="[$style.arrow, {
-        [$style._focused]: focused,
-        [$style._reverse]: hasReversible
-      }]">
+      <div
+        :class="[$style.arrow, {
+          [$style._focused]: focused,
+          [$style._reverse]: hasReversible
+        }]"
+        v-touch:tap="toggle"
+      >
         <IconArrow />
       </div>
     </div>
@@ -40,8 +50,12 @@
       :class="[$style.error, { [$style._showed]: isVisibleError }]"
       :title="errorText"
       v-html="errorText"
+      v-touch:tap="toggle"
     ></span>
-    <div :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]">
+    <div
+      :class="[$style.box, { [$style._focused]: focused, [$style._reverse]: hasReversible }]"
+      v-touch:tap="toggle"
+    >
       <UiScrollbarBox
         :class="$style.scrollbar"
         :settings="{ suppressScrollX: true, minScrollbarLength: 20 }"
@@ -204,49 +218,46 @@ export default {
       return !!(this.hasError && this.errorText);
     },
   },
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.container}.${this.$style._disabled}`]: {
+  cssRules() {
+    return {
+      '.{container}.{_disabled}': {
         opacity: this.$gui.selectDisabledOpacity,
       },
-      [`.${this.$style.container}`]: {
+      '.{container}': {
         color: this.$gui.selectColor,
         'background-color': this.$gui.selectBoxColor,
       },
-      [`.${this.$style.selected}`]: {
+      '.{selected}': {
         'background-color': this.$gui.selectBoxColor,
         'border-color': this.$gui.selectBorderColor,
       },
-      [`
-        .${this.$style.selected}.${this.$style._focused},
-        .${this.$style.selected}.${this.$style._nativeFocus}
-      `]: {
+      '.{selected}.{_focused}, .{selected}.{_nativeFocus}': {
         'border-color': this.$gui.selectFocusBorderColor,
       },
-      [`.${this.$style.selected}:not(.${this.$style._focused}):hover`]: {
+      '.{selected}:not(.{_focused}):not(.{_nativeFocus}):hover': {
         'border-color': this.$gui.selectHoverBorderColor,
       },
-      [`.${this.$style.input}`]: {
+      '.{input}': {
         color: this.$gui.selectColor,
         'background-color': this.$gui.selectBoxColor,
       },
-      [`.${this.$style.input}.${this.$style._empty}`]: {
+      '.{input}.{_empty}': {
         color: this.$gui.selectPlaceholderColor,
       },
-      [`.${this.$style.arrow} > svg`]: {
+      '.{arrow} > svg': {
         fill: this.$gui.selectColor,
       },
-      [`.${this.$style.box}`]: {
+      '.{box}': {
         'background-color': this.$gui.selectOptionsBoxColor,
       },
-      [`.${this.$style.error}`]: {
+      '.{error}': {
         'background-color': this.$gui.errorBoxColor,
         color: this.$gui.errorColor,
       },
-      [`.${this.$style.container}.${this.$style._error} .${this.$style.selected}`]: {
+      '.{container}.{_error} .{selected}': {
         'border-color': this.$gui.errorBorderColor,
       },
-    });
+    };
   },
   methods: {
     toggle() {
@@ -268,6 +279,7 @@ export default {
       this.setSelectValue(value);
       this.$emit('input', value);
       this.$refs.input.focus();
+      this.focused = false;
     },
     setSelectValue(value) {
       this.selectValue = value;
@@ -342,7 +354,6 @@ $main-additional-height: 18px;
   padding: 18px 0;
   cursor: pointer;
 }
-
 .selected {
   display: flex;
   height: $main-height;
@@ -353,8 +364,12 @@ $main-additional-height: 18px;
   transition: border-color 0.2s ease-out;
   cursor: pointer;
   font-family: inherit;
-}
 
+  &._focused,
+  &._nativeFocus {
+    display: flex;
+  }
+}
 .error {
   top: $main-height + $main-additional-height + 2px;
   display: block;
@@ -412,8 +427,12 @@ $main-additional-height: 18px;
   cursor: pointer;
   font-family: inherit;
   font-size: $primary-input-size;
-  pointer-events: none;
   user-select: none;
+
+  &._empty,
+  &._focused {
+    display: block;
+  }
 }
 .arrow {
   height: 24px;
