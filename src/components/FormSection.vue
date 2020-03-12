@@ -78,13 +78,13 @@ export default {
       'isZipFieldExposed',
       'isZipInvalid',
       'currentPlatformId',
+      // Todo: remove after #195691
+      'hasExpAutofill',
     ]),
     ...mapGetters('PaymentForm', [
       'activePaymentMethod',
       'isPaymentFailed',
       'isPaymentSuccess',
-      // Todo: remove after #195691
-      'hasExpAutofill',
     ]),
     ...mapGetters('PaymentForm/Redirect', [
       'isRedirect',
