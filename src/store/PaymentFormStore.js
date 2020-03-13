@@ -241,7 +241,10 @@ export default {
       const bankCardMethod = orderData.payment_methods[bankCardIndex];
 
       commit('activePaymentMethodId', bankCardMethod.id);
-      commit('cards', bankCardMethod.saved_cards);
+      /**
+       * Cards saving is disabled as a hotfix because Cardpay can't handle it our way
+       */
+      // commit('cards', bankCardMethod.saved_cards);
 
       if (orderData.platforms) {
         commit('currentPlatformId', orderData.platforms[0].id);
