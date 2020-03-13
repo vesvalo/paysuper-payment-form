@@ -109,7 +109,8 @@
     @input="emitChanges('zip')"
   />
 
-  <div
+  <!-- Cards saving is disabled as a hotfix because Cardpay can't handle it our way -->
+  <!-- <div
     v-if="innerValue.cardDataType === 'manual'"
     :class="[$style.formItem, $style.remember]"
   >
@@ -135,7 +136,7 @@
         </UiTip>
       </div>
     </UiCheckbox>
-  </div>
+  </div> -->
 </div>
 </template>
 
