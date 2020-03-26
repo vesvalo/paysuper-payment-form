@@ -3,16 +3,12 @@ import Vuex from 'vuex';
 import qs from 'qs';
 import axios from 'axios';
 import assert from 'assert';
-import {
-  ceil,
-  get,
-  lastIndexOf,
-  min,
-} from 'lodash-es';
+import { get } from 'lodash-es';
 import { captureProductionException } from '@/helpers/errorLoggers';
 import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
+import prepareOrderDataItems from '@/helpers/prepareOrderDataItems';
 import DictionariesStore from './DictionariesStore';
 import PaymentFormStore from './PaymentFormStore';
 import { postMessage } from '../postMessage';
@@ -25,93 +21,6 @@ function getQueryOrderId(query) {
     return explicitOrderId;
   }
   return query.order_id;
-}
-function getResizedImageUrl(url, width = 'AUTO', height = 'AUTO') {
-  const lastSlashIndex = lastIndexOf(url, '/');
-  const firstUrlPart = url.substr(0, lastSlashIndex);
-  const lastUrlPart = url.substr(lastSlashIndex);
-  return `${firstUrlPart}/rsz/${ceil(width)}x${ceil(height)}${lastUrlPart}`;
-}
-function prepareItems(items, layout) {
-  const itemsLength = min([items.length, 7]);
-  const newItems = [...items];
-  const ratioByLayout = layout === 'page' ? 1.5 : 1;
-  let sizes = [];
-
-  if (!itemsLength) {
-    return null;
-  }
-
-  switch (itemsLength) {
-    case 1:
-      sizes = [[280, 187.6]];
-      break;
-    case 2:
-      sizes = [
-        [135, 135],
-        [135, 135],
-      ];
-      break;
-    case 3:
-      sizes = [
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-      ];
-      break;
-    case 4:
-      sizes = [
-        [62.5, 62.5],
-        [62.5, 62.5],
-        [62.5, 62.5],
-        [62.5, 62.5],
-      ];
-      break;
-    case 5:
-      sizes = [
-        [135, 135],
-        [135, 135],
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-      ];
-      break;
-    case 6:
-      sizes = [
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-      ];
-      break;
-    default:
-      sizes = [
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [86.66, 86.66],
-        [62.5, 62.5],
-        [62.5, 62.5],
-        [62.5, 62.5],
-        [62.5, 62.5],
-      ];
-  }
-
-  for (let i = 0; i < itemsLength; i += 1) {
-    newItems[i] = {
-      ...newItems[i],
-      images: [
-        getResizedImageUrl(
-          newItems[i].images[0],
-          sizes[i][0] * ratioByLayout,
-          sizes[i][1] * ratioByLayout,
-        ),
-      ],
-    };
-  }
-
-  return newItems;
 }
 
 export default new Vuex.Store({
@@ -198,7 +107,7 @@ export default new Vuex.Store({
       try {
         orderId = queryOrderId || await dispatch('getOrderId', orderParams);
         orderData = await dispatch('getOrderData', orderId);
-        orderData.items = prepareItems(orderData.items, state.options.layout);
+        orderData.items = prepareOrderDataItems(orderData.items, state.options.layout);
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
