@@ -55,8 +55,8 @@ function getOrderParams({
       type: 'simple',
     },
     product: {
-      project: '5db8141ff0c9c60001a859e1',
-      products: ['5df1bb5540e9bc2d4d44cabb'],
+      project: '5db8183cf0c9c60001a88c8c',
+      products: ['5e5693a5d23106a429b1909a'],
       type: 'product',
     },
     key: {

@@ -8,6 +8,7 @@ import { captureProductionException } from '@/helpers/errorLoggers';
 import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
+import prepareOrderDataItems from '@/helpers/prepareOrderDataItems';
 import DictionariesStore from './DictionariesStore';
 import PaymentFormStore from './PaymentFormStore';
 import { postMessage } from '../postMessage';
@@ -96,7 +97,7 @@ export default new Vuex.Store({
       dispatch('PaymentForm/initState', { orderParams, orderData, options });
     },
 
-    async getPreparedOrderData({ commit, dispatch }, { orderParams, queryOrderId }) {
+    async getPreparedOrderData({ commit, dispatch, state }, { orderParams, queryOrderId }) {
       assert(
         orderParams || queryOrderId,
         'orderParams or queryOrderId is required to dispatch getPreparedOrderData',
@@ -106,6 +107,7 @@ export default new Vuex.Store({
       try {
         orderId = queryOrderId || await dispatch('getOrderId', orderParams);
         orderData = await dispatch('getOrderData', orderId);
+        orderData.items = prepareOrderDataItems(orderData.items, state.options.layout);
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
