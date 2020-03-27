@@ -7,14 +7,13 @@ function getResizedImageUrl(url, width = 'AUTO', height = 'AUTO') {
   return `${firstUrlPart}/rsz/${ceil(width)}x${ceil(height)}${lastUrlPart}`;
 }
 export default function prepareOrderDataItems(items, layout) {
+  if (!items || !items.length) {
+    return items;
+  }
   const itemsLength = min([items.length, 7]);
   const newItems = [...items];
   const ratioByLayout = layout === 'page' ? 1.5 : 1;
   let sizes = [];
-
-  if (!itemsLength) {
-    return null;
-  }
 
   switch (itemsLength) {
     case 1:
