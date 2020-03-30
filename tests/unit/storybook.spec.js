@@ -32,6 +32,10 @@ const scheme = {
       wait: 300,
     },
     {
+      story: 'longProjectName',
+      wait: 300,
+    },
+    {
       story: 'loading',
       wait: 300,
     },
@@ -58,6 +62,14 @@ const scheme = {
       },
     },
     {
+      story: 'longProjectName',
+      testName: 'long project name wide',
+      viewport: {
+        width: 875,
+        height: 700,
+      },
+    },
+    {
       story: 'default',
       testName: 'mobile 1',
       viewport: {
@@ -73,7 +85,14 @@ const scheme = {
         height: 900,
       },
     },
-
+    {
+      story: 'longProjectName',
+      testName: 'long project name mobile',
+      viewport: {
+        width: 500,
+        height: 900,
+      },
+    },
     {
       story: 'loading',
       testName: 'loading wide 1',

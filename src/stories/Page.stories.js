@@ -28,6 +28,28 @@ storiesOf('Page', module)
       </div>
     `,
   }))
+  .add('longProjectName', () => ({
+    components: { LayoutHeader, LayoutContent, LayoutFooter },
+    data() {
+      return {
+        isCartOpened: true,
+      };
+    },
+    template: `
+      <div>
+        <LayoutHeader
+          projectName="ProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProject"
+        />
+      
+        <LayoutContent :isCartOpened="isCartOpened">
+          <div slot="cart" style="height: 200px">111</div>
+          <div slot="form" style="height: 200px">222</div>
+        </LayoutContent>
+      
+        <LayoutFooter />
+      </div>
+    `,
+  }))
   .add('loading', () => ({
     components: { LayoutHeader, LayoutContent, LayoutFooter },
     data() {
