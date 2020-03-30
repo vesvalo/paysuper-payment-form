@@ -210,6 +210,9 @@ export default {
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .link {
   position: relative;

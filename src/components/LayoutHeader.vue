@@ -210,6 +210,7 @@ export default {
   display: flex;
   flex-grow: 1;
   flex-wrap: wrap-reverse;
+  width: 100%;
 
   @include if-rtl {
     flex-direction: row-reverse;
@@ -217,7 +218,7 @@ export default {
 }
 .left {
   display: flex;
-  flex-basis: 320px;
+  width: 50%;
   flex-grow: 1;
   flex-wrap: wrap;
   position: relative;
@@ -238,9 +239,12 @@ export default {
     padding: 30px 30px 15px;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-right: 5.5vw;
-    flex-basis: 260px;
     justify-content: flex-end;
     height: auto;
 
@@ -268,9 +272,9 @@ export default {
 
 .right {
   display: flex;
-  flex-basis: 320px;
   flex-grow: 1;
   height: 60px;
+  width: 50%;
   justify-content: flex-end;
   position: relative;
   align-items: center;
@@ -295,9 +299,12 @@ export default {
     padding: 0 20px;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-left: 5.5vw;
-    flex-basis: 260px;
     justify-content: flex-start;
     height: auto;
     align-items: normal;
@@ -409,6 +416,9 @@ export default {
   font-weight: bold;
   text-decoration: none;
   transition: color 0.2s ease-out;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     text-decoration: none;

@@ -91,7 +91,7 @@ export default {
 }
 .left {
   display: flex;
-  flex-basis: 320px;
+  width: 50%;
   flex-grow: 1;
   justify-content: flex-end;
 
@@ -99,9 +99,12 @@ export default {
     flex-direction: row-reverse;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-right: 5.5vw;
-    flex-basis: 260px;
 
     & > .mainBox {
       padding-left: 5.5vw;
@@ -119,16 +122,19 @@ export default {
 .right {
   display: flex;
   flex-direction: column;
-  flex-basis: 320px;
+  width: 50%;
   flex-grow: 1;
 
   @include if-rtl {
     align-items: flex-end;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-left: 5.5vw;
-    flex-basis: 260px;
 
     & > .mainBox {
       padding-right: 5.5vw;
