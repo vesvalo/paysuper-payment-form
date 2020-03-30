@@ -11,6 +11,7 @@
       <template v-else>
         <span
           :class="$style.project"
+          :title="projectName"
           @click="fireAnalyticsEvent('Project')"
         >{{ projectName }}</span>
         <div
@@ -419,6 +420,7 @@ export default {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 
   &:hover {
     text-decoration: none;
