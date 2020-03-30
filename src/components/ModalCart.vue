@@ -85,6 +85,7 @@ export default {
       <div :class="[$style.header, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
         <span
           :class="$style.projectName"
+          :title="projectName"
           @click="fireAnalyticsEvent('Project')"
         >{{ projectName }}</span>
         <!-- <span
@@ -213,6 +214,7 @@ export default {
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .link {
   position: relative;
