@@ -6,8 +6,8 @@
     v-model="innerValue"
     :class="inputClasses"
     :tokens="maskTokens"
-    @blur="$emit('blur')"
-    @focus="$emit('focus')"
+    @blur.native="$emit('blur')"
+    @focus.native="$emit('focus')"
     @input="$emit('input', innerValue)"
   />
   <input

@@ -8,6 +8,11 @@
     @select="emitChanges('savedCardId')"
   />
   <template v-if="innerValue.cardDataType === 'manual'">
+    <input
+      ref="tmpBlur"
+      type="text"
+      :class="$style.tmpBlur"
+    />
     <UiCardField
       v-model="innerValue.cardNumber"
       ref="cardNumberField"
@@ -20,6 +25,7 @@
       :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
       @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
       @input="emitChanges('cardNumber')"
+      @blur="tmpFocus"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <!-- Todo: will fix into #195691 -->
@@ -331,10 +337,18 @@ export default {
   },
 
   methods: {
+    tmpFocus() {
+      this.$refs.tmpBlur.focus();
+      this.$refs.tmpBlur.disabled = true;
+    },
     focusCardNumberField() {
       this.$nextTick(() => {
         if (this.$refs.cardNumberField) {
           this.$refs.cardNumberField.focus();
+        }
+        if (this.$refs.tmpBlur) {
+          this.$refs.tmpBlur.removeAttribute('tabindex');
+          this.$refs.tmpBlur.disabled = false;
         }
       });
     },
@@ -397,6 +411,15 @@ export default {
   &._oneLine {
     width: calc(50% - 10px);
   }
+}
+.tmpBlur {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
 }
 .expiry {
   @include if-ltr {
