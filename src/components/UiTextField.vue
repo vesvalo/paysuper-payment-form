@@ -1,11 +1,11 @@
 <template>
 <div :class="[container, { [stateDisabled]: disabled, [$style._hasInfoIcon]: hasInfoIcon }]">
-  <TheMask
+  <input
     v-if="mask"
-    v-bind="maskBindProps"
+    v-mask="mask"
+    v-bind="inputBindProps"
     v-model="innerValue"
     :class="inputClasses"
-    :tokens="maskTokens"
     @blur="$emit('blur')"
     @focus="$emit('focus')"
     @input="$emit('input', innerValue)"
@@ -97,16 +97,6 @@ export default {
   data() {
     return {
       innerValue: this.value,
-
-      maskTokens: {
-        '#': { pattern: /\d/ },
-        X: { pattern: /[0-9a-zA-Z]/ },
-        S: { pattern: /[a-zA-Z]/ },
-        A: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase() },
-        a: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase() },
-        '!': { escape: true },
-        U: { pattern: /[a-zA-Z\s]/, transform: v => v.toLocaleUpperCase() },
-      },
     };
   },
   computed: {
@@ -162,12 +152,6 @@ export default {
         required: this.required,
         type: this.type,
         ...this.$attrs,
-      };
-    },
-    maskBindProps() {
-      return {
-        ...this.inputBindProps,
-        mask: this.mask,
       };
     },
   },

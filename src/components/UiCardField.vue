@@ -15,6 +15,18 @@ export default {
       default: false,
       type: Boolean,
     },
+    autocomplete: {
+      default: 'cc-number',
+      type: String,
+    },
+    name: {
+      default: '',
+      type: String,
+    },
+    type: {
+      default: 'tel',
+      type: String,
+    },
     errorText: {
       default: '',
       type: String,
@@ -52,6 +64,9 @@ export default {
         required: this.required,
         errorText: this.errorText,
         hasError: this.hasError,
+        autocomplete: this.autocomplete,
+        name: this.name,
+        type: this.type,
         ...this.$attrs,
       };
     },
