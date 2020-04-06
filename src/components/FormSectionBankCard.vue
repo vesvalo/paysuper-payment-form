@@ -8,11 +8,6 @@
     @select="emitChanges('savedCardId')"
   />
   <template v-if="innerValue.cardDataType === 'manual'">
-    <input
-      ref="tmpBlur"
-      type="text"
-      :class="$style.tmpBlur"
-    />
     <UiCardField
       v-model="innerValue.cardNumber"
       ref="cardNumberField"
@@ -23,9 +18,8 @@
       :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
       :hasError="$isFieldInvalid('innerValue.cardNumber')"
       :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-      @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
+      @keyup.native="moveFocusToFieldOnComplete('cardNumber', 19, 'expiryDateField')"
       @input="emitChanges('cardNumber')"
-      @blur="tmpFocus"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
       <!-- Todo: will fix into #195691 -->
@@ -60,7 +54,7 @@
         :hasError="$isFieldInvalid('innerValue.expiryDate')"
         :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
         :label="$t('FormSectionBankCard.expiryDate')"
-        @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
+        @keyup.native="moveFocusToFieldOnComplete('expiryDate', 5, 'cvvField')"
         @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
         @input="emitChanges('expiryDate')"
       />
@@ -337,18 +331,10 @@ export default {
   },
 
   methods: {
-    tmpFocus() {
-      this.$refs.tmpBlur.focus();
-      this.$refs.tmpBlur.disabled = true;
-    },
     focusCardNumberField() {
       this.$nextTick(() => {
         if (this.$refs.cardNumberField) {
           this.$refs.cardNumberField.focus();
-        }
-        if (this.$refs.tmpBlur) {
-          this.$refs.tmpBlur.removeAttribute('tabindex');
-          this.$refs.tmpBlur.disabled = false;
         }
       });
     },
@@ -411,15 +397,6 @@ export default {
   &._oneLine {
     width: calc(50% - 10px);
   }
-}
-.tmpBlur {
-  width: 0;
-  height: 0;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
 }
 .expiry {
   @include if-ltr {

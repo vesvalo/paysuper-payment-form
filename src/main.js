@@ -9,6 +9,7 @@ import assert from 'assert';
 import { get, includes } from 'lodash-es';
 import webfontloader from 'webfontloader';
 import Vue2TouchEvents from 'vue2-touch-events';
+import { VueMaskDirective } from 'v-mask';
 import Sandbox from '@/Sandbox.vue';
 import App from '@/App.vue';
 import Loading from '@/Loading.vue';
@@ -29,6 +30,7 @@ import '@/noScalableViewport';
 
 gtagConfig('UA-142750977-1', { page_path: window.location.pathname });
 
+Vue.directive('mask', VueMaskDirective);
 Vue.use(Vue2TouchEvents);
 
 Vue.config.productionTip = false;
