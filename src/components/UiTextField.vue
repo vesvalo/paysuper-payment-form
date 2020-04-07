@@ -1,13 +1,13 @@
 <template>
 <div :class="[container, { [stateDisabled]: disabled, [$style._hasInfoIcon]: hasInfoIcon }]">
-  <input
+  <TheMask
     v-if="mask"
-    v-mask="mask"
-    v-bind="inputBindProps"
+    v-bind="maskBindProps"
     v-model="innerValue"
     :class="inputClasses"
-    @blur="$emit('blur')"
-    @focus="$emit('focus')"
+    :tokens="maskTokens"
+    @blur.native="$emit('blur')"
+    @focus.native="$emit('focus')"
     @input="$emit('input', innerValue)"
   />
   <input
@@ -93,10 +93,27 @@ export default {
       default: '',
       type: [String, Number],
     },
+    autocomplete: {
+      default: '',
+      type: String,
+    },
+    name: {
+      default: '',
+      type: String,
+    },
   },
   data() {
     return {
       innerValue: this.value,
+      maskTokens: {
+        '#': { pattern: /\d/ },
+        X: { pattern: /[0-9a-zA-Z]/ },
+        S: { pattern: /[a-zA-Z]/ },
+        A: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleUpperCase() },
+        a: { pattern: /[a-zA-Z]/, transform: v => v.toLocaleLowerCase() },
+        '!': { escape: true },
+        U: { pattern: /[a-zA-Z\s]/, transform: v => v.toLocaleUpperCase() },
+      },
     };
   },
   computed: {
@@ -152,6 +169,12 @@ export default {
         required: this.required,
         type: this.type,
         ...this.$attrs,
+      };
+    },
+    maskBindProps() {
+      return {
+        ...this.inputBindProps,
+        mask: this.mask,
       };
     },
   },

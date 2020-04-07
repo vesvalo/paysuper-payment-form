@@ -18,7 +18,7 @@
       :class="[$style.formItem, { [$style._oneLine]: isOneLine }]"
       :hasError="$isFieldInvalid('innerValue.cardNumber')"
       :errorText="$t('FormSectionBankCard.cardNumberInvalid')"
-      @keyup.native="moveFocusToFieldOnComplete('cardNumber', 19, 'expiryDateField')"
+      @keyup.native="moveFocusToFieldOnComplete('cardNumber', 16, 'expiryDateField')"
       @input="emitChanges('cardNumber')"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
@@ -54,7 +54,7 @@
         :hasError="$isFieldInvalid('innerValue.expiryDate')"
         :errorText="$t('FormSectionBankCard.expiryDateInvalid')"
         :label="$t('FormSectionBankCard.expiryDate')"
-        @keyup.native="moveFocusToFieldOnComplete('expiryDate', 5, 'cvvField')"
+        @keyup.native="moveFocusToFieldOnComplete('expiryDate', 4, 'cvvField')"
         @keyup.native.delete="moveFocusBackOnEmpty('expiryDate', 'cardNumberField')"
         @input="emitChanges('expiryDate')"
       />
