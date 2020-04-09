@@ -60,8 +60,8 @@ function getOrderParams({
       type: 'product',
     },
     key: {
-      project: '5db8141ff0c9c60001a859e1',
-      products: ['5e00bf50f091a2937c71574a'],
+      project: '5dfc7ec0a1c162c9e63f1ffd',
+      products: ['5dfc8c29a1c162c9e63f20a3'],
       type: 'key',
     },
   };
