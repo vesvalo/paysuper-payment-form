@@ -3,7 +3,8 @@
   <div :class="$style.box">
     <div :class="$style.left">
       <div :class="[$style.mainBox, {[$style._closed]: !isCartOpened}]">
-        <div :class="$style.main">
+        <div :class="[$style.main, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
+          <slot name="testNotificationBlock" />
           <StubPreloaderCart
             v-if="isLoading"
             layout="page"
@@ -44,6 +45,10 @@ export default {
     isLoading: {
       default: false,
       type: Boolean,
+    },
+    isTestTransaction: {
+      type: Boolean,
+      default: false,
     },
   },
   created() {
@@ -86,7 +91,7 @@ export default {
 }
 .left {
   display: flex;
-  flex-basis: 320px;
+  width: 50%;
   flex-grow: 1;
   justify-content: flex-end;
 
@@ -94,9 +99,12 @@ export default {
     flex-direction: row-reverse;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-right: 5.5vw;
-    flex-basis: 260px;
 
     & > .mainBox {
       padding-left: 5.5vw;
@@ -114,16 +122,19 @@ export default {
 .right {
   display: flex;
   flex-direction: column;
-  flex-basis: 320px;
+  width: 50%;
   flex-grow: 1;
 
   @include if-rtl {
     align-items: flex-end;
   }
 
+  @media screen and (max-width: 640px) {
+    width: 100%;
+  }
+
   @media screen and (min-width: 640px) {
     padding-left: 5.5vw;
-    flex-basis: 260px;
 
     & > .mainBox {
       padding-right: 5.5vw;
@@ -144,23 +155,29 @@ export default {
   max-width: 640px;
 
   &._closed {
-    padding: 0 30px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   @media screen and (min-width: 640px) {
     padding: 0;
     max-width: 480px;
-
-    &._closed {
-      padding: 20px 30px;
-    }
   }
 }
 .main {
+  position: relative;
   padding-bottom: 12px;
+
+  &._hasTestNotificationBlock {
+    padding-top: 40px;
+  }
 
   @media screen and (min-width: 640px) {
     display: block;
+
+    &._hasTestNotificationBlock {
+      padding-top: 0px;
+    }
   }
 }
 </style>

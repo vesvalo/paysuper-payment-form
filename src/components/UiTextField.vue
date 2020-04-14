@@ -6,8 +6,8 @@
     v-model="innerValue"
     :class="inputClasses"
     :tokens="maskTokens"
-    @blur="$emit('blur')"
-    @focus="$emit('focus')"
+    @blur.native="$emit('blur')"
+    @focus.native="$emit('focus')"
     @input="$emit('input', innerValue)"
   />
   <input
@@ -93,11 +93,18 @@ export default {
       default: '',
       type: [String, Number],
     },
+    autocomplete: {
+      default: '',
+      type: String,
+    },
+    name: {
+      default: '',
+      type: String,
+    },
   },
   data() {
     return {
       innerValue: this.value,
-
       maskTokens: {
         '#': { pattern: /\d/ },
         X: { pattern: /[0-9a-zA-Z]/ },
@@ -186,9 +193,18 @@ export default {
         'background-color': this.$gui.inputBoxColor,
         'border-color': this.$gui.inputBorderColor,
       },
-      [`.${this.input}:-webkit-autofill, .${this.input}:-internal-autofill-selected`]: {
-        '-webkit-box-shadow': `inset 0 0 0 50px ${this.$gui.formBackgroundColor}`,
-        '-webkit-text-fill-color': this.$gui.inputColor,
+      [`
+        .${this.input}:-webkit-autofill,
+        .${this.input}:-webkit-autofill:hover,
+        .${this.input}:-webkit-autofill:focus,
+        .${this.input}:-webkit-autofill:active
+      `]: {
+        '-webkit-box-shadow': `inset 0 0 0 1000px ${this.$gui.formBackgroundColor} !important`,
+        '-webkit-text-fill-color': `${this.$gui.inputColor} !important`,
+      },
+      [`.${this.input}:-internal-autofill-selected`]: {
+        '-webkit-box-shadow': `inset 0 0 0 1000px ${this.$gui.formBackgroundColor} !important`,
+        '-webkit-text-fill-color': `${this.$gui.inputColor} !important`,
       },
       [`.${this.input}:hover`]: {
         'border-color': this.$gui.inputHoverBorderColor,
@@ -290,7 +306,7 @@ $main-additional-height: 18px;
     font-family: 'text-security-disc';
   }
 
-  &::-webkit-textfield-decoration-container,
+  &::-webkit-credit-card-auto-fill-button,
   &::-webkit-credentials-auto-fill-button,
   &::-webkit-contacts-auto-fill-button {
     visibility: hidden;
@@ -310,6 +326,13 @@ $main-additional-height: 18px;
 
   &::-ms-clear {
     display: none;
+  }
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    background-clip: content-box !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
 

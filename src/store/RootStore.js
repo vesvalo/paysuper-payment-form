@@ -8,6 +8,7 @@ import { captureProductionException } from '@/helpers/errorLoggers';
 import { gtagEvent, gtagSet } from '@/analytics';
 import localesScheme from '@/locales/scheme';
 import getLanguage from '@/helpers/getLanguage';
+import prepareOrderDataItems from '@/helpers/prepareOrderDataItems';
 import DictionariesStore from './DictionariesStore';
 import PaymentFormStore from './PaymentFormStore';
 import { postMessage } from '../postMessage';
@@ -33,6 +34,17 @@ export default new Vuex.Store({
       width: 0,
       height: 0,
     },
+    formUsage: 'standalone',
+  },
+  getters: {
+    hasPaylink(state) {
+      return !!state.query.paylink_id;
+    },
+    pathGetOrderId(state, getters) {
+      return getters.hasPaylink
+        ? `${state.apiUrl}/api/v1/paylink/${state.query.paylink_id}`
+        : `${state.apiUrl}/api/v1/order`;
+    },
   },
   mutations: {
     apiUrl(state, value) {
@@ -53,12 +65,17 @@ export default new Vuex.Store({
     options(state, value) {
       state.options = value;
     },
+    formUsage(state, value) {
+      state.formUsage = value;
+    },
   },
   actions: {
     async initState({ commit, dispatch }, { orderParams, options, query }) {
       commit('options', options);
       commit('apiUrl', options.apiUrl);
+      commit('formUsage', options.formUsage || 'standalone');
       commit('query', query);
+
       dispatch('setInitialLocale');
 
       if (options.layout === 'loading') {
@@ -66,7 +83,10 @@ export default new Vuex.Store({
       }
 
       const orderData = await dispatch('getPreparedOrderData', {
-        orderParams,
+        orderParams: {
+          ...orderParams,
+          form_mode: options.formUsage,
+        },
         queryOrderId: getQueryOrderId(query),
       });
       gtagSet({ currency: orderData.currency });
@@ -77,7 +97,7 @@ export default new Vuex.Store({
       dispatch('PaymentForm/initState', { orderParams, orderData, options });
     },
 
-    async getPreparedOrderData({ commit, dispatch }, { orderParams, queryOrderId }) {
+    async getPreparedOrderData({ commit, dispatch, state }, { orderParams, queryOrderId }) {
       assert(
         orderParams || queryOrderId,
         'orderParams or queryOrderId is required to dispatch getPreparedOrderData',
@@ -87,6 +107,7 @@ export default new Vuex.Store({
       try {
         orderId = queryOrderId || await dispatch('getOrderId', orderParams);
         orderData = await dispatch('getOrderData', orderId);
+        orderData.items = prepareOrderDataItems(orderData.items, state.options.layout);
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
       } catch (error) {
@@ -107,11 +128,9 @@ export default new Vuex.Store({
       return orderData;
     },
 
-    async getOrderId({ state }, orderParams) {
-      const { data } = await axios.post(
-        `${state.apiUrl}/api/v1/order`,
-        orderParams,
-      );
+    async getOrderId({ getters }, orderParams) {
+      const { hasPaylink, pathGetOrderId } = getters;
+      const { data } = await axios.post(pathGetOrderId, hasPaylink ? undefined : orderParams);
       return data.id;
     },
 

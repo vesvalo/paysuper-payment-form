@@ -68,6 +68,7 @@
     "abstractNumberError": "Invalid number",
     "abstractNumberPlaceholder": "{name} wallet number",
     "placeholderEmail": "Enter your email address",
+    "seconds": "sec",
     "payButtonPrefix": "PAY",
     "tryAgain": "RETRY",
     "save": "SAVE",
@@ -136,5 +137,9 @@
   "SavedCardToPlainFieldsSwitch": {
     "payWithSavedCards": "Pay with a saved card",
     "anotherWayToPay": "Use a different card"
+  },
+  "TestNotificationBlock": {
+    "transaction": "Test transaction",
+    "testInfo": "This transaction is for a testing purposes only. No real money movement will be performed"
   }
 }

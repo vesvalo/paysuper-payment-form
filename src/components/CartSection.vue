@@ -64,15 +64,15 @@ export default {
     },
   },
 
-  created() {
-    this.$addCssRules({
-      [`.${this.$style.imageItemInner}.${this.$style._noImage}`]: {
+  cssRules() {
+    return {
+      '.{imageItemInner}.{_noImage}': {
         'border-color': this.$gui.cartStrokeColor,
       },
-      [`.${this.$style.imageItemInner}.${this.$style._noImage} > svg`]: {
+      '.{imageItemInner}.{_noImage} > svg': {
         fill: this.$gui.cartIconsColor,
       },
-    });
+    };
   },
 
   methods: {
@@ -211,8 +211,11 @@ export default {
   min-height: 100%;
   width: 100%;
 
-  .cartSection:not(._isPage) & {
-    padding: 0 0 30px;
+  .cartSection:not(._isPage) &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    padding-bottom: 30px;
   }
 }
 

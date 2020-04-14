@@ -22,6 +22,20 @@ storiesOf('Modal', module)
       </Modal>
     `,
   }))
+  .add('longProjectName', () => ({
+    components: { Modal, ModalCart, ModalForm },
+    template: `
+      <Modal :opened="true">
+        <ModalCart projectName="ProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProjectProject">
+          111<br />111<br />111<br />111<br />111<br />111
+        </ModalCart>
+    
+        <ModalForm>
+          222
+        </ModalForm>
+      </Modal>
+    `,
+  }))
   .add('loading', () => ({
     components: {
       AnimationsOff, Modal, ModalCart, ModalForm,

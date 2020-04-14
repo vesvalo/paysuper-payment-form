@@ -6,6 +6,7 @@ import {
 import { captureProductionException } from '@/helpers/errorLoggers';
 import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
+import RedirectStore from '@/store/RedirectStore';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
 import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
@@ -65,6 +66,18 @@ const actionProcessingByStatus = {
   RECREATE_TO_CONTINUE: () => ({ type: 'simpleLoading' }),
 };
 
+// Todo: remove after #195691
+function isIOS() {
+  const navigator = get(window, 'navigator', {});
+  const hasMobileIOS = /iPad|iPhone|iPod/.test(navigator.platform);
+  const hasMacIntl = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+  const hasAppleComp = navigator.vendor
+    && navigator.vendor.match(/Apple Computer, Inc./)
+    && navigator.userAgent.indexOf('Safari') !== -1;
+
+  return ((hasMobileIOS || hasMacIntl) && !window.MSStream) || hasAppleComp;
+}
+
 export default {
   namespaced: true,
 
@@ -102,6 +115,7 @@ export default {
     isZipFieldExposed: false,
     userIpGeoData: null,
     isZipInvalid: false,
+    hasExpAutofill: true,
   },
 
   getters: {
@@ -110,6 +124,12 @@ export default {
     },
     hasPaymentRequestApi() {
       return Boolean(window.PaymentRequest);
+    },
+    isPaymentSuccess(state) {
+      return state.actionResult && state.actionResult.type === 'success';
+    },
+    isPaymentFailed(state) {
+      return state.actionResult && state.actionResult.type !== 'success';
     },
   },
 
@@ -178,10 +198,13 @@ export default {
     isZipInvalid(state, value) {
       state.isZipInvalid = value;
     },
+    hasExpAutofill(state, value) {
+      state.hasExpAutofill = value;
+    },
   },
 
   actions: {
-    initState({ state, commit, dispatch }, { orderParams, orderData }) {
+    initState({ state, commit, dispatch }, { orderParams, orderData, options }) {
       if (orderData.error) {
         dispatch('setPaymentStatus', [
           'FAILED_TO_BEGIN',
@@ -202,8 +225,13 @@ export default {
         return;
       }
 
+      // Todo: remove after #195691
+      commit('hasExpAutofill', !isIOS || options.formUsage === 'standalone');
+
       assert(orderData, 'orderData is required to init PaymentFormStore');
       commit('orderData', orderData);
+
+      dispatch('Redirect/initState', { orderData, formUsage: options.formUsage });
 
       if (orderParams) {
         commit('orderParams', orderParams);
@@ -248,7 +276,7 @@ export default {
       gtagEvent('begin_checkout', { items });
     },
 
-    setPaymentStatus({ commit }, [name, extraData]) {
+    setPaymentStatus({ commit, dispatch }, [name, extraData]) {
       gtagEvent('changePaymentStatus', { event_label: name });
       commit('paymentStatus', name);
       postMessage(`PAYMENT_${name}`);
@@ -256,6 +284,7 @@ export default {
       const actionResult = actionResultsByStatus[name];
       if (actionResult) {
         commit('actionResult', actionResult(extraData));
+        dispatch('Redirect/initRedirectTimeout');
       }
 
       const actionProcessing = actionProcessingByStatus[name];
@@ -554,5 +583,8 @@ export default {
         ...pickedProps,
       });
     },
+  },
+  modules: {
+    Redirect: RedirectStore,
   },
 };

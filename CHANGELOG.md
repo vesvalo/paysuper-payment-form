@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - 2020-02-04
+
+### Added
+- The instructions link opens in a new window.
+
+### Fixed
+- Filling the bank card expiration date using the Google Pay method.
+- Displaying the long order price.
+- Some CSS styles.
+
+***
+
 ## [2.0.0] - 2019-12-23
 
 ### Added

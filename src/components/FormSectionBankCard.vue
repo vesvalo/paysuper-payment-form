@@ -22,15 +22,27 @@
       @input="emitChanges('cardNumber')"
     />
     <div :class="[$style.formItem, { [$style._oneLine]: isOneLine }]">
-      <UiTextField
-        v-model="innerExpiryDate"
-        id="expdate"
-        name="cc-exp"
-        autocomplete="cc-exp"
-        label="expiration date"
-        :class="$style.hiddenExpiry"
-        @input="prepareExpiryDate"
-      />
+      <!-- Todo: will fix into #195691 -->
+      <template v-if="hasExpAutofill">
+        <UiTextField
+          v-model="innerExpiryMonth"
+          id="cardExpirationMonth"
+          name="CCExpiryMonth"
+          autocomplete="cc-exp-month"
+          label="month"
+          :class="$style.hiddenExpiry"
+          @input="prepareExpiryDate"
+        />
+        <UiTextField
+          v-model="innerExpiryYear"
+          id="cardExpirationYear"
+          name="CCExpiryYear"
+          autocomplete="cc-exp-year"
+          label="year"
+          :class="$style.hiddenExpiry"
+          @input="prepareExpiryDate"
+        />
+      </template>
       <UiTextField
         v-model="innerValue.expiryDate"
         ref="expiryDateField"
@@ -227,6 +239,11 @@ export default {
       type: Boolean,
       default: false,
     },
+    // Todo: remove after #195691
+    hasExpAutofill: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   model: {
@@ -239,7 +256,8 @@ export default {
       innerValue: extend({}, this.value),
       isCvvInfoShown: false,
       isRememberInfoShown: false,
-      innerExpiryDate: '',
+      innerExpiryMonth: '',
+      innerExpiryYear: '',
     };
   },
 
@@ -322,12 +340,13 @@ export default {
       });
     },
     prepareExpiryDate() {
-      const expiryLength = this.innerExpiryDate.length;
-      const month = this.innerExpiryDate.substring(0, 2);
-      const year = expiryLength === 7
-        ? this.innerExpiryDate.substring(5)
-        : this.innerExpiryDate.substring(3);
-      this.innerValue.expiryDate = `${month}/${year}`;
+      const month = this.innerExpiryMonth.length === 2
+        ? this.innerExpiryMonth
+        : `0${this.innerExpiryMonth}`;
+      const year = this.innerExpiryYear.length === 2
+        ? this.innerExpiryYear
+        : this.innerExpiryYear.substr(-2);
+      this.innerValue.expiryDate = `${month}${year}`;
       this.emitChanges('expiryDate');
     },
     moveFocusToFieldOnComplete(fieldValueName, length, nextField) {
