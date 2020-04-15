@@ -210,18 +210,11 @@ export default {
 .scrollbarBox {
   min-height: 100%;
   width: 100%;
-
-  .cartSection:not(._isPage) &::after {
-    content: '';
-    display: block;
-    width: 100%;
-    padding-bottom: 30px;
-  }
 }
 
 .innerContainer {
   min-height: 100%;
-  padding: 0 20px;
+  padding: 0 20px 30px;
   display: flex;
   flex-direction: column;
 
