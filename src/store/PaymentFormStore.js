@@ -8,6 +8,7 @@ import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import RedirectStore from '@/store/RedirectStore';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
+import prepareOrderDataItems from '@/helpers/prepareOrderDataItems';
 import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
 const allowedPaymentStatuses = [
@@ -88,6 +89,7 @@ export default {
         name: '',
       },
     },
+    options: {},
     paymentData: {
       cardNumber: '',
       expiryDate: '',
@@ -152,6 +154,9 @@ export default {
     },
     orderData(state, value) {
       state.orderData = value;
+    },
+    options(state, value) {
+      state.options = value;
     },
     paymentData(state, value) {
       state.paymentData = value;
@@ -224,6 +229,8 @@ export default {
         gtagEvent('orderAlreadyProcessed');
         return;
       }
+
+      commit('options', options);
 
       // Todo: remove after #195691
       commit('hasExpAutofill', !isIOS || options.formUsage === 'standalone');
@@ -577,6 +584,8 @@ export default {
         'vat_in_charge_currency',
         'vat_rate',
       ]);
+
+      pickedProps.items = prepareOrderDataItems(pickedProps.items, state.options.layout);
 
       commit('orderData', {
         ...state.orderData,
