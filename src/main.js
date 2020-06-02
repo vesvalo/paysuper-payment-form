@@ -3,6 +3,7 @@
  */
 
 import * as Sentry from '@sentry/browser';
+import { Base64 } from 'js-base64';
 import Vue from 'vue';
 import qs from 'qs';
 import assert from 'assert';
@@ -87,6 +88,30 @@ function getBaseOptions(query) {
   return {};
 }
 
+function getViewSchemeFromQuery(query) {
+  const defaultValue = 'dark';
+  if (!query.viewScheme) {
+    return defaultValue;
+  }
+  if (includes(Object.keys(viewSchemes), query.viewScheme)) {
+    return query.viewScheme;
+  }
+  return defaultValue;
+}
+
+function getViewSchemeConfigFromQuery(query) {
+  let result = {};
+  if (!query.viewSchemeConfig) {
+    return result;
+  }
+  try {
+    result = JSON.parse(Base64.decode(query.viewSchemeConfig));
+  } catch (error) {
+    console.error(error);
+  }
+  return result;
+}
+
 /**
  * Mounts the app into element
  *
@@ -108,8 +133,10 @@ async function mountApp({
   const options = {
     apiUrl,
     email: '',
-    viewScheme: 'dark',
-    viewSchemeConfig: null,
+    viewScheme: getViewSchemeFromQuery(query),
+    viewSchemeConfig: {
+      ...getViewSchemeConfigFromQuery(query),
+    },
     layout: 'page',
     isPageInsideIframe,
     ...baseOptions,
