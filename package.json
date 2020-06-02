@@ -25,6 +25,7 @@
     "credit-card-type": "^8.2.0",
     "fastclick": "^1.0.6",
     "intl": "^1.2.5",
+    "js-base64": "^2.5.2",
     "lodash-es": "^4.17.11",
     "qs": "^6.9.1",
     "simple-assert": "^1.0.0",
