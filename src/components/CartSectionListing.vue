@@ -32,6 +32,12 @@ export default {
       }
       return false;
     },
+    totalAmount() {
+      return this.$getPrice(this.orderData.total_amount, this.orderData.currency);
+    },
+    chargeAmount() {
+      return this.$getPrice(this.orderData.charge_amount, this.orderData.charge_currency);
+    },
   },
 
   cssRules() {
@@ -160,15 +166,12 @@ export default {
         </span>
         <span
           :class="[$style.itemCell, $style._price]"
-          :title="`
-            ${$getPrice(orderData.total_amount, orderData.currency)} =
-            ${$getPrice(orderData.charge_amount, orderData.charge_currency)}
-          `"
+          :title="`${totalAmount} = ${chargeAmount}`"
         >
           <span :class="$style.specialPrice">
-            {{ $getPrice(orderData.total_amount, orderData.currency) }} =
+            {{ totalAmount }} =
           </span>
-          {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
+          {{ chargeAmount }}
         </span>
       </div>
     </div>
@@ -181,9 +184,9 @@ export default {
         </span>
         <span
           :class="[$style.itemCell, $style._price]"
-          :title="$getPrice(orderData.charge_amount, orderData.charge_currency)"
+          :title="chargeAmount"
         >
-          {{ $getPrice(orderData.charge_amount, orderData.charge_currency) }}
+          {{ chargeAmount }}
         </span>
       </div>
     </div>
