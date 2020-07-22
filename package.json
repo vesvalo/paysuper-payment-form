@@ -21,7 +21,7 @@
     "@sentry/browser": "^4.5.2",
     "axios": "^0.18.0",
     "centrifuge": "^2.0.0",
-    "codecov": "^3.1.0",
+    "codecov": "^3.7.1",
     "credit-card-type": "^8.2.0",
     "fastclick": "^1.0.6",
     "intl": "^1.2.5",
