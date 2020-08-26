@@ -174,7 +174,7 @@ export default {
         v-html="types[type].descriptionSlaveFinal"
       >
       </p>
-      <p :class="$style.email">{{ email }}</p>
+      <p :title="email" :class="$style.email">{{ email }}</p>
     </div>
     <div
       :class="$style.description"
@@ -255,6 +255,11 @@ export default {
   font-size: 15px;
   line-height: 19px;
   margin-top: 8px;
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @keyframes showIcon {
