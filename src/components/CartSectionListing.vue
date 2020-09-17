@@ -296,7 +296,7 @@ export default {
   position: relative;
   font-size: 9px;
   line-height: 13px;
-  padding-left: 13px;
+  padding-left: 15px;
   margin-top: 6px;
 
   & > svg {

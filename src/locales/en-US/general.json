@@ -57,7 +57,9 @@
     "vatFromBuyer": "VAT",
     "vatFromSeller": "including VAT",
     "totalNoticeVat": "Including VAT",
-    "totalNotice": "The total amount may include a fee for converting<br/>the payment currency into the currency of the country<br/>of the Bank that issued the card."
+    "totalNotice": "The total amount may include a fee for converting<br/>the payment currency into the currency of the country<br/>of the Bank that issued the card.",
+    "subscriptionsSettings": "This operation is a subscription of a regular payment for 1 month.",
+    "subscriptionsLink": "You can <a href='{link}' target='_blank'>unsubscribe</a> in any time after the purchase is made."
   },
   "FormSection": {
     "prependLabel": "Pay with",

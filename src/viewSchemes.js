@@ -26,6 +26,7 @@ export default {
     cartIconsColor: 'rgba(255, 255, 255, 0.3)',
     cartSelectedBackgroundColor: '#424C66',
     cartSelectedIconsColor: '#fff',
+    cartLinkHover: '#4d88e2',
 
     formBackgroundColor: '#424c66',
     formLabelColor: 'rgba(255, 255, 255, 0.5)',
@@ -159,6 +160,7 @@ export default {
     cartIconsColor: 'rgba(0, 0, 0, 0.3)',
     cartSelectedBackgroundColor: '#e2e2e2',
     cartSelectedIconsColor: '#202226',
+    cartLinkHover: '#4d88e2',
 
     formBackgroundColor: '#fff',
     formLabelColor: 'rgba(32, 34, 38, 0.4)',

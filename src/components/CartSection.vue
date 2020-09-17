@@ -62,6 +62,12 @@ export default {
       }
       return `url(${this.items[0].promo})`;
     },
+    reccuringLink() {
+      return this.orderData.recurring_management_url;
+    },
+    reccuringSettings() {
+      return this.orderData.recurring_settings;
+    },
   },
 
   cssRules() {
@@ -71,6 +77,18 @@ export default {
       },
       '.{imageItemInner}.{_noImage} > svg': {
         fill: this.$gui.cartIconsColor,
+      },
+      '.{subscription}': {
+        color: this.$gui.cartTextColor,
+      },
+      '.{subscription} > svg': {
+        fill: this.$gui.cartTextColor,
+      },
+      '.{subscription} a': {
+        color: this.$gui.cartTextColor,
+      },
+      '.{subscription} a:hover': {
+        color: this.$gui.cartLinkHover,
       },
     };
   },
@@ -138,6 +156,23 @@ export default {
           @change="$emit('changePlatform', $event)"
         />
       </CartSectionListing>
+
+      <div
+        v-if="reccuringLink || reccuringSettings"
+        :class="$style.subscription"
+      >
+        <IconRepeat />
+        <div :class="$style.subscriptionInfo">
+          <span
+            v-if="reccuringSettings"
+            v-html="$t('CartSection.subscriptionsSettings')"
+          ></span>&nbsp;
+          <span
+            v-if="reccuringLink"
+            v-html="$t('CartSection.subscriptionsLink', { link: reccuringLink })"
+          ></span>
+        </div>
+      </div>
     </div>
   </UiScrollbarBox>
 </div>
@@ -296,5 +331,26 @@ export default {
     width: 40%;
     height: 40%;
   }
+}
+
+.subscription {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  margin-top: 18px;
+  order: 3;
+  font-size: 10px;
+  line-height: 14px;
+
+  a {
+    transition: color 0.2s ease-out;
+  }
+
+  & > svg {
+    flex-basis: 12px;
+  }
+}
+.subscriptionInfo {
+  margin-left: 6px;
 }
 </style>
