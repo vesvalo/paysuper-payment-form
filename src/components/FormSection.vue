@@ -292,7 +292,7 @@ export default {
       }
     },
 
-    handleInputValidPhone: debounce(async function validPhone(value) {
+    handleInputValidPhone: debounce(async function validatePhone(value) {
       const preparedValue = value.replace(/\s/g, '');
       await this.checkPaymentAccount(preparedValue);
     }, 300),
