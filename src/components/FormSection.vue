@@ -64,6 +64,7 @@ export default {
 
   computed: {
     ...mapState('PaymentForm', [
+      'options',
       'orderData',
       'orderParams',
       'paymentData',
@@ -316,6 +317,7 @@ export default {
         <FormSectionBankCard
           v-if="isBankCardPayment"
           ref="bankCardForm"
+          :options="options"
           :value="paymentData"
           :countries="countries"
           :cards="cards"
