@@ -78,14 +78,17 @@ function getOrderParams({
 }
 
 function getBaseOptions(query) {
+  const options = {};
   if (query.loading) {
-    return { layout: 'loading' };
+    options.layout = 'loading';
   }
-
   if (buildPurpose === 'dev' && query.modal) {
-    return { layout: 'modal' };
+    options.layout = 'modal';
   }
-  return {};
+  if (query.autofocus) {
+    options.autofocus = query.autofocus;
+  }
+  return options;
 }
 
 function getViewSchemeFromQuery(query) {

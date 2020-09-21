@@ -200,6 +200,10 @@ export default {
   },
 
   props: {
+    options: {
+      required: true,
+      type: Object,
+    },
     cardNumberValidator: {
       required: true,
       type: RegExp,
@@ -328,7 +332,9 @@ export default {
   },
 
   mounted() {
-    this.focusCardNumberField();
+    if (this.options.autofocus !== 'off') {
+      this.focusCardNumberField();
+    }
   },
 
   methods: {
