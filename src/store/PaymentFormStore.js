@@ -156,7 +156,7 @@ export default {
       state.orderData = value;
     },
     options(state, value) {
-      state.options = value;
+      state.options = value || {};
     },
     paymentData(state, value) {
       state.paymentData = value;
