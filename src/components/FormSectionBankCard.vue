@@ -332,7 +332,7 @@ export default {
   },
 
   mounted() {
-    if (this.options.autofocus !== 'off') {
+    if (this.options && this.options.autofocus !== 'off') {
       this.focusCardNumberField();
     }
   },
