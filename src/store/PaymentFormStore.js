@@ -283,6 +283,13 @@ export default {
       gtagEvent('begin_checkout', { items });
     },
 
+    async getOrderData({ rootState }, orderId) {
+      const { data } = await axios.get(
+        `${rootState.apiUrl}/api/v1/order/${orderId}`,
+      );
+      return data;
+    },
+
     setPaymentStatus({ commit, dispatch }, [name, extraData]) {
       gtagEvent('changePaymentStatus', { event_label: name });
       commit('paymentStatus', name);
@@ -334,7 +341,7 @@ export default {
     },
 
     async createPayment({
-      state, rootState, dispatch,
+      commit, state, rootState, dispatch,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
       country, zip, cardDataType, savedCardId,
@@ -365,12 +372,14 @@ export default {
         })
         .on('paymentCompleted', () => {
           dispatch('setPaymentStatus', ['COMPLETED']);
+          const orderData = dispatch('getOrderData', state.orderData.id);
+          commit('orderData', orderData);
 
-          const items = getEcommerceItems(state.orderData);
+          const items = getEcommerceItems(orderData);
           gtagEvent('purchase', {
-            transaction_id: state.orderData.id,
-            currency: state.orderData.currency,
-            tax: state.orderData.vat,
+            transaction_id: orderData.id,
+            currency: orderData.currency,
+            tax: orderData.vat,
             items,
           });
         });

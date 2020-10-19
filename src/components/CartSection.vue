@@ -62,11 +62,18 @@ export default {
       }
       return `url(${this.items[0].promo})`;
     },
-    reccuringLink() {
-      return this.orderData.recurring_management_url;
+    recurringLink() {
+      return this.orderData.recurring_management_url || undefined;
     },
-    reccuringSettings() {
+    recurringSettings() {
       return this.orderData.recurring_settings;
+    },
+    recurringInterval() {
+      return get(this.recurringSettings, 'interval', 1);
+    },
+    recurringPeriod() {
+      const period = get(this.recurringSettings, 'period', 'month')
+      return `${period}${this.recurringInterval > 1 ? 's' : ''}`;
     },
   },
 
@@ -158,19 +165,16 @@ export default {
       </CartSectionListing>
 
       <div
-        v-if="reccuringLink || reccuringSettings"
+        v-if="recurringLink || recurringSettings"
         :class="$style.subscription"
       >
         <IconRepeat />
         <div :class="$style.subscriptionInfo">
           <span
-            v-if="reccuringSettings"
-            v-html="$t('CartSection.subscriptionsSettings')"
+            v-if="recurringSettings"
+            v-html="$t('CartSection.subscriptionsSettings', { period: recurringPeriod })"
           ></span>&nbsp;
-          <span
-            v-if="reccuringLink"
-            v-html="$t('CartSection.subscriptionsLink', { link: reccuringLink })"
-          ></span>
+          <span v-html="$t('CartSection.subscriptionsLink', { link: recurringLink })"></span>
         </div>
       </div>
     </div>

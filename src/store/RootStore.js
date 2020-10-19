@@ -106,7 +106,7 @@ export default new Vuex.Store({
       let orderId;
       try {
         orderId = queryOrderId || await dispatch('getOrderId', orderParams);
-        orderData = await dispatch('getOrderData', orderId);
+        orderData = await dispatch('PaymentForm/getOrderData', orderId);
         orderData.items = prepareOrderDataItems(orderData.items, state.options.layout);
         commit('orderId', orderId);
         dispatch('Dictionaries/initState', orderId);
@@ -132,13 +132,6 @@ export default new Vuex.Store({
       const { hasPaylink, pathGetOrderId } = getters;
       const { data } = await axios.post(pathGetOrderId, hasPaylink ? undefined : orderParams);
       return data.id;
-    },
-
-    async getOrderData({ state }, orderId) {
-      const { data } = await axios.get(
-        `${state.apiUrl}/api/v1/order/${orderId}`,
-      );
-      return data;
     },
 
     setInitialLocale({ commit }, custom) {
