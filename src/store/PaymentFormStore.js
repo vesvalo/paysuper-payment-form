@@ -370,10 +370,13 @@ export default {
         .on('paymentSystemSuccess', () => {
           dispatch('setPaymentStatus', ['SYSTEM_SUCCESS']);
         })
-        .on('paymentCompleted', () => {
+        .on('paymentCompleted', async () => {
           dispatch('setPaymentStatus', ['COMPLETED']);
-          const orderData = dispatch('getOrderData', state.orderData.id);
-          commit('orderData', orderData);
+          const orderData = await dispatch('getOrderData', state.orderData.id);
+          commit('orderData', {
+            ...orderData,
+            items: prepareOrderDataItems(orderData.items, state.options.layout),
+          });
 
           const items = getEcommerceItems(orderData);
           gtagEvent('purchase', {
