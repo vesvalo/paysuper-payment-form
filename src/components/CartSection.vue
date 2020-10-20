@@ -68,12 +68,8 @@ export default {
     recurringSettings() {
       return this.orderData.recurring_settings;
     },
-    recurringInterval() {
-      return get(this.recurringSettings, 'interval', 1);
-    },
     recurringPeriod() {
-      const period = get(this.recurringSettings, 'period', 'month')
-      return `${period}${this.recurringInterval > 1 ? 's' : ''}`;
+      return get(this.recurringSettings, 'period');
     },
   },
 
@@ -171,10 +167,10 @@ export default {
         <IconRepeat />
         <div :class="$style.subscriptionInfo">
           <span
-            v-if="recurringSettings"
+            v-if="recurringPeriod"
             v-html="$t('CartSection.subscriptionsSettings', { period: recurringPeriod })"
           ></span>&nbsp;
-          <span v-html="$t('CartSection.subscriptionsLink', { link: recurringLink })"></span>
+          <span v-html="$tc('CartSection.subscriptionsLink', { link: recurringLink })"></span>
         </div>
       </div>
     </div>
