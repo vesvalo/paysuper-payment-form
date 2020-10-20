@@ -65,6 +65,13 @@ export default {
     recurringLink() {
       return this.orderData.recurring_management_url || undefined;
     },
+    unsubscribeLink() {
+      const subscriptionsLinkText = this.$t('CartSection.subscriptionsLinkText');
+
+      return this.recurringLink
+        ? `<a href='${this.recurringLink}' target='_blank'>${subscriptionsLinkText}</a>`
+        : subscriptionsLinkText;
+    },
     recurringSettings() {
       return this.orderData.recurring_settings;
     },
@@ -170,10 +177,7 @@ export default {
             v-if="recurringPeriod"
             v-html="$t('CartSection.subscriptionsSettings', { period: recurringPeriod })"
           ></span>&nbsp;
-          <span v-html="$tc('CartSection.subscriptionsLink', {
-            n: recurringLink ? 1 : 0,
-            link: recurringLink,
-          })"></span>
+          <span v-html="$t('CartSection.subscriptionsLink', { unsubscribeLink })"></span>
         </div>
       </div>
     </div>
