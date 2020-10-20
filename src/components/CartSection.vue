@@ -170,7 +170,10 @@ export default {
             v-if="recurringPeriod"
             v-html="$t('CartSection.subscriptionsSettings', { period: recurringPeriod })"
           ></span>&nbsp;
-          <span v-html="$tc('CartSection.subscriptionsLink', { link: recurringLink })"></span>
+          <span v-html="$tc('CartSection.subscriptionsLink', {
+            n: recurringLink ? 1 : 0,
+            link: recurringLink,
+          })"></span>
         </div>
       </div>
     </div>
