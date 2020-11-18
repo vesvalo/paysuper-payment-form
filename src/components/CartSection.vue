@@ -62,6 +62,22 @@ export default {
       }
       return `url(${this.items[0].promo})`;
     },
+    recurringLink() {
+      return this.orderData.recurring_management_url || undefined;
+    },
+    unsubscribeLink() {
+      const subscriptionsLinkText = this.$t('CartSection.subscriptionsLinkText');
+
+      return this.recurringLink
+        ? `<a href='${this.recurringLink}' target='_blank'>${subscriptionsLinkText}</a>`
+        : subscriptionsLinkText;
+    },
+    recurringSettings() {
+      return this.orderData.recurring_settings;
+    },
+    recurringPeriod() {
+      return get(this.recurringSettings, 'period');
+    },
   },
 
   cssRules() {
@@ -71,6 +87,18 @@ export default {
       },
       '.{imageItemInner}.{_noImage} > svg': {
         fill: this.$gui.cartIconsColor,
+      },
+      '.{subscription}': {
+        color: this.$gui.cartTextColor,
+      },
+      '.{subscription} > svg': {
+        fill: this.$gui.cartTextColor,
+      },
+      '.{subscription} a': {
+        color: this.$gui.cartTextColor,
+      },
+      '.{subscription} a:hover': {
+        color: this.$gui.cartLinkHover,
       },
     };
   },
@@ -138,6 +166,20 @@ export default {
           @change="$emit('changePlatform', $event)"
         />
       </CartSectionListing>
+
+      <div
+        v-if="recurringLink || recurringSettings"
+        :class="$style.subscription"
+      >
+        <IconRepeat />
+        <div :class="$style.subscriptionInfo">
+          <span
+            v-if="recurringPeriod"
+            v-html="$t('CartSection.subscriptionsSettings', { period: recurringPeriod })"
+          ></span>&nbsp;
+          <span v-html="$t('CartSection.subscriptionsLink', { unsubscribeLink })"></span>
+        </div>
+      </div>
     </div>
   </UiScrollbarBox>
 </div>
@@ -210,18 +252,11 @@ export default {
 .scrollbarBox {
   min-height: 100%;
   width: 100%;
-
-  .cartSection:not(._isPage) &::after {
-    content: '';
-    display: block;
-    width: 100%;
-    padding-bottom: 30px;
-  }
 }
 
 .innerContainer {
   min-height: 100%;
-  padding: 0 20px;
+  padding: 0 20px 30px;
   display: flex;
   flex-direction: column;
 
@@ -303,5 +338,26 @@ export default {
     width: 40%;
     height: 40%;
   }
+}
+
+.subscription {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  margin-top: 18px;
+  order: 3;
+  font-size: 10px;
+  line-height: 14px;
+
+  a {
+    transition: color 0.2s ease-out;
+  }
+
+  & > svg {
+    flex-basis: 12px;
+  }
+}
+.subscriptionInfo {
+  margin-left: 6px;
 }
 </style>

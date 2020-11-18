@@ -1,6 +1,28 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.6.0] - 2020-11-18
+
+### Added
+- Country check for qiwi wallet payments
+- Subscriptions block to CartSection in payment form
+- An option to disable card number input autofocus
+
+### Changed
+- Localization link view
+
+### Fixed
+- Padding for cart section
+- Img size after billing data updates
+- Titles for CartSectionListing component
+- Email length bug
+- Lint and snapshots fixes
+- Autofocus error
+- Fixes for subscription block
+- Fix period name for localization
+
+***
+
 ## [2.1.0] - 2020-02-04
 
 ### Added

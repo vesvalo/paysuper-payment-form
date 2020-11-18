@@ -1,7 +1,12 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
 import { email, required } from 'vuelidate/lib/validators';
-import { get, toLower, find } from 'lodash-es';
+import {
+  debounce,
+  get,
+  find,
+  toLower,
+} from 'lodash-es';
 import { gtagEvent } from '@/analytics';
 import ActionResult from '@/components/ActionResult.vue';
 import FormSectionBankCard from '@/components/FormSectionBankCard.vue';
@@ -280,6 +285,18 @@ export default {
       }
       await this.checkPaymentAccount(card.pan);
     },
+
+    changePaymentData(value) {
+      this.setPaymentData({ [this.activePaymentMethod.type]: value });
+      if (this.activePaymentMethod.name === 'Qiwi' && value.length > 6 && value.length < 16) {
+        this.handleInputValidPhone(value);
+      }
+    },
+
+    handleInputValidPhone: debounce(async function validatePhone(value) {
+      const preparedValue = value.replace(/\s/g, '');
+      await this.checkPaymentAccount(preparedValue);
+    }, 300),
   },
 };
 </script>
@@ -343,7 +360,7 @@ export default {
             :hasError="$isFieldInvalid(`paymentData.${activePaymentMethod.type}`)"
             :errorText="$t('FormSection.abstractNumberError')"
             :label="$t('FormSection.abstractNumberPlaceholder', { name: activePaymentMethod.name })"
-            @input="setPaymentData({ [activePaymentMethod.type]: $event })"
+            @input="changePaymentData($event)"
           />
           <UiTextField
             v-if="isEmailFieldExposed"

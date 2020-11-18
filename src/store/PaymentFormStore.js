@@ -8,6 +8,7 @@ import { postMessage } from '../postMessage';
 import PaymentConnection from '@/tools/PaymentConnection';
 import RedirectStore from '@/store/RedirectStore';
 import useDelayedCallbackOnPromise from '@/helpers/useDelayedCallbackOnPromise';
+import prepareOrderDataItems from '@/helpers/prepareOrderDataItems';
 import { gtagEvent, gtagSet, getEcommerceItems } from '@/analytics';
 
 const allowedPaymentStatuses = [
@@ -88,6 +89,7 @@ export default {
         name: '',
       },
     },
+    options: {},
     paymentData: {
       cardNumber: '',
       expiryDate: '',
@@ -228,6 +230,8 @@ export default {
         return;
       }
 
+      commit('options', options);
+
       // Todo: remove after #195691
       commit('hasExpAutofill', !isIOS || options.formUsage === 'standalone');
 
@@ -277,6 +281,13 @@ export default {
 
       const items = getEcommerceItems(state.orderData);
       gtagEvent('begin_checkout', { items });
+    },
+
+    async getOrderData({ rootState }, orderId) {
+      const { data } = await axios.get(
+        `${rootState.apiUrl}/api/v1/order/${orderId}`,
+      );
+      return data;
     },
 
     setPaymentStatus({ commit, dispatch }, [name, extraData]) {
@@ -330,7 +341,7 @@ export default {
     },
 
     async createPayment({
-      state, rootState, dispatch,
+      commit, state, rootState, dispatch,
     }, {
       cardNumber, expiryDate, cvv, ewallet, crypto, email, hasRemembered,
       country, zip, cardDataType, savedCardId,
@@ -359,14 +370,19 @@ export default {
         .on('paymentSystemSuccess', () => {
           dispatch('setPaymentStatus', ['SYSTEM_SUCCESS']);
         })
-        .on('paymentCompleted', () => {
+        .on('paymentCompleted', async () => {
           dispatch('setPaymentStatus', ['COMPLETED']);
+          const orderData = await dispatch('getOrderData', state.orderData.id);
+          commit('orderData', {
+            ...orderData,
+            items: prepareOrderDataItems(orderData.items, state.options.layout),
+          });
 
-          const items = getEcommerceItems(state.orderData);
+          const items = getEcommerceItems(orderData);
           gtagEvent('purchase', {
-            transaction_id: state.orderData.id,
-            currency: state.orderData.currency,
-            tax: state.orderData.vat,
+            transaction_id: orderData.id,
+            currency: orderData.currency,
+            tax: orderData.vat,
             items,
           });
         });
@@ -580,6 +596,8 @@ export default {
         'vat_in_charge_currency',
         'vat_rate',
       ]);
+
+      pickedProps.items = prepareOrderDataItems(pickedProps.items, state.options.layout);
 
       commit('orderData', {
         ...state.orderData,
