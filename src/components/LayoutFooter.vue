@@ -103,6 +103,7 @@ export default {
             >
               {{ $t('LayoutFooter.termsOfUse') }}
             </a>
+            <!-- @TODO: return this items after recovery our support services
             <a
               :class="$style.tipLink"
               href="http://help.pay.super.com"
@@ -111,6 +112,7 @@ export default {
             >
               {{$t('LayoutFooter.support')}}
             </a>
+            -->
           </UiTip>
         </span>
       </div>
