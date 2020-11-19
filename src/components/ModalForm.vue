@@ -68,6 +68,7 @@ export default {
             @click="fireAnalyticsEvent('PaySuper')"
             target="_blank"
           >PaySuper</a>
+          <!-- @TODO: return this items after recovery our support services
           <a
             :class="$style.link"
             href="http://help.pay.super.com"
@@ -76,6 +77,7 @@ export default {
           >
             <IconSupport :class="$style.iconSupport" />
           </a>
+          -->
           <span
             :class="[$style.link, $style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
             :title="$i18n.getLocaleLabel()"
