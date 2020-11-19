@@ -40,6 +40,7 @@
           target="_blank"
         >PaySuper</a>
         <div :class="$style.icons">
+          <!-- @TODO: return this items after recovery our support services
           <a
             :class="$style.link"
             href="http://help.pay.super.com"
@@ -48,6 +49,7 @@
           >
             <IconSupport :class="$style.support" />
           </a>
+          -->
           <div :class="$style.localeBox">
             <span
               :class="[$style.locale, { [$style._opened]: hasLocaleChangerOpened }]"
