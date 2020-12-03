@@ -147,6 +147,7 @@ export default {
             >
               {{ $t('ModalCart.termsOfUse') }}
             </a>
+            <!-- @TODO: return this items after recovery our support services
             <a
               :class="$style.tipLink"
               href="http://help.pay.super.com"
@@ -155,6 +156,7 @@ export default {
             >
               {{ $t('ModalCart.support') }}
             </a>
+            -->
           </UiTip>
         </span>
         <!-- <a
