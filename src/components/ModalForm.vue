@@ -189,6 +189,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% - 70px);
+  height: calc(100% - 64px);
 }
 </style>
