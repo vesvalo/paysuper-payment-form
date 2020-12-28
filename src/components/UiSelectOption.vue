@@ -73,7 +73,7 @@ export default {
         'border-color': this.$gui.selectBorderColor,
       },
       [`.${this.$style.option}:hover`]: {
-        color: this.$gui.selectFocusBorderColor,
+        color: this.$gui.selectHoverOptionColor,
         'border-color': this.$gui.selectHoverBorderColor,
       },
       [`.${this.$style.remove}`]: {

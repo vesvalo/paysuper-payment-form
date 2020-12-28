@@ -414,7 +414,6 @@ export default {
       tabindex="10"
     >
       <template v-if="isPaymentFormVisible">
-        <IconLock slot="before" />
         <span>
           {{ $t('FormSection.payButtonPrefix') }}
         </span>
@@ -458,7 +457,7 @@ export default {
   align-content: flex-start;
   position: relative;
   width: 100%;
-  max-height: calc(100% - 70px);
+  max-height: calc(100% - 64px);
 }
 .scrollbox {
   width: 100%;

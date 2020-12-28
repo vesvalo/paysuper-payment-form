@@ -45,15 +45,15 @@ export default {
       '.{item}': {
         color: this.$gui.cartTextColor,
       },
+      '.{item}.{_common} .{itemCell}, .{specialPrice}': {
+        color: this.$gui.cartPriceColor,
+      },
       [`
-        .{item}.{_total},
-        .{item}.{_subtotal},
-        .{item}.{_taxes}
+        .{item}.{_total} .{itemCell},
+        .{item}.{_subtotal} .{itemCell},
+        .{item}.{_taxes} .{itemCell}
       `]: {
         color: this.$gui.cartAccentColor,
-      },
-      '.{item}.{_common} .{itemCell}.{_price}, .{specialPrice}': {
-        color: this.$gui.cartPriceColor,
       },
       '.{titleNotice}': {
         color: this.$gui.cartTextColor,
@@ -223,14 +223,13 @@ export default {
 .item {
   display: table-row;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 18px;
   word-break: break-word;
 
   &._total {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
-    font-weight: bold;
   }
 
   &._common,
