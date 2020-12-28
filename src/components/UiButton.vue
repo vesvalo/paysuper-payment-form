@@ -95,9 +95,9 @@ export default {
 <style module lang="scss">
 $after-margin: 12px;
 $before-margin: 12px;
-$font-size: 20px;
-$font-weight: 700;
-$height: 70px;
+$font-size: 16px;
+$font-weight: 500;
+$height: 64px;
 $padding: 0 24px;
 $align: center;
 $border-width: 0;

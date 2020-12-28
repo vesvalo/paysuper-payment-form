@@ -195,7 +195,7 @@ export default {
   flex-direction: column;
 
   &:not(._isPage) {
-    padding: 55px 0;
+    padding: 55px 0 16px;
 
     &._promo {
       background-size: cover;
