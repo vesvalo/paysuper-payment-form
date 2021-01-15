@@ -33,8 +33,14 @@ export default {
       '.{link}, .{projectName}': {
         color: this.$gui.layoutTextColor,
       },
-      '.{link}:hover': {
+      '.{link}:hover, .{link}:hover > svg': {
         color: this.$gui.baseHoverColor,
+      },
+      '.{link} > svg': {
+        fill: this.$gui.layoutTextColor,
+      },
+      '.{link}:hover > svg': {
+        fill: this.$gui.baseHoverColor,
       },
       '.{tipLink}': {
         color: this.$gui.tipLinkColor,
@@ -56,7 +62,7 @@ export default {
           linear-gradient(
             180deg,
             ${this.$gui.cartBoxShadowColor} 0%,
-            ${this.$gui.cartBackgroundColor} 41%
+            ${this.$gui.cartBackgroundColor} 60%
           )
         `,
       },
@@ -88,46 +94,16 @@ export default {
           :title="projectName"
           @click="fireAnalyticsEvent('Project')"
         >{{ projectName }}</span>
-        <!-- <span
-          :class="$style.link"
-          @mouseenter="isProfileShown = true"
-          @mouseleave="isProfileShown = false"
-        >
-          {{ $t('ModalCart.profile') }}
-          <UiTip
-            innerPosition="right"
-            position="bottom"
-            width="200px"
-            :visible="isProfileShown"
-          >
-            <a
-              href="#"
-              :class="$style.tipLink"
-              @click="fireAnalyticsEvent('PurchaseInformation')"
-            >{{ $t('ModalCart.purchaseInformation') }}</a>
-            <a
-              href="#"
-              :class="$style.tipLink"
-              @click="fireAnalyticsEvent('PaymentManagement')"
-            >{{ $t('ModalCart.paymentManagement') }}</a>
-          </UiTip>
-        </span> -->
-      </div>
-
-      <div :class="[$style.content, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
-        <slot />
-      </div>
-
-      <div :class="$style.footer">
         <span
-          :class="$style.link"
+          :class="[$style.link, $style._head]"
           @mouseenter="isProfileShown = true"
           @mouseleave="isProfileShown = false"
         >
           {{ $t('ModalCart.legalInfo') }}
+          <IconArrow :class="$style.arrow" />
           <UiTip
-            innerPosition="left"
-            position="top"
+            innerPosition="right"
+            position="bottom"
             width="280px"
             :visible="isProfileShown"
           >
@@ -159,22 +135,37 @@ export default {
             -->
           </UiTip>
         </span>
-        <!-- <a
+        <!-- <span
           :class="$style.link"
-          href="https://pay.super.com/policy/tou"
-          target="_blank"
+          @mouseenter="isProfileShown = true"
+          @mouseleave="isProfileShown = false"
         >
-          {{ $t('ModalCart.termsOfUse') }}
-        </a>
-        <a
-          :class="$style.link"
-          href="http://help.pay.super.com"
-          target="_blank"
-          @click="fireAnalyticsEvent('Support')"
-        >
-          {{ $t('ModalCart.support') }}
-        </a> -->
+          {{ $t('ModalCart.profile') }}
+          <UiTip
+            innerPosition="right"
+            position="bottom"
+            width="200px"
+            :visible="isProfileShown"
+          >
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('PurchaseInformation')"
+            >{{ $t('ModalCart.purchaseInformation') }}</a>
+            <a
+              href="#"
+              :class="$style.tipLink"
+              @click="fireAnalyticsEvent('PaymentManagement')"
+            >{{ $t('ModalCart.paymentManagement') }}</a>
+          </UiTip>
+        </span> -->
       </div>
+
+      <div :class="[$style.content, { [$style._hasTestNotificationBlock]: isTestTransaction }]">
+        <slot />
+      </div>
+
+      <div :class="$style.footer"></div>
     </div>
   </UiTransitionFade>
 </div>
@@ -226,10 +217,24 @@ export default {
   line-height: 18px;
   transition: color 0.2s ease-out;
   cursor: pointer;
+  white-space: nowrap;
+
+  &._head {
+    margin-left: 8px;
+
+    @include if-rtl {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  }
 
   &:hover {
     text-decoration: none;
   }
+}
+.arrow {
+  width: 10px;
+  margin: 0 0 0 6px;
 }
 .tipLink {
   display: block;
@@ -257,25 +262,11 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 36px 20px 16px;
+  padding: 20px 0 0;
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 2;
-
-  & > .link {
-    @include if-ltr {
-      &:not(:last-child) {
-        margin-right: 16px;
-      }
-    }
-
-    @include if-rtl {
-      &:not(:last-child) {
-        margin-left: 16px;
-      }
-    }
-  }
 }
 </style>
