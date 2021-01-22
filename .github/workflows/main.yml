@@ -23,7 +23,7 @@ jobs:
       # - uses: actions/setup-node@v2
       #   with:
       #     node-version: '11'
-
+      - run: npm cache clean --force
       - run: npm install
 
       - name: install rclone
