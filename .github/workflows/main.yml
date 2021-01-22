@@ -20,11 +20,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      # - uses: actions/setup-node@v2
-      #   with:
-      #     node-version: '11'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '11'
+
       - run: npm cache clean --force
-      - run: npm install
+      - run: npm install -g
 
       - name: install rclone
         run: curl https://rclone.org/install.sh | sudo bash
