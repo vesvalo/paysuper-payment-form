@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '11'
 
-      - run: npm install
+      - run: npm ci
 
       - name: install rclone
         run: curl https://rclone.org/install.sh | sudo bash
