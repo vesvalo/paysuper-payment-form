@@ -21,7 +21,7 @@ module.exports = {
     },
   },
   rules: {
-    //'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-param-reassign': ['error', { ignorePropertyModificationsFor: ['state'] }],
     'no-underscore-dangle': 0,
